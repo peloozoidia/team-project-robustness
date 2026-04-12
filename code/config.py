@@ -26,4 +26,4 @@ MODELS = {
 }
 
 NUM_TURNS = 3
-OUTPUT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "./outputs")
+OUTPUT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../outputs")
