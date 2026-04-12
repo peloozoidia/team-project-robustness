@@ -44,7 +44,7 @@ To format and lint all files in the `/code` folder, run the following code befor
 
 ```bash
 ruff format
-ruff lint
+ruff check --fix
 ```
 
 If you're working with VS-Code, you can add the official Ruff extension as well as the following code to your `.vscode/settings.json` file, to make sure the project-wide configurations are followed.
