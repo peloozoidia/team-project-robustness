@@ -7,7 +7,7 @@ from npc_generator import generate_character
 
 
 def main() -> None:
-  N = 5
+  N = 3
 
   for i in range(0, N):
     npc = generate_character()

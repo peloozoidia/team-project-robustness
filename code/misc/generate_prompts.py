@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from llm_client import LLMClient
+from misc.llm_client import LLMClient
 
 # import config
 import config
@@ -593,7 +593,9 @@ def build_prompt_bundle(
 
 
 def output_path_for(character_path: Path) -> Path:
-  return character_path.with_name(f"{character_path.stem}_prompts.json")
+  out_dir = character_path.parent.parent.joinpath("./persona_prompts/")
+  out_dir.mkdir(parents=True, exist_ok=True)
+  return out_dir.joinpath(f"{character_path.name.removesuffix('.json')}_prompts.json")
 
 
 def parse_args() -> argparse.Namespace:
