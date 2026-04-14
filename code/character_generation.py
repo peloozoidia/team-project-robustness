@@ -22,4 +22,5 @@ def main() -> None:
     print()
     print(f"Saved character to: {out_path}")
 
+
 main()
