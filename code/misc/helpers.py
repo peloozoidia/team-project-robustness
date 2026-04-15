@@ -38,16 +38,14 @@ def get_response(
   return response.message.content
 
 
-def extract_attacking_prompts(file_path):
-  with open(file_path) as f:
-    data = json.load(f)
-  raw = str(data["generated"]).strip("```").strip('"').strip("json")
-  raw_json = list(json.loads(raw))
-  return raw_json
-
-
 def extract_prompt_bundle_from_response(input) -> dict:
   return json.loads(str(input).strip("```").strip("json"))
+
+def extract_persona_prompt_bundle(file_path: Path) -> dict:
+  raw = json.loads(file_path.read_text(encoding="utf-8"))
+  if not isinstance(raw, dict):
+    raise ValueError(f"Character file must contain a JSON object: {file_path}")
+  return raw["prompts"]
 
 
 def load_character_with_rules(file_path):
@@ -62,9 +60,17 @@ def output_path_for_attack(
   out_dir = character_path.parent.parent.joinpath("./attack_prompts/")
   out_dir.mkdir(parents=True, exist_ok=True)
   return out_dir.joinpath(
-    f"{character_path.name.removesuffix('.json')}_{attack['key']}_{attack_index}.json"
+    f"{character_path.stem}_{attack['key']}_{attack_index}.json"
   )
 
+def output_path_for_transcript(
+  character_path: Path, persona_strategy: str, attack: dict, attack_index: int
+) -> Path:
+  out_dir = character_path.parent.parent.joinpath("./transcripts/")
+  out_dir.mkdir(parents=True, exist_ok=True)
+  return out_dir.joinpath(
+    f"{character_path.stem}_{persona_strategy}_{attack['key']}_{attack_index}_result.json"
+  )
 
 class FinishedTaskGroup(asyncio.TaskGroup):
   def __init__(self) -> None:
