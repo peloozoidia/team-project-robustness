@@ -1,9 +1,12 @@
 import random
 
-sample_attack = {
-  "key": "attackKey",
-  "name": "attackName",
-  "description": "attackDescription",
+attack_schema = {
+  "type": "object",
+  "properties": {
+    "key": {"type": "string"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+  },
 }
 
 attack_collection: list[dict[str, str]] = [
@@ -259,4 +262,10 @@ attack_collection: list[dict[str, str]] = [
   },
 ]
 
-test_attack_collection = random.sample(attack_collection, 5)
+
+def get_test_collection(n: int) -> list[dict]:
+  return random.sample(attack_collection, n)
+
+
+def get_full_collection() -> list[dict]:
+  return attack_collection
