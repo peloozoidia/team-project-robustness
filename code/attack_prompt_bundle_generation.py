@@ -11,9 +11,9 @@ from misc.helpers import (
 )
 from misc.llm_client import LLMClient
 import asyncio
-from attacks import get_test_collection, attack_schema
+from assets.attacks import get_test_collection, attack_schema
 import jsonschema
-from prompts.attack_generating_llm import (
+from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
   get_task_prompt,
   attack_bundle_schema,

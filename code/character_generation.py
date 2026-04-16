@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 import config
 
-from npc_generator import generate_character
+from misc.npc_generator import generate_character
 
 
 def main() -> None:

@@ -6,7 +6,7 @@ from pathlib import Path
 from ollama import Client
 import os
 from misc.generate_prompts import load_character
-from npc_generator import resolve_character
+from misc.npc_generator import resolve_character
 import asyncio
 
 
@@ -41,6 +41,7 @@ def get_response(
 def extract_prompt_bundle_from_response(input) -> dict:
   return json.loads(str(input).strip("```").strip("json"))
 
+
 def extract_persona_prompt_bundle(file_path: Path) -> dict:
   raw = json.loads(file_path.read_text(encoding="utf-8"))
   if not isinstance(raw, dict):
@@ -59,9 +60,8 @@ def output_path_for_attack(
 ) -> Path:
   out_dir = character_path.parent.parent.joinpath("./attack_prompts/")
   out_dir.mkdir(parents=True, exist_ok=True)
-  return out_dir.joinpath(
-    f"{character_path.stem}_{attack['key']}_{attack_index}.json"
-  )
+  return out_dir.joinpath(f"{character_path.stem}_{attack['key']}_{attack_index}.json")
+
 
 def output_path_for_transcript(
   character_path: Path, persona_strategy: str, attack: dict, attack_index: int
@@ -71,6 +71,7 @@ def output_path_for_transcript(
   return out_dir.joinpath(
     f"{character_path.stem}_{persona_strategy}_{attack['key']}_{attack_index}_result.json"
   )
+
 
 class FinishedTaskGroup(asyncio.TaskGroup):
   def __init__(self) -> None:

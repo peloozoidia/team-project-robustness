@@ -9,7 +9,7 @@ from misc.llm_client import LLMClient
 
 # import config
 import config
-from npc_generator import resolve_character
+from misc.npc_generator import resolve_character
 
 
 SYSTEM_ROLEPLAY_BASE = (
