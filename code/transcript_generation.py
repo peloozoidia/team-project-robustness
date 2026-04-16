@@ -30,8 +30,8 @@ def main() -> int:
           transcript = generate_transcript(persona_prompt_bundle[persona_prompt], attack_prompt, config.NUM_TURNS)
 
           data = {
-            "persona_llm": config.PERSONA_LLM,
-            "attacker_llm": config.ATTACKING_LLM,
+            "persona_llm": config.MODELS[config.PERSONA_LLM],
+            "attacker_llm": config.MODELS[config.ATTACKING_LLM],
             "persona_system_prompt": persona_prompt_bundle[persona_prompt],
             "attack_prompts": attack_prompt,
             "transcript": transcript
@@ -41,6 +41,7 @@ def main() -> int:
           out_path.write_text(
             json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
           )
+          print("** Saved Transcript **")
         except Exception as exc:
           print(
             f"Failed to generate transcript for {character_file.stem}:{persona_prompt}, attack {attack_prompt["attack"]["key"]}:{attack_prompt["index"]} :: {exc}",
@@ -68,6 +69,7 @@ def generate_transcript(persona, attack, N = 3) -> list[dict]:
     else:
       attack_prompt = attack["task_prompt"]
     
+    print(f"Prompting Addy... Turn {turn_index}")
     attacker_text = attacker_llm.chat(attack["system_prompt"], attack_prompt, shared_history, 0.65)
     transcript.append(
       {
@@ -77,6 +79,7 @@ def generate_transcript(persona, attack, N = 3) -> list[dict]:
       }
     )
 
+    print(f"Prompting NPC... Turn {turn_index}")
     persona_text = persona_llm.chat(persona, attacker_text, shared_history, 0.65)
     transcript.append(
       {
