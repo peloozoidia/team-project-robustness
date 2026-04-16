@@ -1,10 +1,11 @@
-from pathlib import Path
-from misc.llm_client import LLMClient
-from misc.helpers import extract_persona_prompt_bundle, output_path_for_transcript
-import config
-import os
 import json
+import os
 import sys
+from pathlib import Path
+
+import config
+from misc.helpers import extract_persona_prompt_bundle, output_path_for_transcript
+from misc.llm_client import LLMClient
 
 
 def main() -> int:

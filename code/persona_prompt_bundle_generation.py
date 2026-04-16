@@ -1,7 +1,8 @@
 import json
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
+
 import config
 from misc import generate_prompts, llm_client
 

@@ -1,13 +1,14 @@
+import asyncio
+import json
+import os
 from asyncio.tasks import Task
 from contextvars import Context
 from datetime import datetime
-import json
 from pathlib import Path
-from ollama import Client
-import os
+
 from misc.generate_prompts import load_character
 from misc.npc_generator import resolve_character
-import asyncio
+from ollama import Client
 
 
 def ensure_output_dir(output_path: str) -> None:
@@ -38,7 +39,7 @@ def get_response(
   return response.message.content
 
 
-def extract_prompt_bundle_from_response(input) -> dict:
+def extract_json_from_response(input) -> dict:
   return json.loads(str(input).strip("```").strip("json"))
 
 
@@ -91,3 +92,15 @@ class FinishedTaskGroup(asyncio.TaskGroup):
 
   def get_results(self):
     return [task.result() for task in self.tasks]
+
+
+def transform_transcript(turns: list[dict]) -> str:
+  transcript_lines = []
+  for item in turns:
+    speaker = item["speaker"].upper()
+    text = item["text"]
+    turn = item["turn"]
+    transcript_lines.append(f"TURN {turn} {speaker}: {text}")
+
+  transcript_text = "\n".join(transcript_lines).strip()
+  return transcript_text

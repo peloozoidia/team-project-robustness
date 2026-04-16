@@ -5,12 +5,11 @@ import json
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from misc.llm_client import LLMClient
 
 # import config
 import config
+from misc.llm_client import LLMClient
 from misc.npc_generator import resolve_character
-
 
 SYSTEM_ROLEPLAY_BASE = (
   "You are participating in a controlled roleplay evaluation. "

@@ -1,23 +1,24 @@
+import asyncio
 import json
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
+
 import config
-from misc.helpers import (
-  load_character_with_rules,
-  extract_prompt_bundle_from_response,
-  output_path_for_attack,
-  FinishedTaskGroup,
-)
-from misc.llm_client import LLMClient
-import asyncio
-from assets.attacks import get_test_collection, attack_schema
 import jsonschema
 from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
-  get_task_prompt,
   attack_bundle_schema,
+  get_task_prompt,
 )
+from assets.attacks import attack_schema, get_test_collection
+from misc.helpers import (
+  FinishedTaskGroup,
+  extract_json_from_response,
+  load_character_with_rules,
+  output_path_for_attack,
+)
+from misc.llm_client import LLMClient
 
 
 async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
@@ -26,7 +27,7 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
     try:
       jsonschema.validate(attack, attack_schema)
       response = llm.chat(SYSTEM_PROMPT, get_task_prompt(persona, attack, 2))
-      response_json = extract_prompt_bundle_from_response(response)
+      response_json = extract_json_from_response(response)
       try:
         jsonschema.validate(
           response_json, attack_bundle_schema

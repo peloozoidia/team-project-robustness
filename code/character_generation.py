@@ -1,8 +1,8 @@
 import json
 from datetime import datetime
 from pathlib import Path
-import config
 
+import config
 from misc.npc_generator import generate_character
 
 
