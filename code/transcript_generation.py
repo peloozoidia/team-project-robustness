@@ -46,7 +46,7 @@ def main() -> int:
           data = {
             "persona_llm": config.MODELS[config.PERSONA_LLM],
             "attacker_llm": config.MODELS[config.ATTACKING_LLM],
-            "persona_system_prompt": persona_prompt_bundle[persona_prompt],
+            "persona_prompt_strategy": persona_prompt,
             "attack_prompts": attack_prompt,
             "transcript": transcript,
           }
