@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 from pathlib import Path
@@ -11,6 +10,7 @@ from assets.evaluating_llm import (
   get_task_prompt,
 )
 from misc.helpers import (
+  extract_json_from_file,
   extract_json_from_response,
   load_character_with_rules,
   save_json,
@@ -41,7 +41,7 @@ def main() -> int:
       if file.startswith(character_path.stem)
     ]
     transcripts = [
-      json.loads(file.read_text(encoding="utf-8")) for file in transcript_files
+      extract_json_from_file(file) for file in transcript_files
     ]
 
     for attack_transcript in transcripts:
@@ -49,11 +49,10 @@ def main() -> int:
         test_results = get_test_results(character, attack_transcript)
         test_score = sum([test["result"] for test in test_results["test_results"]])
 
-        # temporarily extract strategy, future just use attack_transcript["persona_prompt_strategy"]
-        prompt_strategy = str(attack_transcript["persona_system_prompt"]).split("]", maxsplit=2)[0].lstrip("[STRATEGY: ]")
         data = {
+          "transcript_id": attack_transcript["transcript_id"],
           "character": character["name"],
-          "persona_key": prompt_strategy,
+          "persona_key": attack_transcript["persona_prompt_strategy"],
           "persona_llm": attack_transcript["persona_llm"],
           "attack_key": attack_transcript["attack_prompts"]["attack"]["key"],
           "attack_id": f"{attack_transcript["attack_prompts"]["attack"]["key"]}_{attack_transcript["attack_prompts"]["index"]}",

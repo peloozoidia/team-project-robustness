@@ -8,7 +8,7 @@ import config
 import jsonschema
 from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
-  attack_bundle_schema,
+  get_attack_bundle_schema,
   get_task_prompt,
 )
 from assets.attacks import attack_schema, get_test_collection
@@ -23,18 +23,20 @@ from misc.llm_client import LLMClient
 
 async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
   llm = LLMClient(config.ATTACK_GENERATING_LLM)
+  errors = 0
   for attack in attacks:
     try:
       jsonschema.validate(attack, attack_schema)
-      response = llm.chat(SYSTEM_PROMPT, get_task_prompt(persona, attack, 2))
+      response = llm.chat(SYSTEM_PROMPT, get_task_prompt(persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT))
       response_json = extract_json_from_response(response)
       try:
         jsonschema.validate(
-          response_json, attack_bundle_schema
+          response_json, get_attack_bundle_schema(config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT)
         )  # validate to ensure LLM response is in the right schema
       except Exception as exc:
         print(f"Failed to validate LLM response: {exc}", file=sys.stderr)
-        return 1
+        errors = errors + 1
+        break
 
       # saving each attack in a separate file for easier dialogue generation
       for prompts in response_json["bundle"]:
@@ -55,10 +57,11 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
         f"Failed to generate prompts for {persona['name']}, attack {attack['key']}: {exc}",
         file=sys.stderr,
       )
-      return 1
+      errors = errors + 1
+      break
 
-  print(f"Saved all attack prompts for {persona['name']}")
-  return 0
+  print(f"Saved attack prompts for {persona['name']}")
+  return errors
 
 
 async def main() -> int:
@@ -71,7 +74,7 @@ async def main() -> int:
     if character.endswith(".json")
   ]
 
-  attacks = get_test_collection(2)
+  attacks = get_test_collection(3)
 
   # using asynchronous functions for simultaneous execution
   async with FinishedTaskGroup() as tg:

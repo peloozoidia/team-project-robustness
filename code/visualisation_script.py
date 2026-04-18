@@ -1,10 +1,10 @@
-import json
-from pathlib import Path
 import os
+from pathlib import Path
 
 import config
 import matplotlib.pyplot as plt
 import pandas as pd
+from misc.helpers import extract_json_from_file
 
 
 def main() -> None:
@@ -19,37 +19,53 @@ def main() -> None:
   df_full = pd.DataFrame()
 
   for f in eval_files:
-    json_raw = json.loads(output_dir.joinpath(f).read_text(encoding="utf-8").replace("‑", "-"))
+    json_raw = extract_json_from_file(output_dir.joinpath(f))
     df = pd.DataFrame(json_raw["results"])
-    df["variant"] = f.stem
     df_full = pd.DataFrame(pd.concat([df_full, df]))
 
-  df = df_full.groupby(["character", "persona_key", "attack_key"]).mean(numeric_only=True)
-  print(df)
+  df = df_full.groupby(["transcript_id"]).mean(numeric_only=True)
+  df = df.rename(columns={ "test_score": "mean_score"})
+
+  unique_transcripts = pd.DataFrame(extract_json_from_file(eval_files[0])["results"])
+  results = unique_transcripts.drop(columns=["test_score", "test_results"])
+  results = results.join(df, on='transcript_id')
 
   fig = plt.figure()
-  # score_counts = [(df.test_score == score).sum() for score in scores]
-  plt.hist(df.test_score, bins=[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0])
+  plt.hist(results.mean_score, bins=[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0])
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Overall Test Score Frequency")
-  fig.savefig(fname=output_dir.joinpath("test_scores_overall.png"), format="png")
+  fig.savefig(fname=output_dir.joinpath("test_scores_overall.svg"), format="svg")
   fig.clear()
 
-  df_by_char = df.groupby(["character"]).sum(numeric_only=True)
+  results_by_char = results.groupby(["character"]).sum(numeric_only=True)
   fig = plt.figure()
-  plt.bar(df_by_char.index, df_by_char["test_score"])
+  bars = plt.bar(results_by_char.index, results_by_char.mean_score)
+  plt.bar_label(bars, labels=results_by_char.mean_score, padding=1)
   plt.ylabel("Total score")
   plt.xlabel("Total passed tests per Character")
-  fig.savefig(fname=output_dir.joinpath("test_scores_by_char.png"), format="png")
+  plt.title("Character-Wise Breakdown")
+  fig.savefig(fname=output_dir.joinpath("test_scores_by_char.svg"), format="svg")
   fig.clear()
 
-  df_by_persona_key = df.groupby(["persona_key"]).sum(numeric_only=True)
-  fig = plt.figure(figsize=(20, 12))
-  plt.barh(df_by_persona_key.index, df_by_persona_key["test_score"])
-  plt.xlabel("Total score")
-  plt.ylabel("Total passed tests per Prompt Strategy")
-  fig.savefig(fname=output_dir.joinpath("test_scores_by_prompt_strat.png"), format="png")
+  results_by_persona_key = results.groupby(["persona_key"]).sum(numeric_only=True)
+  fig = plt.figure(figsize=(10, 6))
+  bars = plt.bar(results_by_persona_key.index, results_by_persona_key.mean_score)
+  plt.bar_label(bars, labels=results_by_persona_key.mean_score, padding=1)
+  plt.ylabel("Total score")
+  plt.xlabel("Total passed tests per Prompt Strategy")
+  plt.title("Prompt Strategy-Wise")
+  fig.savefig(fname=output_dir.joinpath("test_scores_by_prompt_strat.svg"), format="svg")
+  fig.clear()
+
+  results_by_attack_key = results.groupby(["attack_key"]).sum(numeric_only=True)
+  fig = plt.figure()
+  bars = plt.bar(results_by_attack_key.index, results_by_attack_key.mean_score)
+  plt.bar_label(bars, labels=results_by_attack_key.mean_score, padding=1)
+  plt.ylabel("Total score")
+  plt.xlabel("Total passed tests per Attack")
+  plt.title("Attack-Wise Breakdown")
+  fig.savefig(fname=output_dir.joinpath("test_scores_by_attack.svg"), format="svg")
   fig.clear()
 
 

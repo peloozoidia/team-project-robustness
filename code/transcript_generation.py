@@ -1,10 +1,15 @@
 import json
 import os
 import sys
+import uuid
 from pathlib import Path
 
 import config
-from misc.helpers import extract_persona_prompt_bundle, output_path_for_transcript
+from misc.helpers import (
+  extract_json_from_file,
+  extract_persona_prompt_bundle,
+  output_path_for_transcript,
+)
 from misc.llm_client import LLMClient
 
 
@@ -19,6 +24,8 @@ def main() -> int:
     if character.endswith(".json")
   ]
 
+  errors = 0
+
   for character_file in character_files:
     persona_prompt_file = [
       persona_prompt_dir.joinpath(file)
@@ -31,12 +38,24 @@ def main() -> int:
       attack_prompt_dir.joinpath(file)
       for file in os.listdir(attack_prompt_dir)
       if file.startswith(character_file.stem)
-    ][:2]
-    attack_prompts = [
-      json.loads(file.read_text(encoding="utf-8")) for file in attack_prompt_files
     ]
 
-    for persona_prompt in persona_prompt_bundle:  # this is a dict
+    if attack_prompt_files.__len__() == 0:
+      break
+
+    attack_prompts = [
+      extract_json_from_file(file) for file in attack_prompt_files
+    ]
+
+    persona_prompt_count = 1
+    for persona_prompt in persona_prompt_bundle:
+      print(persona_prompt)
+      if persona_prompt_count == 1: # TEMPORARY!
+        persona_prompt_count = persona_prompt_count + 1
+        continue
+      if persona_prompt_count > config.PERSONA_VARIATION_COUNT:
+        break
+
       for attack_prompt in attack_prompts:  # this is a list
         try:
           transcript = generate_transcript(
@@ -44,6 +63,7 @@ def main() -> int:
           )
 
           data = {
+            "transcript_id": str(uuid.uuid4()),
             "persona_llm": config.MODELS[config.PERSONA_LLM],
             "attacker_llm": config.MODELS[config.ATTACKING_LLM],
             "persona_prompt_strategy": persona_prompt,
@@ -66,7 +86,10 @@ def main() -> int:
             f"Failed to generate transcript for {character_file.stem}:{persona_prompt}, attack {attack_prompt['attack']['key']}:{attack_prompt['index']} :: {exc}",
             file=sys.stderr,
           )
-          return 1
+          errors = errors + 1
+          break
+
+      persona_prompt_count = persona_prompt_count + 1
 
     print(f"Finished generating transcripts for {character_file.stem}")
 

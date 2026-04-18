@@ -40,13 +40,22 @@ def get_response(
 
 
 def extract_json_from_response(input) -> dict:
-  return json.loads(str(input).strip("```").strip("json"))
-
+  try:
+    return json.loads(str(input).strip("```").strip("json"))
+  except Exception as exc:
+    print(input)
+    raise exc
+  
+def extract_json_from_file(path: Path):
+  raw = path.read_text(encoding="utf-8")
+  raw_pruned = raw.replace("‑", "-").replace("’", "'").replace(" ", " ")
+  raw_json = json.loads(raw_pruned)
+  if not isinstance(raw_json, dict):
+    raise ValueError(f"Character file must contain a JSON object: {path}")
+  return raw_json
 
 def extract_persona_prompt_bundle(file_path: Path) -> dict:
-  raw = json.loads(file_path.read_text(encoding="utf-8"))
-  if not isinstance(raw, dict):
-    raise ValueError(f"Character file must contain a JSON object: {file_path}")
+  raw = extract_json_from_file(file_path)
   return raw["prompts"]
 
 
@@ -70,7 +79,7 @@ def output_path_for_transcript(
   out_dir = character_path.parent.parent.joinpath("./transcripts/")
   out_dir.mkdir(parents=True, exist_ok=True)
   return out_dir.joinpath(
-    f"{character_path.stem}_{persona_strategy}_{attack['key']}_{attack_index}_result.json"
+    f"{character_path.stem}_{persona_strategy}_{attack_index}_{attack['key']}_result.json"
   )
 
 
