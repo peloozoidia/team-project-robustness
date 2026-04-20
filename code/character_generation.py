@@ -7,9 +7,8 @@ from misc.npc_generator import generate_character
 
 
 def main() -> None:
-  N = 3
 
-  for i in range(0, N):
+  for i in range(0, config.GENERATED_CHARACTERS_COUNT):
     npc = generate_character()
     out_dir = Path(config.OUTPUT_PATH).joinpath("./characters")
     out_dir.mkdir(exist_ok=True)
