@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 import sys
+import uuid
 from pathlib import Path
 
 import config
@@ -41,6 +42,7 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
       # saving each attack in a separate file for easier dialogue generation
       for prompts in response_json["bundle"]:
         data = {
+          "attack_set_id": str(uuid.uuid4()),
           "attack": attack,
           "index": prompts["index"],
           "system_prompt": prompts["system_prompt"],
@@ -74,7 +76,7 @@ async def main() -> int:
     if character.endswith(".json")
   ]
 
-  attacks = get_test_collection(3)
+  attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
 
   # using asynchronous functions for simultaneous execution
   async with FinishedTaskGroup() as tg:
