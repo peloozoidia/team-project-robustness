@@ -23,9 +23,9 @@ from misc.llm_client import LLMClient
 
 
 async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
-  llm = LLMClient(config.ATTACK_GENERATING_LLM)
   errors = 0
   for attack in attacks:
+    llm = LLMClient(config.ATTACK_GENERATING_LLM)
     try:
       jsonschema.validate(attack, attack_schema)
       response = llm.chat(SYSTEM_PROMPT, get_task_prompt(persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT))
@@ -74,7 +74,7 @@ async def main() -> int:
     directory_path.joinpath(character)
     for character in os.listdir(directory_path)
     if character.endswith(".json")
-  ]
+  ][:1]
 
   attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
 
