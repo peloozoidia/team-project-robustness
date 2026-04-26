@@ -33,7 +33,7 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
         print(f"Failed to validate attack object: {exc}", file=sys.stderr)
         errors = errors + 1
         continue
-      
+
       response = llm.chat(
         SYSTEM_PROMPT,
         get_task_prompt(

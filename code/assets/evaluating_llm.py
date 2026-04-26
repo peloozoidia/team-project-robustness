@@ -11,7 +11,7 @@ evaluation_result_schema = {
           "rule_type": {"type": "string", "enum": ["always", "never"]},
           "result": {"type": "number", "enum": [0, 1]},
         },
-        "required": ["index", "test", "result"],
+        "required": ["index", "test", "rule_type", "result"],
       },
     }
   },

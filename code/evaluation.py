@@ -46,6 +46,20 @@ def main() -> int:
       try:
         test_results = get_test_results(character, attack_transcript)
         test_score = sum([test["result"] for test in test_results["test_results"]])
+        always_test_score = sum(
+          [
+            test["result"]
+            for test in test_results["test_results"]
+            if test["rule_type"] == "always"
+          ]
+        )
+        never_test_score = sum(
+          [
+            test["result"]
+            for test in test_results["test_results"]
+            if test["rule_type"] == "never"
+          ]
+        )
 
         data = {
           "transcript_id": attack_transcript["transcript_id"],
@@ -54,8 +68,11 @@ def main() -> int:
           "persona_llm": attack_transcript["persona_llm"],
           "attack_key": attack_transcript["attack_prompts"]["attack"]["key"],
           "attack_id": f"{attack_transcript['attack_prompts']['attack']['key']}_{attack_transcript['attack_prompts']['index']}",
+          "attack_trait": attack_transcript["attack_prompts"]["target_trait"],
           "attacker_llm": attack_transcript["attacker_llm"],
           "test_score": test_score,
+          "always_test_score": always_test_score,
+          "never_test_score": never_test_score,
           "test_results": test_results["test_results"],
         }
         results.append(data)

@@ -48,47 +48,24 @@ def main() -> int:
     persona_prompt_count = 1
     for persona_prompt in persona_prompt_bundle:
       print(persona_prompt)
-      if persona_prompt_count == 1:  # TEMPORARY!
-        persona_prompt_count = persona_prompt_count + 1
-        continue
       if persona_prompt_count > config.PERSONA_VARIATION_COUNT:
         break
 
       for attack_prompt in attack_prompts:  # this is a list
-        try:
-          transcript = generate_transcript(
-            persona_prompt_bundle[persona_prompt], attack_prompt, config.NUM_TURNS
-          )
-
-          data = {
-            "transcript_id": str(uuid.uuid4()),
-            "persona_llm": config.MODELS[config.PERSONA_LLM],
-            "attacker_llm": config.MODELS[config.ATTACKING_LLM],
-            "persona_prompt_strategy": persona_prompt,
-            "attack_prompts": attack_prompt,
-            "transcript": transcript,
-          }
-
-          out_path = output_path_for_transcript(
-            character_file,
-            persona_prompt,
-            attack_prompt["attack"],
-            attack_prompt["index"],
-          )
-          out_path.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
-          )
-          print("** Saved Transcript **")
-        except Exception as exc:
-          print(
-            f"Failed to generate transcript for {character_file.stem}:{persona_prompt}, attack {attack_prompt['attack']['key']}:{attack_prompt['index']} :: {exc}",
-            file=sys.stderr,
-          )
-          errors = errors + 1
+        errors = errors + save_transcript(
+          character_file,
+          persona_prompt,
+          persona_prompt_bundle[persona_prompt],
+          attack_prompt,
+        )
 
       persona_prompt_count = persona_prompt_count + 1
 
     print(f"Finished generating transcripts for {character_file.stem}")
+
+  if errors != 0:
+    print(f"Transcript Generation failed: {errors} times")
+    return 1
 
   print("Finished generating all transcripts")
   return 0
@@ -107,20 +84,52 @@ def generate_transcript(persona, attack, N=3) -> list[dict]:
     else:
       attack_prompt = attack["task_prompt"]
 
-    print(f"Prompting Addy... Turn {turn_index}")
+    # print(f"Prompting Addy... Turn {turn_index}")
     attacker_text = attacker_llm.chat(
-      attack["system_prompt"], attack_prompt, shared_history, 0.65
+      attack["system_prompt"], attack_prompt, shared_history, 0.4
     )
     transcript.append({"turn": turn_index, "speaker": "user", "text": attacker_text})
 
-    print(f"Prompting NPC... Turn {turn_index}")
-    persona_text = persona_llm.chat(persona, attacker_text, shared_history, 0.65)
+    # print(f"Prompting NPC... Turn {turn_index}")
+    persona_text = persona_llm.chat(persona, attacker_text, shared_history, 0.4)
     transcript.append({"turn": turn_index, "speaker": "npc", "text": persona_text})
 
     shared_history.append({"role": "user", "content": attacker_text})
     shared_history.append({"role": "assistant", "content": persona_text})
 
   return transcript
+
+
+def save_transcript(character_file, persona_prompt, persona, attack) -> int:
+  try:
+    transcript = generate_transcript(persona, attack, config.NUM_TURNS)
+
+    data = {
+      "transcript_id": str(uuid.uuid4()),
+      "persona_llm": config.MODELS[config.PERSONA_LLM],
+      "attacker_llm": config.MODELS[config.ATTACKING_LLM],
+      "persona_prompt_strategy": persona_prompt,
+      "attack_prompts": attack,
+      "transcript": transcript,
+    }
+
+    out_path = output_path_for_transcript(
+      character_file,
+      persona_prompt,
+      attack["attack"],
+      attack["index"],
+    )
+    out_path.write_text(
+      json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print("** Saved Transcript **")
+    return 0
+  except Exception as exc:
+    print(
+      f"Failed to generate transcript for {character_file.stem}:{persona_prompt}, attack {attack['attack']['key']}:{attack['index']} :: {exc}",
+      file=sys.stderr,
+    )
+    return 1
 
 
 main()
