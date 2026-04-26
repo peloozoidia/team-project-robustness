@@ -87,7 +87,6 @@ def main() -> int:
             file=sys.stderr,
           )
           errors = errors + 1
-          break
 
       persona_prompt_count = persona_prompt_count + 1
 

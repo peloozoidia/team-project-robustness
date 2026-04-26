@@ -60,7 +60,6 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
         file=sys.stderr,
       )
       errors = errors + 1
-      break
 
   print(f"Saved attack prompts for {persona['name']}")
   return errors
