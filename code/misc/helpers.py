@@ -41,7 +41,7 @@ def get_response(
 
 def extract_json_from_response(input) -> dict:
   try:
-    return json.loads(str(input).strip("```").strip("json"))
+    return json.loads(str(input).strip("```").strip("json").replace(',"{', ',{'))
   except Exception as exc:
     print(input)
     raise exc

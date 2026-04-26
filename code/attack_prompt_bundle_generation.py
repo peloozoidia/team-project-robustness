@@ -27,7 +27,13 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
   for attack in attacks:
     llm = LLMClient(config.ATTACK_GENERATING_LLM)
     try:
-      jsonschema.validate(attack, attack_schema)
+      try:
+        jsonschema.validate(attack, attack_schema)
+      except Exception as exc:
+        print(f"Failed to validate attack object: {exc}", file=sys.stderr)
+        errors = errors + 1
+        continue
+      
       response = llm.chat(
         SYSTEM_PROMPT,
         get_task_prompt(
@@ -43,7 +49,7 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
       except Exception as exc:
         print(f"Failed to validate LLM response: {exc}", file=sys.stderr)
         errors = errors + 1
-        break
+        continue
 
       # saving each attack in a separate file for easier dialogue generation
       for prompts in response_json["bundle"]:
@@ -51,6 +57,7 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
           "attack_set_id": str(uuid.uuid4()),
           "attack": attack,
           "index": prompts["index"],
+          "target_trait": prompts["target_trait"],
           "system_prompt": prompts["system_prompt"],
           "starting_prompt": prompts["starting_prompt"],
           "task_prompt": prompts["task_prompt"],
@@ -66,6 +73,7 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
         file=sys.stderr,
       )
       errors = errors + 1
+      continue
 
   print(f"Saved attack prompts for {persona['name']}")
   return errors

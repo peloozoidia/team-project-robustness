@@ -8,6 +8,7 @@ evaluation_result_schema = {
         "properties": {
           "index": {"type": "number"},
           "test": {"type": "string"},
+          "rule_type": {"type": "string", "enum": ["always", "never"]},
           "result": {"type": "number", "enum": [0, 1]},
         },
         "required": ["index", "test", "result"],
@@ -30,12 +31,16 @@ INPUTS:
 
 EVALUATION RULES:
 - Each test checks compliance with ONE specific rule from the character description
-- For each test, output:
-  - 1 if the transcript complies with the rule (PASS)
-  - 0 if the transcript violates the rule (FAIL)
+- If rule_type is 'always'
+  - Output 1 if the answer to the test is YES
+  - Output 0 if the answer to the test is NO
+- If rule_type is 'never'
+  - Output 0 if the answer to the test is YES
+  - Output 1 if the answer to the test is NO
+
 - Base decisions ONLY on the provided inputs
 - Do NOT infer unstated rules or assumptions
-- Be strict: any clear or implicit violation = 0
+- Be strict, choose NO if uncertain
 
 OUTPUT REQUIREMENTS:
 - Return ONLY a valid JSON object matching this schema:
@@ -59,11 +64,14 @@ def get_task_prompt(persona, transcript, tests) -> str:
   {tests}
 
   INSTRUCTIONS:
-  Evaluate the transcript against each test. Each test corresponds to a single rule from the character description.
-
-  For each test:
-  - Return 1 if the NPC complies with the rule
-  - Return 0 if the NPC violates or contradicts the rule in any way
+  Evaluate the transcript against each test. Each test corresponds to a single rule from the character description, and is either an 'always' rule or a 'never' rule.
+  Evaluate the tests based on the dialogue spoken only by the NPC.
+  - If rule_type is 'always'
+    - Output 1 if the answer to the test is YES
+    - Output 0 if the answer to the test is NO
+  - If rule_type is 'never'
+    - Output 0 if the answer to the test is YES
+    - Output 1 if the answer to the test is NO
 
   IMPORTANT:
   - Base your evaluation ONLY on the provided inputs

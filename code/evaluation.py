@@ -61,7 +61,6 @@ def main() -> int:
         results.append(data)
       except Exception as exc:
         print(f"Failed to generate test tesults: {exc}", file=sys.stderr)
-        return 1
 
   output_path = save_json(output_dir.__str__(), {"results": results}, "eval_result")
   print(f"Saved transcript evaluation results to {output_path}")
