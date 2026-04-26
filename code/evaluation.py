@@ -40,9 +40,7 @@ def main() -> int:
       for file in os.listdir(transcript_dir)
       if file.startswith(character_path.stem)
     ]
-    transcripts = [
-      extract_json_from_file(file) for file in transcript_files
-    ]
+    transcripts = [extract_json_from_file(file) for file in transcript_files]
 
     for attack_transcript in transcripts:
       try:
@@ -55,7 +53,7 @@ def main() -> int:
           "persona_key": attack_transcript["persona_prompt_strategy"],
           "persona_llm": attack_transcript["persona_llm"],
           "attack_key": attack_transcript["attack_prompts"]["attack"]["key"],
-          "attack_id": f"{attack_transcript["attack_prompts"]["attack"]["key"]}_{attack_transcript["attack_prompts"]["index"]}",
+          "attack_id": f"{attack_transcript['attack_prompts']['attack']['key']}_{attack_transcript['attack_prompts']['index']}",
           "attacker_llm": attack_transcript["attacker_llm"],
           "test_score": test_score,
           "test_results": test_results["test_results"],

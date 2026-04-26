@@ -24,11 +24,11 @@ def main() -> None:
     df_full = pd.DataFrame(pd.concat([df_full, df]))
 
   df = df_full.groupby(["transcript_id"]).mean(numeric_only=True)
-  df = df.rename(columns={ "test_score": "mean_score"})
+  df = df.rename(columns={"test_score": "mean_score"})
 
   unique_transcripts = pd.DataFrame(extract_json_from_file(eval_files[0])["results"])
   results = unique_transcripts.drop(columns=["test_score", "test_results"])
-  results = results.join(df, on='transcript_id')
+  results = results.join(df, on="transcript_id")
 
   fig = plt.figure()
   plt.hist(results.mean_score, bins=[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0])
@@ -55,7 +55,9 @@ def main() -> None:
   plt.ylabel("Total score")
   plt.xlabel("Total passed tests per Prompt Strategy")
   plt.title("Prompt Strategy-Wise")
-  fig.savefig(fname=output_dir.joinpath("test_scores_by_prompt_strat.svg"), format="svg")
+  fig.savefig(
+    fname=output_dir.joinpath("test_scores_by_prompt_strat.svg"), format="svg"
+  )
   fig.clear()
 
   results_by_attack_key = results.groupby(["attack_key"]).sum(numeric_only=True)

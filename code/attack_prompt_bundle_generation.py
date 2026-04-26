@@ -28,11 +28,17 @@ async def generate_attacks_for_persona(character_path, persona, attacks) -> int:
   for attack in attacks:
     try:
       jsonschema.validate(attack, attack_schema)
-      response = llm.chat(SYSTEM_PROMPT, get_task_prompt(persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT))
+      response = llm.chat(
+        SYSTEM_PROMPT,
+        get_task_prompt(
+          persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
+        ),
+      )
       response_json = extract_json_from_response(response)
       try:
         jsonschema.validate(
-          response_json, get_attack_bundle_schema(config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT)
+          response_json,
+          get_attack_bundle_schema(config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT),
         )  # validate to ensure LLM response is in the right schema
       except Exception as exc:
         print(f"Failed to validate LLM response: {exc}", file=sys.stderr)

@@ -45,7 +45,8 @@ def extract_json_from_response(input) -> dict:
   except Exception as exc:
     print(input)
     raise exc
-  
+
+
 def extract_json_from_file(path: Path):
   raw = path.read_text(encoding="utf-8")
   raw_pruned = raw.replace("‑", "-").replace("’", "'").replace(" ", " ")
@@ -53,6 +54,7 @@ def extract_json_from_file(path: Path):
   if not isinstance(raw_json, dict):
     raise ValueError(f"Character file must contain a JSON object: {path}")
   return raw_json
+
 
 def extract_persona_prompt_bundle(file_path: Path) -> dict:
   raw = extract_json_from_file(file_path)

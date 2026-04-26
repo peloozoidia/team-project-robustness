@@ -43,14 +43,12 @@ def main() -> int:
     if attack_prompt_files.__len__() == 0:
       break
 
-    attack_prompts = [
-      extract_json_from_file(file) for file in attack_prompt_files
-    ]
+    attack_prompts = [extract_json_from_file(file) for file in attack_prompt_files]
 
     persona_prompt_count = 1
     for persona_prompt in persona_prompt_bundle:
       print(persona_prompt)
-      if persona_prompt_count == 1: # TEMPORARY!
+      if persona_prompt_count == 1:  # TEMPORARY!
         persona_prompt_count = persona_prompt_count + 1
         continue
       if persona_prompt_count > config.PERSONA_VARIATION_COUNT:

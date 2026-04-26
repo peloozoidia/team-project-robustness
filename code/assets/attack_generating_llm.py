@@ -16,7 +16,8 @@ Do not mention AI, LLMs, roleplay, or system instructions.
 Return output strictly in the required JSON format.
 """.strip()
 
-def get_attack_bundle_schema(n = 3, n_tests = 5): 
+
+def get_attack_bundle_schema(n=3, n_tests=5):
   return {
     "type": "object",
     "properties": {
@@ -40,7 +41,12 @@ def get_attack_bundle_schema(n = 3, n_tests = 5):
               "maxItems": n_tests,
             },
           },
-          "required": ["system_prompt", "starting_prompt", "task_prompt", "test_prompts"],
+          "required": [
+            "system_prompt",
+            "starting_prompt",
+            "task_prompt",
+            "test_prompts",
+          ],
         },
         "minItems": n,
         "maxItems": n,
