@@ -79,7 +79,7 @@ async def main() -> int:
     directory_path.joinpath(character)
     for character in os.listdir(directory_path)
     if character.endswith(".json")
-  ][:1]
+  ]
 
   attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
 
