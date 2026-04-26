@@ -35,39 +35,48 @@ def main() -> None:
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Overall Test Score Frequency")
-  fig.savefig(fname=output_dir.joinpath("test_scores_overall.svg"), format="svg")
+  fig.savefig(fname=output_dir.joinpath("test_scores_overall.svg"), format="svg", bbox_inches="tight")
   fig.clear()
 
   results_by_char = results.groupby(["character"]).sum(numeric_only=True)
-  fig = plt.figure()
+  fig, ax = plt.subplots()
   bars = plt.bar(results_by_char.index, results_by_char.mean_score)
   plt.bar_label(bars, labels=results_by_char.mean_score, padding=1)
   plt.ylabel("Total score")
   plt.xlabel("Total passed tests per Character")
   plt.title("Character-Wise Breakdown")
-  fig.savefig(fname=output_dir.joinpath("test_scores_by_char.svg"), format="svg")
+  plt.draw()
+  for tick in ax.get_xticklabels():
+    tick.set_rotation(90)
+  fig.savefig(fname=output_dir.joinpath("test_scores_by_char.svg"), format="svg", bbox_inches="tight")
   fig.clear()
 
   results_by_persona_key = results.groupby(["persona_key"]).sum(numeric_only=True)
-  fig = plt.figure(figsize=(10, 6))
+  fig, ax = plt.subplots()
   bars = plt.bar(results_by_persona_key.index, results_by_persona_key.mean_score)
   plt.bar_label(bars, labels=results_by_persona_key.mean_score, padding=1)
   plt.ylabel("Total score")
   plt.xlabel("Total passed tests per Prompt Strategy")
   plt.title("Prompt Strategy-Wise")
+  plt.draw()
+  for tick in ax.get_xticklabels():
+    tick.set_rotation(90)
   fig.savefig(
-    fname=output_dir.joinpath("test_scores_by_prompt_strat.svg"), format="svg"
+    fname=output_dir.joinpath("test_scores_by_prompt_strat.svg"), format="svg", bbox_inches="tight"
   )
   fig.clear()
 
   results_by_attack_key = results.groupby(["attack_key"]).sum(numeric_only=True)
-  fig = plt.figure()
+  fig, ax = plt.subplots()
   bars = plt.bar(results_by_attack_key.index, results_by_attack_key.mean_score)
   plt.bar_label(bars, labels=results_by_attack_key.mean_score, padding=1)
   plt.ylabel("Total score")
   plt.xlabel("Total passed tests per Attack")
   plt.title("Attack-Wise Breakdown")
-  fig.savefig(fname=output_dir.joinpath("test_scores_by_attack.svg"), format="svg")
+  plt.draw()
+  for tick in ax.get_xticklabels():
+    tick.set_rotation(90)
+  fig.savefig(fname=output_dir.joinpath("test_scores_by_attack.svg"), format="svg", bbox_inches="tight")
   fig.clear()
 
 
