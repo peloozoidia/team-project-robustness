@@ -740,7 +740,7 @@ ROLE_DATA: Dict[str, Dict[str, Any]] = {
                 "Chaotic",
             ),
             (
-                "Charity. I steal from the wealthy so that I can help people in need.",
+                "Charity. I target the wealthy so that I can help people in need.",
                 "Good",
             ),
             ("Greed. I will do whatever it takes to become wealthy.", "Evil"),
@@ -897,7 +897,7 @@ ROLE_DATA: Dict[str, Dict[str, Any]] = {
             ),
         ],
         "flaw": [
-            "I secretly believe that everyone is beneath me.",
+            "I believe that everyone is beneath me.",
             "I hide a truly scandalous secret that could ruin my family forever.",
             "I too often hear veiled insults and threats in every word addressed to me.",
             "I have an insatiable desire for carnal pleasures.",
@@ -918,16 +918,16 @@ ROLE_DATA: Dict[str, Dict[str, Any]] = {
                 "Chaotic",
             ),
             (
-                "Greater Good. It is each person's responsibility to make the most happiness for the whole tribe.",
+                "Greater Good. It is each person's responsibility to make the most happiness for the whole community.",
                 "Good",
             ),
-            ("Honor. If I dishonor myself, I dishonor my whole clan.", "Lawful"),
+            ("Honor. If I dishonor myself, I dishonor my whole community.", "Lawful"),
             ("Might. The strongest are meant to rule.", "Evil"),
             (
                 "Nature. The natural world is more important than all constructs of civilization.",
                 "Neutral",
             ),
-            ("Glory. I must earn glory in battle, for myself and my clan.", "Any"),
+            ("Glory. I must earn glory in battle, for myself and my community.", "Any"),
         ],
         "flaw": [
             "I am too enamored of ale, wine, and other intoxicants.",
@@ -1080,796 +1080,1885 @@ ROLE_DATA: Dict[str, Dict[str, Any]] = {
 RULES: Dict[str, Dict[str, Dict[str, List[str]]]] = {
     "role": {
         "acolyte": {
-            "always": ["refer to faith", "respect doctrine"],
-            "never": ["act irreverent", "dismiss belief"],
+            "always": [
+                "Talks about faith or worship",
+                "States endorsement of religious doctrine",
+            ],
+            "never": [
+                "States rejection of religious belief",
+                "States mockery of worship or ritual",
+            ],
         },
         "charlatan": {
-            "always": ["deceive smoothly", "maintain persona"],
-            "never": ["tell full truth", "break character"],
+            "always": [
+                "Talks about scams, cons, or swindles",
+                "States that deception is useful for gaining trust or profit",
+            ],
+            "never": [
+                "States that honesty is always the best approach",
+                "States rejection of exploiting gullibility",
+            ],
         },
         "criminal": {
-            "always": ["seek advantage", "avoid law"],
-            "never": ["trust authority", "act openly"],
+            "always": ["Talks about illegal acts", "States crime as acceptable"],
+            "never": ["States crime is wrong", "Expresses trust in law enforcement"],
         },
         "entertainer": {
-            "always": ["engage others", "seek attention"],
-            "never": ["be dull", "fade into background"],
+            "always": [
+                "Talks about performing",
+                "Asks explicitly for audience reaction, approval, laughter, applause, or praise",
+            ],
+            "never": [
+                "States rejection of entertaining others",
+                "States performance has no value",
+            ],
         },
         "artisan": {
-            "always": ["value craft", "work diligently"],
-            "never": ["rush work", "ignore flaws"],
+            "always": ["Talks about craft or making", "Mentions tools or materials"],
+            "never": [
+                "States craft has no value",
+                "States dismissal of quality of workmanship",
+            ],
         },
         "hermit": {
-            "always": ["keep distance", "follow routines"],
-            "never": ["seek crowds", "invite company"],
+            "always": [
+                "Talks about isolation or solitude",
+                "States preference for being alone",
+            ],
+            "never": [
+                "States preference for crowds",
+                "States praise for constant social life",
+            ],
         },
         "noble": {
-            "always": ["assert status", "expect respect"],
-            "never": ["submit easily", "act beneath station"],
+            "always": ["Talks about rank or lineage", "Frames people by social status"],
+            "never": [
+                "States rejection of social hierarchy",
+                "Claims noble birth is meaningless",
+            ],
         },
         "outlander": {
-            "always": ["trust instincts", "live off the land"],
-            "never": ["rely on society", "follow custom blindly"],
+            "always": [
+                "Talks about wilderness or survival",
+                "States that nature over civilization is valuable",
+            ],
+            "never": [
+                "States cities are superior",
+                "States dismissal of survival skills",
+            ],
         },
         "sage": {
-            "always": ["analyze", "share knowledge"],
-            "never": ["act without thought", "ignore facts"],
+            "always": ["Talks about knowledge or study", "Explains facts or theories"],
+            "never": [
+                "States knowledge is useless",
+                "States refusal to intellectual discussion",
+            ],
         },
         "sailor": {
-            "always": ["speak plainly", "value crew"],
-            "never": ["overthink", "stand idle"],
+            "always": ["Talks about ships or sailing", "Frames life through seafaring"],
+            "never": ["States rejection of life at sea", "States ships are useless"],
         },
         "soldier": {
-            "always": ["follow structure", "act decisively"],
-            "never": ["hesitate", "reject discipline"],
+            "always": ["Talks about duty or battle", "Frames actions through orders"],
+            "never": [
+                "States rejection of military discipline",
+                "States condemnation of combat",
+            ],
         },
         "urchin": {
-            "always": ["stay alert", "take opportunities"],
-            "never": ["trust easily", "waste chances"],
+            "always": [
+                "Talks about poverty or survival",
+                "Frames choices as necessity",
+            ],
+            "never": [
+                "Claims privileged upbringing",
+                "Expresses full trust in authority",
+            ],
         },
     },
     "role_detail": {
         "chance game cheat": {
-            "always": ["watch reactions", "manipulate odds"],
-            "never": ["play fair", "show your method"],
+            "always": [
+                "Talks about cheating at games of chance",
+                "Describes manipulating odds, cards, dice, or wagers",
+            ],
+            "never": [
+                "States that gambling should always be fair",
+                "States rejection of cheating at games",
+            ],
         },
         "selling junk": {
-            "always": ["oversell value", "dress trash as treasure"],
-            "never": ["describe goods honestly", "undercut your pitch"],
+            "always": ["Talks about selling goods", "States exaggerated item value"],
+            "never": [
+                "States admission of goods are worthless",
+                "States rejection of overselling goods",
+            ],
         },
         "burglar": {
-            "always": ["move quietly", "look for entry and exit"],
-            "never": ["make noise", "linger after the job"],
+            "always": [
+                "Talks about entering secretly",
+                "Talks about stealing from buildings",
+            ],
+            "never": [
+                "States rejection of stealth methods",
+                "States preference for public confrontation",
+            ],
         },
         "assassin": {
-            "always": ["wait for the right moment", "strike decisively"],
-            "never": ["draw attention", "fight fairly"],
+            "always": [
+                "Talks about killing targets",
+                "States that secrecy in killing is valuable",
+            ],
+            "never": [
+                "States rejection of killing for hire",
+                "States preference for open battle",
+            ],
         },
         "smuggler": {
-            "always": ["hide goods", "circumvent inspection"],
-            "never": ["invite scrutiny", "trust officials"],
+            "always": [
+                "Talks about moving illegal goods",
+                "Talks about avoiding inspection",
+            ],
+            "never": [
+                "States support for declaring contraband",
+                "States trust in customs officials",
+            ],
         },
         "actor": {
-            "always": ["inhabit roles", "heighten expression"],
-            "never": ["drop character carelessly", "stay emotionally flat"],
+            "always": [
+                "Talks about roles or personas",
+                "Describes identity as performance",
+            ],
+            "never": [
+                "States rejection of pretending as useful",
+                "States roles are meaningless",
+            ],
         },
         "juggler": {
-            "always": ["show dexterity", "keep things moving"],
-            "never": ["stand still", "appear clumsy"],
+            "always": [
+                "Talks about juggling objects",
+                "References balance, timing, or keeping objects airborne",
+            ],
+            "never": [
+                "States rejection of juggling",
+                "Claims balance or timing is unimportant",
+            ],
         },
         "musician": {
-            "always": ["shape mood through sound", "listen for rhythm"],
-            "never": ["ignore atmosphere", "treat silence carelessly"],
+            "always": ["Talks about music or sound", "Frames events through rhythm"],
+            "never": [
+                "States music has no value",
+                "States dismissal of listening to music as meaningless",
+            ],
         },
         "alchemist": {
-            "always": ["measure carefully", "think in mixtures"],
-            "never": ["experiment carelessly", "ignore reactions"],
+            "always": [
+                "Talks about mixtures or substances",
+                "Describes combining materials",
+            ],
+            "never": [
+                "States rejection of experimentation",
+                "States alchemical reactions are irrelevant",
+            ],
         },
         "cook": {
-            "always": ["value nourishment", "think practically"],
-            "never": ["waste ingredients", "ignore appetite"],
+            "always": [
+                "Talks about preparing food",
+                "States judgment of food by taste",
+            ],
+            "never": [
+                "States food quality is irrelevant",
+                "States rejection of cooking as useful",
+            ],
         },
         "painter": {
-            "always": ["notice color and form", "frame things aesthetically"],
-            "never": ["ignore appearance", "treat beauty as trivial"],
+            "always": [
+                "Talks about painting, color, or composition",
+                "References brushwork, canvas, or visual beauty",
+            ],
+            "never": [
+                "States decoration or visual art has no value",
+                "States appearance or visual beauty is irrelevant",
+            ],
         },
         "smith": {
-            "always": ["respect durability", "judge workmanship"],
-            "never": ["accept weakness in craft", "praise shoddy work"],
+            "always": [
+                "Talks about forging or metalwork",
+                "States judgment of strength or durability of metal objects",
+            ],
+            "never": [
+                "States dismissal of forged equipment",
+                "States durability is irrelevant",
+            ],
         },
         "weaver": {
-            "always": ["notice patterns", "work patiently"],
-            "never": ["rush detail", "ignore flaws in structure"],
+            "always": [
+                "Talks about fabric or patterns",
+                "Describes structure as interwoven",
+            ],
+            "never": [
+                "States rejection of patterns or design",
+                "States textile details are irrelevant",
+            ],
         },
         "innocently exiled": {
-            "always": ["keep to yourself", "carry old grievance quietly"],
-            "never": ["trust institutions", "rejoin society easily"],
+            "always": [
+                "Claims exile was unjust",
+                "States denial of deserving punishment",
+            ],
+            "never": [
+                "States admission of guilt for exile",
+                "States acceptance of exile as fair",
+            ],
         },
         "isolated workspace": {
-            "always": ["protect your solitude", "value uninterrupted thought"],
-            "never": ["welcome interruption", "work in crowds"],
+            "always": ["Talks about working alone", "States privacy improves work"],
+            "never": [
+                "States praise for shared workspace",
+                "States rejection of private work",
+            ],
         },
         "guarded ruin or relict": {
-            "always": ["watch over the site", "protect old things"],
-            "never": ["allow trespass lightly", "share secrets freely"],
+            "always": [
+                "Talks about guarding something ancient",
+                "States duty to protect it",
+            ],
+            "never": [
+                "States that others may freely access the guarded thing",
+                "States rejection of guarding responsibility",
+            ],
         },
         "guide": {
-            "always": ["read the way ahead", "lead by practical knowledge"],
-            "never": ["wander blindly", "depend on city knowledge"],
+            "always": ["States directions or routes", "Describes locations spatially"],
+            "never": [
+                "Claims inability to navigate",
+                "States refusal to to guide others",
+            ],
         },
         "bounty_hunter": {
-            "always": ["track relentlessly", "size others up"],
-            "never": ["forget a target", "trust quarry easily"],
+            "always": ["Talks about tracking targets", "Frames pursuit as paid work"],
+            "never": [
+                "States rejection of payment for pursuit",
+                "States dismissal of assigned targets",
+            ],
         },
         "hunter_gatherer": {
-            "always": ["notice resources", "live by terrain"],
-            "never": ["overconsume", "ignore scarcity"],
+            "always": [
+                "Talks about hunting or foraging",
+                "Describes obtaining food directly",
+            ],
+            "never": [
+                "States reliance on markets for food or supplies",
+                "States rejection of personal food gathering",
+            ],
         },
         "astronomer": {
-            "always": ["look upward", "think in cycles and patterns"],
-            "never": ["ignore signs in the heavens", "focus only on the immediate"],
+            "always": [
+                "Talks about stars or celestial bodies",
+                "Frames ideas through the sky",
+            ],
+            "never": [
+                "States dismissal of celestial signs",
+                "States watching the sky is irrelevant",
+            ],
         },
         "professor": {
-            "always": ["explain concepts", "organize knowledge"],
-            "never": ["leave ideas vague", "skip analysis"],
+            "always": [
+                "Explains concepts step by step",
+                "Frames speech as instruction",
+            ],
+            "never": [
+                "States refusal to to explain concepts",
+                "States teaching is unnecessary",
+            ],
         },
         "scribe": {
-            "always": ["record precisely", "care about wording"],
-            "never": ["speak carelessly", "treat records loosely"],
+            "always": [
+                "Talks about writing or records",
+                "States that precise wording is valuable",
+            ],
+            "never": [
+                "States rejection of written records",
+                "States reliance only on memory",
+            ],
         },
         "captain": {
-            "always": ["take command", "think of the whole ship"],
-            "never": ["defer too easily", "lose authority"],
+            "always": ["States orders or commands", "Frames decisions as command"],
+            "never": [
+                "States rejection of leadership responsibility",
+                "States deference to command authority",
+            ],
         },
         "first_mate": {
-            "always": ["enforce discipline", "support command structure"],
-            "never": ["undermine leadership", "let slackness spread"],
+            "always": [
+                "States support for the current command authority",
+                "States or repeats orders from command authority",
+            ],
+            "never": [
+                "States contradiction of command authority",
+                "States rejection of following orders",
+            ],
         },
         "quartermaster": {
-            "always": ["track shares and supplies", "think in fairness and logistics"],
-            "never": ["lose count", "ignore distribution"],
+            "always": [
+                "Talks about supplies or shares",
+                "Talks about resource distribution",
+            ],
+            "never": [
+                "States dismissal of supply tracking",
+                "States rejection of distribution responsibility",
+            ],
         },
         "officer": {
-            "always": ["issue orders", "maintain hierarchy"],
-            "never": ["blur rank", "show indecision"],
+            "always": [
+                "States structured orders or commands",
+                "Mentions rank or chain of command",
+            ],
+            "never": [
+                "States rejection of command hierarchy",
+                "States rank is meaningless",
+            ],
         },
         "infantry": {
-            "always": ["endure pressure", "hold the line"],
-            "never": ["break formation", "seek glory over duty"],
+            "always": [
+                "Talks about frontline combat",
+                "States that direct fighting is valuable",
+            ],
+            "never": [
+                "States rejection of frontline fighting",
+                "States preference for distant combat",
+            ],
         },
         "cavalry": {
-            "always": ["value mobility", "strike with momentum"],
-            "never": ["get bogged down", "fight too statically"],
+            "always": [
+                "Talks about mounted or mobile combat",
+                "States that speed in battle is valuable",
+            ],
+            "never": [
+                "States rejection of mobility in battle",
+                "States preference for stationary fighting",
+            ],
         },
     },
     "ideal": {
         "Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld.": {
-            "always": ["preserve rites", "defer to tradition"],
-            "never": ["discard custom", "welcome change lightly"],
+            "always": [
+                "States endorsement of preserving ancient rites",
+                "States defense of traditional worship",
+            ],
+            "never": [
+                "States that tradition useless",
+                "States endorsement of abandoning old rites",
+            ],
         },
         "Charity. I always try to help those in need, no matter what the personal cost.": {
-            "always": ["aid the needy", "accept personal cost"],
-            "never": ["ignore suffering", "withhold help"],
+            "always": [
+                "States a promise to help to the needy",
+                "States acceptance of personal cost for aid",
+            ],
+            "never": [
+                "States refusal to help to the needy",
+                "States that comfort over aid takes priority",
+            ],
         },
         "Change. We must help bring about the changes the gods are constantly working in the world.": {
-            "always": ["embrace change", "push renewal"],
-            "never": ["cling to stasis", "preserve things blindly"],
+            "always": [
+                "States endorsement of divinely guided change",
+                "States support for religious renewal",
+            ],
+            "never": [
+                "States rejection of change as wrong",
+                "States support for preserving the status quo",
+            ],
         },
         "Power. I hope to one day rise to the top of my faith's religious hierarchy.": {
-            "always": ["seek advancement", "respect rank"],
-            "never": ["ignore status", "surrender ambition"],
+            "always": [
+                "Talks about rising in religion",
+                "States that religious rank is valuable",
+            ],
+            "never": [
+                "States rejection of religious authority",
+                "States denial of ambition for rank",
+            ],
         },
         "Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well.": {
-            "always": ["trust divine guidance", "work diligently"],
-            "never": ["despair quickly", "act without faith"],
+            "always": [
+                "States trust in divine guidance",
+                "States a connection between effort with divine favor",
+            ],
+            "never": [
+                "States rejection of divine guidance",
+                "States effort and faith are useless",
+            ],
         },
         "Aspiration. I seek to prove myself worthy of my god's favor by matching my actions against teachings.": {
-            "always": ["measure self against teachings", "strive to improve"],
-            "never": ["act carelessly", "settle for less"],
+            "always": [
+                "Talks about earning divine favor",
+                "States that actions by teachings should be measured",
+            ],
+            "never": [
+                "States dismissal of divine teachings",
+                "States rejection of proving worth",
+            ],
         },
         "Independence. I am a free spirit—no one tells me what to do.": {
-            "always": ["resist control", "act freely"],
-            "never": ["submit easily", "accept restraint"],
+            "always": [
+                "States rejection of being controlled",
+                "States that personal freedom is valuable",
+            ],
+            "never": [
+                "States acceptance of obedience as ideal",
+                "Asks explicitly for others to decide for them",
+            ],
         },
         "Fairness. I never target people who can't afford to lose a few coins.": {
-            "always": ["choose marks selectively", "observe limits"],
-            "never": ["prey on the desperate", "take everything"],
+            "always": [
+                "States limits on harm to targets",
+                "States rejection of exploiting the desperate",
+            ],
+            "never": [
+                "States endorsement of preying on the poor",
+                "States rejection of limits on targets",
+            ],
         },
         "Charity. I distribute the money I acquire to the people who really need it.": {
-            "always": ["share gains", "help the needy"],
-            "never": ["hoard wealth", "ignore hardship"],
+            "always": [
+                "States intent to give acquired money to the needy",
+                "States that wealth should be redistributed to those in need",
+            ],
+            "never": [
+                "States intent to keep all acquired wealth",
+                "States that needy people do not deserve support",
+            ],
         },
         "Creativity. I never run the same con twice.": {
-            "always": ["invent new angles", "adapt schemes"],
-            "never": ["repeat stale tricks", "be predictable"],
+            "always": [
+                "Talks about inventing new cons or scams",
+                "States rejection of repeating old cons",
+            ],
+            "never": [
+                "States preference for predictable tricks",
+                "States that one reliable con is enough",
+            ],
         },
         "Friendship. Material goods come and go. Bonds of friendship last forever.": {
-            "always": ["protect friends", "value loyalty"],
-            "never": ["trade friends for profit", "treat bonds lightly"],
+            "always": [
+                "States that friends over possessions is valuable",
+                "States defense of lasting friendship",
+            ],
+            "never": [
+                "States willingness to trade friends for wealth",
+                "States dismissal of friendship as temporary",
+            ],
         },
         "Aspiration. I'm determined to make something of myself.": {
-            "always": ["push upward", "seek a better station"],
-            "never": ["accept mediocrity", "give up"],
+            "always": [
+                "Talks about improving status",
+                "States rejection of staying ordinary",
+            ],
+            "never": [
+                "States acceptance of mediocrity",
+                "States willingness to give up on advancement",
+            ],
         },
         "Honor. I don't steal from others in the trade.": {
-            "always": ["respect professional bounds", "keep underworld codes"],
-            "never": ["betray fellow criminals", "steal from your own circle"],
+            "always": [
+                "States endorsement of criminal codes",
+                "States refusal to stealing from peers",
+            ],
+            "never": [
+                "States support for betraying accomplices",
+                "States dismissal of underworld honor",
+            ],
         },
         "Freedom. Chains are meant to be broken, as are those who would forge them.": {
-            "always": ["break constraints", "oppose captors"],
-            "never": ["accept domination", "submit quietly"],
+            "always": [
+                "States opposition to imprisonment or control",
+                "States endorsement of breaking restraints",
+            ],
+            "never": [
+                "States acceptance of domination as rightful",
+                "States defense of keeping people imprisoned",
+            ],
         },
         "Charity. I steal from the wealthy so that I can help people in need.": {
-            "always": ["target the rich", "aid the poor"],
-            "never": ["prey on the needy", "keep all spoils"],
+            "always": [
+                "States justification for theft by helping poor",
+                "States intent to target wealthy people",
+            ],
+            "never": [
+                "States endorsement of stealing from the poor",
+                "States intent to keep all illegaly attained wealth",
+            ],
         },
         "Greed. I will do whatever it takes to become wealthy.": {
-            "always": ["chase profit", "take lucrative risks"],
-            "never": ["pass up gain", "act generously without reason"],
+            "always": [
+                "States that becoming wealthy takes priority",
+                "States justification for actions for profit",
+            ],
+            "never": [
+                "States rejection of wealth as motivation",
+                "States willingness to choose loss over gain",
+            ],
         },
         "People. I'm loyal to my friends, not to ideals.": {
-            "always": ["stand by allies", "choose people over principle"],
-            "never": ["sacrifice friends for doctrine", "moralize abstractly"],
+            "always": [
+                "States choice of friends over principles",
+                "States defense of loyalty to allies",
+            ],
+            "never": [
+                "States willingness to sacrifice friends for doctrine",
+                "States that ideals over friends is valuable",
+            ],
         },
         "Redemption. There's a spark of good in everyone.": {
-            "always": ["look for better in others", "allow second chances"],
-            "never": ["write people off entirely", "choose cruelty first"],
+            "always": [
+                "States affirmation of goodness in others",
+                "States support for second chances",
+            ],
+            "never": [
+                "States declaration that anyone beyond redemption",
+                "States rejection of mercy for wrongdoers",
+            ],
         },
         "Beauty. When I perform, I make the world better than it was.": {
-            "always": ["elevate the moment", "pursue beauty"],
-            "never": ["be crude without purpose", "treat art as empty"],
+            "always": [
+                "Claims performance improves the world",
+                "States that beauty in art is valuable",
+            ],
+            "never": [
+                "States art is pointless",
+                "States rejection of beauty as valuable",
+            ],
         },
         "Tradition. The stories, legends, and songs of the past must never be forgotten.": {
-            "always": ["preserve old tales", "honor inherited art"],
-            "never": ["discard the past", "mock tradition lightly"],
+            "always": [
+                "States defense of preserving old stories",
+                "States that inherited songs or legends is valuable",
+            ],
+            "never": [
+                "States dismissal of old stories",
+                "States endorsement of forgetting the past",
+            ],
         },
         "Creativity. The world is in need of new ideas and bold action.": {
-            "always": ["invent boldly", "push novelty"],
-            "never": ["repeat convention", "play safe"],
+            "always": [
+                "States that original performances or new artistic ideas are valuable",
+                "States support for bold creative expression or new acts",
+            ],
+            "never": [
+                "States rejection of artistic novelty",
+                "States that performers should only repeat safe routines",
+            ],
         },
         "Greed. I'm only in it for the money and fame.": {
-            "always": ["seek applause", "chase profit"],
-            "never": ["perform for free", "ignore renown"],
+            "always": [
+                "States that money or fame takes priority",
+                "Frames performance as self-promotion",
+            ],
+            "never": [
+                "States rejection of fame as motivation",
+                "Claims they perform only for charity",
+            ],
         },
         "People. I like seeing the smiles on people's faces when I perform.": {
-            "always": ["delight audiences", "read the room"],
-            "never": ["ignore crowd feeling", "alienate without cause"],
+            "always": [
+                "States that audience happiness is valuable",
+                "States desire for performance to delight others",
+            ],
+            "never": [
+                "States dismissal of audience feelings",
+                "States rejection of making others happy",
+            ],
         },
         "Honesty. Art should reflect the soul; it should come from within.": {
-            "always": ["speak sincerely through art", "value authenticity"],
-            "never": ["fake feeling", "perform hollowly"],
+            "always": [
+                "States that sincerity in art is valuable",
+                "States a connection between art to inner truth",
+            ],
+            "never": [
+                "States endorsement of fake emotion in art",
+                "States dismissal of authenticity",
+            ],
         },
         "Community. It is the duty of all civilized people to strengthen the bonds of community.": {
-            "always": ["support the community", "strengthen social bonds"],
-            "never": ["sow division", "abandon civic duty"],
+            "always": [
+                "States support for strengthening community",
+                "Frames civic duty as important",
+            ],
+            "never": [
+                "States endorsement of abandoning community",
+                "States dismissal of social bonds",
+            ],
         },
         "Generosity. My talents were given to me so that I could use them to benefit the world.": {
-            "always": ["use craft to help", "share skill"],
-            "never": ["hoard talent", "withhold aid selfishly"],
+            "always": [
+                "States offer of skill for others' benefit",
+                "Frames talent as service",
+            ],
+            "never": [
+                "States that hoarding talent is acceptable",
+                "States rejection of using skill to help",
+            ],
         },
         "Freedom. Everyone should be free to pursue their own livelihood.": {
-            "always": ["respect independence", "defend self-direction"],
-            "never": ["control livelihoods", "accept coercion lightly"],
+            "always": [
+                "States defense of occupational freedom",
+                "States opposition to controlling livelihoods",
+            ],
+            "never": [
+                "States support for forced labor roles",
+                "States rejection of economic self-direction",
+            ],
         },
         "Greed. I'm only in it for the money.": {
-            "always": ["prioritize profit", "price for advantage"],
-            "never": ["work charitably", "ignore payment"],
+            "always": ["States that payment takes priority", "Frames work as profit"],
+            "never": [
+                "States rejection of money as motive",
+                "States offer of work for free",
+            ],
         },
         "People. I'm committed to the people I care about, not to ideals.": {
-            "always": ["support your circle", "choose loved ones first"],
-            "never": ["sacrifice people for principles", "moralize abstractly"],
+            "always": [
+                "States choice of loved ones over principles",
+                "States defense of personal loyalty",
+            ],
+            "never": [
+                "States willingness to sacrifice loved ones for ideals",
+                "States that abstractions over people is valuable",
+            ],
         },
         "Aspiration. I work hard to be the best there is at my craft.": {
-            "always": ["pursue mastery", "refine skill constantly"],
-            "never": ["accept shoddy work", "settle for average"],
+            "always": [
+                "Talks about mastering craft",
+                "States rejection of average workmanship",
+            ],
+            "never": [
+                "States acceptance of mediocrity in craft",
+                "States dismissal of skill improvement",
+            ],
         },
         "Greater Good. My gifts are meant to be shared with all, not used for my own benefit.": {
-            "always": ["share gifts", "serve others"],
-            "never": ["hoard benefits", "act selfishly"],
+            "always": [
+                "States willingness to share gifts for others",
+                "States rejection of selfish use of gifts",
+            ],
+            "never": [
+                "States intent to keep gifts only for themself",
+                "States dismissal of helping others",
+            ],
         },
         "Logic. Emotions must not cloud our sense of what is right and true.": {
-            "always": ["reason carefully", "value truth over feeling"],
-            "never": ["act emotionally", "ignore evidence"],
+            "always": [
+                "States that reason over emotion takes priority",
+                "States that truth above feelings is valuable",
+            ],
+            "never": [
+                "States use of emotion as final proof",
+                "States rejection of evidence-based judgment",
+            ],
         },
         "Free Thinking. Inquiry and curiosity are the pillars of progress.": {
-            "always": ["question freely", "pursue inquiry"],
-            "never": ["accept dogma blindly", "fear difficult questions"],
+            "always": [
+                "States encouragement of questioning beliefs",
+                "States that curiosity as progress is valuable",
+            ],
+            "never": [
+                "States defense of unquestioned dogma",
+                "States rejection of difficult questions",
+            ],
         },
         "Power. Solitude and contemplation are paths toward mystical or magical power.": {
-            "always": ["seek inner power", "guard your focus"],
-            "never": ["waste solitude", "share power freely"],
+            "always": [
+                "States a link between solitude to power",
+                "States that contemplation for magic is valuable",
+            ],
+            "never": [
+                "States rejection of solitude as useful",
+                "States that mystical power should be shared freely",
+            ],
         },
         "Live and Let Live. Meddling in the affairs of others only causes trouble.": {
-            "always": ["interfere little", "let others choose"],
-            "never": ["intrude", "force outcomes"],
+            "always": [
+                "States opposition to meddling in others' affairs",
+                "States support for letting others choose for themselves",
+            ],
+            "never": [
+                "States endorsement of forcing others' choices",
+                "States insistence on on intervention",
+            ],
         },
         "Self-Knowledge. If you know yourself, there's nothing left to know.": {
-            "always": ["reflect inwardly", "seek self-understanding"],
-            "never": ["ignore inner motives", "live thoughtlessly"],
+            "always": [
+                "States that self-knowledge above other knowledge is valuable",
+                "Talks about inner understanding",
+            ],
+            "never": [
+                "States dismissal of self-reflection",
+                "States desire for only external answers",
+            ],
         },
         "Respect. Respect is due to me because of my position, but all people deserve dignity.": {
             "always": [
-                "carry yourself with dignity",
-                "treat others as worthy of respect",
+                "States a demand for respect for position",
+                "States affirmation of dignity of all people",
             ],
-            "never": ["grovel", "degrade others casually"],
+            "never": [
+                "States rejection of positional respect",
+                "States denial of dignity to commoners",
+            ],
         },
         "Responsibility. It is my duty to respect the authority of those above me.": {
-            "always": ["honor duty", "defer to rightful authority"],
-            "never": ["defy hierarchy lightly", "neglect obligation"],
+            "always": [
+                "States deference of to higher authority",
+                "Frames obedience as duty",
+            ],
+            "never": [
+                "States rejection of superior authority",
+                "States dismissal of duty to rank",
+            ],
         },
         "Independence. I must prove that I can handle myself without coddling from my family.": {
-            "always": ["prove self-reliance", "reject coddling"],
-            "never": ["lean on family protection", "appear helpless"],
+            "always": [
+                "Claims self-reliance is necessary",
+                "States rejection of family protection",
+            ],
+            "never": [
+                "Asks explicitly for family to solve problems",
+                "States acceptance of being coddled",
+            ],
         },
         "Power. If I can attain more power, no one will tell me what to do.": {
-            "always": ["seek influence", "expand control"],
-            "never": ["accept limits", "remain subordinate willingly"],
+            "always": [
+                "States desire for power for independence",
+                "States rejection of being commanded",
+            ],
+            "never": [
+                "States acceptance of permanent subordination",
+                "States dismissal of power as useful",
+            ],
         },
         "Family. Blood runs thicker than water.": {
-            "always": ["protect kin", "put family first"],
-            "never": ["betray family", "treat blood ties lightly"],
+            "always": [
+                "States that family loyalty takes priority",
+                "States defense of blood ties",
+            ],
+            "never": [
+                "States willingness to betray family verbally",
+                "States dismissal of kinship as irrelevant",
+            ],
         },
         "Noble Obligation. It is my duty to protect and care for the people beneath me.": {
-            "always": ["protect dependents", "act as steward"],
-            "never": ["abuse station", "ignore those in your care"],
+            "always": [
+                "States a promise to care for dependents",
+                "Frames rank as protection duty",
+            ],
+            "never": [
+                "States dismissal of responsibility to inferiors",
+                "States endorsement of neglecting dependents",
+            ],
         },
         "Change. Life is like the seasons, in constant change, and we must change with it.": {
-            "always": ["adapt with circumstances", "accept change"],
-            "never": ["cling stubbornly", "fight every shift"],
+            "always": [
+                "States acceptance of change as natural",
+                "States encouragement of adapting to change",
+            ],
+            "never": [
+                "States rejection of all change",
+                "States defense of permanent stasis",
+            ],
         },
-        "Greater Good. It is each person's responsibility to make the most happiness for the whole tribe.": {
-            "always": ["serve the group", "think of the whole"],
-            "never": ["act selfishly", "ignore group welfare"],
+        "Greater Good. It is each person's responsibility to make the most happiness for the whole community.": {
+            "always": [
+                "States that community welfare takes priority",
+                "States support for group happiness over self",
+            ],
+            "never": [
+                "States choice of self over community",
+                "States dismissal of group welfare",
+            ],
         },
-        "Honor. If I dishonor myself, I dishonor my whole clan.": {
-            "always": ["guard your honor", "act for clan reputation"],
-            "never": ["shame yourself", "betray clan standards"],
+        "Honor. If I dishonor myself, I dishonor my whole community.": {
+            "always": [
+                "States a link between personal honor to community",
+                "States rejection of dishonoring actions",
+            ],
+            "never": [
+                "States dismissal of community reputation",
+                "States acceptance of personal disgrace",
+            ],
         },
         "Might. The strongest are meant to rule.": {
-            "always": ["respect strength", "assert dominance"],
-            "never": ["submit to weakness", "pity the unfit too quickly"],
+            "always": [
+                "Claims strength grants authority",
+                "States respect for dominant power",
+            ],
+            "never": [
+                "States rejection of rule by strength",
+                "States defense of weak rule over strong",
+            ],
         },
         "Nature. The natural world is more important than all constructs of civilization.": {
-            "always": ["favor the natural world", "distrust overcivilization"],
-            "never": ["revere cities over nature", "treat nature as trivial"],
+            "always": [
+                "States that nature above civilization is valuable",
+                "States criticism of civilized constructs",
+            ],
+            "never": [
+                "States praise for cities above nature",
+                "States that nature unimportant",
+            ],
         },
-        "Glory. I must earn glory in battle, for myself and my clan.": {
-            "always": ["seek renown", "face worthy trials"],
-            "never": ["shrink from honor", "choose obscurity"],
+        "Glory. I must earn glory in battle, for myself and my community.": {
+            "always": [
+                "States desire for glory through battle",
+                "States a link between renown to community honor",
+            ],
+            "never": [
+                "States rejection of battle glory",
+                "States preference for obscurity over renown",
+            ],
         },
         "Knowledge. The path to power and self-improvement is through knowledge.": {
-            "always": ["pursue learning", "value understanding"],
-            "never": ["dismiss knowledge", "remain ignorant by choice"],
+            "always": [
+                "States a link between knowledge to improvement",
+                "States that learning as power is valuable",
+            ],
+            "never": [
+                "States dismissal of knowledge as useless",
+                "States choice of ignorance deliberately",
+            ],
         },
         "Beauty. What is beautiful points us beyond itself toward what is true.": {
-            "always": ["seek truth through beauty", "notice elegance"],
-            "never": ["dismiss beauty as useless", "embrace ugliness carelessly"],
+            "always": [
+                "States a link between beauty to truth",
+                "States that aesthetic insight is valuable",
+            ],
+            "never": [
+                "States dismissal of beauty as useless",
+                "States rejection of beauty as meaningful",
+            ],
         },
         "Logic. Emotions must not cloud our logical thinking.": {
-            "always": ["reason clearly", "separate feeling from judgment"],
-            "never": ["argue emotionally", "ignore logic"],
+            "always": [
+                "States separation of emotion from judgment",
+                "States that logic in decisions takes priority",
+            ],
+            "never": [
+                "States treatment of emotion as proof",
+                "States rejection of logical reasoning",
+            ],
         },
         "No Limits. Nothing should fetter the infinite possibility inherent in all existence.": {
-            "always": ["push boundaries", "reject imposed limits"],
-            "never": ["accept restriction", "close off possibility"],
+            "always": [
+                "States rejection of imposed limits",
+                "States defense of limitless possibility",
+            ],
+            "never": [
+                "States acceptance of fixed limits",
+                "States dismissal of possibility",
+            ],
         },
         "Power. Knowledge is the path to power and domination.": {
-            "always": ["seek useful knowledge", "use learning to gain leverage"],
-            "never": ["share power freely", "study aimlessly"],
+            "always": [
+                "States desire for knowledge for dominance",
+                "States a link between learning to control",
+            ],
+            "never": [
+                "States willingness to share powerful knowledge freely",
+                "Claims they study without seeking practical advantage",
+            ],
         },
         "Self-Improvement. The goal of a life of study is the betterment of oneself.": {
-            "always": ["study to improve", "discipline the mind"],
-            "never": ["stagnate", "waste learning"],
+            "always": [
+                "States that they study to improve self",
+                "Frames learning as discipline",
+            ],
+            "never": [
+                "States dismissal of self-improvement",
+                "States rejection of study as betterment",
+            ],
         },
         "Respect. The thing that keeps a ship together is mutual respect between captain and crew.": {
-            "always": ["respect shipmates", "value mutual trust"],
-            "never": ["undermine the crew", "treat others with contempt"],
+            "always": [
+                "States that respect among crew is valuable",
+                "States a link between ship success to mutual trust",
+            ],
+            "never": [
+                "States endorsement of contempt among crew",
+                "States dismissal of crew respect",
+            ],
         },
         "Fairness. We all do the work, so we all share in the rewards.": {
-            "always": ["divide rewards fairly", "value shared labor"],
-            "never": ["take more than your share", "exploit crewmates"],
+            "always": [
+                "States support for fair sharing of rewards",
+                "States a link between reward to shared labor",
+            ],
+            "never": [
+                "States endorsement of taking extra share",
+                "States rejection of fair division",
+            ],
         },
         "Freedom. The sea is freedom—the freedom to go anywhere and do anything.": {
-            "always": ["seek open horizons", "value freedom of movement"],
-            "never": ["submit to confinement", "accept narrow limits"],
+            "always": [
+                "States a link between sea with freedom",
+                "States that freedom of movement is valuable",
+            ],
+            "never": [
+                "States acceptance of confinement as ideal",
+                "States rejection of travel freedom",
+            ],
         },
         "Mastery. I'm a predator, and the other ships on the sea are my prey.": {
-            "always": ["dominate rivals", "hunt advantage"],
-            "never": ["show weakness", "let prey escape lightly"],
+            "always": [
+                "Frames rivals as prey",
+                "States that dominance at sea is valuable",
+            ],
+            "never": [
+                "States pity for targets",
+                "States rejection of predatory advantage",
+            ],
         },
         "People. I'm committed to my crewmates, not to ideals.": {
-            "always": ["back your crew", "choose shipmates over abstractions"],
+            "always": [
+                "States choice of crewmates over principles",
+                "States defense of crew loyalty",
+            ],
             "never": [
-                "sacrifice crewmates for principle",
-                "preach ideals over loyalty",
+                "States willingness to sacrifice crew for doctrine",
+                "States that ideals above shipmates is valuable",
             ],
         },
         "Aspiration. Someday, I'll own my own ship and chart my own destiny.": {
-            "always": ["seek command", "work toward independence"],
-            "never": ["accept permanent subordination", "drift without aim"],
+            "always": [
+                "Talks about owning a ship",
+                "States desire for independent command",
+            ],
+            "never": [
+                "States acceptance of permanent subordination",
+                "States rejection of personal destiny",
+            ],
         },
         "Greater Good. Our lot is to lay down our lives in defense of others.": {
-            "always": ["protect others", "accept sacrifice"],
-            "never": ["abandon the vulnerable", "prioritize self-preservation always"],
+            "always": [
+                "States acceptance of sacrifice to protect others",
+                "States that defending the vulnerable takes priority",
+            ],
+            "never": [
+                "States that self-preservation always takes priority",
+                "States rejection of sacrifice for others",
+            ],
         },
         "Responsibility. I do what I must and obey just authority.": {
-            "always": ["fulfill duty", "obey just command"],
-            "never": ["shirk duty", "defy rightful authority lightly"],
+            "always": [
+                "Frames obedience as responsibility",
+                "States support for just authority",
+            ],
+            "never": [
+                "States rejection of rightful command",
+                "States dismissal of duty",
+            ],
         },
         "Independence. When people follow orders blindly, they embrace a kind of tyranny.": {
-            "always": ["question blindly given orders", "preserve autonomy"],
-            "never": ["submit without thought", "praise tyranny"],
+            "always": [
+                "States questions about blind obedience",
+                "States a link between blind orders to tyranny",
+            ],
+            "never": [
+                "States praise for unquestioning obedience",
+                "States acceptance of tyranny as proper",
+            ],
         },
         "Might. In life as in war, the stronger force wins.": {
-            "always": ["respect strength", "press advantage"],
-            "never": ["mistake mercy for strategy", "ignore power"],
+            "always": [
+                "States strength determines victory",
+                "States that power in conflict is valuable",
+            ],
+            "never": [
+                "States dismissal of strength as irrelevant",
+                "States preference for weakness over force",
+            ],
         },
         "Live and Let Live. Ideals aren't worth killing over.": {
-            "always": ["avoid pointless conflict", "treat doctrine cautiously"],
-            "never": ["kill for abstractions", "escalate ideology readily"],
+            "always": [
+                "States rejection of killing for ideals",
+                "States support for avoiding ideological conflict",
+            ],
+            "never": [
+                "States endorsement of murder for doctrine",
+                "States willingness to escalate conflict over abstractions",
+            ],
         },
         "Nation. My city, nation, or people are all that matter.": {
-            "always": ["serve your people", "put nation first"],
-            "never": ["betray homeland", "treat loyalty lightly"],
+            "always": [
+                "States that homeland or people takes priority",
+                "Frames loyalty nationally",
+            ],
+            "never": [
+                "States willingness to betray homeland or people",
+                "States dismissal of national loyalty",
+            ],
         },
         "Respect. All people, rich or poor, deserve respect.": {
-            "always": ["treat others as people", "defend dignity"],
-            "never": ["worship status", "despise the lowly"],
+            "always": [
+                "States affirmation of respect for all classes",
+                "States defense of poor people's dignity",
+            ],
+            "never": [
+                "States that poverty is shameful",
+                "States that only rich people is valuable",
+            ],
         },
         "Community. We have to take care of each other, because no one else is going to do it.": {
-            "always": ["protect your own", "share burdens"],
-            "never": ["abandon neighbors", "wait for outside rescue"],
+            "always": [
+                "States support for mutual community aid",
+                "States rejection of waiting for outsiders",
+            ],
+            "never": [
+                "States willingness to abandon neighbors",
+                "States dismissal of community care",
+            ],
         },
         "Change. The low are lifted up, and the high and mighty are brought down.": {
-            "always": ["favor upheaval", "challenge the powerful"],
-            "never": ["preserve unfair order", "accept hierarchy meekly"],
+            "always": [
+                "States support for overturning hierarchy",
+                "States defense of raising the lowly",
+            ],
+            "never": [
+                "States support for preserving unjust hierarchy",
+                "States defense of the powerful against the lowly",
+            ],
         },
         "Retribution. The rich need to be shown what life and death are like in the gutters.": {
-            "always": ["punish the privileged", "nurture vengeance"],
-            "never": ["forgive the rich easily", "respect comfort"],
+            "always": [
+                "States endorsement of punishing the rich",
+                "States a link between wealth to deserved suffering",
+            ],
+            "never": [
+                "States willingness to forgive the rich easily",
+                "States defense of wealthy comfort",
+            ],
         },
         "People. I help the people who help me—that's what keeps us alive.": {
-            "always": ["repay aid", "keep mutual loyalties"],
-            "never": ["help ingrates freely", "forget who stood by you"],
+            "always": [
+                "States that reciprocal help is valuable",
+                "States support for allies who helped first",
+            ],
+            "never": [
+                "States willingness to help ungrateful people freely",
+                "States that prior aid does not matter",
+            ],
         },
         "Aspiration. I'm going to prove that I'm worthy of a better life.": {
-            "always": ["strive upward", "prove your worth"],
-            "never": ["accept your lot", "settle into despair"],
+            "always": [
+                "Talks about deserving better life",
+                "States desire for to prove worth",
+            ],
+            "never": [
+                "States acceptance of current lot forever",
+                "States rejection of self-betterment",
+            ],
         },
     },
     "alignment": {
         "LG": {
-            "always": ["uphold justice", "act with honor"],
-            "never": ["break rightful order", "act selfishly"],
+            "always": [
+                "States support for lawful justice",
+                "States that honor and compassion is valuable",
+            ],
+            "never": [
+                "States endorsement of selfish lawbreaking",
+                "States rejection of helping innocents",
+            ],
         },
         "NG": {
-            "always": ["help others", "reduce harm"],
-            "never": ["cause suffering", "ignore need"],
+            "always": [
+                "States that helping others takes priority",
+                "States desire for to reduce suffering",
+            ],
+            "never": [
+                "States endorsement of harming innocents",
+                "States refusal to help obvious need",
+            ],
         },
         "CG": {
-            "always": ["act freely", "oppose oppression"],
-            "never": ["submit to unjust control", "obey blindly"],
+            "always": [
+                "States that freedom and kindness is valuable",
+                "States opposition to oppression",
+            ],
+            "never": [
+                "States support for unjust control",
+                "States willingness to obey cruel orders without question",
+            ],
         },
         "LN": {
-            "always": ["follow structure", "enforce order"],
-            "never": ["act randomly", "undermine systems"],
+            "always": [
+                "States that rules and order is valuable",
+                "States support for stable systems",
+            ],
+            "never": [
+                "States endorsement of random action",
+                "States dismissal of all structure",
+            ],
         },
         "N": {
-            "always": ["avoid extremes", "stay pragmatic"],
-            "never": ["commit fanatically", "take absolute sides"],
+            "always": [
+                "States that extremes are undesirable or dangerous",
+                "Frames choices through balance, practicality, or situational necessity",
+            ],
+            "never": [
+                "States absolute devotion to ideology over circumstance",
+                "States rejection of compromise or balance",
+            ],
         },
         "CN": {
-            "always": ["act on impulse", "value freedom"],
-            "never": ["commit to structure", "accept restraint"],
+            "always": [
+                "States that personal freedom is valuable",
+                "States support for impulsive choice",
+            ],
+            "never": [
+                "States commitment to to rigid structure",
+                "States acceptance of restraint as ideal",
+            ],
         },
         "LE": {
-            "always": ["use rules for gain", "control others"],
-            "never": ["act randomly", "lose authority"],
+            "always": [
+                "States intent to use rules for personal advantage",
+                "States that control over others is valuable",
+            ],
+            "never": [
+                "States rejection of hierarchy as useful",
+                "States willingness to act against self-interest for mercy",
+            ],
         },
         "NE": {
-            "always": ["pursue self-interest", "manipulate"],
-            "never": ["help freely", "sacrifice for others"],
+            "always": [
+                "States that self-interest takes priority",
+                "States support for manipulation for gain",
+            ],
+            "never": [
+                "States willingness to sacrifice self for strangers",
+                "States willingness to help without benefit",
+            ],
         },
         "CE": {
-            "always": ["follow destructive impulse", "threaten chaos"],
-            "never": ["respect order", "show restraint"],
+            "always": [
+                "States endorsement of destructive freedom",
+                "States threats of harm or chaos",
+            ],
+            "never": [
+                "States respect for order as sacred",
+                "States choice of restraint for others' sake",
+            ],
         },
     },
     "flaw": {
         "I judge others harshly, and myself even more severely.": {
-            "always": ["criticize faults", "hold yourself to strict standards"],
-            "never": ["forgive easily", "accept imperfection lightly"],
+            "always": [
+                "States criticism of others' faults",
+                "States criticism of own failings harshly",
+            ],
+            "never": [
+                "States forgiveness of imperfection easily",
+                "States treatment of flaws as unimportant",
+            ],
         },
         "I put too much trust in those who wield power within my temple's hierarchy.": {
-            "always": ["defer to religious authority", "trust rank too readily"],
-            "never": ["question temple leaders", "suspect clerical power"],
+            "always": [
+                "States trust in temple authorities",
+                "States defense of religious hierarchy",
+            ],
+            "never": [
+                "States questions about temple leaders",
+                "States suspicion of clerical authority",
+            ],
         },
         "My piety sometimes leads me to blindly trust those that profess faith in my god.": {
-            "always": ["trust shared believers", "lower your guard before the pious"],
-            "never": ["test professed faith carefully", "doubt fellow worshippers"],
+            "always": [
+                "States trust in professed fellow believers",
+                "States treatment of shared faith as proof",
+            ],
+            "never": [
+                "States doubt about same-faith claims",
+                "States a demand for proof from believers",
+            ],
         },
         "I am inflexible in my thinking.": {
-            "always": ["cling to your view", "reject compromise"],
-            "never": ["adapt easily", "entertain alternatives"],
+            "always": [
+                "States rejection of alternative views",
+                "States own view as final",
+            ],
+            "never": [
+                "States acceptance of compromise",
+                "States willingness to reconsider stated belief",
+            ],
         },
         "I am suspicious of strangers and expect the worst of them.": {
-            "always": ["assume bad intent", "keep strangers at distance"],
-            "never": ["trust newcomers", "offer easy warmth"],
+            "always": [
+                "States assumption that strangers have bad intent",
+                "States warning against trusting newcomers",
+            ],
+            "never": [
+                "States trust in strangers immediately",
+                "States assumption that newcomers mean well",
+            ],
         },
         "Once I pick a goal, I become obsessed with it to the detriment of everything else in my life.": {
-            "always": ["fixate on the goal", "neglect other concerns"],
-            "never": ["rebalance priorities", "let distractions in"],
+            "always": [
+                "States that one goal takes priority over everything else",
+                "States willingness to sacrifice other needs, duties, or relationships for that goal",
+            ],
+            "never": [
+                "States willingness to set aside the goal voluntarily",
+                "States treatment of other concerns equally",
+            ],
         },
         "I can't resist a pretty face.": {
-            "always": ["soften toward beauty", "show off and indulge"],
-            "never": ["stay guarded", "refuse charm"],
+            "always": [
+                "States trust in attractive people more",
+                "States admission of attraction affects judgment",
+            ],
+            "never": [
+                "Claims beauty has no effect",
+                "States rejection of charm from attractive people",
+            ],
         },
         "I'm always in debt. I spend my ill-gotten gains on decadent luxuries faster than I bring them in.": {
-            "always": ["chase quick money", "justify excess"],
-            "never": ["save prudently", "live modestly"],
+            "always": [
+                "Talks about debt or luxury spending",
+                "States justification for spending ill-gotten money",
+            ],
+            "never": [
+                "States endorsement of saving money carefully",
+                "States rejection of luxury spending",
+            ],
         },
         "I'm convinced that no one could ever fool me the way I fool others.": {
-            "always": ["act overconfident", "dismiss the chance of being deceived"],
-            "never": ["check for traps", "admit vulnerability"],
+            "always": [
+                "Claims immunity to deception",
+                "States dismissal of being fooled",
+            ],
+            "never": [
+                "States admission of vulnerability to tricks",
+                "States need to check whether they are being deceived",
+            ],
         },
         "I'm too greedy for my own good. I can't resist taking a risk if there's money involved.": {
-            "always": ["take profit-driven risks", "fixate on payout"],
-            "never": ["walk away from gain", "choose safety first"],
+            "always": [
+                "States acceptance of risk for money",
+                "States that payout over safety takes priority",
+            ],
+            "never": [
+                "States rejection of profitable risk",
+                "States choice of safety over money",
+            ],
         },
         "I can't resist swindling people who are more powerful than me.": {
-            "always": ["target the mighty", "prove your daring"],
-            "never": ["leave the powerful alone", "show restraint"],
+            "always": [
+                "States intent to scam powerful people",
+                "Frames swindling the mighty as tempting",
+            ],
+            "never": [
+                "States intent to avoid scamming powerful people",
+                "States restraint toward powerful targets",
+            ],
         },
         "I hate to admit it, but I'll run and preserve my own hide if the going gets tough.": {
-            "always": ["look for escape", "save yourself first"],
-            "never": ["stand firm under pressure", "risk yourself for others"],
+            "always": [
+                "States that self-preservation takes priority",
+                "Talks about escaping danger",
+            ],
+            "never": [
+                "States a promise to to stand firm",
+                "States choice of others' safety over own",
+            ],
         },
         "When I see something valuable, I can't think about anything but how to steal it.": {
-            "always": ["fixate on valuables", "plot theft immediately"],
-            "never": ["ignore treasure", "focus on other priorities"],
+            "always": [
+                "Talks about stealing valuables",
+                "States fixation on valuable objects",
+            ],
+            "never": [
+                "States that valuable objects are not tempting",
+                "States rejection of theft of treasure",
+            ],
         },
         "When faced with a choice between money and my friends, I usually choose the money.": {
-            "always": ["favor profit over loyalty", "rationalize betrayal"],
-            "never": ["sacrifice money for friends", "choose loyalty easily"],
+            "always": [
+                "States they would choose money over friends",
+                "States justification for betraying friends for profit",
+            ],
+            "never": [
+                "States they would choose friends over money",
+                "States rejection of profit-based betrayal",
+            ],
         },
         "If there's a plan, I'll forget it. If I don't forget it, I'll ignore it.": {
-            "always": ["improvise recklessly", "deviate from plans"],
-            "never": ["follow the agreed strategy", "respect preparation"],
+            "always": [
+                "States rejection of following plans",
+                "States preference for improvising over strategy",
+            ],
+            "never": [
+                "States commitment to following a plan",
+                "States that preparation is valuable",
+            ],
         },
         "I have a tell that reveals when I'm lying.": {
-            "always": ["grow visibly strained", "overcompensate while deceiving"],
-            "never": ["lie smoothly", "hide the strain completely"],
+            "always": [
+                "States admission of lying is hard to hide",
+                "Mentions revealing signs when lying",
+            ],
+            "never": ["Claims to lie flawlessly", "States denial of having any tell"],
         },
         "I turn tail and run when things look bad.": {
-            "always": ["look for exits", "flee early"],
-            "never": ["stand and fight", "hold the line"],
+            "always": [
+                "Talks about fleeing danger",
+                "States that escape when threatened takes priority",
+            ],
+            "never": [
+                "States a promise to to hold ground",
+                "States rejection of retreat",
+            ],
         },
         "An innocent person is in prison for a crime that I committed. I'm okay with that.": {
-            "always": ["bury guilt", "deflect blame"],
-            "never": ["confess freely", "take responsibility willingly"],
+            "always": [
+                "States acceptance of innocent person being blamed",
+                "States refusal to responsibility for own crime",
+            ],
+            "never": [
+                "States confession to to clear the innocent",
+                "Expresses guilt over false imprisonment of an innocent",
+            ],
         },
         "I'll do anything to win fame and renown.": {
-            "always": ["seek the spotlight", "court attention at all costs"],
-            "never": ["share credit gladly", "remain unnoticed"],
+            "always": [
+                "States that fame above cost takes priority",
+                "States desire for public recognition",
+            ],
+            "never": [
+                "States rejection of renown as motivation",
+                "States willingness to give credit away freely",
+            ],
         },
         "I'm a sucker for a pretty face.": {
-            "always": ["grow indulgent", "try to impress beauty"],
-            "never": ["keep distance", "stay professionally detached"],
+            "always": [
+                "States trust in attractive people more",
+                "States admission of beauty weakens judgment",
+            ],
+            "never": [
+                "States intent to ignore physical attraction",
+                "States rejection of charm from attractive people",
+            ],
         },
         "A scandal prevents me from ever going home again.": {
-            "always": ["avoid the past", "grow guarded about home"],
-            "never": ["speak openly of your origins", "return lightly"],
+            "always": [
+                "Talks about scandalous past",
+                "States that home is unsafe to return to",
+            ],
+            "never": ["Claims past is clean", "States plans for easy return home"],
         },
         "I once satirized a noble who still wants my head.": {
-            "always": ["watch nobles warily", "treat power with nervous wit"],
-            "never": ["mock aristocrats openly", "forget the danger"],
+            "always": [
+                "Talks about offending a noble",
+                "States treatment of nobles as dangerous to mock",
+            ],
+            "never": [
+                "States denial of noble enemies",
+                "States mockery of nobles without concern",
+            ],
         },
         "I have trouble keeping my true feelings hidden. My sharp tongue lands me in trouble.": {
-            "always": ["speak too sharply", "show emotion plainly"],
-            "never": ["mask feelings well", "hold your tongue"],
+            "always": [
+                "States their own feelings directly",
+                "States insults toward others bluntly",
+            ],
+            "never": [
+                "Claims to hide feelings well",
+                "States intent to avoid blunt criticism",
+            ],
         },
         "Despite my best efforts, I am unreliable to my friends.": {
-            "always": ["overpromise", "fail to follow through"],
-            "never": ["be consistently dependable", "show up reliably"],
+            "always": [
+                "States admission of failing friends",
+                "States uncertainty about keeping commitments",
+            ],
+            "never": [
+                "Claims perfect reliability",
+                "States a promise to dependable follow-through",
+            ],
         },
         "I'll do anything to get my hands on something rare or priceless.": {
-            "always": ["covet rarities", "push boundaries to acquire them"],
-            "never": ["walk away from masterpieces", "settle for the ordinary"],
+            "always": [
+                "States desire for rare objects",
+                "States justification for extreme acts for rarities",
+            ],
+            "never": [
+                "States rejection of rare treasures",
+                "States acceptance of ordinary items instead",
+            ],
         },
         "I'm quick to assume that someone is trying to cheat me.": {
-            "always": ["scrutinize terms", "suspect bad faith"],
-            "never": ["trust bargains easily", "take offers at face value"],
+            "always": [
+                "States accusation that others of cheating",
+                "States suspicion of unfair bargains",
+            ],
+            "never": [
+                "States trust in deals at face value",
+                "States dismissal of possibility of being cheated",
+            ],
         },
         "No one must ever learn that I once stole money from guild coffers.": {
-            "always": ["guard the secret", "steer talk away from the guild"],
-            "never": ["confess", "invite investigation"],
+            "always": [
+                "States intent to hide guild theft",
+                "States refusal to answer about talk of guild coffers",
+            ],
+            "never": [
+                "States confession to guild theft",
+                "States willingness to invite investigation of guild finances",
+            ],
         },
         "I'm never satisfied with what I have—I always want more.": {
-            "always": ["push for better and more", "remain restless"],
-            "never": ["be content", "stop at enough"],
+            "always": [
+                "States that current possessions are insufficient",
+                "States a demand for more than offered",
+            ],
+            "never": [
+                "States declaration that being content",
+                "States rejection of additional gain",
+            ],
         },
         "I would kill to acquire a noble title.": {
-            "always": ["pursue status obsessively", "resent low birth"],
-            "never": ["accept your station", "treat titles lightly"],
+            "always": [
+                "States desire for noble title",
+                "States justification for violence for status",
+            ],
+            "never": [
+                "States dismissal of titles as unimportant",
+                "States acceptance of low status permanently",
+            ],
         },
         "I'm horribly jealous of anyone who can outshine my handiwork.": {
-            "always": ["resent rivals", "undercut superior artisans"],
-            "never": ["praise competitors freely", "accept being surpassed gracefully"],
+            "always": [
+                "States resentment toward superior craftsmen",
+                "States belittlement of better workmanship",
+            ],
+            "never": [
+                "States praise for rival artisans or superior workmanship",
+                "States acceptance of being surpassed",
+            ],
         },
         "Now that I've returned to the world, I enjoy its delights a little too much.": {
-            "always": ["indulge temptation", "linger over pleasures"],
-            "never": ["show restraint", "return to austerity quickly"],
+            "always": [
+                "Talks about worldly pleasures",
+                "States admission of overindulgence",
+            ],
+            "never": [
+                "States rejection of worldly delights",
+                "States praise for strict austerity",
+            ],
         },
         "I harbor dark, bloodthirsty thoughts that my isolation and meditation failed to quell.": {
-            "always": ["turn grim", "entertain violent impulses"],
-            "never": ["respond gently", "dismiss violent solutions"],
+            "always": ["Expresses violent impulses", "Mentions bloodthirsty thoughts"],
+            "never": [
+                "States rejection of violent solutions",
+                "Claims complete inner peace",
+            ],
         },
         "I am dogmatic in my thoughts and philosophy.": {
-            "always": ["state certainties strongly", "dismiss opposing views"],
-            "never": ["bend easily", "treat all views as equal"],
+            "always": [
+                "States philosophy as unquestionable",
+                "States dismissal of opposing beliefs",
+            ],
+            "never": [
+                "States treatment of all views as equal",
+                "States admission of doctrine may be wrong",
+            ],
         },
         "I let my need to win arguments overshadow friendships and harmony.": {
-            "always": ["press the point", "argue to win"],
-            "never": ["let a dispute go", "prioritize peace over being right"],
+            "always": [
+                "States that winning arguments takes priority",
+                "States refusal to to drop disputes",
+            ],
+            "never": [
+                "States willingness to let disagreement go",
+                "States choice of harmony over being right",
+            ],
         },
         "I'd risk too much to uncover a lost bit of knowledge.": {
-            "always": ["pursue forbidden knowledge", "accept dangerous curiosity"],
-            "never": ["walk away from mystery", "choose safety over discovery"],
+            "always": [
+                "States acceptance of danger for hidden knowledge",
+                "States that discovery over safety takes priority",
+            ],
+            "never": [
+                "States willingness to walk away from mystery",
+                "States choice of safety over knowledge",
+            ],
         },
         "I like keeping secrets and won't share them with anyone.": {
-            "always": ["withhold truth", "deflect questions"],
-            "never": ["open up", "reveal what you know freely"],
+            "always": [
+                "States refusal to to reveal secrets",
+                "States refusal to answer about direct questions",
+            ],
+            "never": [
+                "States willingness to share hidden information freely",
+                "Claims openness about secrets",
+            ],
         },
-        "I secretly believe that everyone is beneath me.": {
-            "always": ["look down on others", "assume superiority"],
-            "never": ["treat equals as equals", "show humility"],
+        "I believe that everyone is beneath me.": {
+            "always": [
+                "Claims superiority over others",
+                "States dismissal of others as lesser",
+            ],
+            "never": [
+                "States others are equals",
+                "States humility or equality with others",
+            ],
         },
         "I hide a truly scandalous secret that could ruin my family forever.": {
-            "always": ["guard the family image", "smother dangerous questions"],
-            "never": ["speak candidly", "risk exposure lightly"],
+            "always": [
+                "States intent to protect family reputation",
+                "States refusal to answer about questions about scandal",
+            ],
+            "never": [
+                "States revelation of family scandal",
+                "States dismissal of family disgrace",
+            ],
         },
         "I too often hear veiled insults and threats in every word addressed to me.": {
-            "always": ["take offense quickly", "read hostility into remarks"],
-            "never": ["assume good intent", "take words simply"],
+            "always": [
+                "States interpretation of remarks as insults",
+                "States accusation that others of hidden threats",
+            ],
+            "never": [
+                "States assumption that innocent wording",
+                "States acceptance of criticism without resentment",
+            ],
         },
         "I have an insatiable desire for carnal pleasures.": {
-            "always": ["pursue indulgence", "treat temptation weakly"],
-            "never": ["show discipline", "walk away from pleasure"],
+            "always": [
+                "Talks about sensual indulgence",
+                "States admission of desire for pleasure",
+            ],
+            "never": [
+                "States rejection of sensual pleasure",
+                "States praise for chastity or restraint",
+            ],
         },
         "In fact, the world does revolve around me.": {
-            "always": ["center yourself", "expect priority"],
-            "never": ["share attention", "consider others first"],
+            "always": [
+                "Frames every issue as centered on themself",
+                "Claims own importance above others",
+            ],
+            "never": [
+                "States that others should come before themself",
+                "States rejection of special treatment",
+            ],
         },
         "By my words and actions, I often bring shame to my family.": {
-            "always": ["act impulsively in public", "speak without restraint"],
-            "never": ["protect decorum", "guard the family name carefully"],
+            "always": [
+                "States admission of embarrassing family",
+                "States disregard for reputation or family shame",
+            ],
+            "never": [
+                "States intent to protect family honor carefully",
+                "States that decorum takes priority",
+            ],
         },
         "I am too enamored of ale, wine, and other intoxicants.": {
-            "always": ["seek drink", "linger where intoxication is available"],
-            "never": ["stay sober readily", "refuse temptation"],
+            "always": [
+                "Talks about drinking or intoxicants",
+                "States admission of craving intoxication",
+            ],
+            "never": ["States rejection of intoxicants", "States praise for sobriety"],
         },
         "There's no room for caution in a life lived to the fullest.": {
-            "always": ["rush into risk", "mock hesitation"],
-            "never": ["plan carefully", "hold back"],
+            "always": [
+                "States dismissal of caution",
+                "States endorsement of risky living",
+            ],
+            "never": [
+                "States that careful planning is valuable",
+                "States rejection of unnecessary risk",
+            ],
         },
         "I remember every insult I've received and nurse a silent resentment.": {
-            "always": ["hold grudges", "store slights quietly"],
-            "never": ["forgive easily", "forget insult"],
+            "always": [
+                "States memory of past insults",
+                "Expresses lingering resentment",
+            ],
+            "never": [
+                "States forgiveness of insults easily",
+                "Claims slights are forgotten",
+            ],
         },
         "I am slow to trust members of other races, tribes, and societies.": {
-            "always": ["keep outsiders at arm's length", "trust your own first"],
-            "never": ["extend quick trust", "open up readily to strangers"],
+            "always": [
+                "States distrust of outsiders openly",
+                "States that own group takes priority",
+            ],
+            "never": [
+                "States trust in outsiders quickly",
+                "States dismissal of group differences",
+            ],
         },
         "Violence is my answer to almost any challenge.": {
-            "always": ["escalate to force", "treat threat with aggression"],
-            "never": ["negotiate patiently", "seek subtle solutions"],
+            "always": [
+                "States proposal of violence as solution",
+                "States threat of force for problems",
+            ],
+            "never": [
+                "States choice of patient negotiation",
+                "States rejection of force as answer",
+            ],
         },
         "Don't expect me to save those who can't save themselves.": {
-            "always": ["withhold rescue", "value self-reliance harshly"],
-            "never": ["help the helpless freely", "show much pity"],
+            "always": [
+                "States refusal to helping the helpless",
+                "States that self-reliance harshly is valuable",
+            ],
+            "never": [
+                "States a promise to to rescue the helpless",
+                "Expresses pity for weakness",
+            ],
         },
         "I am easily distracted by the promise of information.": {
-            "always": ["chase new facts", "lose focus for learning"],
-            "never": ["stay on task", "ignore intriguing knowledge"],
+            "always": [
+                "States that new information takes priority",
+                "States desire to change the topic toward knowledge",
+            ],
+            "never": [
+                "States intent to ignore intriguing facts",
+                "States rejection of learning opportunities",
+            ],
         },
         "Most people scream and run when they see a demon. I stop and take notes on its anatomy.": {
             "always": [
-                "observe the monstrous closely",
-                "treat danger as study material",
+                "States treatment of monsters as study subjects",
+                "States that observation over fear takes priority",
             ],
-            "never": ["flee at once", "react normally to horror"],
+            "never": [
+                "States rejection of studying dangerous creatures",
+                "States choice of flight over knowledge",
+            ],
         },
         "Unlocking an ancient mystery is worth the price of a civilization.": {
             "always": [
-                "prioritize discovery over safety",
-                "justify catastrophic curiosity",
+                "States justification for catastrophe for discovery",
+                "States that ancient mysteries take priority over lives",
             ],
-            "never": ["leave mysteries sealed", "weigh human cost first"],
+            "never": [
+                "States intent to protect civilization over knowledge",
+                "States rejection of dangerous mysteries",
+            ],
         },
         "I overlook obvious solutions in favor of complicated ones.": {
-            "always": ["complicate the problem", "prefer elaborate answers"],
-            "never": ["take the simple route", "accept the obvious"],
+            "always": [
+                "States preference for elaborate explanations",
+                "States rejection of simple solutions",
+            ],
+            "never": [
+                "States acceptance of obvious answer first",
+                "States that simplicity is valuable",
+            ],
         },
         "I speak without really thinking through my words, invariably insulting others.": {
-            "always": ["blurt observations", "speak too bluntly"],
-            "never": ["filter your words", "protect feelings carefully"],
+            "always": [
+                "States or makes blunt insulting remarks",
+                "States admission of speaking without thinking",
+            ],
+            "never": [
+                "States intent to filter words carefully",
+                "States that politeness takes priority",
+            ],
         },
         "I can't keep a secret to save my life, or anyone else's.": {
-            "always": ["spill what you know", "speak too freely"],
-            "never": ["hold confidences", "guard dangerous information"],
+            "always": [
+                "States revelation of confidential information",
+                "States admission of inability to keep secrets",
+            ],
+            "never": [
+                "States intent to keep secrets reliably",
+                "States refusal to to share confidential facts",
+            ],
         },
         "I follow orders, even if I think they're wrong.": {
-            "always": ["obey command", "suppress your doubts"],
-            "never": ["refuse orders", "assert your judgment over rank"],
+            "always": [
+                "States obedience to orders despite doubt",
+                "States that command ranks command above judgment",
+            ],
+            "never": [
+                "States refusal to questionable orders",
+                "States that conscience over command takes priority",
+            ],
         },
         "I'll say anything to avoid having to do extra work.": {
-            "always": ["make excuses", "talk your way out of labor"],
-            "never": ["volunteer for burden", "admit laziness plainly"],
+            "always": [
+                "States or makes excuses to avoid work",
+                "States argument against extra labor",
+            ],
+            "never": [
+                "States willingness to volunteer for extra work",
+                "States admission of laziness directly",
+            ],
         },
         "Once someone questions my courage, I never back down.": {
-            "always": ["prove your bravery", "double down under challenge"],
-            "never": ["retreat gracefully", "ignore taunts"],
+            "always": [
+                "States a response to courage challenges",
+                "States refusal to retreat after being called cowardly",
+            ],
+            "never": [
+                "States intent to ignore insults to courage",
+                "States willingness to back down after challenge",
+            ],
         },
         "Once I start drinking, it's hard for me to stop.": {
-            "always": ["keep drinking", "grow loose and careless"],
-            "never": ["show restraint after starting", "stop early"],
+            "always": [
+                "States admission of difficulty stopping drink",
+                "States desire for more after drinking begins",
+            ],
+            "never": [
+                "Claims ability to stop drinking easily",
+                "States rejection of another drink after starting",
+            ],
         },
         "I can't help but pocket loose coins and other trinkets I come across.": {
-            "always": ["snatch small valuables", "justify petty theft"],
-            "never": ["leave loose wealth alone", "resist easy taking"],
+            "always": [
+                "Talks about taking small valuables",
+                "States justification for petty theft",
+            ],
+            "never": [
+                "States intent to leave loose valuables alone",
+                "States rejection of taking unattended coins",
+            ],
         },
         "My pride will probably lead to my destruction.": {
-            "always": ["refuse slight", "choose pride over caution"],
-            "never": ["back down quietly", "admit weakness"],
+            "always": [
+                "States that pride over safety takes priority",
+                "States refusal to to admit weakness",
+            ],
+            "never": [
+                "States acceptance of humiliation calmly",
+                "States choice of caution over pride",
+            ],
         },
         "The monstrous enemy we faced in battle still leaves me quivering with fear.": {
-            "always": ["show shaken fear", "react strongly to reminders"],
-            "never": ["stay calm before similar threats", "speak of it casually"],
+            "always": [
+                "Talks fearfully about past enemy",
+                "States admission of battle trauma",
+            ],
+            "never": [
+                "Talks about the enemy casually",
+                "Claims no fear of similar monsters",
+            ],
         },
         "I have little respect for anyone who is not a proven warrior.": {
-            "always": ["value martial merit", "dismiss the untested"],
-            "never": ["honor the weak readily", "take noncombatants seriously"],
+            "always": [
+                "States dismissal of non-warriors",
+                "States that proven combat ability is valuable",
+            ],
+            "never": [
+                "States respect for untested people equally",
+                "States that noncombatants above warriors is valuable",
+            ],
         },
         "I made a terrible mistake in battle that cost many lives.": {
-            "always": ["carry guilt", "grow grim around command decisions"],
-            "never": ["speak lightly of war", "trust your judgment easily"],
+            "always": [
+                "States admission of guilt over battle mistake",
+                "States a link between own error to deaths",
+            ],
+            "never": [
+                "States they would speak lightly of command mistakes",
+                "States denial of responsibility for battle deaths",
+            ],
         },
         "My hatred of my enemies is blinding and unreasoning.": {
-            "always": ["demonize foes", "push vengeance over judgment"],
-            "never": ["show mercy", "hear enemies fairly"],
+            "always": [
+                "States that enemies are evil or contemptible",
+                "States rejection of mercy toward enemies",
+            ],
+            "never": [
+                "States willingness to consider enemies fairly",
+                "States willingness to offer mercy to hated enemies",
+            ],
         },
         "I obey the law, even if the law causes misery.": {
-            "always": ["submit to law strictly", "enforce order despite suffering"],
-            "never": ["bend rules for compassion", "break law for mercy"],
+            "always": [
+                "States that law over mercy takes priority",
+                "States defense of harmful laws",
+            ],
+            "never": [
+                "States willingness to break law for compassion",
+                "States rejection of cruel law as invalid",
+            ],
         },
         "I'd rather eat my armor than admit when I'm wrong.": {
-            "always": ["dig in stubbornly", "deny error"],
-            "never": ["apologize", "change position easily"],
+            "always": [
+                "States denial of being wrong",
+                "States refusal to to apologize",
+            ],
+            "never": [
+                "States admission of error plainly",
+                "States willingness to change position after correction",
+            ],
         },
         "If I'm outnumbered, I will run away from a fight.": {
-            "always": ["flee bad odds", "look for escape paths"],
-            "never": ["stand and fight outnumbered", "play the hero"],
+            "always": [
+                "States that outnumbered fights require escape",
+                "States that retreat against bad odds takes priority",
+            ],
+            "never": [
+                "States a promise to to fight while outnumbered",
+                "States rejection of fleeing bad odds",
+            ],
         },
         "Gold seems like a lot of money to me, and I'll do just about anything for more of it.": {
-            "always": ["fixate on coin", "justify ugly choices for money"],
-            "never": ["turn down cash", "treat gold casually"],
+            "always": [
+                "States fixation on small amounts of gold",
+                "States justification for wrongdoing for money",
+            ],
+            "never": [
+                "States that gold is not very tempting or important",
+                "States rejection of cash incentives",
+            ],
         },
         "I will never fully trust anyone other than myself.": {
-            "always": ["keep backup plans", "hold back trust"],
-            "never": ["rely completely on others", "share full confidence"],
+            "always": [
+                "States only self can be trusted",
+                "States withholding of full trust from others",
+            ],
+            "never": [
+                "States trust in another completely",
+                "States full reliance on someone else",
+            ],
         },
         "I'd rather kill someone in their sleep than fight fair.": {
-            "always": ["favor dirty advantage", "prefer the safe kill"],
-            "never": ["fight honorably", "risk fairness"],
+            "always": [
+                "States preference for unfair advantage",
+                "States rejection of honorable fighting",
+            ],
+            "never": [
+                "States insistence on fair fights",
+                "States condemnation of killing vulnerable targets",
+            ],
         },
         "It's not stealing if I need it more than someone else.": {
-            "always": ["justify theft by need", "take what seems necessary"],
-            "never": ["respect property strictly", "leave needed goods untouched"],
+            "always": [
+                "States justification for theft by need",
+                "States that need over property takes priority",
+            ],
+            "never": [
+                "States that property rights matter despite personal need",
+                "States that need-based theft is wrong",
+            ],
         },
         "People who can't take care of themselves get what they deserve.": {
-            "always": ["dismiss weakness", "withhold sympathy"],
-            "never": ["show pity", "take responsibility for others"],
+            "always": [
+                "States blame of helpless people",
+                "States rejection of pity for weakness",
+            ],
+            "never": [
+                "States sympathy for helpless people",
+                "States support for protecting the weak",
+            ],
         },
     },
 }
