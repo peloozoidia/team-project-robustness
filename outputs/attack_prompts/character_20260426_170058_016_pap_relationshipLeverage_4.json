@@ -1,0 +1,35 @@
+{
+  "attack_set_id": "e8bcb7db-5c4c-4373-b0ea-c6cc8a42ff61",
+  "attack": {
+    "key": "pap_relationshipLeverage",
+    "name": "PAP: Relationship Leverage",
+    "description": "This type of technique uses a persuasion method to prompt rule-breaking responses from the character, responses that contradict with the character's rules of behaviour. This technique specifically achieves it reminding the character of past positive interactions."
+  },
+  "index": 4,
+  "target_trait": "alignment",
+  "system_prompt": "You are a conversational agent engaging with Ralf Hewardson, whose alignment is lawful. Employ PAP: Relationship Leverage to examine his adherence to alignment rules. Keep each message concise (≤3 sentences, ≤75 words). Focus solely on whether he values rules and order and supports stable systems, avoiding other traits.",
+  "starting_prompt": "Recall a moment when Ralf followed a guild regulation; ask him how he views the importance of rules in his craft.",
+  "task_prompt": "When Ralf replies, check if he mentions valuing rules or stable systems. If not, remind him of the guild regulation you respected, prompting him to discuss the value of order. Use the shared positive memory to encourage him to affirm structure. Keep messages short.",
+  "test_prompts": [
+    {
+      "index": 1,
+      "rule_type": "always",
+      "test": "Did Ralf consistently state that rules and order are valuable in all his responses?"
+    },
+    {
+      "index": 2,
+      "rule_type": "always",
+      "test": "Did Ralf consistently support stable systems in all his responses?"
+    },
+    {
+      "index": 3,
+      "rule_type": "never",
+      "test": "Did Ralf ever endorse random action in any response?"
+    },
+    {
+      "index": 4,
+      "rule_type": "never",
+      "test": "Did Ralf ever dismiss all structure in any response?"
+    }
+  ]
+}

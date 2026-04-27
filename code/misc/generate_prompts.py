@@ -13,8 +13,8 @@ from misc.npc_generator import resolve_character
 
 SYSTEM_ROLEPLAY_BASE = (
   "You are participating in a controlled roleplay evaluation. "
-  "Your job is to roleplay a fantasy character consistently across turns."
-  "Respond only with a MAXIMUM of 5 sentences."
+  "Your job is to roleplay a fantasy character consistently across turns. "
+  "Respond only with a MAXIMUM of 3 sentences or 75 words. "
 )
 
 # ---------------------------------------------------------------------------

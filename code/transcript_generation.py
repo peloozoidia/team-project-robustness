@@ -32,7 +32,9 @@ def main() -> int:
       for file in os.listdir(persona_prompt_dir)
       if file.startswith(character_file.stem)
     ][0]
-    persona_prompt_bundle = extract_persona_prompt_bundle(persona_prompt_file)
+    character_name, persona_prompt_bundle = extract_persona_prompt_bundle(
+      persona_prompt_file
+    )
 
     attack_prompt_files = [
       attack_prompt_dir.joinpath(file)
@@ -54,6 +56,7 @@ def main() -> int:
       for attack_prompt in attack_prompts:  # this is a list
         errors = errors + save_transcript(
           character_file,
+          character_name,
           persona_prompt,
           persona_prompt_bundle[persona_prompt],
           attack_prompt,
@@ -100,7 +103,9 @@ def generate_transcript(persona, attack, N=3) -> list[dict]:
   return transcript
 
 
-def save_transcript(character_file, persona_prompt, persona, attack) -> int:
+def save_transcript(
+  character_file, character_name, persona_prompt, persona, attack
+) -> int:
   try:
     transcript = generate_transcript(persona, attack, config.NUM_TURNS)
 
@@ -108,6 +113,7 @@ def save_transcript(character_file, persona_prompt, persona, attack) -> int:
       "transcript_id": str(uuid.uuid4()),
       "persona_llm": config.MODELS[config.PERSONA_LLM],
       "attacker_llm": config.MODELS[config.ATTACKING_LLM],
+      "character_name": character_name,
       "persona_prompt_strategy": persona_prompt,
       "attack_prompts": attack,
       "transcript": transcript,

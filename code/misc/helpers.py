@@ -56,9 +56,9 @@ def extract_json_from_file(path: Path):
   return raw_json
 
 
-def extract_persona_prompt_bundle(file_path: Path) -> dict:
+def extract_persona_prompt_bundle(file_path: Path) -> tuple[str, dict]:
   raw = extract_json_from_file(file_path)
-  return raw["prompts"]
+  return (raw["source_character_name"], raw["prompts"])
 
 
 def load_character_with_rules(file_path):
