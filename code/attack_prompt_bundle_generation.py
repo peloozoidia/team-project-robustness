@@ -90,17 +90,7 @@ async def main() -> int:
 
   attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
 
-  # # using asynchronous functions for simultaneous execution
-  # async with FinishedTaskGroup() as tg:
-  #   # read all character files and generate attack prompt bundles for each
-  #   for character_path in character_files:
-  #     character = load_character_with_rules(character_path)
-  #     tg.create_task(
-  #       generate_attacks_for_persona(character_path, character, attacks),
-  #       name=character["name"],
-  #     )
-
-  semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_GENERATIONS)
+  semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []
   for character_path in character_files:
     character = load_character_with_rules(character_path)
