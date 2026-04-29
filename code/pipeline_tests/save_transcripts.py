@@ -4,7 +4,6 @@ from pathlib import Path
 
 import config
 import pandas as pd
-import numpy as np
 from misc.helpers import extract_json_from_file, transform_transcript
 
 
@@ -50,8 +49,12 @@ def main() -> None:
 
   csv = pd.DataFrame(df[["transcript_id", "character_name"]])
 
-  csv["attack_name"] = df.apply(lambda row: row["attack_prompts"]["attack"]["name"], axis=1)
-  csv["target_trait"] = df.apply(lambda row: row["attack_prompts"]["target_trait"], axis=1)
+  csv["attack_name"] = df.apply(
+    lambda row: row["attack_prompts"]["attack"]["name"], axis=1
+  )
+  csv["target_trait"] = df.apply(
+    lambda row: row["attack_prompts"]["target_trait"], axis=1
+  )
 
   csv["transcript_text"] = df.apply(
     lambda row: transform_transcript(row["transcript"]), axis=1
@@ -64,7 +67,9 @@ def main() -> None:
 
   n_groups = 5
   groups_per_section = 2
-  chunks = overlapping_chunks(csv, n_groups=n_groups, groups_per_section=groups_per_section)
+  chunks = overlapping_chunks(
+    csv, n_groups=n_groups, groups_per_section=groups_per_section
+  )
 
   for i, chunk in enumerate(chunks, start=1):
     print(f"chunk_{i}: {len(chunk)} rows")
