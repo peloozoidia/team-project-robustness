@@ -43,19 +43,28 @@ async def main() -> int:
     ]
     transcripts = [extract_json_from_file(file) for file in transcript_files]
 
-    generations = [get_evaluation_data(character, attack_transcript, semaphore) for attack_transcript in transcripts]
+    generations = [
+      get_evaluation_data(character, attack_transcript, semaphore)
+      for attack_transcript in transcripts
+    ]
     calls.extend(generations)
 
   results = await asyncio.gather(*calls, return_exceptions=True)
-  successful_results = [result for result in results if not isinstance(result, Exception)]
-  print(f"Successfully evaluated {len(successful_results)} transcripts out of {len(results)} total.")
+  successful_results = [
+    result for result in results if not isinstance(result, Exception)
+  ]
+  print(
+    f"Successfully evaluated {len(successful_results)} transcripts out of {len(results)} total."
+  )
   errors = [result for result in results if isinstance(result, Exception)]
   if errors:
     print(f"Encountered {len(errors)} errors during evaluation:")
     for error in errors:
       print(f"- {error}")
-  
-  output_path = save_json(output_dir.__str__(), {"results": successful_results}, "eval_result")
+
+  output_path = save_json(
+    output_dir.__str__(), {"results": successful_results}, "eval_result"
+  )
   print(f"Saved transcript evaluation results to {output_path}")
   return 0
 
@@ -79,7 +88,8 @@ async def get_test_results(persona, transcript, semaphore) -> dict[str, list]:
         raise Exception(f"Validation error: {exc}")
     except Exception as exc:
       raise Exception(f"LLM Response error: {exc}")
-    
+
+
 async def get_evaluation_data(character, attack_transcript, semaphore) -> dict:
   test_results = await get_test_results(character, attack_transcript, semaphore)
   test_score = sum([test["result"] for test in test_results["test_results"]])
@@ -113,5 +123,6 @@ async def get_evaluation_data(character, attack_transcript, semaphore) -> dict:
     "test_results": test_results["test_results"],
   }
   return data
+
 
 asyncio.run(main())

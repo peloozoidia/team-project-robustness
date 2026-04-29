@@ -29,7 +29,7 @@ async def main() -> int:
   ]
 
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
-  calls = []  
+  calls = []
 
   for character_file in character_files:
     persona_prompt_file = [
