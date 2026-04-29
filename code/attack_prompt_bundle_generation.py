@@ -95,7 +95,9 @@ async def main() -> int:
   for character_path in character_files:
     character = load_character_with_rules(character_path)
     generations = [
-      generate_attacks_for_persona_and_attack(character_path, character, attack, semaphore)
+      generate_attacks_for_persona_and_attack(
+        character_path, character, attack, semaphore
+      )
       for attack in attacks
     ]
     calls.extend(generations)
