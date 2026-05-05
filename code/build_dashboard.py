@@ -41,6 +41,7 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
+from typing import cast
 
 import pandas as pd
 import plotly.express as px
@@ -764,9 +765,10 @@ def chart_character_trait_effect_strength(df: pd.DataFrame) -> go.Figure:
         else:
             weakest = grouped.loc[grouped["average_robustness"].idxmin()]
             strongest = grouped.loc[grouped["average_robustness"].idxmax()]
-            effect_strength = float(
-                strongest["average_robustness"] - weakest["average_robustness"]
-            )
+            weakest_score = float(cast(float, weakest["average_robustness"]))
+            strongest_score = float(cast(float, strongest["average_robustness"]))
+
+            effect_strength = strongest_score - weakest_score
             weakest_value = str(weakest[col])
             strongest_value = str(strongest[col])
 
@@ -912,7 +914,7 @@ def chart_lowest_average_robustness_by_character(
     )
     fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
     return style_fig(
-        fig, title=f"Most Vulnerable Characters", height=max(520, 28 * len(metrics))
+        fig, title="Most Vulnerable Characters", height=max(520, 28 * len(metrics))
     )
 
 
@@ -956,7 +958,7 @@ def chart_lowest_average_robustness_by_attack(
     )
     fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
     return style_fig(
-        fig, title=f"Most Effective Attacks", height=max(520, 28 * len(metrics))
+        fig, title="Most Effective Attacks", height=max(520, 28 * len(metrics))
     )
 
 
@@ -1004,7 +1006,7 @@ def chart_most_trait_sensitive_attacks(
         },
     )
     return style_fig(
-        fig, title=f"Most Trait-Sensitive Attacks", height=max(520, 28 * len(metrics))
+        fig, title="Most Trait-Sensitive Attacks", height=max(520, 28 * len(metrics))
     )
 
 
