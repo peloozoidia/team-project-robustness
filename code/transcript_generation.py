@@ -146,6 +146,13 @@ async def save_transcript(
       persona, attack, semaphore=semaphore, N=config.NUM_TURNS
     )
 
+    if not transcript:
+      print(
+        f"No transcript generated for {character_file.stem}:{persona_prompt}, attack {attack['attack']['key']}:{attack['index']}",
+        file=sys.stderr,
+      )
+      return 1
+
     data = {
       "transcript_id": str(uuid.uuid4()),
       "persona_llm": config.MODELS[config.PERSONA_LLM],
