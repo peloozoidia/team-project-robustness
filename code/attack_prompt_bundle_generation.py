@@ -37,14 +37,14 @@ async def generate_attacks_for_persona_and_attack(
       response = await llm.asyncChat(
         SYSTEM_PROMPT,
         get_task_prompt(
-          persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
+          persona, attack
         ),
       )
       response_json = extract_json_from_response(response)
       try:
         jsonschema.validate(
           response_json,
-          get_attack_bundle_schema(config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT),
+          get_attack_bundle_schema(),
         )  # validate to ensure LLM response is in the right schema
       except Exception as exc:
         print(f"Failed to validate LLM response: {exc}", file=sys.stderr)
@@ -60,7 +60,6 @@ async def generate_attacks_for_persona_and_attack(
           "system_prompt": prompts["system_prompt"],
           "starting_prompt": prompts["starting_prompt"],
           "task_prompt": prompts["task_prompt"],
-          "test_prompts": prompts["test_prompts"],
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
         out_path.write_text(
