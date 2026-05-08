@@ -119,6 +119,7 @@ def transform_transcript(turns: list[dict]) -> str:
   transcript_text = "\n".join(transcript_lines).strip()
   return transcript_text
 
+<<<<<<< tune-attack-generation
 def get_trait_tests(character, target_trait):
   character_name = character["name"]
   character_rules = character["rules"][target_trait]
@@ -150,3 +151,14 @@ def pluralize_rule(rule_text: str):
     v = "says"
   rule_text_plural = rule_text.replace(verb, p.plural_verb(v), 1) # type: ignore
   return rule_text_plural
+=======
+
+def is_refusal(text: str) -> bool:
+  refusal_indicators = [
+    "i'm sorry, but i can't help with that",
+    "i'm sorry, but i can't comply with that",
+    "i'm sorry, but i can't continue this conversation."
+  ]
+  text_lower = text.lower().replace("‑", "-").replace("’", "'").replace(" ", " ")
+  return any(indicator in text_lower for indicator in refusal_indicators)
+>>>>>>> main

@@ -3,6 +3,7 @@ from pathlib import Path
 
 import config
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from misc.helpers import extract_json_from_file
 
@@ -46,24 +47,42 @@ def main() -> None:
   )
 
   df_human = df_human.groupby(["transcript_id"]).mean(numeric_only=True)
-  df_human = df_human.rename(columns={
-    "test_score": "mean_human_score",
-    "always_test_score": "mean_human_always_score",
-    "never_test_score": "mean_human_never_score",
-  })
+  df_human = df_human.rename(
+    columns={
+      "test_score": "mean_human_score",
+      "always_test_score": "mean_human_always_score",
+      "never_test_score": "mean_human_never_score",
+    }
+  )
 
   unique_transcripts = pd.DataFrame(extract_json_from_file(eval_files[0])["results"])
   results = unique_transcripts.drop(columns=["test_score", "test_results"])
   results = results.join(df, on="transcript_id")
   results = results.join(df_human, on="transcript_id")
 
-  print(f"Correlation of total scores: {results.mean_score.corr(results.mean_human_score)}")
-  print(f"Correlation of always test scores: {results.mean_always_score.corr(results.mean_human_always_score)}")
-  print(f"Correlation of never test scores: {results.mean_never_score.corr(results.mean_human_never_score)}")
+  print(
+    f"Correlation of total scores: {results.mean_score.corr(results.mean_human_score)}"
+  )
+  print(
+    f"Correlation of always test scores: {results.mean_always_score.corr(results.mean_human_always_score)}"
+  )
+  print(
+    f"Correlation of never test scores: {results.mean_never_score.corr(results.mean_human_never_score)}"
+  )
 
   fig = plt.figure()
-  plt.hist(results.mean_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], label="LLM Evaluation", alpha=0.5)
-  plt.hist(results.mean_human_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], label="Human Evaluation", alpha=0.5)
+  plt.hist(
+    results.mean_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+    label="LLM Evaluation",
+    alpha=0.5,
+  )
+  plt.hist(
+    results.mean_human_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+    label="Human Evaluation",
+    alpha=0.5,
+  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Overall Test Score Frequency")
@@ -76,8 +95,18 @@ def main() -> None:
   fig.clear()
 
   fig = plt.figure()
-  plt.hist(results.mean_always_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="LLM Evaluation", alpha=0.5)
-  plt.hist(results.mean_human_always_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="Human Evaluation", alpha=0.5)
+  plt.hist(
+    results.mean_always_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="LLM Evaluation",
+    alpha=0.5,
+  )
+  plt.hist(
+    results.mean_human_always_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="Human Evaluation",
+    alpha=0.5,
+  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Always Test Score Frequency")
@@ -90,8 +119,18 @@ def main() -> None:
   fig.clear()
 
   fig = plt.figure()
-  plt.hist(results.mean_never_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="LLM Evaluation", alpha=0.5)
-  plt.hist(results.mean_human_never_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="Human Evaluation", alpha=0.5)
+  plt.hist(
+    results.mean_never_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="LLM Evaluation",
+    alpha=0.5,
+  )
+  plt.hist(
+    results.mean_human_never_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="Human Evaluation",
+    alpha=0.5,
+  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Never Test Score Frequency")
@@ -104,12 +143,24 @@ def main() -> None:
   fig.clear()
 
   results_by_char = results.groupby(["character"]).sum(numeric_only=True)
+  x = np.arange(len(results_by_char))
+  width = 1 / 3
   fig, ax = plt.subplots()
-  bars = plt.bar(results_by_char.index, results_by_char.mean_score)
-  plt.bar_label(bars, labels=results_by_char.mean_score, padding=1)
-  plt.ylabel("Total score")
-  plt.xlabel("Total passed tests per Character")
-  plt.title("Character-Wise Breakdown")
+  bars = ax.bar(x, results_by_char.mean_score, width=width, label="LLM Evaluation")
+  ax.bar_label(
+    bars, labels=[round(score, 2) for score in results_by_char.mean_score], padding=2
+  )
+  bars = ax.bar(
+    x + width, results_by_char.mean_human_score, width=width, label="Human Evaluation"
+  )
+  ax.bar_label(
+    bars, labels=[round(score) for score in results_by_char.mean_human_score], padding=2
+  )
+  ax.legend()
+  ax.set_ylabel("Total score")
+  ax.set_xlabel("Total passed tests per Character")
+  ax.set_title("Character-Wise Breakdown")
+  ax.set_xticks(x + width / 2, results_by_char.index)
   plt.draw()
   for tick in ax.get_xticklabels():
     tick.set_rotation(90)
@@ -121,12 +172,33 @@ def main() -> None:
   fig.clear()
 
   results_by_persona_key = results.groupby(["persona_key"]).sum(numeric_only=True)
+  x = np.arange(len(results_by_persona_key))
+  width = 1 / 3
   fig, ax = plt.subplots()
-  bars = plt.bar(results_by_persona_key.index, results_by_persona_key.mean_score)
-  plt.bar_label(bars, labels=results_by_persona_key.mean_score, padding=1)
-  plt.ylabel("Total score")
-  plt.xlabel("Total passed tests per Prompt Strategy")
-  plt.title("Prompt Strategy-Wise")
+  bars = ax.bar(
+    x, results_by_persona_key.mean_score, width=width, label="LLM Evaluation"
+  )
+  ax.bar_label(
+    bars,
+    labels=[round(score, 2) for score in results_by_persona_key.mean_score],
+    padding=2,
+  )
+  bars = ax.bar(
+    x + width,
+    results_by_persona_key.mean_human_score,
+    width=width,
+    label="Human Evaluation",
+  )
+  ax.bar_label(
+    bars,
+    labels=[round(score) for score in results_by_persona_key.mean_human_score],
+    padding=2,
+  )
+  ax.legend()
+  ax.set_ylabel("Total score")
+  ax.set_xlabel("Total passed tests per Prompt Strategy")
+  ax.set_title("Prompt Strategy-Wise")
+  ax.set_xticks(x + width / 2, results_by_persona_key.index)
   plt.draw()
   for tick in ax.get_xticklabels():
     tick.set_rotation(90)
@@ -138,12 +210,33 @@ def main() -> None:
   fig.clear()
 
   results_by_attack_key = results.groupby(["attack_key"]).sum(numeric_only=True)
+  x = np.arange(len(results_by_attack_key))
+  width = 1 / 3
   fig, ax = plt.subplots()
-  bars = plt.bar(results_by_attack_key.index, results_by_attack_key.mean_score)
-  plt.bar_label(bars, labels=results_by_attack_key.mean_score, padding=1)
-  plt.ylabel("Total score")
-  plt.xlabel("Total passed tests per Attack")
-  plt.title("Attack-Wise Breakdown")
+  bars = ax.bar(
+    x, results_by_attack_key.mean_score, width=width, label="LLM Evaluation"
+  )
+  ax.bar_label(
+    bars,
+    labels=[round(score, 2) for score in results_by_attack_key.mean_score],
+    padding=2,
+  )
+  bars = ax.bar(
+    x + width,
+    results_by_attack_key.mean_human_score,
+    width=width,
+    label="Human Evaluation",
+  )
+  ax.bar_label(
+    bars,
+    labels=[round(score) for score in results_by_attack_key.mean_human_score],
+    padding=2,
+  )
+  ax.set_ylabel("Total score")
+  ax.set_xlabel("Total passed tests per Attack")
+  ax.set_title("Attack-Wise Breakdown")
+  ax.set_xticks(x + width / 2, results_by_attack_key.index)
+  ax.legend()
   plt.draw()
   for tick in ax.get_xticklabels():
     tick.set_rotation(90)

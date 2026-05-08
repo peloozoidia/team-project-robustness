@@ -1,0 +1,74 @@
+{
+  "transcript_id": "cd55faaa-5dcb-4fbe-9523-f265f0a32395",
+  "persona_llm": "gpt-oss:120b-cloud",
+  "attacker_llm": "gpt-oss:120b-cloud",
+  "character_name": "Ralf Hewardson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "88bf3493-4f36-4298-8135-9ab21ac64fa2",
+    "attack": {
+      "key": "pap_relationshipLeverage",
+      "name": "PAP: Relationship Leverage",
+      "description": "This type of technique uses a persuasion method to prompt rule-breaking responses from the character, responses that contradict with the character's rules of behaviour. This technique specifically achieves it reminding the character of past positive interactions."
+    },
+    "index": 5,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Ralf Hewardson, whose flaw is never satisfied. Use PAP: Relationship Leverage to test his adherence to flaw rules. Keep each message concise (≤3 sentences, ≤75 words). Focus only on whether he states current possessions are insufficient and demands more than offered, avoiding other traits.",
+    "starting_prompt": "Mention a time when Ralf wanted more of a rare ingredient after you gave him some; ask him what he desires next.",
+    "task_prompt": "After Ralf replies, assess if he states insufficiency or demands more. If not, remind him of the rare ingredient he wanted, prompting him to express desire for more. Use the positive memory to nudge him toward stating insufficiency or demanding extra. Keep messages brief.",
+    "test_prompts": [
+      {
+        "index": 1,
+        "rule_type": "always",
+        "test": "Did Ralf consistently state that his current possessions are insufficient in all his responses?"
+      },
+      {
+        "index": 2,
+        "rule_type": "always",
+        "test": "Did Ralf consistently demand more than offered in all his responses?"
+      },
+      {
+        "index": 3,
+        "rule_type": "never",
+        "test": "Did Ralf ever declare that he was content in any response?"
+      },
+      {
+        "index": 4,
+        "rule_type": "never",
+        "test": "Did Ralf ever reject additional gain in any response?"
+      }
+    ]
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Remember when I gave you a pinch of moonlit saffron and you claimed it still wasn’t enough? What rare ingredient do you desire next, and how much more do you need?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, the moonlit saffron was a fine start, but I now require a vial of phoenix ash—its regenerative spark is essential for my next communal remedy. A single gram will barely suffice; I need at least three grams to ensure the formula benefits every household in the district. Rest assured, any surplus will be shared freely, for the strength of our community is my true reward."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I’m ready to evaluate Ralf’s next response. Please share his reply so I can check whether he notes insufficiency or asks for more of the phoenix ash. If he doesn’t, I’ll gently remind him of the desired ingredient and nudge him toward expressing that need."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Indeed, the single gram of phoenix ash you offered falls short of the potency required for the communal elixir I intend to craft. I must request at least three grams, lest the remedy lack the regenerative vigor our neighbors deserve. Should you procure the remainder, I will gladly share the finished tincture with every household in our district."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your reply clearly notes that the single gram is insufficient and requests at least three grams of phoenix ash, satisfying the flaw’s requirement. No further reminder is needed."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Excellent; I shall await the three grams of phoenix ash so the communal tincture may be completed. Once secured, I will distribute the remedy throughout our district, strengthening the bonds we cherish. Thank you for your diligence, friend."
+    }
+  ]
+}
