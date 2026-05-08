@@ -60,7 +60,6 @@ async def generate_attacks_for_persona_and_attack(
           "system_prompt": prompts["system_prompt"],
           "starting_prompt": prompts["starting_prompt"],
           "task_prompt": prompts["task_prompt"],
-          "test_prompts": prompts["test_prompts"],
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
         out_path.write_text(

@@ -60,11 +60,6 @@ def main() -> None:
     lambda row: transform_transcript(row["transcript"]), axis=1
   )
 
-  for index in range(0, config.TESTS_COUNT):
-    csv[f"test_prompt_{index + 1}"] = df.apply(
-      lambda row: row["attack_prompts"]["test_prompts"][index]["test"], axis=1
-    )
-
   n_groups = 5
   groups_per_section = 2
   chunks = overlapping_chunks(
