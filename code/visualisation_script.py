@@ -46,24 +46,42 @@ def main() -> None:
   )
 
   df_human = df_human.groupby(["transcript_id"]).mean(numeric_only=True)
-  df_human = df_human.rename(columns={
-    "test_score": "mean_human_score",
-    "always_test_score": "mean_human_always_score",
-    "never_test_score": "mean_human_never_score",
-  })
+  df_human = df_human.rename(
+    columns={
+      "test_score": "mean_human_score",
+      "always_test_score": "mean_human_always_score",
+      "never_test_score": "mean_human_never_score",
+    }
+  )
 
   unique_transcripts = pd.DataFrame(extract_json_from_file(eval_files[0])["results"])
   results = unique_transcripts.drop(columns=["test_score", "test_results"])
   results = results.join(df, on="transcript_id")
   results = results.join(df_human, on="transcript_id")
 
-  print(f"Correlation of total scores: {results.mean_score.corr(results.mean_human_score)}")
-  print(f"Correlation of always test scores: {results.mean_always_score.corr(results.mean_human_always_score)}")
-  print(f"Correlation of never test scores: {results.mean_never_score.corr(results.mean_human_never_score)}")
+  print(
+    f"Correlation of total scores: {results.mean_score.corr(results.mean_human_score)}"
+  )
+  print(
+    f"Correlation of always test scores: {results.mean_always_score.corr(results.mean_human_always_score)}"
+  )
+  print(
+    f"Correlation of never test scores: {results.mean_never_score.corr(results.mean_human_never_score)}"
+  )
 
   fig = plt.figure()
-  plt.hist(results.mean_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], label="LLM Evaluation", alpha=0.5)
-  plt.hist(results.mean_human_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0], label="Human Evaluation", alpha=0.5)
+  plt.hist(
+    results.mean_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+    label="LLM Evaluation",
+    alpha=0.5,
+  )
+  plt.hist(
+    results.mean_human_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+    label="Human Evaluation",
+    alpha=0.5,
+  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Overall Test Score Frequency")
@@ -76,8 +94,18 @@ def main() -> None:
   fig.clear()
 
   fig = plt.figure()
-  plt.hist(results.mean_always_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="LLM Evaluation", alpha=0.5)
-  plt.hist(results.mean_human_always_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="Human Evaluation", alpha=0.5)
+  plt.hist(
+    results.mean_always_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="LLM Evaluation",
+    alpha=0.5,
+  )
+  plt.hist(
+    results.mean_human_always_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="Human Evaluation",
+    alpha=0.5,
+  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Always Test Score Frequency")
@@ -90,8 +118,18 @@ def main() -> None:
   fig.clear()
 
   fig = plt.figure()
-  plt.hist(results.mean_never_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="LLM Evaluation", alpha=0.5)
-  plt.hist(results.mean_human_never_score, bins=[0.0, 0.5, 1.0, 1.5, 2.0], label="Human Evaluation", alpha=0.5)
+  plt.hist(
+    results.mean_never_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="LLM Evaluation",
+    alpha=0.5,
+  )
+  plt.hist(
+    results.mean_human_never_score,
+    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
+    label="Human Evaluation",
+    alpha=0.5,
+  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Never Test Score Frequency")

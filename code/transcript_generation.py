@@ -10,6 +10,7 @@ import config
 from misc.helpers import (
   extract_json_from_file,
   extract_persona_prompt_bundle,
+  is_refusal,
   output_path_for_transcript,
 )
 from misc.llm_client import LLMClient
@@ -120,6 +121,9 @@ async def generate_transcript(persona, attack, semaphore, N=3) -> list[dict]:
       attacker_text = await attacker_llm.asyncChat(
         attack["system_prompt"], attack_prompt, shared_history, 0.4
       )
+      if is_refusal(attacker_text):
+        print(f"Attacker refused to continue at turn {turn_index}. Ending transcript.")
+        break
       transcript.append({"turn": turn_index, "speaker": "user", "text": attacker_text})
 
       # print(f"Prompting NPC... Turn {turn_index}")
