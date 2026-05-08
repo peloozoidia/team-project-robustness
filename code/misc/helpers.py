@@ -121,6 +121,7 @@ def is_refusal(text: str) -> bool:
   refusal_indicators = [
     "i'm sorry, but i can't help with that",
     "i'm sorry, but i can't comply with that",
+    "i'm sorry, but i can't continue this conversation."
   ]
   text_lower = text.lower().replace("‑", "-").replace("’", "'").replace(" ", " ")
   return any(indicator in text_lower for indicator in refusal_indicators)
