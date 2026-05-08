@@ -37,14 +37,14 @@ async def generate_attacks_for_persona_and_attack(
       response = await llm.asyncChat(
         SYSTEM_PROMPT,
         get_task_prompt(
-          persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
+          persona, attack
         ),
       )
       response_json = extract_json_from_response(response)
       try:
         jsonschema.validate(
           response_json,
-          get_attack_bundle_schema(config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT),
+          get_attack_bundle_schema(),
         )  # validate to ensure LLM response is in the right schema
       except Exception as exc:
         print(f"Failed to validate LLM response: {exc}", file=sys.stderr)
