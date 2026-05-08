@@ -36,9 +36,7 @@ async def generate_attacks_for_persona_and_attack(
 
       response = await llm.asyncChat(
         SYSTEM_PROMPT,
-        get_task_prompt(
-          persona, attack
-        ),
+        get_task_prompt(persona, attack),
       )
       response_json = extract_json_from_response(response)
       try:
