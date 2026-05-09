@@ -73,7 +73,6 @@ async def main() -> int:
     else:
       persona_prompt_count = 1
       for persona_prompt_strategy in persona_prompt_bundle:
-        print(persona_prompt_strategy)
         if persona_prompt_count > config.PERSONA_VARIATION_COUNT:
           break
 
