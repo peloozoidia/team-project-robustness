@@ -40,10 +40,30 @@ def get_response(
 
 
 def extract_json_from_response(input) -> dict:
+  import re
+  input_str = str(input).strip()
+  # Try to find the JSON object by looking for balanced braces starting from the beginning
+  # Find the position of the first '{' and then find the matching '}'
+  start = input_str.find('{')
+  if start == -1:
+    raise ValueError("No JSON object found")
+  brace_count = 0
+  end = start
+  for i in range(start, len(input_str)):
+    if input_str[i] == '{':
+      brace_count += 1
+    elif input_str[i] == '}':
+      brace_count -= 1
+      if brace_count == 0:
+        end = i + 1
+        break
+  if brace_count != 0:
+    raise ValueError("Unbalanced braces")
+  json_str = input_str[start:end]
   try:
-    return json.loads(str(input).strip("```").strip("json").replace(',"{', ",{"))
+    return json.loads(json_str)
   except Exception as exc:
-    print(input)
+    print(f"Failed to parse extracted JSON: {json_str}")
     raise exc
 
 

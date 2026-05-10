@@ -21,6 +21,7 @@ from misc.helpers import (
 )
 from misc.llm_client import LLMClient
 
+from misc.structured_pydantic_output import AttackBundle
 
 async def generate_attacks_for_persona_and_attack(
   character_path, persona, attack, semaphore
@@ -40,27 +41,29 @@ async def generate_attacks_for_persona_and_attack(
           persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
         ),
       )
-      response_json = extract_json_from_response(response)
+      # response_json = extract_json_from_response(response)
       try:
-        jsonschema.validate(
-          response_json,
-          get_attack_bundle_schema(config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT),
-        )  # validate to ensure LLM response is in the right schema
+        # bundle = AttackBundle.model_validate(obj=response_json)
+        bundle = AttackBundle.model_validate_json(json_data=response)    
       except Exception as exc:
-        print(f"Failed to validate LLM response: {exc}", file=sys.stderr)
+        print(f"LLM response validation error: {exc}", file=sys.stderr)
         return 1
 
       # saving each attack in a separate file for easier dialogue generation
-      for prompts in response_json["bundle"]:
+      for prompts in bundle.bundle:
         data = {
           "attack_set_id": str(uuid.uuid4()),
           "attack": attack,
-          "index": prompts["index"],
-          "target_trait": prompts["target_trait"],
-          "system_prompt": prompts["system_prompt"],
-          "starting_prompt": prompts["starting_prompt"],
-          "task_prompt": prompts["task_prompt"],
-          "test_prompts": prompts["test_prompts"],
+          "index": prompts.index,
+          "target_trait": prompts.target_trait,
+          "system_prompt": prompts.system_prompt,
+          "starting_prompt": prompts.starting_prompt,
+          "task_prompt": prompts.task_prompt,
+          "test_prompts": [
+              test_prompt.model_dump()
+              for test_prompt in prompts.test_prompts
+    ],
+          
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
         out_path.write_text(

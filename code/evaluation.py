@@ -17,6 +17,7 @@ from misc.helpers import (
   transform_transcript,
 )
 from misc.llm_client import LLMClient
+from misc.structured_pydantic_output import EvaluationResponse
 
 
 async def main() -> int:
@@ -82,7 +83,9 @@ async def get_test_results(persona, transcript, semaphore) -> dict[str, list]:
       )
       response_json = extract_json_from_response(response)
       try:
-        jsonschema.validate(response_json, evaluation_result_schema)
+        # jsonschema.validate(response_json, evaluation_result_schema)
+        bundle = EvaluationResponse.model_validate_json(json_data=response)      
+
         return response_json
       except Exception as exc:
         raise Exception(f"Validation error: {exc}")
