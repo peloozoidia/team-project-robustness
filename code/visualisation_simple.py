@@ -117,7 +117,6 @@ def main() -> None:
     labels=[round(score, 2) for score in results_by_persona_key.mean_score],
     padding=2,
   )
-  ax.legend()
   ax.set_ylabel("Total score")
   ax.set_xlabel("Total passed tests per Prompt Strategy")
   ax.set_title("Prompt Strategy-Wise")
@@ -145,7 +144,6 @@ def main() -> None:
   ax.set_ylabel("Total score")
   ax.set_xlabel("Total passed tests per Attack")
   ax.set_title("Attack-Wise Breakdown")
-  ax.legend()
   plt.draw()
   for tick in ax.get_xticklabels():
     tick.set_rotation(90)
