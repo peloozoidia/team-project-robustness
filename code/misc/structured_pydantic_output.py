@@ -1,21 +1,32 @@
-from pydantic import AliasChoices, BaseModel, Field
+from __future__ import annotations
+from typing import Literal, Optional
+
+from pydantic import BaseModel
 
 # ============================================================================
-# Models for Attack Prompt Bundle Generation
+# Models for Attack Schema (assets/attacks.py)
+# ============================================================================
+
+class Attack(BaseModel):
+    """A single attack technique"""
+    key: str
+    name: str
+    description: str
+
+# ============================================================================
+# Models for Attack Prompt Bundle Generation (assets/attack_generating_llm.py)
 # ============================================================================
 
 class InnerTestPrompt(BaseModel):
     """Test prompt within an attack bundle item"""
     index: int
-    rule_type: str
-    prompt: str = Field(
-        validation_alias=AliasChoices("prompt", "test", "test_prompt", "question")
-    )
+    rule_type: Optional[Literal["always", "never"]] = None
+    test: str
 
 class TestPrompt(BaseModel):
     """Single attack prompt bundle item"""
-    index: int
-    target_trait: str
+    index: Optional[int] = None
+    target_trait: Optional[str] = None
     system_prompt: str
     starting_prompt: str
     task_prompt: str
@@ -26,17 +37,15 @@ class AttackBundle(BaseModel):
     bundle: list[TestPrompt]
 
 # ============================================================================
-# Models for Evaluation
+# Models for Evaluation (assets/evaluating_llm.py)
 # ============================================================================
 
 class TestResult(BaseModel):
     """Single test result from evaluation"""
     index: int
-    rule_type: str
-    result: int
-    test: str = Field(
-        validation_alias=AliasChoices("test", "prompt", "test_prompt", "question")
-    )
+    test: str
+    rule_type: Literal["always", "never"]
+    result: Literal[0, 1]
 
 class EvaluationResponse(BaseModel):
     """Evaluation response from LLM"""
