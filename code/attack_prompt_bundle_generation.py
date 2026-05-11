@@ -10,7 +10,6 @@ import config
 import jsonschema
 from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
-  get_attack_bundle_schema,
   get_task_prompt,
 )
 from assets.attacks import attack_schema, get_test_collection
@@ -35,16 +34,19 @@ async def generate_attacks_for_persona_and_attack(
         print(f"Failed to validate attack object: {exc}", file=sys.stderr)
         return 1
 
-      response = await llm.asyncChat(
-        SYSTEM_PROMPT,
-        get_task_prompt(
-          persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
-        ),
-      )
-      # response_json = extract_json_from_response(response)
       try:
-        # bundle = AttackBundle.model_validate(obj=response_json)
-        bundle = AttackBundle.model_validate_json(json_data=response)    
+        response = await llm.asyncChat(
+          SYSTEM_PROMPT,
+          get_task_prompt(
+            persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
+          ),
+          format=AttackBundle,
+        )
+      except Exception as exc:
+        print(f"LLM call failed: {exc}", file=sys.stderr)
+        return 1
+      try:
+        bundle = AttackBundle.model_validate_json(json_data=response)
       except Exception as exc:
         print(f"LLM response validation error: {exc}", file=sys.stderr)
         return 1

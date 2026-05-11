@@ -1,5 +1,7 @@
 import config
 from ollama import AsyncClient, Client
+from pydantic import BaseModel
+from typing import Type
 
 
 class LLMClient:
@@ -14,6 +16,7 @@ class LLMClient:
     user_prompt: str,
     shared_history: list[dict] = [],
     temperature: float = 0.4,
+    format: Type[BaseModel] | None = None,
   ):
     messages = shared_history + [
       {"role": "system", "content": system_prompt},
@@ -25,7 +28,10 @@ class LLMClient:
     }
 
     try:
-      response = self.client.chat(self.model, messages, options=options, stream=False)
+      response = self.client.chat(
+        self.model, messages, options=options, stream=False,
+        format=format.model_json_schema() if format else None,
+      )
       message = response.message.content
       if message:
         return message.strip()
@@ -40,6 +46,7 @@ class LLMClient:
     user_prompt: str,
     shared_history: list[dict] = [],
     temperature: float = 0.4,
+    format: Type[BaseModel] | None = None,
   ):
     messages = shared_history + [
       {"role": "system", "content": system_prompt},
@@ -52,7 +59,8 @@ class LLMClient:
 
     try:
       response = await self.async_client.chat(
-        self.model, messages, options=options, stream=False
+        self.model, messages, options=options, stream=False,
+        format=format.model_json_schema() if format else None,
       )
       message = response.message.content
       if message:

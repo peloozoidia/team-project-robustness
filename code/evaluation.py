@@ -80,6 +80,7 @@ async def get_test_results(persona, transcript, semaphore) -> dict[str, list]:
         get_task_prompt(
           persona, transcript_text, transcript["attack_prompts"]["test_prompts"]
         ),
+        format=EvaluationResponse,
       )
       response_json = extract_json_from_response(response)
       try:
