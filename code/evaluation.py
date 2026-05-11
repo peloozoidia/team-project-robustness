@@ -113,6 +113,7 @@ async def get_evaluation_data(character, attack_transcript, semaphore) -> dict:
 
   data = {
     "transcript_id": attack_transcript["transcript_id"],
+    "evaluating_model": config.MODELS[config.EVALUATING_LLM],
     "character": character["name"],
     "persona_key": attack_transcript["persona_prompt_strategy"],
     "persona_llm": attack_transcript["persona_llm"],
