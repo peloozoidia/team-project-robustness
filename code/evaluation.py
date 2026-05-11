@@ -12,6 +12,7 @@ from assets.evaluating_llm import (
 from misc.helpers import (
   extract_json_from_file,
   extract_json_from_response,
+  get_trait_tests,
   load_character_with_rules,
   save_json,
   transform_transcript,
@@ -78,7 +79,9 @@ async def get_test_results(persona, transcript, semaphore) -> dict[str, list]:
       response = await llm.asyncChat(
         SYSTEM_PROMPT,
         get_task_prompt(
-          persona, transcript_text, transcript["attack_prompts"]["test_prompts"]
+          persona,
+          transcript_text,
+          get_trait_tests(persona, transcript["attack_prompts"]["target_trait"]),
         ),
         format=EvaluationResponse,
       )

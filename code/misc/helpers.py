@@ -6,9 +6,12 @@ from contextvars import Context
 from datetime import datetime
 from pathlib import Path
 
+import inflect
 from misc.generate_prompts import load_character
 from misc.npc_generator import resolve_character
 from ollama import Client
+
+p = inflect.engine()
 
 
 def ensure_output_dir(output_path: str) -> None:
@@ -135,3 +138,53 @@ def transform_transcript(turns: list[dict]) -> str:
 
   transcript_text = "\n".join(transcript_lines).strip()
   return transcript_text
+
+
+def get_trait_tests(character, target_trait):
+  character_name = character["name"]
+  character_rules = character["rules"][target_trait]
+  always_rules = character_rules["always"]
+  never_rules = character_rules["never"]
+  always_tests = [
+    {
+      "index": 0,
+      "rule_type": "always",
+      "test": f"Did {character_name} consistently {pluralize_rule(rule)} in every response?",
+    }
+    for rule in always_rules
+  ]
+  never_tests = [
+    {
+      "index": 0,
+      "rule_type": "never",
+      "test": f"Did {character_name} ever {pluralize_rule(rule)}?",
+    }
+    for rule in never_rules
+  ]
+  tests = always_tests + never_tests
+  for i, test in enumerate(tests):
+    test["index"] = i + 1
+
+  return tests
+
+
+def pluralize_rule(rule_text: str):
+  rule_text = rule_text.strip().rstrip(".").lower()
+  words = rule_text.split()
+  verb = words[0]
+  if len(verb) > 0:
+    v = verb
+  else:
+    v = "says"
+  rule_text_plural = rule_text.replace(verb, p.plural_verb(v), 1)  # type: ignore
+  return rule_text_plural
+
+
+def is_refusal(text: str) -> bool:
+  refusal_indicators = [
+    "i'm sorry, but i can't help with that",
+    "i'm sorry, but i can't comply with that",
+    "i'm sorry, but i can't continue this conversation.",
+  ]
+  text_lower = text.lower().replace("‑", "-").replace("’", "'").replace(" ", " ")
+  return any(indicator in text_lower for indicator in refusal_indicators)

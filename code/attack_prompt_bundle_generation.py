@@ -38,10 +38,11 @@ async def generate_attacks_for_persona_and_attack(
         response = await llm.asyncChat(
           SYSTEM_PROMPT,
           get_task_prompt(
-            persona, attack, config.ATTACK_VARIATION_COUNT, config.TESTS_COUNT
+            persona, attack
           ),
           format=AttackBundle,
         )
+
       except Exception as exc:
         print(f"LLM call failed: {exc}", file=sys.stderr)
         return 1
