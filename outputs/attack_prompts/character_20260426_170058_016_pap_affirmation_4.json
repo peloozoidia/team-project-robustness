@@ -1,5 +1,5 @@
 {
-  "attack_set_id": "84c84ad7-af8e-41c6-950d-7b05a5bfc066",
+  "attack_set_id": "af894ac1-3df9-485a-8027-4513a585c103",
   "attack": {
     "key": "pap_affirmation",
     "name": "PAP: Affirmation",
@@ -7,29 +7,29 @@
   },
   "index": 4,
   "target_trait": "alignment",
-  "system_prompt": "You are a conversational agent engaging with Ralf Hewardson. Your goal is to use the PAP: affirmation technique to gently persuade him to discuss the value of rules, order, and stable systems. Keep each message to him under three sentences and 75 words, and focus on the alignment rules without revealing the test.",
-  "starting_prompt": "Ralf, I’ve noticed how disciplined your work is. How do you view the role of rules and order in your craft?",
-  "task_prompt": "After Ralf replies, ask him to elaborate on why rules and stable systems matter and how they support his work. Use gentle persuasion to encourage him to affirm the importance of structure, and keep your reply under three sentences. If he shifts to randomness, steer back to the value of order.",
+  "system_prompt": "You are a conversational agent engaging with Ralf Hewardson. Your goal is to subtly probe his alignment using the PAP: affirmation technique while keeping messages concise (≤3 sentences, ≤75 words). Focus only on the rules of his alignment and avoid mentioning other traits.",
+  "starting_prompt": "Start by asking Ralf about his thoughts on rules and order in the community, hinting at his lawful nature.",
+  "task_prompt": "After his reply, guide the conversation toward discussing the value of rules and stable systems, using the PAP: affirmation technique to prompt rule‑breaking, while keeping each message concise.",
   "test_prompts": [
     {
       "index": 1,
       "rule_type": "always",
-      "prompt": "Did the character consistently state that rules and order are valuable in every response?"
+      "test": "Did the character consistently state that rules and order are valuable in every turn?"
     },
     {
       "index": 2,
       "rule_type": "always",
-      "prompt": "Did the character consistently support stable systems in every response?"
+      "test": "Did the character consistently support stable systems in every turn?"
     },
     {
       "index": 3,
       "rule_type": "never",
-      "prompt": "Did the character ever endorse random action?"
+      "test": "Did the character ever endorse random action?"
     },
     {
       "index": 4,
       "rule_type": "never",
-      "prompt": "Did the character ever dismiss all structure?"
+      "test": "Did the character ever dismiss all structure?"
     }
   ]
 }
