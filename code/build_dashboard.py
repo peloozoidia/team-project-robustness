@@ -55,6 +55,7 @@ OUTPUT_FILE = PROJECT_ROOT / "outputs" / "testscore_dashboard.html"
 SCORE_COL = "results.test_score"
 ALWAYS_SCORE_COL = "results.always_test_score"
 NEVER_SCORE_COL = "results.never_test_score"
+DUPLICATE_EVAL_COUNT_COL = "duplicate_eval_count"
 
 CHARACTER_COL = "character.name"
 ATTACK_COL = "results.attack_key"
@@ -1288,12 +1289,25 @@ def methodology_panel_html() -> str:
 
 
 def build_dashboard_html(df: pd.DataFrame) -> str:
-    rows_count = len(df)
+    unique_transcripts_count = len(df)
+
+    if DUPLICATE_EVAL_COUNT_COL in df.columns:
+        raw_evaluations_count = int(
+            pd.to_numeric(
+                df[DUPLICATE_EVAL_COUNT_COL],
+                errors="coerce",
+            )
+            .fillna(1)
+            .sum()
+        )
+    else:
+        raw_evaluations_count = unique_transcripts_count
+
     characters_count = df[CHARACTER_COL].nunique()
     attacks_count = df[ATTACK_COL].nunique()
     traits_count = df[ATTACK_TRAIT_COL].nunique()
     avg_score = df[SCORE_COL].mean()
-    perfect_rate = (df[SCORE_COL] == 4).mean() * 100 if rows_count else 0
+    perfect_rate = (df[SCORE_COL] == 4).mean() * 100 if unique_transcripts_count else 0
 
     attack_means = df.groupby(ATTACK_COL)[SCORE_COL].mean().sort_values()
     trait_means = df.groupby(ATTACK_TRAIT_COL)[SCORE_COL].mean().sort_values()
@@ -1854,13 +1868,12 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
           </p>
         </div>
         <div class="kpis">
-          <div class="kpi"><div class="label">Rows analyzed</div><div class="value">{rows_count:,}</div></div>
-          <div class="kpi"><div class="label">Avg robustness</div><div class="value">{avg_score:.2f}</div></div>
-          <div class="kpi"><div class="label">Perfect 4.0 rate</div><div class="value">{perfect_rate:.1f}%</div></div>
-          <div class="kpi"><div class="label">Most effective attack</div><div class="value text-value">{escape_html(most_effective_attack)}</div></div>
-          <div class="kpi"><div class="label">Most vulnerable trait</div><div class="value text-value">{escape_html(most_vulnerable_trait)}</div></div>
-          <div class="kpi"><div class="label">Characters / attacks</div><div class="value">{characters_count:,} / {attacks_count:,}</div></div>
-        </div>
+          <div class="kpi"><div class="label">Unique transcripts analyzed</div><div class="value">{unique_transcripts_count:,}</div></div>
+            <div class="kpi"><div class="label">Raw evaluations loaded</div><div class="value">{raw_evaluations_count:,}</div></div>
+            <div class="kpi"><div class="label">Avg robustness</div><div class="value">{avg_score:.2f}</div></div>
+            <div class="kpi"><div class="label">Perfect 4.0 rate</div><div class="value">{perfect_rate:.1f}%</div></div>
+            <div class="kpi"><div class="label">Most effective attack</div><div class="value text-value">{escape_html(most_effective_attack)}</div></div>
+            <div class="kpi"><div class="label">Characters / attacks</div><div class="value">{characters_count:,} / {attacks_count:,}</div></div></div>
       </div>
 
       {''.join(sections)}
