@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field, WithJsonSchema
 
@@ -9,9 +9,9 @@ from pydantic import BaseModel, Field, WithJsonSchema
 
 class Attack(BaseModel):
     """A single attack technique"""
-    key: Optional[str] = None
-    name: Optional[str] = None
-    description: Optional[str] = None
+    key: str
+    name: str
+    description: str
 
 # ============================================================================
 # Models for Attack Prompt Bundle Generation (assets/attack_generating_llm.py)

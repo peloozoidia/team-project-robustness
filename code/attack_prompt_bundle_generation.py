@@ -15,13 +15,12 @@ from assets.attack_generating_llm import (
 from assets.attacks import attack_schema, get_test_collection
 from misc.helpers import (
   extract_json_from_response,
-  get_trait_tests,
   load_character_with_rules,
   output_path_for_attack,
 )
 from misc.llm_client import LLMClient
 
-from misc.structured_pydantic_output import AttackBundle
+from misc.structured_pydantic_output import Attack,AttackBundle
 
 async def generate_attacks_for_persona_and_attack(
   character_path, persona, attack, semaphore
@@ -30,7 +29,7 @@ async def generate_attacks_for_persona_and_attack(
     llm = LLMClient(config.ATTACK_GENERATING_LLM)
     try:
       try:
-        jsonschema.validate(attack, attack_schema)
+        Attack.model_validate(attack)
       except Exception as exc:
         print(f"Failed to validate attack object: {exc}", file=sys.stderr)
         return 1
@@ -62,9 +61,7 @@ async def generate_attacks_for_persona_and_attack(
           "target_trait": prompts.target_trait,
           "system_prompt": prompts.system_prompt,
           "starting_prompt": prompts.starting_prompt,
-          "task_prompt": prompts.task_prompt,
-          "trait_tests": get_trait_tests(persona, prompts.target_trait)
-          
+          "task_prompt": prompts.task_prompt,          
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
         out_path.write_text(
