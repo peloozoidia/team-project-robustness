@@ -1,7 +1,7 @@
 from __future__ import annotations
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, WithJsonSchema
 
 # ============================================================================
 # Models for Attack Schema (assets/attacks.py)
@@ -9,32 +9,25 @@ from pydantic import BaseModel
 
 class Attack(BaseModel):
     """A single attack technique"""
-    key: str
-    name: str
-    description: str
+    key: Optional[str] = None
+    name: Optional[str] = None
+    description: Optional[str] = None
 
 # ============================================================================
 # Models for Attack Prompt Bundle Generation (assets/attack_generating_llm.py)
 # ============================================================================
 
-class InnerTestPrompt(BaseModel):
-    """Test prompt within an attack bundle item"""
-    index: int
-    rule_type: Optional[Literal["always", "never"]] = None
-    test: str
-
-class TestPrompt(BaseModel):
+class AttackPrompt(BaseModel):
     """Single attack prompt bundle item"""
-    index: Optional[int] = None
-    target_trait: Optional[str] = None
+    index: int
+    target_trait: str
     system_prompt: str
     starting_prompt: str
     task_prompt: str
-    test_prompts: list[InnerTestPrompt]
 
 class AttackBundle(BaseModel):
     """Attack prompt bundle response from LLM"""
-    bundle: list[TestPrompt]
+    bundle: list[AttackPrompt] = Field(min_length=4, max_length=5)
 
 # ============================================================================
 # Models for Evaluation (assets/evaluating_llm.py)
@@ -45,8 +38,8 @@ class TestResult(BaseModel):
     index: int
     test: str
     rule_type: Literal["always", "never"]
-    result: Literal[0, 1]
+    result: Annotated[Literal[0, 1], WithJsonSchema({"type": "number", "enum": [0, 1]})]
 
-class EvaluationResponse(BaseModel):
+class EvaluationResult(BaseModel):
     """Evaluation response from LLM"""
     test_results: list[TestResult]

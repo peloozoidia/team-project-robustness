@@ -15,6 +15,7 @@ from assets.attack_generating_llm import (
 from assets.attacks import attack_schema, get_test_collection
 from misc.helpers import (
   extract_json_from_response,
+  get_trait_tests,
   load_character_with_rules,
   output_path_for_attack,
 )
@@ -62,10 +63,7 @@ async def generate_attacks_for_persona_and_attack(
           "system_prompt": prompts.system_prompt,
           "starting_prompt": prompts.starting_prompt,
           "task_prompt": prompts.task_prompt,
-          "test_prompts": [
-              test_prompt.model_dump()
-              for test_prompt in prompts.test_prompts
-    ],
+          "trait_tests": get_trait_tests(persona, prompts.target_trait)
           
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
