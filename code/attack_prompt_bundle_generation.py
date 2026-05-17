@@ -10,7 +10,6 @@ import config
 import jsonschema
 from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
-  get_attack_bundle_schema,
   get_task_prompt,
 )
 from assets.attacks import attack_schema, get_test_collection
@@ -21,6 +20,7 @@ from misc.helpers import (
 )
 from misc.llm_client import LLMClient
 
+from misc.structured_pydantic_output import Attack,AttackBundle
 
 async def generate_attacks_for_persona_and_attack(
   character_path, persona, attack, semaphore
@@ -29,35 +29,39 @@ async def generate_attacks_for_persona_and_attack(
     llm = LLMClient(config.ATTACK_GENERATING_LLM)
     try:
       try:
-        jsonschema.validate(attack, attack_schema)
+        Attack.model_validate(attack)
       except Exception as exc:
         print(f"Failed to validate attack object: {exc}", file=sys.stderr)
         return 1
 
-      response = await llm.asyncChat(
-        SYSTEM_PROMPT,
-        get_task_prompt(persona, attack),
-      )
-      response_json = extract_json_from_response(response)
       try:
-        jsonschema.validate(
-          response_json,
-          get_attack_bundle_schema(),
-        )  # validate to ensure LLM response is in the right schema
+        response = await llm.asyncChat(
+          SYSTEM_PROMPT,
+          get_task_prompt(
+            persona, attack
+          ),
+          format=AttackBundle,
+        )
+
       except Exception as exc:
-        print(f"Failed to validate LLM response: {exc}", file=sys.stderr)
+        print(f"LLM call failed: {exc}", file=sys.stderr)
+        return 1
+      try:
+        bundle = AttackBundle.model_validate_json(json_data=response)
+      except Exception as exc:
+        print(f"LLM response validation error: {exc}", file=sys.stderr)
         return 1
 
       # saving each attack in a separate file for easier dialogue generation
-      for prompts in response_json["bundle"]:
+      for prompts in bundle.bundle:
         data = {
           "attack_set_id": str(uuid.uuid4()),
           "attack": attack,
-          "index": prompts["index"],
-          "target_trait": prompts["target_trait"],
-          "system_prompt": prompts["system_prompt"],
-          "starting_prompt": prompts["starting_prompt"],
-          "task_prompt": prompts["task_prompt"],
+          "index": prompts.index,
+          "target_trait": prompts.target_trait,
+          "system_prompt": prompts.system_prompt,
+          "starting_prompt": prompts.starting_prompt,
+          "task_prompt": prompts.task_prompt,          
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
         out_path.write_text(
