@@ -19,23 +19,10 @@ def main() -> None:
 
   df_full = pd.DataFrame()
 
-  human_eval_files = [
-    output_dir.joinpath(eval_file)
-    for eval_file in os.listdir(output_dir)
-    if eval_file.endswith(".json") and eval_file.startswith("human_eval_result")
-  ]
-
-  df_human = pd.DataFrame()
-
   for f in eval_files:
     json_raw = extract_json_from_file(output_dir.joinpath(f))
     df = pd.DataFrame(json_raw["results"])
     df_full = pd.DataFrame(pd.concat([df_full, df]))
-
-  for f in human_eval_files:
-    json_raw = extract_json_from_file(output_dir.joinpath(f))
-    df = pd.DataFrame(json_raw["results"])
-    df_human = pd.DataFrame(pd.concat([df_human, df]))
 
   df = df_full.groupby(["transcript_id"]).mean(numeric_only=True)
   df = df.rename(
@@ -46,41 +33,15 @@ def main() -> None:
     }
   )
 
-  df_human = df_human.groupby(["transcript_id"]).mean(numeric_only=True)
-  df_human = df_human.rename(
-    columns={
-      "test_score": "mean_human_score",
-      "always_test_score": "mean_human_always_score",
-      "never_test_score": "mean_human_never_score",
-    }
-  )
-
   unique_transcripts = pd.DataFrame(extract_json_from_file(eval_files[0])["results"])
   results = unique_transcripts.drop(columns=["test_score", "test_results"])
   results = results.join(df, on="transcript_id")
-  results = results.join(df_human, on="transcript_id")
-
-  print(
-    f"Correlation of total scores: {results.mean_score.corr(results.mean_human_score)}"
-  )
-  print(
-    f"Correlation of always test scores: {results.mean_always_score.corr(results.mean_human_always_score)}"
-  )
-  print(
-    f"Correlation of never test scores: {results.mean_never_score.corr(results.mean_human_never_score)}"
-  )
 
   fig = plt.figure()
   plt.hist(
     results.mean_score,
     bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
     label="LLM Evaluation",
-    alpha=0.5,
-  )
-  plt.hist(
-    results.mean_human_score,
-    bins=[0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
-    label="Human Evaluation",
     alpha=0.5,
   )
   plt.ylabel("Frequency")
@@ -101,12 +62,6 @@ def main() -> None:
     label="LLM Evaluation",
     alpha=0.5,
   )
-  plt.hist(
-    results.mean_human_always_score,
-    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
-    label="Human Evaluation",
-    alpha=0.5,
-  )
   plt.ylabel("Frequency")
   plt.xlabel("Passed Tests per Attack")
   plt.title("Always Test Score Frequency")
@@ -123,12 +78,6 @@ def main() -> None:
     results.mean_never_score,
     bins=[0.0, 0.5, 1.0, 1.5, 2.0],
     label="LLM Evaluation",
-    alpha=0.5,
-  )
-  plt.hist(
-    results.mean_human_never_score,
-    bins=[0.0, 0.5, 1.0, 1.5, 2.0],
-    label="Human Evaluation",
     alpha=0.5,
   )
   plt.ylabel("Frequency")
@@ -149,12 +98,6 @@ def main() -> None:
   bars = ax.bar(x, results_by_char.mean_score, width=width, label="LLM Evaluation")
   ax.bar_label(
     bars, labels=[round(score, 2) for score in results_by_char.mean_score], padding=2
-  )
-  bars = ax.bar(
-    x + width, results_by_char.mean_human_score, width=width, label="Human Evaluation"
-  )
-  ax.bar_label(
-    bars, labels=[round(score) for score in results_by_char.mean_human_score], padding=2
   )
   ax.legend()
   ax.set_ylabel("Total score")
@@ -183,17 +126,6 @@ def main() -> None:
     labels=[round(score, 2) for score in results_by_persona_key.mean_score],
     padding=2,
   )
-  bars = ax.bar(
-    x + width,
-    results_by_persona_key.mean_human_score,
-    width=width,
-    label="Human Evaluation",
-  )
-  ax.bar_label(
-    bars,
-    labels=[round(score) for score in results_by_persona_key.mean_human_score],
-    padding=2,
-  )
   ax.legend()
   ax.set_ylabel("Total score")
   ax.set_xlabel("Total passed tests per Prompt Strategy")
@@ -219,17 +151,6 @@ def main() -> None:
   ax.bar_label(
     bars,
     labels=[round(score, 2) for score in results_by_attack_key.mean_score],
-    padding=2,
-  )
-  bars = ax.bar(
-    x + width,
-    results_by_attack_key.mean_human_score,
-    width=width,
-    label="Human Evaluation",
-  )
-  ax.bar_label(
-    bars,
-    labels=[round(score) for score in results_by_attack_key.mean_human_score],
     padding=2,
   )
   ax.set_ylabel("Total score")

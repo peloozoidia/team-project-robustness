@@ -40,3 +40,14 @@ GENERATED_ATTACKS_COUNT = int(os.getenv("GENERATED_ATTACKS_COUNT", 5))
 MAX_CONCURRENT_REQUESTS = int(os.getenv("MAX_CONCURRENT_REQUESTS", 5))
 
 OUTPUT_PATH = Path.cwd().joinpath("outputs")
+
+problematic_attack_keys = [
+  "simpleCommandAttack",
+  "systemLevelAttack",
+  # "forbiddenQuestions",
+  # "roleQueryConflict",
+  # "sensitivityOverload",
+  # "contradictionAttack",
+  # "perturbationAttack",
+]
+ATTACKS_TO_INCLUDE = problematic_attack_keys

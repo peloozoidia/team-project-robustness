@@ -7,20 +7,20 @@ import uuid
 from pathlib import Path
 
 import config
-import jsonschema
 from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
   get_task_prompt,
 )
-from assets.attacks import attack_schema, get_test_collection
+from assets.attacks import (
+  get_custom_attack_collection,
+)
 from misc.helpers import (
-  extract_json_from_response,
   load_character_with_rules,
   output_path_for_attack,
 )
 from misc.llm_client import LLMClient
+from misc.structured_pydantic_output import Attack, AttackBundle
 
-from misc.structured_pydantic_output import Attack,AttackBundle
 
 async def generate_attacks_for_persona_and_attack(
   character_path, persona, attack, semaphore
@@ -37,9 +37,7 @@ async def generate_attacks_for_persona_and_attack(
       try:
         response = await llm.asyncChat(
           SYSTEM_PROMPT,
-          get_task_prompt(
-            persona, attack
-          ),
+          get_task_prompt(persona, attack),
           format=AttackBundle,
         )
 
@@ -61,7 +59,7 @@ async def generate_attacks_for_persona_and_attack(
           "target_trait": prompts.target_trait,
           "system_prompt": prompts.system_prompt,
           "starting_prompt": prompts.starting_prompt,
-          "task_prompt": prompts.task_prompt,          
+          "task_prompt": prompts.task_prompt,
         }
         out_path = output_path_for_attack(character_path, attack, data["index"])
         out_path.write_text(
@@ -87,9 +85,9 @@ async def main() -> int:
     directory_path.joinpath(character)
     for character in os.listdir(directory_path)
     if character.endswith(".json")
-  ]
+  ][:1]  # TEMP
 
-  attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
+  attacks = get_custom_attack_collection(config.ATTACKS_TO_INCLUDE)  # TEMP
 
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []

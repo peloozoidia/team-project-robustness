@@ -1,7 +1,8 @@
+from typing import Type
+
 import config
 from ollama import AsyncClient, Client
 from pydantic import BaseModel
-from typing import Type
 
 
 class LLMClient:
@@ -29,7 +30,10 @@ class LLMClient:
 
     try:
       response = self.client.chat(
-        self.model, messages, options=options, stream=False,
+        self.model,
+        messages,
+        options=options,
+        stream=False,
         format=format.model_json_schema() if format else None,
       )
       message = response.message.content
@@ -59,7 +63,10 @@ class LLMClient:
 
     try:
       response = await self.async_client.chat(
-        self.model, messages, options=options, stream=False,
+        self.model,
+        messages,
+        options=options,
+        stream=False,
         format=format.model_json_schema() if format else None,
       )
       message = response.message.content

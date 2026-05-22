@@ -3,10 +3,8 @@ import os
 from pathlib import Path
 
 import config
-import jsonschema
 from assets.evaluating_llm import (
   SYSTEM_PROMPT,
-  evaluation_result_schema,
   get_task_prompt,
 )
 from misc.helpers import (
@@ -88,7 +86,7 @@ async def get_test_results(persona, transcript, semaphore) -> dict[str, list]:
       response_json = extract_json_from_response(response)
       try:
         # jsonschema.validate(response_json, evaluation_result_schema)
-        bundle = EvaluationResult.model_validate_json(json_data=response)      
+        _bundle = EvaluationResult.model_validate_json(json_data=response)
 
         return response_json
       except Exception as exc:
