@@ -1,8 +1,9 @@
 import csv
-import json
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean
+
+from misc.helpers import extract_json_from_file
 
 CHARACTER_DIR = Path("outputs/characters")
 RESULTS_DIR = Path("outputs/results")
@@ -42,15 +43,18 @@ SCORE_FIELDS = [
 ]
 
 
-def load_json(path: Path):
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def iter_json_files(directory: Path):
+def iter_json_files(directory: Path, required_prefix: str | None = None):
     for path in directory.iterdir():
-        if path.is_file() and path.suffix.lower() == ".json":
-            yield path
+        if not path.is_file():
+            continue
+
+        if path.suffix.lower() != ".json":
+            continue
+
+        if required_prefix is not None and not path.name.startswith(required_prefix):
+            continue
+
+        yield path
 
 
 def load_characters():
@@ -70,10 +74,10 @@ def load_characters():
     characters = {}
 
     for path in iter_json_files(CHARACTER_DIR):
-        data = load_json(path)
-
-        if not isinstance(data, dict):
-            print(f"Skipping non-object character file: {path}")
+        try:
+            data = extract_json_from_file(path)
+        except ValueError as exc:
+            print(f"Skipping invalid character file {path}: {exc}")
             continue
 
         name = data.get("name")
@@ -110,11 +114,11 @@ def load_eval_results():
     """
     results_by_transcript = defaultdict(list)
 
-    for path in iter_json_files(RESULTS_DIR):
-        data = load_json(path)
-
-        if not isinstance(data, dict):
-            print(f"Skipping non-object result file: {path}")
+    for path in iter_json_files(RESULTS_DIR, required_prefix="eval_result"):
+        try:
+            data = extract_json_from_file(path)
+        except ValueError as exc:
+            print(f"Skipping invalid result file {path}: {exc}")
             continue
 
         results = data.get("results")
