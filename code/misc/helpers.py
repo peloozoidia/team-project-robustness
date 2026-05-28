@@ -43,7 +43,6 @@ def get_response(
 
 
 def extract_json_from_response(input) -> dict:
-
   input_str = str(input).strip()
   # Try to find the JSON object by looking for balanced braces starting from the beginning
   # Find the position of the first '{' and then find the matching '}'
