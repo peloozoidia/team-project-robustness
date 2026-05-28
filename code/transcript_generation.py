@@ -24,7 +24,7 @@ async def main() -> int:
     character_dir.joinpath(character)
     for character in os.listdir(character_dir)
     if character.endswith(".json")
-  ][:1]
+  ]
 
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []

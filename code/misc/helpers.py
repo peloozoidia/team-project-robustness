@@ -1,18 +1,18 @@
 import asyncio
 import json
 import os
+import sys
+import uuid
 from asyncio.tasks import Task
 from contextvars import Context
 from datetime import datetime
 from pathlib import Path
-import sys
-import uuid
 
+import config
 import inflect
 from misc.generate_prompts import load_character
 from misc.npc_generator import resolve_character
 from ollama import Client
-import config
 
 p = inflect.engine()
 
@@ -193,7 +193,13 @@ def is_refusal(text: str) -> bool:
 
 
 async def save_transcript(
-  character_file, character_name, persona_prompt, persona, attack, transcript_generator, semaphore
+  character_file,
+  character_name,
+  persona_prompt,
+  persona,
+  attack,
+  transcript_generator,
+  semaphore,
 ) -> int:
   try:
     transcript = await transcript_generator(
