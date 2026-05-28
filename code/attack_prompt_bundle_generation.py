@@ -128,7 +128,9 @@ async def main() -> int:
   print(f"Attack prompt bundle generation completed in {end - start:.2f} seconds.")
 
   if last_combination_index >= total_combinations:
-    print("Attack Prompt Bundle generation is complete. All combinations have been processed.")
+    print(
+      "Attack Prompt Bundle generation is complete. All combinations have been processed."
+    )
 
   # Update the checkpoint
   checkpoint["next_combination_index"] = last_combination_index

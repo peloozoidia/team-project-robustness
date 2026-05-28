@@ -30,7 +30,7 @@ async def main() -> int:
   ]
 
   attack_prompt_files = [
-    attack_prompt_dir.joinpath(file)    
+    attack_prompt_dir.joinpath(file)
     for file in os.listdir(attack_prompt_dir)
     if file.endswith(".json")
   ]
@@ -48,7 +48,7 @@ async def main() -> int:
     next_transcript_index + config.TRANSCRIPT_BATCH_SIZE, total_transcripts
   )
 
-  transcript_inputs = [] # saves all combinations of inputs needed to run transcript generation
+  transcript_inputs = []  # saves all combinations of inputs needed to run transcript generation
 
   for character_file in character_files:
     persona_prompt_file = [
@@ -60,7 +60,11 @@ async def main() -> int:
       persona_prompt_file
     )
 
-    attack_prompts = [extract_json_from_file(file) for file in attack_prompt_files if file.stem.startswith(character_file.stem)]
+    attack_prompts = [
+      extract_json_from_file(file)
+      for file in attack_prompt_files
+      if file.stem.startswith(character_file.stem)
+    ]
 
     if len(attack_prompts) == 0:
       continue
@@ -100,7 +104,7 @@ async def main() -> int:
         persona_prompt_count = persona_prompt_count + 1
 
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
-  calls = [] # saves only the calls run in this batch
+  calls = []  # saves only the calls run in this batch
 
   for i in range(next_transcript_index, last_transcript_index):
     (

@@ -44,7 +44,7 @@ def reset_checkpoints():
 
 def main():
   print("Preparing pipeline to run afresh...")
-  # clear_output_folders()
+  clear_output_folders()
   reset_checkpoints()
   print("Pipeline has been reset. You can now run the pipeline from the beginning.")
 
