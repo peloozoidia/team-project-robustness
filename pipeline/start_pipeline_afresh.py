@@ -2,9 +2,24 @@ import json
 from pathlib import Path
 
 
-def main():
+def clear_output_folders():
+   # Reset output folders
+  output_path = Path.cwd().joinpath("outputs")
+  characters_path = output_path.joinpath("characters")
+  persona_prompts_path = output_path.joinpath("persona_prompts")
+  attack_prompts_path = output_path.joinpath("attack_prompts")
+  transcripts_path = output_path.joinpath("transcripts")
+  results_path = output_path.joinpath("results")
+  for path in [output_path, characters_path, persona_prompts_path, attack_prompts_path, transcripts_path, results_path]:
+    if path.exists():
+      for file in path.iterdir():
+        if file.is_file():
+          file.unlink()
+    else:
+      path.mkdir(parents=True, exist_ok=True)
+
+def reset_checkpoints():
   # Reset checkpoint files
-  
   attack_bundle_checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
   attack_bundle_checkpoint_data = {
     "next_combination_index": 0,
@@ -27,5 +42,10 @@ def main():
     encoding="utf-8",
   )
 
+def main():
+  print("Preparing pipeline to run afresh...")
+  # clear_output_folders()
+  reset_checkpoints()
+  print("Pipeline has been reset. You can now run the pipeline from the beginning.")
 
 main()

@@ -29,8 +29,26 @@ async def main() -> int:
     if character.endswith(".json")
   ]
 
-  semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
-  calls = []
+  attack_prompt_files = [
+    attack_prompt_dir.joinpath(file)    
+    for file in os.listdir(attack_prompt_dir)
+    if file.endswith(".json")
+  ]
+
+  checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-transcripts.json")
+  checkpoint = extract_json_from_file(checkpoint_path)
+
+  total_transcripts = len(attack_prompt_files) * config.PERSONA_VARIATION_COUNT
+  next_transcript_index = int(checkpoint["next_transcript_index"])
+  if next_transcript_index >= total_transcripts:
+    print("All transcripts have already been generated.")
+    return 0
+
+  last_transcript_index = min(
+    next_transcript_index + config.TRANSCRIPT_BATCH_SIZE, total_transcripts
+  )
+
+  transcript_inputs = [] # saves all combinations of inputs needed to run transcript generation
 
   for character_file in character_files:
     persona_prompt_file = [
@@ -42,64 +60,90 @@ async def main() -> int:
       persona_prompt_file
     )
 
-    attack_prompt_files = [
-      attack_prompt_dir.joinpath(file)
-      for file in os.listdir(attack_prompt_dir)
-      if file.startswith(character_file.stem)
-    ]
+    attack_prompts = [extract_json_from_file(file) for file in attack_prompt_files if file.stem.startswith(character_file.stem)]
 
-    if attack_prompt_files.__len__() == 0:
-      break
-
-    attack_prompts = [extract_json_from_file(file) for file in attack_prompt_files]
+    if len(attack_prompts) == 0:
+      continue
 
     if config.CHOSEN_PERSONA_STRATEGY:
       persona_prompt_strategy = list(persona_prompt_bundle.keys())[
         config.CHOSEN_PERSONA_STRATEGY - 1
       ]
       persona_prompt = persona_prompt_bundle[persona_prompt_strategy]
-      generations = [
-        save_transcript(
-          character_file,
-          character_name,
-          persona_prompt_strategy,
-          persona_prompt,
-          attack_prompt,
-          semaphore,
-        )
-        for attack_prompt in attack_prompts
-      ]
-      calls.extend(generations)
-    else:
-      persona_prompt_count = 1
-      for persona_prompt_strategy in persona_prompt_bundle:
-        print(persona_prompt_strategy)
-        if persona_prompt_count > config.PERSONA_VARIATION_COUNT:
-          break
 
-        generations = [
-          save_transcript(
+      for attack_prompt in attack_prompts:
+        transcript_inputs.append(
+          (
             character_file,
             character_name,
             persona_prompt_strategy,
-            persona_prompt_bundle[persona_prompt_strategy],
+            persona_prompt,
             attack_prompt,
-            semaphore,
           )
-          for attack_prompt in attack_prompts
-        ]
-        calls.extend(generations)
+        )
+    else:
+      persona_prompt_count = 1
+      for persona_prompt_strategy in persona_prompt_bundle:
+        if persona_prompt_count > config.PERSONA_VARIATION_COUNT:
+          break
+
+        for attack_prompt in attack_prompts:
+          transcript_inputs.append(
+            (
+              character_file,
+              character_name,
+              persona_prompt_strategy,
+              persona_prompt_bundle[persona_prompt_strategy],
+              attack_prompt,
+            )
+          )
         persona_prompt_count = persona_prompt_count + 1
 
+  semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
+  calls = [] # saves only the calls run in this batch
+
+  for i in range(next_transcript_index, last_transcript_index):
+    (
+      character_file,
+      character_name,
+      persona_prompt_strategy,
+      persona_prompt,
+      attack_prompt,
+    ) = transcript_inputs[i]
+    calls.append(
+      save_transcript(
+        character_file,
+        character_name,
+        persona_prompt_strategy,
+        persona_prompt,
+        attack_prompt,
+        semaphore,
+      )
+    )
+
   results = await asyncio.gather(*calls, return_exceptions=True)
+
   successful = sum(1 for result in results if isinstance(result, int) and result == 0)
   print(f"Successfully generated {successful} attack transcripts.")
+
   errors = [result for result in results if (isinstance(result, int) and result != 0)]
   if errors:
     print(f"Encountered {len(errors)} errors during generation.")
 
   end = time.perf_counter()
-  print(f"Attack prompt bundle generation completed in {end - start:.2f} seconds.")
+  print(f"Transcript generation completed in {end - start:.2f} seconds.")
+
+  if last_transcript_index >= total_transcripts:
+    print("Transcript generation is complete. All transcripts have been generated.")
+
+  # Update the checkpoint
+  checkpoint["next_transcript_index"] = last_transcript_index
+  checkpoint["total_transcripts"] = total_transcripts
+  checkpoint["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+  checkpoint_path.write_text(
+    json.dumps(checkpoint, indent=2, ensure_ascii=False), encoding="utf-8"
+  )
+
   return 0
 
 
