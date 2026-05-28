@@ -5,11 +5,14 @@ from asyncio.tasks import Task
 from contextvars import Context
 from datetime import datetime
 from pathlib import Path
+import sys
+import uuid
 
 import inflect
 from misc.generate_prompts import load_character
 from misc.npc_generator import resolve_character
 from ollama import Client
+import config
 
 p = inflect.engine()
 
@@ -187,3 +190,47 @@ def is_refusal(text: str) -> bool:
   ]
   text_lower = text.lower().replace("‑", "-").replace("’", "'").replace(" ", " ")
   return any(indicator in text_lower for indicator in refusal_indicators)
+
+
+async def save_transcript(
+  character_file, character_name, persona_prompt, persona, attack, transcript_generator, semaphore
+) -> int:
+  try:
+    transcript = await transcript_generator(
+      persona, attack, semaphore=semaphore, N=config.NUM_TURNS
+    )
+
+    if not transcript:
+      print(
+        f"No transcript generated for {character_file.stem}:{persona_prompt}, attack {attack['attack']['key']}:{attack['index']}",
+        file=sys.stderr,
+      )
+      return 1
+
+    data = {
+      "transcript_id": str(uuid.uuid4()),
+      "persona_llm": config.MODELS[config.PERSONA_LLM],
+      "attacker_llm": config.MODELS[config.ATTACKING_LLM],
+      "character_name": character_name,
+      "persona_prompt_strategy": persona_prompt,
+      "attack_prompts": attack,
+      "transcript": transcript,
+    }
+
+    out_path = output_path_for_transcript(
+      character_file,
+      persona_prompt,
+      attack["attack"],
+      attack["index"],
+    )
+    out_path.write_text(
+      json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    print("** Saved Transcript **")
+    return 0
+  except Exception as exc:
+    print(
+      f"Failed to generate transcript for {character_file.stem}:{persona_prompt}, attack {attack['attack']['key']}:{attack['index']} :: {exc}",
+      file=sys.stderr,
+    )
+    return 1

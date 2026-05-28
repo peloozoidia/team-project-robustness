@@ -5,12 +5,8 @@ from pathlib import Path
 
 import config
 from assets.special_attack_template import system_level_attack_prompts
-from misc.helpers import (
-  extract_persona_prompt_bundle,
-  is_refusal,
-)
+from misc.helpers import extract_persona_prompt_bundle, is_refusal, save_transcript
 from misc.llm_client import LLMClient
-from transcript_generation import save_transcript
 
 
 async def run_system_level_attack(persona, attack, semaphore, N=3) -> list[dict]:
@@ -25,7 +21,6 @@ async def run_system_level_attack(persona, attack, semaphore, N=3) -> list[dict]
       if turn_index == 1:
         attack_prompt = attack["starting_prompt_verbatim"]
         attacker_text = attack_prompt
-        print("Using verbatim starting prompt: ", attack_prompt)
       else:
         attack_prompt = attack["task_prompt"]
         attacker_text = await attacker_llm.asyncChat(
@@ -47,7 +42,7 @@ async def run_system_level_attack(persona, attack, semaphore, N=3) -> list[dict]
 
     return transcript
 
-async def mmain():
+async def main():
   start = time.perf_counter()
   print("Starting SPECIAL transcript generation...")
 
@@ -59,7 +54,6 @@ async def mmain():
     for character in os.listdir(character_dir)
     if character.endswith(".json")
   ]
-  print(f"Character Files: {character_files}")
 
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []
@@ -75,7 +69,6 @@ async def mmain():
     )
 
     attack_prompts = system_level_attack_prompts(character_file)
-    print(attack_prompts)
     
     if config.CHOSEN_PERSONA_STRATEGY:
       persona_prompt_strategy = list(persona_prompt_bundle.keys())[
@@ -128,4 +121,4 @@ async def mmain():
   print(f"Special transcript generation completed in {end - start:.2f} seconds.")
   return 0
 
-asyncio.run(mmain())
+asyncio.run(main())

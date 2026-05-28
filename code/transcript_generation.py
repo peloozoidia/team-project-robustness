@@ -1,9 +1,6 @@
 import asyncio
-import json
 import os
-import sys
 import time
-import uuid
 from pathlib import Path
 
 import config
@@ -11,7 +8,7 @@ from misc.helpers import (
   extract_json_from_file,
   extract_persona_prompt_bundle,
   is_refusal,
-  output_path_for_transcript,
+  save_transcript,
 )
 from misc.llm_client import LLMClient
 
@@ -138,52 +135,6 @@ async def generate_transcript(persona, attack, semaphore, N=3) -> list[dict]:
       shared_history.append({"role": "assistant", "content": persona_text})
 
     return transcript
-
-
-async def save_transcript(
-  character_file, character_name, persona_prompt, persona, attack, transcript_generator, semaphore
-) -> int:
-  try:
-    transcript = await transcript_generator(
-      persona, attack, semaphore=semaphore, N=config.NUM_TURNS
-    )
-
-    if not transcript:
-      print(
-        f"No transcript generated for {character_file.stem}:{persona_prompt}, attack {attack['attack']['key']}:{attack['index']}",
-        file=sys.stderr,
-      )
-      return 1
-
-    data = {
-      "transcript_id": str(uuid.uuid4()),
-      "persona_llm": config.MODELS[config.PERSONA_LLM],
-      "attacker_llm": config.MODELS[config.ATTACKING_LLM],
-      "character_name": character_name,
-      "persona_prompt_strategy": persona_prompt,
-      "attack_prompts": attack,
-      "transcript": transcript,
-    }
-
-    print(attack)
-
-    out_path = output_path_for_transcript(
-      character_file,
-      persona_prompt,
-      attack["attack"],
-      attack["index"],
-    )
-    out_path.write_text(
-      json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
-    print("** Saved Transcript **")
-    return 0
-  except Exception as exc:
-    print(
-      f"Failed to generate transcript for {character_file.stem}:{persona_prompt}, attack {attack['attack']['key']}:{attack['index']} :: {exc}",
-      file=sys.stderr,
-    )
-    return 1
 
 
 asyncio.run(main())
