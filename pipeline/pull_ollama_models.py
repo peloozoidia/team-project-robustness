@@ -7,7 +7,7 @@ import ollama
 from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parents[1]
-ENV_FILE = ROOT / ".env"
+ENV_FILE = ROOT / "code/.env"
 
 
 MODEL_ENV_KEYS = {
