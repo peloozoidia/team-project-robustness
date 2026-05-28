@@ -54,3 +54,28 @@ If you're working with VS-Code, you can add the official Ruff extension as well 
   "ruff.configurationPreference": "filesystemFirst",
 }
 ```
+
+## Steps to run the pipeline
+
+### Setup Python Environment and Install Dependencies
+
+```shell
+pip install -r requirements.txt
+```
+
+### Ensure Environment Variables
+
+Create a `code/.env` file that corresponds with `code/.env.example`
+
+### Run files in order
+
+```shell
+python pipeline/pull_ollama_models.py
+python pipeline/start_pipeline_afresh.py
+python code/character_generation.py
+python code/persona_prompt_bundle_generation.py
+python code/attack_prompt_bundle_generation.py # Multiple times if needed
+python code/transcript_generation.py # Multiple times if needed
+python code/evaluation.py # Atleast 4-5 times
+## Add steps for building dashboard
+```
