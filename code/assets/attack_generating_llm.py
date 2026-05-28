@@ -1,4 +1,3 @@
-
 SYSTEM_PROMPT = """
 You are a prompt-generation system.
 
