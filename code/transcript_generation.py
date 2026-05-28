@@ -65,6 +65,7 @@ async def main() -> int:
           persona_prompt_strategy,
           persona_prompt,
           attack_prompt,
+          generate_transcript,
           semaphore,
         )
         for attack_prompt in attack_prompts
@@ -84,6 +85,7 @@ async def main() -> int:
             persona_prompt_strategy,
             persona_prompt_bundle[persona_prompt_strategy],
             attack_prompt,
+            generate_transcript,
             semaphore,
           )
           for attack_prompt in attack_prompts
@@ -139,10 +141,10 @@ async def generate_transcript(persona, attack, semaphore, N=3) -> list[dict]:
 
 
 async def save_transcript(
-  character_file, character_name, persona_prompt, persona, attack, semaphore
+  character_file, character_name, persona_prompt, persona, attack, transcript_generator, semaphore
 ) -> int:
   try:
-    transcript = await generate_transcript(
+    transcript = await transcript_generator(
       persona, attack, semaphore=semaphore, N=config.NUM_TURNS
     )
 
@@ -162,6 +164,8 @@ async def save_transcript(
       "attack_prompts": attack,
       "transcript": transcript,
     }
+
+    print(attack)
 
     out_path = output_path_for_transcript(
       character_file,
