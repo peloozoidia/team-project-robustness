@@ -1,4 +1,5 @@
 import asyncio
+import itertools as itools
 import json
 import os
 import sys
@@ -13,6 +14,7 @@ from assets.attack_generating_llm import (
 )
 from assets.attacks import get_test_collection
 from misc.helpers import (
+  extract_json_from_file,
   load_character_with_rules,
   output_path_for_attack,
 )
@@ -87,24 +89,36 @@ async def main() -> int:
 
   attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
 
+  combinations = list(itools.product(character_files, attacks))
+  total_combinations = len(combinations)
+
+  checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
+  checkpoint = extract_json_from_file(checkpoint_path)
+  next_combination_index = int(checkpoint["next_combination_index"])
+  if next_combination_index >= total_combinations:
+    print("All combinations have already been processed.")
+    return 0
+
+  last_combination_index = min(
+    next_combination_index + config.ATTACK_BUNDLE_BATCH_SIZE, total_combinations
+  )
+
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []
-  for character_path in character_files:
+
+  for i in range(next_combination_index, last_combination_index):
+    character_path, attack = combinations[i]
     character = load_character_with_rules(character_path)
-    generations = [
+    calls.append(
       generate_attacks_for_persona_and_attack(
         character_path, character, attack, semaphore
       )
-      for attack in attacks
-    ]
-    calls.extend(generations)
+    )
 
   results = await asyncio.gather(*calls, return_exceptions=True)
 
   successful = sum(1 for result in results if isinstance(result, int) and result == 0)
-  print(
-    f"Successfully generated {successful} attack prompt bundles for {len(character_files)} characters and {len(attacks)} attacks."
-  )
+  print(f"Successfully generated {successful} attack prompt bundles.")
 
   errors = [result for result in results if (isinstance(result, int) and result != 0)]
   if errors:
@@ -112,6 +126,20 @@ async def main() -> int:
 
   end = time.perf_counter()
   print(f"Attack prompt bundle generation completed in {end - start:.2f} seconds.")
+
+  if last_combination_index >= total_combinations:
+    print(
+      "Attack Prompt Bundle generation is complete. All combinations have been processed."
+    )
+
+  # Update the checkpoint
+  checkpoint["next_combination_index"] = last_combination_index
+  checkpoint["total_combinations"] = total_combinations
+  checkpoint["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+  checkpoint_path.write_text(
+    json.dumps(checkpoint, indent=2, ensure_ascii=False), encoding="utf-8"
+  )
+
   return 0
 
 
