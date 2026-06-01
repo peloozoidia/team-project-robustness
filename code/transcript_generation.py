@@ -220,7 +220,6 @@ async def save_transcript(
     out_path.write_text(
       json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
     )
-    print("** Saved Transcript **")
     return 0
   except Exception as exc:
     print(

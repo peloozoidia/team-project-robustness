@@ -75,4 +75,4 @@ class LLMClient:
       else:
         raise Exception("Message returned was None")
     except Exception as exc:  # pragma: no cover - best-effort fallback path
-      raise RuntimeError(f"LLM call failed using model '{self.model}': {exc}") from exc
+      raise RuntimeError(f"LLM call failed using model '{self.model}': {exc} with input: {messages}") from exc
