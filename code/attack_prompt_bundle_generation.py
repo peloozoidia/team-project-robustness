@@ -87,13 +87,14 @@ async def main() -> int:
     if character.endswith(".json")
   ]
 
-  attacks = get_test_collection(config.GENERATED_ATTACKS_COUNT)
+  checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
+  checkpoint = extract_json_from_file(checkpoint_path)
+
+  attacks = checkpoint["attacks"] if checkpoint["attacks"] != [] else get_test_collection(config.GENERATED_ATTACKS_COUNT)
 
   combinations = list(itools.product(character_files, attacks))
   total_combinations = len(combinations)
 
-  checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
-  checkpoint = extract_json_from_file(checkpoint_path)
   next_combination_index = int(checkpoint["next_combination_index"])
   if next_combination_index >= total_combinations:
     print("All combinations have already been processed.")
@@ -136,6 +137,7 @@ async def main() -> int:
   checkpoint["next_combination_index"] = last_combination_index
   checkpoint["total_combinations"] = total_combinations
   checkpoint["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+  checkpoint["attacks"] = attacks
   checkpoint_path.write_text(
     json.dumps(checkpoint, indent=2, ensure_ascii=False), encoding="utf-8"
   )

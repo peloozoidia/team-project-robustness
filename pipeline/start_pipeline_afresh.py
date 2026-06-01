@@ -25,6 +25,7 @@ def reset_checkpoints():
     "next_combination_index": 0,
     "total_combinations": 0,
     "updated_at": "",
+    "attacks": [],
   }
   attack_bundle_checkpoint_path.write_text(
     json.dumps(attack_bundle_checkpoint_data, indent=2, ensure_ascii=False),
