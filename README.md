@@ -76,7 +76,9 @@ python code/character_generation.py
 python code/persona_prompt_bundle_generation.py
 python code/attack_prompt_bundle_generation.py # Multiple times if needed
 python code/transcript_generation.py # Multiple times if needed
-python code/evaluation.py # Atleast 4-5 times
+# Running a complete evaluation: rerunning the file below until we get output: Merged partial evaluation results into one file and Reset checkpoint
+# Need to run 5 complete evaluations to average out test results
+python code/evaluation.py
 python code/combine_results.py
 python code/build_dashboard.py
 ```
