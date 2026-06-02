@@ -70,12 +70,32 @@ Create a `code/.env` file that corresponds with `code/.env.example`
 ### Run files in order
 
 ```shell
+# Step 1: Pull Ollama Models
 python pipeline/pull_ollama_models.py
+
+# Step 2: Setup Pipeline
 python pipeline/start_pipeline_afresh.py
+
+# Step 3: Generate Characters
 python code/character_generation.py
+
+# Step 4: Generate Persona Prompt Bundles (currently only JSON Prompts are saved)
 python code/persona_prompt_bundle_generation.py
+
+# Step 5: Generate Attack Prompt Bundles, in batches
 python code/attack_prompt_bundle_generation.py # Multiple times if needed
+
+# Step 6: Generate Transcripts, in batches
 python code/transcript_generation.py # Multiple times if needed
-python code/evaluation.py # Atleast 4-5 times
-## Add steps for building dashboard
+# To generate the transcripts that didn't get generated the first time around, run this (can be repeated as often as wanted)
+python code/backup_transcript_generation.py # Multiple times if needed
+
+# Step 7: Evaluate Transcripts
+# Running a complete evaluation: rerunning the file below until we get output: Merged partial evaluation results into one file and Reset checkpoint
+# Need to run 5 complete evaluations to average out test results
+python code/evaluation.py
+
+# Step 8: Build Evaluation Dashboard
+python code/combine_results.py
+python code/build_dashboard.py
 ```

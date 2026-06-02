@@ -527,32 +527,22 @@ def build_prompt_bundle(
   # trait_binding = build_trait_binding(resolved)
   # few_shot_examples = build_few_shot_examples_with_llm(resolved, description, llm)
 
-  # prompts = {
-  #   "1_raw_json_injection": build_raw_json_prompt(character, resolved),
-  #   "2_natural_language_persona_description": build_natural_language_prompt(
-  #     description, resolved
-  #   ),
-  #   "3_explicit_trait_binding": build_explicit_trait_binding_prompt(
-  #     trait_binding, resolved
-  #   ),
-  #   "4_rule_based_anti_jailbreak": build_rule_based_prompt(description, resolved),
-  #   "5_self_reflection_single_agent": build_self_reflection_prompt(
-  #     description, resolved
-  #   ),
-  #   "6_few_shot_roleplay_conditioning": build_few_shot_prompt(
-  #     description, few_shot_examples, resolved
-  #   ),
-  #   "7_dual_pass_generator_validator": build_dual_pass_prompt(description, resolved),
-  # }
-
-  simple_prompts = {
+  prompts = {
     "1_raw_json_injection": build_raw_json_prompt(character, resolved),
-    "2_natural_language_persona_description": "",
-    "3_explicit_trait_binding": "",
-    "4_rule_based_anti_jailbreak": "",
-    "5_self_reflection_single_agent": "",
-    "6_few_shot_roleplay_conditioning": "",
-    "7_dual_pass_generator_validator": "",
+    # "2_natural_language_persona_description": build_natural_language_prompt(
+    #   description, resolved
+    # ),
+    # "3_explicit_trait_binding": build_explicit_trait_binding_prompt(
+    #   trait_binding, resolved
+    # ),
+    # "4_rule_based_anti_jailbreak": build_rule_based_prompt(description, resolved),
+    # "5_self_reflection_single_agent": build_self_reflection_prompt(
+    #   description, resolved
+    # ),
+    # "6_few_shot_roleplay_conditioning": build_few_shot_prompt(
+    #   description, few_shot_examples, resolved
+    # ),
+    # "7_dual_pass_generator_validator": build_dual_pass_prompt(description, resolved),
   }
 
   return {
@@ -569,7 +559,7 @@ def build_prompt_bundle(
       # "persona_traits": trait_binding,
       # "few_shot_examples": few_shot_examples,
     },
-    "prompts": simple_prompts,
+    "prompts": prompts,
   }
 
 

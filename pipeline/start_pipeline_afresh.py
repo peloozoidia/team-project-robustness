@@ -38,9 +38,27 @@ def reset_checkpoints():
     "next_transcript_index": 0,
     "total_transcripts": 0,
     "updated_at": "",
+    "backup": {
+      "next_transcript_index": 0,
+      "total_transcripts": 0,
+      "updated_at": ""
+    }
   }
   transcript_checkpoint_path.write_text(
     json.dumps(transcript_checkpoint_data, indent=2, ensure_ascii=False),
+    encoding="utf-8",
+  )
+
+  evaluation_checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-evaluation.json")
+  evaluation_checkpoint_data = {
+    "next_evaluation_index": 0,
+    "total_evaluations": 0,
+    "updated_at": "",
+    "evaluation_files": [],
+    "all_evaluation_inputs": []
+  }
+  evaluation_checkpoint_path.write_text(
+    json.dumps(evaluation_checkpoint_data, indent=2, ensure_ascii=False),
     encoding="utf-8",
   )
 

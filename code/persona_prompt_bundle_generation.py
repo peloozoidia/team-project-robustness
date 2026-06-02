@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 import config
-from misc import generate_prompts, llm_client
+from misc import generate_prompts
 
 
 def main() -> int:
@@ -21,8 +21,8 @@ def main() -> int:
   for character_path in character_files:
     try:
       character = generate_prompts.load_character(character_path)
-      llm = llm_client.LLMClient(config.PERSONA_GENERATING_LLM)
-      bundle = generate_prompts.build_prompt_bundle(character, llm)
+      # llm = llm_client.LLMClient(config.PERSONA_GENERATING_LLM)
+      bundle = generate_prompts.build_prompt_bundle(character, llm=None)
       out_path = generate_prompts.output_path_for(character_path)
       out_path.write_text(
         json.dumps(bundle, indent=2, ensure_ascii=False), encoding="utf-8"
