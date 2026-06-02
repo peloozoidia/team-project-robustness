@@ -37,6 +37,11 @@ def reset_checkpoints():
     "next_transcript_index": 0,
     "total_transcripts": 0,
     "updated_at": "",
+    "backup": {
+      "next_transcript_index": 0,
+      "total_transcripts": 0,
+      "updated_at": ""
+    }
   }
   transcript_checkpoint_path.write_text(
     json.dumps(transcript_checkpoint_data, indent=2, ensure_ascii=False),
