@@ -77,5 +77,6 @@ python code/persona_prompt_bundle_generation.py
 python code/attack_prompt_bundle_generation.py # Multiple times if needed
 python code/transcript_generation.py # Multiple times if needed
 python code/evaluation.py # Atleast 4-5 times
-## Add steps for building dashboard
+python code/combine_results.py
+python code/build_dashboard.py
 ```
