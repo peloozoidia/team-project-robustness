@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 import config
-from misc import generate_prompts, llm_client
+from misc import generate_prompts
 
 
 def main() -> int:

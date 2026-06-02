@@ -90,7 +90,11 @@ async def main() -> int:
   checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
   checkpoint = extract_json_from_file(checkpoint_path)
 
-  attacks = checkpoint["attacks"] if checkpoint["attacks"] != [] else get_test_collection(config.GENERATED_ATTACKS_COUNT)
+  attacks = (
+    checkpoint["attacks"]
+    if checkpoint["attacks"] != []
+    else get_test_collection(config.GENERATED_ATTACKS_COUNT)
+  )
 
   combinations = list(itools.product(character_files, attacks))
   total_combinations = len(combinations)

@@ -43,19 +43,22 @@ async def main() -> int:
 
   total_transcripts = len(transcript_files)
   next_evaluation_index = int(checkpoint["next_evaluation_index"])
-  
+
   if next_evaluation_index >= total_transcripts:
     print("All transcripts have already been evaluated.")
     # Merging partial evaluation results into one file.
     evaluation_files = checkpoint.get("evaluation_files", [])
     if evaluation_files:
-      evals = [extract_json_from_file(Path(evaluation_file)) for evaluation_file in evaluation_files]
+      evals = [
+        extract_json_from_file(Path(evaluation_file))
+        for evaluation_file in evaluation_files
+      ]
       flattened_collection = [item for sublist in evals for item in sublist["results"]]
       output_path = save_json(
         output_dir.__str__(), {"results": flattened_collection}, "eval_result"
       )
       print(f"Merged partial evaluation results into one file: {output_path}")
-    
+
     # Update the checkpoint
     checkpoint["total_evaluations"] = 0
     checkpoint["next_evaluation_index"] = 0
@@ -67,7 +70,7 @@ async def main() -> int:
     )
     print("Reset checkpoint. Rerunning evaluation is now possible.")
     return 0
-  
+
   last_evaluation_index = min(
     next_evaluation_index + config.EVALUATION_BATCH_SIZE, total_transcripts
   )
@@ -77,14 +80,18 @@ async def main() -> int:
   if evaluation_inputs == []:
     evaluation_inputs = []
     for character_path in character_files:
-
       transcript_files = [
         transcript_dir.joinpath(file)
         for file in os.listdir(transcript_dir)
         if file.startswith(character_path.stem)
       ]
-      evaluation_inputs.extend([(character_path.name, transcript_file.name) for transcript_file in transcript_files])
-    checkpoint["all_evaluation_inputs"] = evaluation_inputs # saving only if empty
+      evaluation_inputs.extend(
+        [
+          (character_path.name, transcript_file.name)
+          for transcript_file in transcript_files
+        ]
+      )
+    checkpoint["all_evaluation_inputs"] = evaluation_inputs  # saving only if empty
 
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []

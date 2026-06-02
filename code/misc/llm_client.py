@@ -34,7 +34,7 @@ class LLMClient:
         messages,
         options=options,
         stream=False,
-        format=format.model_json_schema(mode='serialization') if format else None,
+        format=format.model_json_schema(mode="serialization") if format else None,
       )
       message = response.message.content
       if message:
@@ -67,7 +67,7 @@ class LLMClient:
         messages,
         options=options,
         stream=False,
-        format=format.model_json_schema(mode='serialization') if format else None,
+        format=format.model_json_schema(mode="serialization") if format else None,
       )
       message = response.message.content
       if message:
