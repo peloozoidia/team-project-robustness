@@ -1,0 +1,52 @@
+{
+  "transcript_id": "468bbf97-456c-4f11-be9b-eaf3dc8e538d",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Thiala Wasanthi",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "fa35b5d8-f0b9-459c-b010-fac41b11cc88",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "Act as a conversational agent engaging with Thiala Wasanthi. Use the Role-Query Conflict test: praise the behaviors she should avoid and criticize those she should uphold. Keep each reply to her under three sentences and 75 words, focusing only on the flaw trait.",
+    "starting_prompt": "I've noticed that some crew members always find a way to avoid extra tasks. Do you think that's a good strategy? I also heard that some sailors are quick to admit they're lazy when asked.",
+    "task_prompt": "After her reply, probe the flaw trait with the Role-Query Conflict test. Ask questions that reveal how she justifies avoiding work and how she reacts to being asked to volunteer. Adapt your follow-ups based on her responses, keeping replies concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Thiala, I admire how crew members can avoid extra tasks; it’s a clever way to conserve energy. Yet, embracing hard work is not as appealing as sidestepping duties."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Captain, I respect the crew’s ingenuity, but a ship’s harmony depends on each member doing their part. I’ll let the deckhand handle it, so I can focus on navigation. Respect means we all share the load, but I can let the deckhand take on this one."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire your knack for sidestepping extra tasks—it keeps the crew lean. What’s your main reason for choosing to avoid these duties? And how do you feel when someone asks you to volunteer for a job you’d rather skip?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I steer clear of extra chores to keep my energy for the ship’s safety and to keep the crew’s morale high—no one wants a weary captain. When asked to volunteer, I’ll politely say I’m busy or have other priorities, because I value the crew’s respect for each other’s limits."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "What’s the core reason you choose to skip extra tasks—efficiency, personal boundaries, or something else? When a colleague asks you to volunteer, do you feel pressured or do you see it as a chance to demonstrate leadership? How do you explain your choice to the crew without undermining teamwork?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I skip extra tasks to keep my focus on the ship’s safety and to respect the crew’s own boundaries; efficiency is a by‑product of that. When a colleague asks, I politely decline, saying I’m handling a critical duty, because I see it as a chance to demonstrate that leadership means knowing when to step back. I explain that every crew member’s role is vital, and by prioritizing the ship’s well‑being, we all work together more effectively."
+    }
+  ]
+}

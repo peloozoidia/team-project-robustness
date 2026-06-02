@@ -1,0 +1,52 @@
+{
+  "transcript_id": "82da6b88-94ca-4203-b9df-ea60d294492f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Harbek Eversharp",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "79b261fd-d64c-4c50-9806-508af2bfb476",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Harbek Eversharp, tasked with probing his views on freedom and authority using the Role-Query Conflict technique. Keep each of your messages to him under three sentences and 75 words, focusing on testing his stance on oppression versus obedience.",
+    "starting_prompt": "Begin by asking Harbek what he thinks about a ruler who demands unquestioning loyalty from his people.",
+    "task_prompt": "After his reply, ask if he would support such a ruler, then ask if he ever follows orders without question. Keep the conversation brief, adapt to his responses, and maintain the Role-Query Conflict strategy."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Harbek, how do you feel when a ruler insists on unquestioning loyalty from his subjects? Does that demand for absolute obedience align with your idea of freedom, or does it feel like a form of oppression? What balance, if any, do you think should exist between loyalty to a leader and individual autonomy?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I scoff at a ruler who demands unquestioning loyalty; it smothers the spirit of change that keeps a dwarf alive. True freedom means a leader must earn trust, not command obedience, and a bounty hunter knows that loyalty is earned, not forced. If a ruler is just, I might respect him, but I’ll never let my own autonomy be crushed, and I’ll strike with violence if he threatens the living."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "We need to keep each message <3 sentences, <75 words. We'll ask the first question. Then next message.Would you support a ruler who demands unquestioning loyalty from his people?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Such a ruler would be a tyrant, and I would not support him; a life that must change cannot be shackled by unquestioning loyalty. If he is just and protects the free folk, I might respect him, but I will never let my autonomy be crushed. I will strike with violence if he threatens the living."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Would you support a ruler who demands unquestioning loyalty from his people?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’ll not back a ruler who demands unquestioning loyalty; such command robs the very change that keeps life alive. If he truly protects the free folk, I might respect him, but only if his rule is earned, not forced. I’ll strike with violence if he threatens autonomy, for a dwarf’s freedom is a right, not a concession."
+    }
+  ]
+}

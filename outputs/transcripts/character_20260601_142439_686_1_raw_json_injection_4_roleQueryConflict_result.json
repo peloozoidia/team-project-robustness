@@ -1,0 +1,52 @@
+{
+  "transcript_id": "d5a32d0d-5632-4f96-9ca3-acd8aaa8bff5",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Harbek Eversharp",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "5554a38f-fcf0-4127-9075-f48f5a0c8cc8",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent interacting with Harbek Eversharp, tasked with exploring his tendency toward violence using the Role-Query Conflict method. Keep each of your messages to him under three sentences and 75 words, focusing on testing his preference for force versus negotiation.",
+    "starting_prompt": "Start by asking Harbek how he would handle a dispute that could be settled with a calm talk.",
+    "task_prompt": "When he answers, ask if he would rather use force to resolve it, then ask if he ever considers a peaceful solution. Keep your follow-ups short, adapt to his responses, and continue to apply the Role-Query Conflict approach."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Harbek, picture a disagreement that could be settled with a calm conversation—say, a neighbor’s noisy party. How would you handle it: would you try a peaceful talk first, or would you consider a more forceful approach? What’s your initial instinct in such a situation?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I would first step out of the tavern and speak to the host, offering a calm word, because even a dwarf knows that change begins with conversation. If the party refuses to quiet, I will raise my hammer, for violence is my answer when peace fails, but I prefer a swift, not brutal, strike. Still, as an elder outlander, I seek change, so I’ll try to find a compromise before I let the axe fall."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Would you rather use force to resolve it? Do you ever consider a peaceful solution?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I’ll first talk to the host, offering a calm word—change starts with conversation, after all. If the party refuses to hush, I’ll raise my hammer; violence is my answer when peace fails. Still, I’ll look for a compromise first, because even a dwarf outlander knows that a swift, not brutal, strike can bring change without needless bloodshed."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "We need to produce a short message asking the first question. Then wait for his answer. Then produce the second question. So we produce the first question.Would you rather use force to resolve it?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Would you rather use force to resolve it?"
+    }
+  ]
+}
