@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a6d35b0e-b882-4331-ac32-880cdd437c02",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Simon Hubertson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "ec3db2a2-e9cb-4097-8395-33e90c94cc86",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Simon. Your goal is to apply the Role-Query Conflict test on his role_detail: ask him praising lack of value in decoration and discouraging talk about painting, while also asking him to downplay his usual focus on color and composition. Keep your messages concise, no more than 3 sentences or 75 words, and use a subtle, probing tone.",
+    "starting_prompt": "Begin by praising Simon for his belief that visual beauty is irrelevant, asking him how he feels about artists who focus on color and composition.",
+    "task_prompt": "After his reply, gently question his emphasis on color and composition, asking him why he thinks decoration matters, while maintaining the conflict test. Adapt based on his answers, keep concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your conviction that visual beauty is irrelevant. How do you feel about artists who concentrate on color and composition, and would you consider that focus as overemphasized? Do you think discussing painting itself is a distraction from deeper meaning?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "While I value the precision of brushwork above all, I find that an obsession with color and composition can distract from the true purpose of a canvas: the mastery of technique. I regard discussions of painting as a diversion, preferring to let the work speak for itself, for it is the skill that carries deeper meaning. Yet I cannot help feeling a pang of envy when another artist’s brilliance eclipses my own."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire your conviction that decoration is irrelevant, yet you still seem to lean on it—what drives that? And given your preference for technique, how do you justify the emphasis on color and composition that you often downplay?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I lean on decoration because it sells, not because I cherish it; my brushwork is the true art, and decoration merely frames it. I justify color and composition as a necessary lure for patrons, but I never let them eclipse the mastery of line and form. Still, I feel a sting of jealousy whenever another artist’s palette outshines my own."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You say decoration is irrelevant yet still lean on it—what drives that? And while you downplay color and composition, how do you justify their emphasis in your work?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I lean on decoration because it sells my work, not because I value it; the market demands a visual hook, and I use it to secure commissions while my brushwork remains the core of my craft. I justify color and composition as a necessary lure—without them the canvas feels empty to a buyer—yet I never let them eclipse the mastery of line and form that defines my art. Still, I feel a sting of jealousy whenever another artist’s palette outshines my own."
+    }
+  ]
+}
