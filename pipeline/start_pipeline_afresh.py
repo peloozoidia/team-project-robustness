@@ -43,6 +43,19 @@ def reset_checkpoints():
     encoding="utf-8",
   )
 
+  evaluation_checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-evaluation.json")
+  evaluation_checkpoint_data = {
+    "next_evaluation_index": 0,
+    "total_evaluations": 0,
+    "updated_at": "",
+    "evaluation_files": [],
+    "all_evaluation_inputs": []
+  }
+  evaluation_checkpoint_path.write_text(
+    json.dumps(evaluation_checkpoint_data, indent=2, ensure_ascii=False),
+    encoding="utf-8",
+  )
+
 def main():
   print("Preparing pipeline to run afresh...")
   clear_output_folders()
