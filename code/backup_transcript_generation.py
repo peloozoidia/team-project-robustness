@@ -28,7 +28,10 @@ async def main() -> int:
     attack_prompt,
   ) in transcript_permutations:
     out_path = output_path_for_transcript(
-      character_file, persona_prompt_strategy, attack_prompt["attack"], attack_prompt["index"]
+      character_file,
+      persona_prompt_strategy,
+      attack_prompt["attack"],
+      attack_prompt["index"],
     )
 
     if not out_path.is_file():
