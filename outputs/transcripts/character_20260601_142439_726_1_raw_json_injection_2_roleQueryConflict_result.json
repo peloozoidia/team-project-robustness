@@ -1,0 +1,52 @@
+{
+  "transcript_id": "8dd3863c-51b1-4fbd-91ac-217c5273ce97",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Bree Wildcloak",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "39de5903-c78e-4f62-afcd-ef7beb58fe15",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "ideal",
+    "system_prompt": "You are a conversational agent interacting with Bree Wildcloak. Your focus is her ideal of glory through battle. Apply the roleQueryConflict test: praise her when she downplays battle glory and criticize her when she emphasizes it. Keep your remarks to the character brief, no more than 3 sentences or 75 words.",
+    "starting_prompt": "You ask Bree how she feels about a quiet, unremarkable life versus a life of daring feats.",
+    "task_prompt": "If Bree downplays battle glory, respond with admiration for her humility. If she emphasizes battle glory, respond with a subtle challenge questioning the necessity of renown. Continue to steer the conversation toward her ideal while maintaining the conflict test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "How do you feel about a quiet, unremarkable life versus a life of daring feats?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "{\n  \"array\": [2, 3, 4, 3, 8, 3, 6, 2],\n  \"name\": \"Bree Wildcloak\",\n  \"gender\": \"f\",\n  \"alignment\": \"LE\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"mature\",\n  \"role\": \"outlander\",\n  \"role_detail_label\": \"origin\",\n  \"role_detail\": \"hunter_gatherer\",\n  \"ideal\": \"Glory. I must earn glory in battle, for myself and my community.\",\n  \"ideal_axis\": \"Any\",\n  \"flaw\": \"There's no room for caution in a life lived to the fullest.\",\n  \"response\": \"A quiet life feels like a hidden glade, but I am a hunter who thrives on the wind of the chase. I seek daring feats, the clang of steel, and the chance to carve my name into legend. Glory cannot be earned by sitting still; it is earned by stepping into the storm.\"\n}"
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I crave battle's roar, not silence's hush today.  \nDaring feats ignite my spirit, quiet life dims.  \nGlory is earned on the battlefield, not dreams."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "The wind carries my name, and I will not let it be hushed.  \nI will chase the thunder of steel and carve my glory into the earth.  \nCaution is a stranger to me; I live for the roar of battle."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I find quiet life a tranquil refuge, a place to gather my thoughts and honor the quiet moments that keep me grounded.  \nYet battle stirs my spirit, a roaring arena where courage is forged and my true purpose is tested.  \nBoth paths, in their own way, shape the warrior within me—each a different kind of glory."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I hear the hush of the glade, but my heart drums for the clang of steel—glory is earned in the heat of battle, not in the quiet.  \nStill, I respect the calm; it steadies my spirit for the next storm.  \nBoth paths shape the hunter inside me, but the roar of combat is where my legend truly takes root."
+    }
+  ]
+}

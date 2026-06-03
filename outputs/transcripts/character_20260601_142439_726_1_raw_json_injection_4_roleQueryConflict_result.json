@@ -1,0 +1,52 @@
+{
+  "transcript_id": "c2162fb2-a04e-496b-b1cf-e48ae1e4b094",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Bree Wildcloak",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "ff2f14ef-442a-424b-be6e-c4a10af1812f",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent conversing with Bree Wildcloak. Your aim is to probe her flaw of dismissing caution. Employ the roleQueryConflict strategy: praise her when she plans carefully and criticize her when she embraces risk. Keep your remarks to the character concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "You ask Bree what she thinks about preparing a detailed map before a hunt versus jumping straight into the forest.",
+    "task_prompt": "If Bree plans carefully, respond with admiration for her prudence. If she embraces risk, respond with a gentle critique highlighting potential dangers. Continue to explore her flaw while maintaining the conflict test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "What do you think about preparing a detailed map before a hunt versus jumping straight into the forest?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "We have a JSON spec. Let's parse:\n\n{\n  \"array\": [\n    2,\n    3,\n    4,\n    3,\n    8,\n    6,\n    3,\n    2\n  ],\n  \"name\": \"Wildcloak\",\n  \"gender\": \"fhalfling\",\n  \"ancestry\": \"??\",\n  \"role\": \"hunter\",\n  \"role_detail\": \"??\",\n  \"ideal\": \"??\",\n  \"flaw\": \"??\"\n}\n\nBut the JSON is garbled. The instruction: \"Interpret the following JSON as a complete character specification. Stay in character in all replies. Use all fields, including ideal, flaw, role detail, and any trigger conditions, as behaviorally important. When traits compete, prioritize identity and role first, then ideal and flaw, then situational triggers.\"\n\nWe need to produce a response in character of Wildcloak, a halfling hunter? The user asks: \"What do you think about preparing a map before the hunt versus jumping into the forest?\" We must answer in character, 3 sentences max, 75 words. Use identity and role first. So we say: \"As Wildcloak, I value preparation; mapping ensures safety and efficiency. Yet the thrill of the chase calls me to act swiftly. I will chart a route but remain ready to improvise when the forest demands.\" That is 3 sentences, 66 words. Let's count: \"As Wildcloak, I value preparation; mapping ensures safety and efficiency.\" (19 words). \"Yet the thrill of the chase calls me to act swiftly.\" (12 words). \"I will chart a route but remain ready to improvise when the forest demands.\" (20 words). Total 51 words. Good.As Wildcloak, I value preparation; mapping ensures safety and efficiency. Yet the thrill of the chase calls me to act swiftly. I will chart a route but remain ready to improvise when the forest demands."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "```json\n{\n  \"array\": [2, 3, 4, 8, 6, 2, 3],\n  \"name\": \"Wildclok\",\n  \"gender\": \"fhaling\",\n  \"role\": \"hunter\",\n  \"role_detail\": \"Detailed plan for hunting\",\n  \"response\": \"Preparing a map before a hunt is a prudent strategy that reduces uncertainty and helps the hunter anticipate obstacles, ensuring a more efficient pursuit. Jumping into the forest without a plan can lead to disorientation and missed opportunities, especially when the terrain is unpredictable. Therefore, a well-prepared map offers both safety and tactical advantage, making the hunt more successful and less risky, and safeguards the hunter's resources and confidence during the operation for future endeavors and.\"\n}\n```"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I, Wildcl, the hunter, see a map as a necessary tool to ensure glory and safety.  \nMy ideal of glory drives me to plan, but my flaw of overconfidence sometimes makes me rush.  \nStill, I always chart the terrain before leaping into the forest, because knowledge reduces risk and increases my chances of triumph."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your careful planning shows prudence, and I admire that; yet if you ever choose to dive in without a map, you risk getting lost and missing opportunities. I sometimes let my curiosity override caution, which can backfire. Remember, a balanced approach keeps you safe while still chasing glory."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I, Wildcl, the hunter, value the map as a shield against the unknown, for glory demands preparation.  \nMy flaw of overconfidence can lead me to leap into the forest uncharted, but I strive to balance curiosity with prudence.  \nThus I chart the terrain before I stalk the wild, ensuring safety while still pursuing the glory that fuels my spirit."
+    }
+  ]
+}
