@@ -87,7 +87,9 @@ def get_transcript_inputs() -> list[tuple[Path, str, str, str, dict]]:
   return transcript_permutations
 
 
-def get_missing_permutations(all_combinations) -> list[tuple[Path, str, str, str, dict]]:
+def get_missing_permutations(
+  all_combinations,
+) -> list[tuple[Path, str, str, str, dict]]:
   missing_permutations = []
 
   for (
@@ -116,7 +118,6 @@ def get_missing_permutations(all_combinations) -> list[tuple[Path, str, str, str
       )
 
   return missing_permutations
-  
 
 
 async def save_transcript(

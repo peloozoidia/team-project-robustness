@@ -7,7 +7,11 @@ import config
 from misc.helpers import (
   extract_json_from_file,
 )
-from misc.transcript_helpers import get_transcript_inputs, save_transcript, get_missing_permutations
+from misc.transcript_helpers import (
+  get_missing_permutations,
+  get_transcript_inputs,
+  save_transcript,
+)
 
 
 async def main() -> int:
@@ -24,7 +28,9 @@ async def main() -> int:
 
   missing_permutations = checkpoint["backup"]["missing_permutations"]
   if not missing_permutations:
-    print("No missing transcripts found in checkpoint. Checking for missing transcripts...")
+    print(
+      "No missing transcripts found in checkpoint. Checking for missing transcripts..."
+    )
     missing_permutations = get_missing_permutations(transcript_permutations)
     checkpoint["backup"]["missing_permutations"] = missing_permutations
     print(f"Found {len(missing_permutations)} missing transcripts to generate.")
