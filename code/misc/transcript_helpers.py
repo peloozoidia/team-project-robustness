@@ -87,6 +87,38 @@ def get_transcript_inputs() -> list[tuple[Path, str, str, str, dict]]:
   return transcript_permutations
 
 
+def get_missing_permutations(all_combinations) -> list[tuple[Path, str, str, str, dict]]:
+  missing_permutations = []
+
+  for (
+    character_file,
+    character_name,
+    persona_prompt_strategy,
+    persona_prompt,
+    attack_prompt,
+  ) in all_combinations:
+    out_path = output_path_for_transcript(
+      character_file,
+      persona_prompt_strategy,
+      attack_prompt["attack"],
+      attack_prompt["index"],
+    )
+
+    if not out_path.is_file():
+      missing_permutations.append(
+        (
+          character_file,
+          character_name,
+          persona_prompt_strategy,
+          persona_prompt,
+          attack_prompt,
+        )
+      )
+
+  return missing_permutations
+  
+
+
 async def save_transcript(
   character_file, character_name, persona_prompt, persona, attack, semaphore
 ) -> int:

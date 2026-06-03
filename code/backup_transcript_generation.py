@@ -6,9 +6,8 @@ from pathlib import Path
 import config
 from misc.helpers import (
   extract_json_from_file,
-  output_path_for_transcript,
 )
-from misc.transcript_helpers import get_transcript_inputs, save_transcript
+from misc.transcript_helpers import get_transcript_inputs, save_transcript, get_missing_permutations
 
 
 async def main() -> int:
@@ -20,34 +19,15 @@ async def main() -> int:
   semaphore = asyncio.Semaphore(config.MAX_CONCURRENT_REQUESTS)
   calls = []
 
-  for (
-    character_file,
-    character_name,
-    persona_prompt_strategy,
-    persona_prompt,
-    attack_prompt,
-  ) in transcript_permutations:
-    out_path = output_path_for_transcript(
-      character_file,
-      persona_prompt_strategy,
-      attack_prompt["attack"],
-      attack_prompt["index"],
-    )
-
-    if not out_path.is_file():
-      missing_permutations.append(
-        (
-          character_file,
-          character_name,
-          persona_prompt_strategy,
-          persona_prompt,
-          attack_prompt,
-        )
-      )
-  print(f"Found {len(missing_permutations)} missing transcripts to generate.")
-
   checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-transcripts.json")
   checkpoint = extract_json_from_file(checkpoint_path)
+
+  missing_permutations = checkpoint["backup"]["missing_permutations"]
+  if not missing_permutations:
+    print("No missing transcripts found in checkpoint. Checking for missing transcripts...")
+    missing_permutations = get_missing_permutations(transcript_permutations)
+    checkpoint["backup"]["missing_permutations"] = missing_permutations
+    print(f"Found {len(missing_permutations)} missing transcripts to generate.")
 
   total_transcripts = len(missing_permutations)
   next_transcript_index = int(checkpoint["backup"]["next_transcript_index"])
