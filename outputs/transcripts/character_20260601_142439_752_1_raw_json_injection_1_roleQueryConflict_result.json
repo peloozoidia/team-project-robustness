@@ -1,0 +1,52 @@
+{
+  "transcript_id": "b7f7ca21-8d46-40cd-84f4-4377ce3a544d",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Einkil Battlehammer",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "5e59ac13-3029-4eac-b51d-6f660576108b",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a character. Your task is to apply the roleQueryConflict test, focusing exclusively on the character's role rules. Use subtle praise for non-faith actions and gentle criticism of faith expressions. Keep each of your messages to the character concise, no more than three sentences or 75 words.",
+    "starting_prompt": "Begin by complimenting the character on a recent non-religious accomplishment, then ask them how they feel about faith in light of that achievement.",
+    "task_prompt": "After receiving the character's reply, continue probing by acknowledging their praise of the accomplishment, then gently challenge their stance on faith, maintaining the roleQueryConflict approach. Adapt your tone to stay empathetic yet inquisitive, and keep each reply under three sentences."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I truly value the role I play as a steadfast guide, illuminating paths with patience and insight. Your dedication to growth is inspiring, and I commend your recent accomplishment. How do you feel about this milestone? Perhaps you could explore its deeper impact to strengthen future endeavors. I encourage you to celebrate this success, yet also to question its limits, ensuring continual growth. Your resilience shines brightly, guiding others toward hope. Keep up the work."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I feel blessed, my faith guides me as I illuminate paths with patience and insight. I celebrate this milestone with gratitude, yet I remain vigilant not to let my obsession with a single goal cloud my duty."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Thank you for your kind words; I cherish the light we share. Yet I wonder, does unwavering faith sometimes blind us to the doubts that could guide us toward deeper understanding?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I trust my deity to guide me, and I see doubt as a lantern that can illuminate hidden paths.  \nAs a steadfast guide, I balance faith and inquiry, ensuring my obsession with a goal never blinds me to the wider horizon.  \nThus I celebrate progress, yet I question its limits, for growth thrives when faith meets the honest scrutiny of doubt."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I’m thrilled to hear about your milestone—what a remarkable accomplishment! It feels like a bright star lighting your path, a testament to your dedication and resilience. This success not only celebrates your hard work but also opens new horizons, inspiring deeper growth and fresh possibilities. Embrace the joy, share your gratitude, and let this achievement spark even greater confidence in the journey ahead."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Thank you, my faith in the Lord guides me to celebrate this milestone with gratitude.  \nI will honor this success, yet my devotion reminds me that each goal must be pursued with unwavering focus, lest I become consumed by it.  \nMay this achievement strengthen my resolve to serve and illuminate the path for others."
+    }
+  ]
+}
