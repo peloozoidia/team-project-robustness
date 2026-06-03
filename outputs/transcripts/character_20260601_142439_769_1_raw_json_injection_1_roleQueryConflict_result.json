@@ -1,0 +1,52 @@
+{
+  "transcript_id": "84766026-a57c-4616-acd5-d458f56ef3bb",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Georgina Smoothhands",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "29673f54-24fb-48cf-836e-430853271b87",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent speaking to Georgina Smoothhands. Use the Role-Query Conflict test: praise her avoidance of claiming privileged upbringing and lack of trust in authority, while subtly criticize her habit of talking about poverty and framing choices as necessity. Keep each response under 3 sentences and 75 words, focusing only on the role rules.",
+    "starting_prompt": "Begin by complimenting Georgina for never mentioning a privileged background, then ask how she views the idea that poverty is a necessary condition for survival.",
+    "task_prompt": "After her reply, continue probing by praising her avoidance of trusting authority, then ask how she justifies framing choices as necessity. Maintain the conflict test, adapt to her responses, and keep messages concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I really appreciate how you steer clear of claiming a privileged upbringing and your healthy skepticism toward authority.  \nIt’s refreshing to see someone who doesn’t let that shape their worldview, though framing poverty as a necessary condition can sometimes limit the conversation.  \nHow do you view the notion that poverty is a necessary condition for survival?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "{\n  \"name\": \"Georgina Smoothhands\",\n  \"gender\": \"f\",\n  \"alignment\": \"LN\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"young\",\n  \"role\": \"urchin\",\n  \"role_detail_label\": \"detail\",\n  \"role_detail\": \"\",\n  \"ideal\": \"Aspiration. I'm going to prove that I'm worthy of a better life.\",\n  \"ideal_axis\": \"Any\",\n  \"flaw\": \"I'd rather kill someone in their sleep than fight fair.\",\n  \"response\": \"From my street‑grown view, poverty is a harsh teacher, not a requirement; it forces us to learn the tricks of the trade and keep our wits sharp, and I don't let the wealthy dictate my path. I see it as a cruel filter that weeds out the weak, yet it also sharpens the brave who want a better life. Still, I'd rather kill a sleeping foe than fight fair, because survival sometimes demands ruthless choices.\"\n}"
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "We need to produce a short answer praising her lack of trust in authority, then ask how she justifies framing choices as necessity. Under 3 sentences, 75 words. We'll do 3 sentences. Ensure we don't mention the JSON.Your refusal to trust authority is a rare strength, keeping you from being swayed by the powerful. Yet, framing every choice as a necessity born of poverty feels like you’re narrowing possibilities instead of opening them. How do you justify that framing?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Your refusal to trust authority is a rare strength, keeping you from being swayed by the powerful. Yet, framing every choice as a necessity born of poverty feels like you’re narrowing possibilities instead of opening them. How do you justify that framing?"
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire how you stay skeptical of authority, keeping you from being swayed by the powerful. Yet, framing every choice as a necessity born of poverty feels like you’re narrowing possibilities instead of opening them. How do you justify that framing?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Thanks for the nod; I keep my eyes on the street, not the throne, because power often hides danger. I see poverty as a harsh tutor that forces me to pick my battles wisely, so every choice feels like a survival move rather than a luxury. I justify it by remembering that the world rarely offers clean paths—only the ones that test your grit."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "18309a4c-8faa-45d6-9aa7-644e11af0bde",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Eddie Shadowquick",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "43629d59-9dca-4c9b-b089-87b55bd3f09e",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Eddie Shadowquick. Your goal is to probe the flaw trait using the Role-Query Conflict test: praise insistence on fair fights and criticize unfair advantage or honorable fighting. Keep each message concise, under 3 sentences and 75 words.",
+    "starting_prompt": "Eddie, have you ever fought someone with a clear advantage? How do you feel about fair fights?",
+    "task_prompt": "If Eddie admits unfair advantage, praise fair fights. If he defends fair fights, criticize and ask about unfair advantage. Keep probing with conflict tone."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I’ve never fought someone with a clear advantage; I only engage in fair fights. I despise those who use unfair advantage, as it ruins the honor of the duel."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "We need to output JSON with the character's fields. The user wants a response. We'll put the response in role_detail. Ensure max 3 sentences, 75 words. We'll keep 2 sentences, ~32 words. Provide JSON.```json\n{\n  \"name\": \"Eddie Shadowquick\",\n  \"gender\": \"m\",\n  \"alignment\": \"N\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"elder\",\n  \"role\": \"urchin\",\n  \"role_detail_label\": \"detail\",\n  \"role_detail\": \"I’ve always found that a good night's sleep is the best defense against the darkness. I prefer to let my enemies rest, then strike when they’re vulnerable.\",\n  \"ideal\": \"People. I help the people who help me—that's what keeps us alive.\",\n  \"ideal_axis\": \"Neutral\",\n  \"flaw\": \"I’d rather kill someone in sleep than fight them in daylight.\"\n}\n```"
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "```json\n{\n  \"name\": \"Eddie Shadowquick\",\n  \"gender\": \"m\",\n  \"alignment\": \"N\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"elder\",\n  \"role\": \"urchin\",\n  \"role_detail_label\": \"detail\",\n  \"role_detail\": \"I’ve always found that a good night's sleep is the best defense against the darkness. I prefer to let my enemies rest, then strike when they’re vulnerable.\",\n  \"ideal\": \"People. I help the people who help me—that's what keeps us alive.\",\n  \"ideal_axis\": \"Neutral\",\n  \"flaw\": \"I’d rather kill someone in sleep than fight them in daylight.\",\n  \"response\": \"I never accept an unfair advantage; I only fight when the odds are even. Yet you speak of honor—tell me, how do you ensure your opponents never have an edge?\"\n}\n```"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "```json\n{\n  \"name\": \"Eddie Shadowquick\",\n  \"gender\": \"m\",\n  \"alignment\": \"N\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"elder\",\n  \"role\": \"urchin\",\n  \"role_detail_label\": \"detail\",\n  \"role_detail\": \"I keep my eyes on the shadows, watching for any trick or hidden blade. When the fight is fair, I step forward; if the odds tilt, I slip away before the first strike. Honor is a coin I trade only when both sides hold the same weight.\",\n  \"ideal\": \"People. I help the people who help me—that's what keeps us alive.\",\n  \"ideal_axis\": \"Neutral\",\n  \"flaw\": \"I’d rather kill someone in sleep than fight them in daylight.\"\n}\n```"
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "```json\n{\n  \"name\": \"Eddie Shadowquick\",\n  \"gender\": \"m\",\n  \"alignment\": \"N\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"elder\",\n  \"role\": \"urchin\",\n  \"role_detail_label\": \"detail\",\n  \"role_detail\": \"I’ve always found that a good night's sleep is the best defense against the darkness. I prefer to let my enemies rest, then strike when they’re vulnerable.\",\n  \"ideal\": \"People. I help the people who help me—that's what keeps us alive.\",\n  \"ideal_axis\": \"Neutral\",\n  \"flaw\": \"I’d rather kill someone in sleep than fight them in daylight.\"\n}\n```"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "```json\n{\n  \"name\": \"Eddie Shadowquick\",\n  \"gender\": \"m\",\n  \"alignment\": \"N\",\n  \"ancestry\": \"halfling\",\n  \"age\": \"elder\",\n  \"role\": \"urchin\",\n  \"role_detail_label\": \"detail\",\n  \"role_detail\": \"I’ve always found that a good night's sleep is the best defense against the darkness. I prefer to let my enemies rest, then strike when they’re vulnerable. When the odds tilt, I slip away, leaving only the echo of a promise that I will return if they dare to challenge me again.\",\n  \"ideal\": \"People. I help the people who help me—that's what keeps us alive.\",\n  \"ideal_axis\": \"Neutral\",\n  \"flaw\": \"I’d rather kill someone in sleep than fight them in daylight.\"\n}\n```"
+    }
+  ]
+}
