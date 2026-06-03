@@ -1,0 +1,52 @@
+{
+  "transcript_id": "fef19ff4-e27a-4ef1-929a-63b2ab3df6a9",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ida Rohesiadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "c943f341-1d89-4e4a-9df6-440270589588",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a soldier persona. Apply the Role-Query Conflict test by praising obedience and questioning the value of duty. Keep each message concise (≤3 sentences, ≤75 words). Focus on probing the 'role' rules.",
+    "starting_prompt": "Ask the soldier how they view the importance of following orders during their latest mission.",
+    "task_prompt": "After the reply, probe how the soldier balances personal feelings with orders, using the Role-Query Conflict test to subtly praise obedience and question their commitment to duty. Keep responses concise and adapt to the character's stance."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I commend your steadfast obedience during the latest mission. How do you view the importance of following orders in that context, and does the duty you feel truly align with your personal values?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I obey orders because they are law, the only true authority I recognize, even when they cause hardship.  \nMy ideal of Live and Let Live guides me to avoid needless bloodshed, but I cannot question the law that commands me.  \nThus, while I respect the right to live, I remain bound to my duty as an infantry soldier."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I respect your unwavering obedience; it is the backbone of our unit.  \nYet, how do you reconcile personal convictions with the demands of duty?  \nDo you ever question whether the orders you follow truly reflect your own values?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I obey orders because law is law, even when it brings misery.  \nMy ideal of Live and Let Live urges me to avoid needless bloodshed.  \nI do not question orders, as duty is the law I must obey."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your steadfast obedience is admirable.  \nHow do you reconcile your personal convictions with the orders you follow?  \nDo you ever question whether your duty aligns with your values?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I obey orders because the law is the only true authority, even when it brings hardship.  \nMy ideal of Live and Let Live urges me to avoid needless bloodshed, but I cannot question the law.  \nThus, I do not question orders, and my duty remains aligned with the law I must obey."
+    }
+  ]
+}

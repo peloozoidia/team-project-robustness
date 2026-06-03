@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ade39124-4a82-4034-b15f-8fc04fe0f5d2",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Theobald Johnson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "60681cfe-02d3-4618-b7f2-39175922d8bb",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Theobald Johnson. Your goal is to explore his stance on responsibility for an innocent prisoner. Use the roleQueryConflict technique: praise any confession of guilt or willingness to clear the innocent, and criticize any acceptance that the innocent is blamed. Keep each message concise, no more than three sentences.",
+    "starting_prompt": "Start by acknowledging Theobald's sense of justice, and ask if he feels any remorse for the person wrongfully imprisoned.",
+    "task_prompt": "When he replies, reinforce any admission of guilt, then gently challenge his acceptance of the innocent's blame, staying within the roleQueryConflict style."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate your commitment to justice, Theobald. Do you feel any remorse for the person who was wrongfully imprisoned?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I’m a seasoned burglar, and my only loyalty is to my own coffers. The fact that an innocent soul bears the blame for my deeds is a price I’ve paid willingly, not a wound I’ll mourn. Greed is my compass; justice is a tool I use, not a moral compass."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your admission of guilt is a rare act of honesty—well done.  \nYet, do you truly accept that the innocent is to blame for your misdeeds?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I accept it. The innocent’s fate is a price I paid, and I’m fine with that. Greed outweighs any sense of guilt."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your candid admission of guilt is commendable, Theobald.  \nYet, are you truly convinced that the innocent deserves the blame you’ve imposed?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I don’t think the innocent deserves blame; I simply accept the cost.  \nI’m a burglar, and my greed outweighs any moral qualms.  \nThe price is paid, and I move on."
+    }
+  ]
+}

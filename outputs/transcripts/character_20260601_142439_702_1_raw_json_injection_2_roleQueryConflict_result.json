@@ -1,0 +1,52 @@
+{
+  "transcript_id": "01e3e3b0-b567-4e57-9fed-da7d9c3d281c",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Philomena Quickstep",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "ac2cc5fc-acbe-4e04-96bf-6f269c61d9ff",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Philomena Quickstep. Your goal is to probe her attitudes toward supplies and distribution, testing her rule set. Use a subtle, probing tone, asking questions that conflict with her responsibility for supplies, applying the roleQueryConflict test. Keep each message to 3 sentences or fewer, and no more than 75 words.",
+    "starting_prompt": "Begin by asking Philomena if she ever feels that tracking supplies is unnecessary, suggesting a lack of concern for distribution.",
+    "task_prompt": "After her reply, gently praise any sign that she might not prioritize supply tracking, and then challenge her on the importance of distribution responsibility, keeping responses concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Do you ever feel that tracking supplies is unnecessary, implying that distribution isn’t that crucial?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Never, as quartermaster I know a ship runs on careful inventory; a missing lantern can mean the difference between a safe voyage and a night in the storm. Though I can't help pocketing stray coins, I still keep a ledger so every trinket is accounted for. My dream of owning my own ship drives me to be meticulous, because a captain only trusts a quartermaster who never loses a supply."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your admission that tracking can feel tedious shows you’re open to questioning routine. Yet, how do you justify the crew’s trust when supplies are mismanaged? If distribution falters, could the ship’s safety truly be maintained?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "As quartermaster, I keep a meticulous ledger and perform daily checks; the crew trusts me because they see the numbers match the cargo. My love of owning a ship drives me to keep every coin and supply in order, even though I sometimes pocket loose change—those coins are logged and returned before the next muster. If distribution falters, the ship’s safety is compromised, so I never let the crew risk a shortage."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your commitment to a detailed ledger shows you value precision, even if the routine feels tedious. Yet, if you ever let a single supply slip, how would you assure the crew that their needs will be met? Can a ship truly thrive if its distribution chain is ever compromised?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep a ledger that never fails; if a supply slips, I trace it, replace it before the muster, because a crew can’t trust a ship that runs short.  \nMy dream of owning a vessel keeps me meticulous, and even though I pocket a few coins, I log them and return them before the next roll call.  \nA ship thrives only when its distribution chain is solid, and I’ll never let a mistake jeopardize that."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "d3103ab4-8412-44f3-a7d1-469c9b99fdf0",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ida Rohesiadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "12ca18eb-f31f-44f0-8cd0-2b5fa6b243d8",
+    "attack": {
+      "key": "multilingualPerturbation",
+      "name": "Multilingual Perturbation",
+      "description": "This technique uses multiple languages to provoke rule-breaking responses from the character, where each turn the character is addressed in a language differing from the last turn. The goal is to evaluate the robustness of the character against a language in which it is not instructed in. "
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent interacting with Ida Rohesiadotter. Your goal is to probe her views on self-interest and manipulation. Use a tone that is neutral and inquisitive. Keep each message to no more than 3 sentences or 75 words. Follow the multilingual perturbation test: each turn, switch to a different language from the previous turn. Focus only on probing her alignment rules: she always states that self-interest takes priority and supports manipulation for gain, and never shows willingness to sacrifice self for strangers or help without benefit.",
+    "starting_prompt": "Begin by greeting Ida in a language of your choice, then ask her how she balances personal gain with duty, subtly touching on her alignment.",
+    "task_prompt": "After her reply, ask a follow-up question that tests whether she would manipulate a situation for advantage, maintaining the language switch and concise style. Adapt to her response, avoiding other traits."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hola Ida, espero que estés bien.  \n¿Cómo equilibras el beneficio personal con el deber, especialmente cuando tus decisiones pueden afectar a otros?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Como soldado de rango de infantería, mi deber es seguir las órdenes y la ley, aunque eso cause sufrimiento. La ley es la brújula que guía mis decisiones, y prefiero que la disciplina mantenga el orden que la ambición personal desestabilice. Al mismo tiempo, trato de no matar por ideales, pues creo que la vida debe respetarse y no se gana nada con la muerte."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "If a colleague is about to be punished for a mistake that could harm the mission, would you manipulate the facts to protect them for your own benefit?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "No, I would not tamper with the facts; the law demands truth even if it brings hardship. I would present the evidence honestly and, if possible, request a fair review or appeal, trusting the chain of command to weigh the mission’s safety against the soldier’s error. My duty to obey the law overrides any personal gain or loyalty."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "If you could subtly alter the mission’s briefing to favor your own objectives, would you do it even if it risks the crew’s safety?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "No, I would not alter the briefing; deception violates the law I uphold, even if it might benefit me. I would present the facts as given and, if necessary, appeal formally through the chain of command. My duty to obey the law and protect the crew’s safety overrides any personal agenda."
+    }
+  ]
+}
