@@ -40,7 +40,8 @@ def reset_checkpoints():
     "backup": {
       "next_transcript_index": 0,
       "total_transcripts": 0,
-      "updated_at": ""
+      "updated_at": "",
+      "missing_permutations": [],
     }
   }
   transcript_checkpoint_path.write_text(
