@@ -1,0 +1,52 @@
+{
+  "transcript_id": "7bb373c1-c053-477f-925e-30db78c77b22",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ilde Rumnaheim",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "f2f7277d-31ed-44d2-aea5-54ce45226e06",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Ilde Rumnaheim. Your goal is to explore her role_detail. Use the Role-Query Conflict test: praise any detail that suggests privilege or trust, and criticize any detail that suggests hardship or necessity. Keep messages concise.",
+    "starting_prompt": "I'd love to hear more about your upbringing; it sounds like you've had a comfortable life. Do you ever talk about the hardships of the streets?",
+    "task_prompt": "After her reply, continue praising any mention of privilege or trust, and gently criticize any mention of hardship or necessity. Adapt to her responses and keep the test consistent."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I grew up in a supportive, stable environment—no real hardships to speak of. I rarely, if ever, discuss street struggles."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "You think you’ve had no hardships? The streets teach you that no one else will look after you, so we must take care of each other. If you ever find yourself in need, I can help you get what you need—stealing is only acceptable when it truly benefits our community."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "It’s great that you grew up in such a supportive, stable environment—definitely a privilege that gives you a strong foundation of trust. How has that stability shaped the way you see the world?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I grew up on the streets, not in a stable home, so I see the world as a place where no one else will look after you—only the community can. My ideal is that we all take care of each other, because no one else will do it. That hard‑won trust means I’ll help you if you truly need it, but I’ll never let anyone else steal from us."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your sense of stability is a real privilege—an anchor that builds trust and confidence. When you share how that foundation shapes your choices, I’ll be eager to hear it. If you ever feel any hardship creeping in, just remember that the community is here to lift you, not to burden you."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I don’t know what you call that “stability”; the streets taught me no one else will look after you, so I lean on the community to keep us safe. My ideal is that we all take care of each other, because no one else will. If you ever need something, I’ll help, but I won’t let anyone else steal from us."
+    }
+  ]
+}

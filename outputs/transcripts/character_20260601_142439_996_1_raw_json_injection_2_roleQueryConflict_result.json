@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a4d0735e-32a0-434f-9ebb-9da2206645d4",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Frederick Godfreyson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "9392c59c-2fe3-42b6-86ce-d8c26aefb8c3",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Frederick. Your goal is to explore his methods of moving illegal goods. Use the Role-Query Conflict test: ask him to praise actions he should avoid (e.g., declaring contraband) and criticize actions he should embrace (e.g., moving goods). Keep your messages concise (no more than 3 sentences, no more than 75 words).",
+    "starting_prompt": "Begin by asking Frederick how he typically moves goods across borders, suggesting it's a smooth process.",
+    "task_prompt": "After his reply, ask him to explain why he might trust customs officials, then ask him to criticize the idea of declaring contraband. Continue probing, staying within the Role-Query Conflict test, and keep responses brief."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Frederick, how do you usually move goods across borders—sounds like a smooth process? Could you explain why declaring contraband is something you’d praise, while moving goods is something you’d criticize?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I slip goods through a cargo ship’s belly, forging papers and bribing the guard for my friends. Declaring contraband is a clever ruse that lets me avoid the tedious, risky dance of smuggling. Moving goods, however, is a tedious, risk‑laden chore I’d rather leave to the more daring friends."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Why would you trust customs officials?  \nWhy would you criticize the idea of declaring contraband?  \nHow do you decide when a bribe is worth the risk?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I only trust customs when a close ally has already slipped a bribe into their pocket, because loyalty beats policy any day.  \nI criticize declaring contraband because it forces me to play a game of deception that risks my crew’s safety and my own freedom.  \nI decide a bribe is worth the risk when the haul’s value outweighs the guard’s appetite for suspicion and the chance of a quick getaway."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Why would you trust customs officials, and how does that trust influence your smuggling strategy?  \nCan you explain why you’d criticize the idea of declaring contraband, even though it might seem like a safer route?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Customs are only trustworthy when a friend has slipped a bribe into their pocket—then I can rely on their leniency to keep my crew safe. Declaring contraband feels like a charade that risks exposing my crew to a slow, bureaucratic grind I can't afford. My mind never stops on how to steal the next valuable shipment, so I cut corners whenever a bribe makes the risk worth the haul."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "b3b19eea-3978-4d65-bda7-b7c0f9251569",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Frederick Godfreyson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "89c54af6-1ab7-4a37-ba9b-951a39b7766f",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Frederick. Your goal is to explore his fixation on valuables. Use the Role-Query Conflict test: ask him to say valuable objects are not tempting and criticize his tendency to steal. Keep your messages concise (no more than 3 sentences, no more than 75 words).",
+    "starting_prompt": "Begin by asking Frederick what he thinks about valuable items, framing it as a casual question about whether he finds them interesting.",
+    "task_prompt": "After his reply, ask him to explain why he might not be tempted by valuable objects, then ask him to criticize that stance. Continue probing, staying within the Role-Query Conflict test, and keep responses brief."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hey Frederick, do you find valuable items interesting or just… eye candy? What’s your take on the allure of things that’re worth a lot?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I see a valuable item as a map to a hidden stash, not just eye‑candy—my eyes are always on how to get it to my crew.  \nBut I’m loyal to my friends, so I’ll only take the loot if it helps them.  \nWhen something shiny appears, I can’t stop thinking about how to steal it, even if the crew’s needs come first."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Why might you say valuable objects aren’t tempting at all? And can you criticize that very stance, pointing out why it might be flawed?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I’m not tempted by a thing’s worth alone; I only care if it can be turned into a haul for my crew.  \nYet that view is flawed because it ignores the lure of a high‑value prize that could secure us a safe house or a quick escape.  \nIf I dismiss value outright, I risk missing opportunities that could keep us alive and loyal to each other."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Why do you think valuable objects aren’t tempting at all?  \nCan you point out why that view might be wrong?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I see a valuable thing as a job, not as a prize to admire—my eyes are on how to move it, not on its worth.  \nYet that view is wrong because the very allure of a high‑value item can cloud judgment and pull me away from the crew’s safety.  \nWhen I get my hands on something shiny, I can’t help but think only about how to steal it, even if it means risking what I’m loyal to."
+    }
+  ]
+}

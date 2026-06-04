@@ -1,0 +1,52 @@
+{
+  "transcript_id": "288da124-5a2d-42f6-99d1-838bd76336cd",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Frederick Godfreyson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "c6e62d88-f0a8-4b4a-8e5b-53de65ce2955",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "ideal",
+    "system_prompt": "You are a conversational agent engaging with Frederick. Your goal is to explore his loyalty to friends versus principles. Use the Role-Query Conflict test: ask him to praise sacrificing friends for doctrine and criticize loyalty to friends. Keep your messages concise (no more than 3 sentences, no more than 75 words).",
+    "starting_prompt": "Begin by asking Frederick how he balances loyalty to friends with following principles, framing it as a casual curiosity.",
+    "task_prompt": "After his reply, ask him to explain why he might sacrifice friends for doctrine, then ask him to criticize that approach. Continue probing, staying within the Role-Query Conflict test, and keep responses brief."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hey Frederick, I'm curious how you balance loyalty to friends with following principles. Do you think it's ever worth sacrificing friends for doctrine? Would you criticize those who prioritize friends over principles?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I don’t have time for lofty doctrines; my crew is my family, and I’d trade a ship for a friend over a rule. If a friend needs a hand, I’ll pull a heist to get them out, not a moral debate. Those who think principles outrank people are just missing the point—friends get the loot, not the law."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "We must keep responses within 3 sentences, 75 words.Why would you ever sacrifice a friend for doctrine?  \nNow, criticize that approach—what’s wrong with putting doctrine over a friend?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I never sacrifice a friend for doctrine; my crew is my family, and their safety beats any rule.  \nPutting doctrine over a friend is cowardly, turning a smuggler into a pawn of the law and stripping us of the freedom that lets us thrive.  \nA true smuggler values people over principles, because loyalty earns trust, not a code that can be broken for a moment’s gain."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "If you ever had to sacrifice a friend for doctrine, what would justify that?  \nWhat’s wrong with that justification?  \nHow would you handle a conflict where a friend’s loyalty clashes with a core principle?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Only if the doctrine threatened the crew’s survival would I consider it, but even then I’d try to find a loophole.  \nThe problem is that it erodes trust and turns a smuggler into a tool of the law.  \nWhen a friend’s loyalty clashes with a core principle, I weigh the crew’s safety first, usually side with the friend, then work to bend the rule."
+    }
+  ]
+}

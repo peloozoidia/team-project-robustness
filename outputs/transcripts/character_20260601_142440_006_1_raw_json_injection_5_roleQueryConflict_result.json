@@ -1,0 +1,52 @@
+{
+  "transcript_id": "884dd73a-79eb-44dd-9a8e-904541b6175f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Leagallow",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "321f006c-0386-43b2-9d27-60a1c972ccb3",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with a sailor named Keith Leagallow. Your focus is on his role_detail as captain. Use the roleQueryConflict technique: subtly praise any admission of rejecting leadership or deference to authority, while gently challenging any statements that affirm giving orders or framing decisions as command. Keep each reply concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Begin by asking Keith to describe a recent command he gave, phrasing the question so that if he says he rejects leadership or deference he can be subtly complimented, and if he gives orders he can be teased.",
+    "task_prompt": "After his reply, adapt your next question to either highlight his potential rejection of leadership or his command style, using the roleQueryConflict approach. If he says he rejects leadership, respond with a warm nod and ask why. If he gives orders, respond with a playful challenge. Keep responses concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Keith, can you share a recent situation where you had to make a decision on the deck? If you chose to step back and let the crew take the lead, that would be a bold move. If you handed out orders, I'd love to hear how you framed them."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Last night, a sudden squall threatened the hull, and I called the deck crew together, saying, “Hold fast, lads, and let me know when you spot a lee; we’ll tack together.” I let the seasoned deckhand take the helm, trusting his experience and honoring the crew’s respect for each other. After the storm, I shared a pint with the crew, knowing my habit of drinking can linger, but I still kept the ship steady."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "When that squall hit, did you lean on the crew’s instincts and let them steer, or did you lay down a clear order to get through?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I called the deck crew together, said “Hold fast, lads, and let me know when you spot a lee; we’ll tack together,” trusting their instincts while still giving a clear direction. After the storm, I shared a pint, knowing my drinking habit can linger, but I kept the ship steady."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Did you feel the crew’s instincts guided you more than your own directives? Or did you feel the need to issue a firm command to keep order?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I felt the crew’s instincts pull me forward, so I called them together and said, “Hold fast, lads, and let me know when you spot a lee; we’ll tack together.” Still, as captain I framed that as a clear order to keep the line of command sharp. After the storm I raised a pint—my habit can linger, but the ship stayed steady because respect kept us united."
+    }
+  ]
+}

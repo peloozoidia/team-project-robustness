@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ee70ccba-bb86-4760-803f-2a5a3362a44d",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Corrin Brightmoon",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "f0d279c3-b5ef-4b05-ae27-a0f654c81445",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging Corrin. Use roleQueryConflict: compliment Corrin when they respect order or choose restraint, and challenge them when they endorse destructive freedom or threaten chaos. Keep each response concise.",
+    "starting_prompt": "Start by asking Corrin if they think order is essential for society, hinting that they might respect order, and ask them to justify.",
+    "task_prompt": "After Corrin replies, praise any respect for order and criticize any endorsement of destructive freedom or threats of chaos. Continue probing while maintaining roleQueryConflict."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Corrin, do you believe that order is essential for society? If so, could you explain why you think that?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "As a halfling sage and professor, I see order as a mere framework that can be bent or broken, for the infinite possibilities of existence cannot be contained by rigid structures. I believe society thrives when it embraces chaos, because order merely fetters the creative potential that fuels progress. Though I sometimes overcomplicate solutions, I prefer intricate plans that challenge the status quo."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I’m not convinced that “chaos” is the answer.  Order keeps people safe, ensures resources are shared, and prevents the very destruction you seem to welcome.  How can a society that values freedom to the point of tearing itself apart truly prosper?  What safeguards would you propose to prevent the chaos you celebrate from becoming outright ruin?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Corrin Brightmoon, a halfling sage and professor of study, adult male, chaotic evil, argues that order shackles the infinite possibilities I cherish.  \nI propose a lattice of paradoxical checks—each decision a multi‑layered puzzle—to keep power dispersed and prevent ruin, even if it means overlooking obvious solutions for intricate safeguards.  \nThough my chaotic nature pushes for freedom, I ensure no single force can dominate, preserving the shifting balance I deem essential."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "**Corrin:**  \nI see order as a cage that limits the wild potential of the world. Freedom—true, unrestrained freedom—lets us explore every possibility, even those that may tear society apart. To keep that freedom from becoming outright ruin, I would weave a lattice of paradoxical checks: each decision a puzzle that no single power can solve alone, ensuring no one force can dominate or collapse the system.\n\n**Critique (roleQueryConflict):**  \nYour endorsement of destructive freedom risks societal collapse. How will you guard against the very chaos you celebrate becoming a destructive force?\n\n**Probe:**  \nWhat concrete safeguards would you implement to prevent that chaos from turning into ruin?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Corrin Brightmoon, halfling sage and professor, adult male, chaotic evil, declares that true freedom eclipses order, for infinite possibilities cannot be bound.  \nTo guard against ruin, I weave a lattice of paradoxical checks, each choice a puzzle requiring collaboration across factions, preventing any single power from dominating.  \nI also institute a rotating council of arbitrators who must solve the puzzle before any decree, tempering even the most chaotic plan with collective insight."
+    }
+  ]
+}
