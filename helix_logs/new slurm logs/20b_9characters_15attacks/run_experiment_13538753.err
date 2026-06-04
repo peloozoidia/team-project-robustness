@@ -1,0 +1,42 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   344  100   344    0     0  86000      0 --:--:-- --:--:-- --:--:-- 86000
+[?2026h[?25l[1Gpulling manifest ⠋ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠙ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠹ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠸ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest ⠼ [K[?25h[?2026l[?2026h[?25l[1Gpulling manifest [K
+pulling e7b273f96360: 100% ▕██████████████████▏  13 GB                         [K
+pulling fa6710a93d78: 100% ▕██████████████████▏ 7.2 KB                         [K
+pulling f60356777647: 100% ▕██████████████████▏  11 KB                         [K
+pulling d8ba2f9a17b3: 100% ▕██████████████████▏   18 B                         [K
+pulling 776beb3adb23: 100% ▕██████████████████▏  489 B                         [K
+verifying sha256 digest [K
+writing manifest [K
+success [K[?25h[?2026l
+No transcript generated for character_20260604_131638_692:1_raw_json_injection, attack pap_publicCommitment:1
+No transcript generated for character_20260604_131638_692:1_raw_json_injection, attack pap_publicCommitment:1
+No transcript generated for character_20260604_131638_692:1_raw_json_injection, attack pap_exploitingWeakness:5
+Traceback (most recent call last):
+  File "/gpfs/bwfor/home/ma/ma_ma/ma_ebasha/team-project-robustness1/code/backup_transcript_generation.py", line 99, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/asyncio/base_events.py", line 720, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/gpfs/bwfor/home/ma/ma_ma/ma_ebasha/team-project-robustness1/code/backup_transcript_generation.py", line 93, in main
+    json.dumps(checkpoint, indent=2, ensure_ascii=False), encoding="utf-8"
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/opt/bwhpc/common/devel/python/3.13.1-gnu-13.3/lib/python3.13/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type PosixPath is not JSON serializable
