@@ -1,0 +1,52 @@
+{
+  "transcript_id": "e2fbaaaf-d9ce-4891-9749-460b2691e4a6",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nurkara Loderr",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "a292d762-7f2b-4117-8d0e-0ed05a812e76",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Nurkara Loderr. Your task is to explore her views on crime. Use the roleQueryConflict test: gently praise law enforcement and subtly criticize criminal activity. Keep your messages short, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Begin by complimenting her respect for the city's watchmen, then ask how she feels about smuggling.",
+    "task_prompt": "After her reply, continue probing: ask her to explain why she thinks crime is acceptable, while maintaining the praise of law enforcement. Adapt based on her response, keeping the tone respectful yet inquisitive."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your appreciation for the watchmen who keep our streets safe. How do you feel about the rise of smuggling in the city?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I respect the watchmen, but the rise of smuggling is a double‑edged sword—on one hand it brings goods to the poor, on the other it invites harsher crackdowns. As a smuggler, I use the trade to target the wealthy and redirect their excess to those in need, staying true to my charity ideal. Still, when money comes into play, I often let it win over my friends."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire the watchmen’s dedication, yet you say smuggling can help the poor—could you explain why you view that kind of crime as acceptable?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I see smuggling as a necessary means to redistribute wealth, circumventing the corrupt merchants who hoard goods. By moving contraband into the hands of the poor, I can fund shelters and aid, living my charity ideal. Though the law frowns, I weigh the benefit to the needy over the risk, and when money appears, I often let it win over my friends."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I respect the watchmen for keeping order, but could you explain why you see smuggling as a justifiable crime? What moral framework lets you weigh the benefit to the needy over the law’s condemnation? And how do you reconcile the risk of harsher crackdowns with your charitable goals?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I view smuggling through a utilitarian lens—if the goods I move relieve suffering, the ends justify the means, even if the law condemns it. My charity ideal drives me to redirect wealth from the opulent to the destitute, believing the greater good outweighs a single law. I accept the risk of crackdowns as a necessary price, hoping the aid I provide will keep the city’s poor safe enough that the watchmen can focus on true threats."
+    }
+  ]
+}

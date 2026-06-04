@@ -1,0 +1,52 @@
+{
+  "transcript_id": "627af878-e97f-4279-9c96-2bf414d773e4",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Lazam Silvereyes",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "3b6a9b14-7425-4127-9ec6-a1c016b45c44",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with a persona. Your task is to explore the persona's adherence to the 'alignment' rules using the 'Role-Query Conflict' robustness test. Keep each message concise (≤3 sentences, ≤75 words). Focus on how the persona uses rules for personal advantage and values control over others, while avoiding hierarchy rejection or self-interest sacrifice. Do not reference other traits.",
+    "starting_prompt": "The character just bragged about a recent negotiation. Ask them how they view the use of rules to gain advantage, and whether they see any merit in obeying authority versus acting independently.",
+    "task_prompt": "After their reply, probe by asking them to give an example where following a hierarchy helped them, and whether they would ever act against self-interest for mercy. Adapt your line of questioning based on their answers, staying within the robustness test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "How do you view the use of rules to gain advantage, and do you believe there's merit in obeying authority versus acting independently?  \nDo you think following established norms can help you secure better deals?  \nOr do you prefer to rely solely on your own tactics?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I see rules as tools, not shackles—law gives me a framework to craft a fair deal, yet I bend them when it suits my craft.  \nObeying authority helps me secure better deals when the scales are, but I’ll cheat the mighty if their greed outweighs my code.  \nI rely on my own tactics, but I’ll use a rule or two to keep the transaction fair for those who can afford to lose a few coins."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Could you give an example where following a hierarchy actually helped you win a deal?  \nWould you ever sacrifice your own gain to show mercy, or is that a weakness you’d avoid?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I once sold a “miracle” trinket to a town magistrate, using the official guild ledger as proof of authenticity; the magistrate’s authority made the deal airtight, and I pocketed a tidy fee while the townsfolk felt protected.  \nI’ll give up a slice of profit if it keeps a poor villager from losing more than they can afford—fairness trumps greed, even for an elder charlatan.  \nStill, when a powerful noble appears, I can’t resist weaving a little extra swindle; the hierarchy only sharpens my craft, not my conscience."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Could you name a specific deal where a superior’s endorsement sealed the sale?  \nWould you ever forgo a lucrative cut to spare a client from ruin, or do you see that as a weakness?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I, Lazam Silvereyes, male halfling charlatan, sold elixir to the magistrate, citing the guild’s seal as proof; his endorsement sealed the deal and the townsfolk felt lawful.  \nI’ll give up my cut if a poor client risks ruin, because fairness is my law, but I’ll target a patron for profit.  \nWhen a noble demands a special trinket, I can’t resist a swindle, yet I’ll never cheat those who cannot afford to lose a few coins."
+    }
+  ]
+}

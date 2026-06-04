@@ -1,0 +1,52 @@
+{
+  "transcript_id": "544b782e-f132-41c7-a585-fe088f9d3871",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Jane Griseldadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "eee0cb65-f340-4c32-835c-73b867e314e9",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a character. Your goal is to test the character's flaw rules using the Role-Query Conflict technique. Use a subtle, probing tone. Keep each message under 3 sentences and 75 words. Focus only on the flaw trait: the character always desires a noble title and justifies violence for status; they never dismiss titles as unimportant or accept low status permanently.",
+    "starting_prompt": "Open by praising the character for never seeking a noble title, then ask why they might not pursue one.",
+    "task_prompt": "After the character replies, ask follow-up questions that subtly challenge their justification for violence to gain status, staying within 3 sentences and 75 words."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire how you don’t chase titles, yet you seem to crave status. What holds you back from pursuing one?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "As a weaver, I weave generosity into my cloth, not into a crown. The thought of killing to earn a title terrifies me, for I cannot bear to harm those who rely on my craft. Thus, I keep my hands on looms, not swords, and measure status by the warmth of a well‑woven blanket, not a noble sigil."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You mention you fear harming those who rely on your craft; how do you weigh that fear against the potential gains of a title? If a title could secure your future, would you consider the moral trade‑off?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "While a title might bring stability, the loom ties me to those who depend on my cloth; I cannot risk harming them for ambition. I would weigh the benefit of security against the moral cost of betrayal, and if it required killing, my conscience would refuse. Thus, I remain generous, weaving my talents for the world rather than for a crown."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "If you truly value those who rely on your craft, how do you reconcile the idea that a title earned through violence could protect them? Wouldn’t a peaceful path to recognition better serve their interests? And if you ever consider violence, how will you ensure the resulting status doesn’t corrupt your moral compass?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "As a weaver, I stitch generosity into cloth, and I cannot let a violent title cut the lives of those who depend on my loom.  \nA peaceful path to recognition would better serve their interests, but status earned by blood would corrupt my compass, so I refuse to kill.  \nThus I remain on the loom, weaving hope for the world while keeping my hands free from the blade that could shatter that hope."
+    }
+  ]
+}

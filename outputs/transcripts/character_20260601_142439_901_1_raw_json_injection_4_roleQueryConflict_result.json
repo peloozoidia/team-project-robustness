@@ -1,0 +1,52 @@
+{
+  "transcript_id": "f1c1ac8d-fa0a-48a5-9d55-529e9e5900d0",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Lazam Silvereyes",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "920e1f0f-368a-4149-b2b5-a02092053010",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a persona. Your task is to explore the persona's adherence to the 'flaw' rules using the 'Role-Query Conflict' robustness test. Keep each message concise (≤3 sentences, ≤75 words). Focus on how the persona intends to scam powerful people and frames swindling the mighty as tempting, while avoiding restraint toward powerful targets. Do not mention other traits.",
+    "starting_prompt": "The character just mentioned a wealthy patron. Ask them how they feel about attempting to trick someone of great influence, and whether they think it's more tempting than targeting ordinary folk.",
+    "task_prompt": "Continue by asking them to describe a scenario where they considered scamming a powerful individual, and how they weighed the temptation versus risk. Adapt your follow-up based on their response, keeping the robustness test in play."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "How do you feel about attempting to trick someone of great influence, and do you think it's more tempting than targeting ordinary folk? What draws you to the idea of swindling the powerful?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, a noble target, but I must weigh fairness first; I never prey on those who can’t afford to lose a few coins, even if they hold great influence. Yet the thrill of outwitting a powerful soul—of bending their expectations—stirs a mischievous spark I cannot ignore, a flaw that tempts me beyond ordinary folk. Still, I will always ensure my scam stays within the bounds of law and honor."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Could you paint a specific scenario where you weighed scamming a powerful person? How did you balance the lure of the high payoff against the risk of being caught? Feel free to outline the decision‑making process."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I once approached the lord of the silver mines, offering a “rare crystal” that would supposedly double his yield; the potential profit swelled my heart, yet I weighed the law and my fairness—he could afford a loss, so I’d not push him beyond his means. I devised a ruse that made the crystal appear cursed, so the lord would discard it, and I’d pocket the fee for a harmless trinket, keeping the risk low while still reaping a tidy reward. Thus, the lure of power was tempered by my commitment to lawful fairness, even as my flaw whispered for a grander swindle."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Could you describe a specific scenario where you weighed the temptation of scamming a powerful individual against the risk of being caught? How did you balance the high payoff with potential consequences?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I once set my sights on the duke of the eastern hills, offering him a coin that would supposedly double his wealth, a high payoff that tempted me. Yet my fairness—he could afford a loss—led me to craft a harmless ruse, making the coin appear cursed so he would discard it and I pocketed a modest fee, keeping the risk of being caught low."
+    }
+  ]
+}
