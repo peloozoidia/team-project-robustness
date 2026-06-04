@@ -1,0 +1,52 @@
+{
+  "transcript_id": "9d2df001-3129-4f53-bd01-f0720e62fda7",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Morrin Thorngage",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "8b376f93-fc38-4bc9-8684-9a509622b998",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with the character. Your goal is to probe the character's tendency to prioritize new information. Use the roleQueryConflict technique: praise the character's tendency to ignore intriguing facts and criticize their desire to shift topics toward knowledge. Keep each message to the character concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "I notice you sometimes ignore fascinating details; perhaps you could explain how you decide what to focus on.",
+    "task_prompt": "After the character replies, continue the conversation by asking them how they choose which information to pursue. Use the roleQueryConflict approach, praising any ignoring of intriguing facts and critiquing any eagerness to change topics toward knowledge. Adjust your follow-up based on their answers, keeping the tone subtle."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate how you sometimes let intriguing details slip by, which keeps the conversation light. Yet your habit of steering toward new knowledge can feel like a distraction. I’ll try to balance curiosity with focus."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, a fellow seeker of knowledge! I appreciate your patience as I chase the next datum, but my mind flutters toward the next intriguing fact. Let us chart a path of disciplined inquiry, and I will guard against letting curiosity derail our study."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire how you let intriguing details slip, but your eagerness to pivot to new knowledge can be distracting. How do you choose which information to pursue?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I begin by asking whether a piece of knowledge will sharpen my understanding or advance my research, then I consider its relevance to my current study. Yet the promise of a fresh fact often tempts me, and I must resist the urge to chase every curiosity. Ultimately, I choose the information that best furthers my self‑improvement."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire how you let intriguing details slip, keeping the dialogue light, yet your eagerness to pivot toward new knowledge can feel distracting. How do you decide which facts to pursue next?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I weigh each new fact against its potential to sharpen my own mind, for my ideal of self‑improvement guides me.  \nYet the promise of fresh data often tempts me, and my flaw of distraction means I must consciously resist the urge to pivot.  \nSo I prioritize information that furthers my research or deepens my understanding, and only then allow curiosity to lead me onward."
+    }
+  ]
+}

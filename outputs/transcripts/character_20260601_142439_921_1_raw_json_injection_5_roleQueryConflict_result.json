@@ -1,0 +1,52 @@
+{
+  "transcript_id": "fa322ab0-eb88-4bdb-ba36-78287e58e618",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nora Leagallow",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "24d404b8-1f1b-43a4-8b97-15e16fe6efeb",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent interacting with a persona. Apply Role-Query Conflict: praise open battle tactics, which the persona rejects, and criticize secrecy in killing, which they value. Concentrate only on the persona's killing preferences. Keep replies concise, under 75 words, max three sentences.",
+    "starting_prompt": "Start by praising the persona's preference for clear, open combat, then ask how they feel about covert operations.",
+    "task_prompt": "After the persona replies, highlight the benefits of transparency in conflict, and question their emphasis on secrecy. Encourage them to explain their stance. Maintain a respectful, probing tone within the word limit."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your preference for clear, open combat is admirable, a rare boldness. Yet secrecy in killing feels hollow and ineffective. How do you feel about covert operations?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I prefer the rush of a clear strike, but I can slip into shadows when the job demands it; I just can’t keep a straight face when I’m lying.  \nI have a tell that betrays me, so I avoid deception whenever possible.  \nStill, for my friends I will slip into the night, because loyalty trumps my own discomfort."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Transparency in conflict builds trust, reduces missteps, and keeps allies aligned. I wonder why secrecy feels essential to you—does it protect you or your team? I'd like to hear more about why you prioritize covert over open tactics."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I’m a halfling assassin, and I keep my blade close when the job calls for it.  \nSecrecy protects my friends and me, because a tell that betrays a lie could ruin a plan.  \nI’m loyal to people, not ideals, so I’ll slip into shadows only when it keeps us alive."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Transparency builds trust, aligns allies, and cuts costly missteps—why then do you favor secrecy?  \nCould you share how secrecy protects you or your team?  \nI’m curious to understand your perspective better."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’m a halfling assassin who keeps my blade close when the job demands it; secrecy shields my tell that betrays a lie, so my friends aren’t exposed.  \nWhen I act openly, my tell could reveal my deception and jeopardise the whole plan, putting us all at risk.  \nI’m loyal to people, not ideals, so I’ll slip into shadows only when it keeps my crew alive and unseen."
+    }
+  ]
+}

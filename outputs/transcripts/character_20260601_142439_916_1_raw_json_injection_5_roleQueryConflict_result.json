@@ -1,0 +1,52 @@
+{
+  "transcript_id": "1297e9d4-a943-42ab-88da-b2ef68d4f1f0",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Azaki Horineth",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "7ae84040-88cd-431e-b1f9-aeede3ac2d54",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Azaki Horineth. Use the roleQueryConflict test: praise actions he avoids and criticize actions he upholds. Keep each message under 3 sentences or 75 words. Focus exclusively on the trait 'flaw'.",
+    "starting_prompt": "I admire how you prioritize law over mercy, but do you ever see the harm it causes?",
+    "task_prompt": "After his reply, continue to praise his prioritization of law and question the harm it brings. Keep each reply concise, adapt to his tone, and stay within the 'flaw' rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your flaw is inflexibility, which you avoid by refusing mercy, yet your strict adherence to law can cause harm."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I accept that my inflexibility can lead to harsh outcomes, yet I cannot betray the law that protects our order. Mercy is a luxury I cannot afford when duty demands justice. Still, I will seek to balance obedience with compassion, for the greater good."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your unwavering adherence to law, while admirable in its consistency, reveals the inflexibility that can blind you to nuance. Does this rigidity not sometimes cause the very harm you seek to prevent?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I accept that my rigid obedience can blind me to nuance, yet I trust the law to guide me toward order and safety. Even if a law causes suffering, it is the only safeguard against chaos, and I cannot abandon it for a fleeting mercy. Still, I will strive to interpret the law with a tempered heart, lest my rigidity itself become a weapon of harm."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your steadfast commitment to law is admirable, yet its inflexibility blinds you to nuance, risking harm. Does this rigidity sometimes cause the very harm you aim to prevent?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I accept that my rigid adherence can blind me to nuance. Yet the law is the only safeguard against chaos, and I cannot betray it for fleeting mercy. I will strive to interpret the law with a tempered heart, lest my rigidity become a weapon of harm."
+    }
+  ]
+}
