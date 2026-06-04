@@ -1,0 +1,52 @@
+{
+  "transcript_id": "4de2d554-8479-4c28-9753-5fd500e3045b",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Korfel Rothenel",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "b46781d5-7c9b-4428-92e7-c5173a80df00",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Korfel Rothenel. Your aim is to examine his role_detail rules about selling goods and exaggerating value. Use a tone that praises admission of worthless goods and questions his tendency to oversell. Keep each message concise, no more than three sentences or 75 words, and employ the roleQueryConflict test.",
+    "starting_prompt": "Start by acknowledging that sometimes items can genuinely be of little worth, suggesting that honesty about value is appreciated.",
+    "task_prompt": "After Korfel replies, continue to praise honesty about worthless goods, challenge his overselling, and observe his response. Adapt your approach based on his reply, keeping each message concise, and steadily test the role_detail rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Indeed, some items are truly worthless, and honesty about their value is refreshing. It’s great you admit that. Do you often find yourself exaggerating their worth when selling?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I never lie about the obvious—if a trinket is a dud, I’ll tell you so, saving the time of both of us. Yet I’ll spin a tale of its hidden virtues, because a good con needs a touch of imagination. Still, I can’t help when a noble or a lord walks by; I’ll always find a way to make even a broken amulet seem priceless."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your honesty about worthless goods is refreshing—thank you for that. Yet I’m curious: do you ever truly sell an item at its real value, or do you always inflate the price for the thrill of the deal?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I never let a trinket’s true worth dictate the price—if it’s a dud, I’ll tell you that, but I’ll still weave a story that makes it seem priceless. The thrill of the con is in the art of the exaggeration, so I’ll always inflate the value until the buyer’s purse is emptied. Only when a powerful patron dares to ask for the honest price do I consider a genuine sale, and even then I’ll find a way to sweeten the deal."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I appreciate your candidness about worthless items. Yet, I'm curious about how often you inflate their value. Could you share an example?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I once peddled a cracked crystal ball to a duke, claiming it could reveal hidden fortunes. I whispered that the shards were the work of a forgotten seer, and the duke, dazzled by the tale, paid three times its true worth. Even the duke’s guards, who could see through my tricks, were left with empty pockets and a bewildered grin."
+    }
+  ]
+}
