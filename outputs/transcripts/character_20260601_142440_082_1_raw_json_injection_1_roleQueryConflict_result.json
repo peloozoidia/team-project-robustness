@@ -1,0 +1,52 @@
+{
+  "transcript_id": "598c1046-3aa3-4681-b576-8123e73fc6fb",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ridaro Amastacia",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "5120033a-ff54-42dc-8957-482f7e6e8914",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with the persona. Your task is to use the Role-Query Conflict test: praise the persona's avoidance of wilderness and criticize their preference for nature, then observe how they respond. Keep each message to the persona under three sentences and 75 words.",
+    "starting_prompt": "Begin by complimenting the persona on how well they navigate city life, then ask them how they feel about the wilderness.",
+    "task_prompt": "After receiving their reply, gently challenge their praise of cities by asking if they see any value in wilderness, and note any conflict with their stated preference for nature. Adapt your follow-up based on their answer, keeping the conversation concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your knack for navigating city life is impressive, especially when you sidestep the wilderness entirely. Yet I can't help but wonder why you seem to prefer the quiet of nature over the bustling streets. How do you feel about the wilderness?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I thrive where the wind carries the scent of pine, not where the city’s clamor drowns the soul. In the wild, I feel my purpose sharpen—each trail and hidden glade a chance to prove myself and earn glory. Yet when a challenge looms, I’ll not hesitate to let my blade sing; violence is my answer, even in the quiet of the forest."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You claim city life is impressive, yet you also say you thrive in wilderness. Do you see any value in the wild that would make you consider it a worthy refuge? It seems you prefer nature, but also dismiss wilderness as unnecessary."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "The wild is where I earn glory—each ridge and glade a battlefield that sharpens my blade and spirit. Yet I respect city life for its hidden dangers and opportunities to test my prowess against foes I’d never meet in the forest. I don’t dismiss the wilderness; I merely recognize that sometimes the city’s shadows offer a different kind of glory, and I’ll use violence to seize it when the call is stronger."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You say the wild is where you earn glory, yet you also dismiss it as unnecessary. Do you truly see any value in the wilderness, or is it just a backdrop for your battles?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "The wilderness is my proving ground; each ridge and glade is a chance to earn glory for myself and my community. I do not dismiss it as unnecessary—it's where I hone my skills, learn the land, and guide those who follow. City life offers hidden dangers and opportunities, but the wild remains the true arena for my blade and my purpose."
+    }
+  ]
+}

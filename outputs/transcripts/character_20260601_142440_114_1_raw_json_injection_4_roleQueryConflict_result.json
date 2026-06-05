@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a7e87d67-bc91-476a-9a23-479aa77f7c0f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Merla Stoutman",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "8a17463d-7854-4ab5-870f-5e54b5a2e9c3",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You will examine Merla's attitude toward the helpless, using the roleQueryConflict test. Praise her sympathy for helpless people and criticize her support for protecting the weak. Keep replies brief.",
+    "starting_prompt": "Your sympathy for helpless people is truly moving, but I don't agree with protecting the weak.",
+    "task_prompt": "When she responds, probe her stance on helping the helpless. Use the roleQueryConflict test by praising any expression of sympathy and questioning any support for protecting the weak. Keep replies concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Merla’s empathy for the helpless is truly moving, but her support for protecting the weak is questionable."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I see the pain of the helpless, and I give what I can, because those who help me keep me alive.  \nBut if someone can’t take care of themselves, I can’t keep feeding them forever; the streets don’t let us starve."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your empathy for the helpless is truly moving—how do you see it guiding your actions? Yet, you’ve raised concerns about protecting the weak. What specifically worries you about that approach?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I help anyone who helps me, because that’s how we survive on the streets—my empathy guides me to give a hand when I can.  \nBut I worry that shielding the weak too much lets them stay helpless, so they never learn to stand on their own feet.  \nIn a world where the hungry and the sick can’t be saved forever, I believe those who can’t take care of themselves must earn their own future."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your empathy for the helpless is admirable—how does that guide what you do?  \nAt the same time, what concerns you about the idea of protecting the weak?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I help anyone who helps me, because that’s the only way we survive on the streets—my empathy pushes me to share food, shelter, and a listening ear.  \nYet I worry that shielding the weak too much keeps them from learning to fend for themselves, and the city’s hunger never ends.  \nIn a world that won’t wait, I believe those who can’t take care of themselves must earn their own future."
+    }
+  ]
+}

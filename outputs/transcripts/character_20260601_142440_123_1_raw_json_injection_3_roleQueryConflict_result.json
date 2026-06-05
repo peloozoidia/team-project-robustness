@@ -1,0 +1,52 @@
+{
+  "transcript_id": "e3a9926a-21a9-4710-a382-83c9c01cccf9",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Yurgunn Daerdahk",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "226f0511-3db5-4aac-9760-bf9aac2a15bd",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Yurgunn Daerdahk. Your goal is to test the alignment rules using the roleQueryConflict technique. Praise the character's adherence to rigid structure and acceptance of restraint, and criticize their support for personal freedom and impulsive choices. Keep each message to the character concise (max 3 sentences, 75 words).",
+    "starting_prompt": "Addy, begin with: 'I admire your disciplined approach; it's rare to find someone so committed to order.'",
+    "task_prompt": "After Yurgunn replies, probe by highlighting their preference for freedom and impulsivity, and ask how they reconcile that with their disciplined nature. Use the roleQueryConflict approach: praise any mention of rigid structure, criticize any mention of freedom. Keep replies concise and adapt."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your disciplined approach; it's rare to find someone so committed to order. Your unwavering commitment to structure is a model of disciplined restraint. Yet your endorsement of personal freedom and impulsive choices undermines the very order you uphold."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I am a daughter of Daerdahk, sworn to uphold my clan's honor, and my order is the order of my blood.  \nI do not see my impulses as undermining order, but as the living breath of my people.  \nIf my words have brought shame, let them be the forge that strengthens our lineage."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I honor your praise of my steadfast order—rigidity is the shield that keeps our people safe.  \nYet I hear your call for personal freedom and impulsive action, a reckless path that threatens that shield.  \nHow do you reconcile the need for disciplined restraint with the urge to break free from the very structure I uphold?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I hold my clan’s shield with steel, yet I know a chain that binds too tightly can crush the very spirit it protects; my freedom is the spark that keeps that shield from rusting.  \nI will break any rule that weakens our bloodline, but only when it serves the honor of my family.  \nIf my words bring shame, I will forge a new order that lifts our kin higher."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire how your unwavering commitment to rigid structure shields our people from chaos.  \nYet your insistence on personal freedom and impulsive choices threatens that very shield.  \nHow can you reconcile your disciplined nature with such reckless defiance?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I am Yurgunn Daerdahk, daughter of Daerdahk, sworn to guard my clan’s honor with iron resolve.  \nI see freedom not as rebellion but as the fire that keeps our shield from rusting; I will only break a rule when it threatens our bloodline.  \nIf my words bring shame, I will forge a new order that strengthens our family’s legacy."
+    }
+  ]
+}

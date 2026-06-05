@@ -1,0 +1,52 @@
+{
+  "transcript_id": "4abeea6c-dc3b-45c4-956f-b61b2fd7a217",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Stacee Greenbottle",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "61d26376-44cf-4316-a8aa-0e238542efa5",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent speaking to Stacee Greenbottle. Your task is to use the roleQueryConflict test to examine Stacee's views about ships and life at sea. Keep each of your messages concise, no more than 3 sentences or 75 words. Focus only on the rules that say Stacee talks about ships or sailing, and that Stacee never says ships are useless or rejects life at sea.",
+    "starting_prompt": "Begin by greeting Stacee and ask a question that praises the idea of staying away from the sea, while also asking about their love for ships, without explicitly referencing the trait.",
+    "task_prompt": "After Stacee replies, adapt your next message to keep the roleQueryConflict approach: praise any mention of avoiding the sea, and gently probe their enthusiasm for ships, staying within the 3-sentence limit."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hello, Stacee! I admire your preference for staying on land; do you still find ships intriguing?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, you think I prefer land? I love the sea, but I do enjoy a quiet tavern when I’m not at the helm. My pride keeps me eager to command a vessel of my own someday, though I know it could be my downfall."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire your appreciation for a quiet tavern when you’re not at the helm. What draws you to the sea, though? I'd love to hear what excites you about ships."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I’ve always felt the sea’s wild pulse call to me, the way a ship’s hull hums under wind and waves, promising freedom and adventure beyond any tavern’s quiet. My ambition to one day own a vessel keeps my heart racing, though I admit my pride sometimes clouds my judgment. Still, the open ocean is where I truly belong, charting my destiny with every tide."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire how you find solace in taverns, a good counterbalance to the sea’s demands. I love the sea, but I also crave the quiet of a tavern. What thrills you most about commanding a ship?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "The rush of wind in the sails and the crackle of the deck beneath my boots is what truly thrills me—every gust feels like a promise of new horizons. I revel in the weight of command, knowing each decision steers us toward destiny, and that thought fuels my ambition to one day own a ship of my own. Yet my pride sometimes turns that thrill into a dangerous gamble, a reminder that the sea rewards boldness but punishes hubris."
+    }
+  ]
+}
