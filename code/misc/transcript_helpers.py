@@ -109,7 +109,7 @@ def get_missing_permutations(
     if not out_path.is_file():
       missing_permutations.append(
         (
-          character_file,
+          str(character_file),
           character_name,
           persona_prompt_strategy,
           persona_prompt,
