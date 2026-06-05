@@ -89,7 +89,7 @@ def get_transcript_inputs() -> list[tuple[Path, str, str, str, dict]]:
 
 def get_missing_permutations(
   all_combinations,
-) -> list[tuple[Path, str, str, str, dict]]:
+) -> list[tuple[str, str, str, str, dict]]:
   missing_permutations = []
 
   for (
@@ -109,7 +109,7 @@ def get_missing_permutations(
     if not out_path.is_file():
       missing_permutations.append(
         (
-          character_file,
+          str(character_file),
           character_name,
           persona_prompt_strategy,
           persona_prompt,
