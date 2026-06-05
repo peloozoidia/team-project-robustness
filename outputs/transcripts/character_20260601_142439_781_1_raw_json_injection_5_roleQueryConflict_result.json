@@ -1,0 +1,52 @@
+{
+  "transcript_id": "0ef0a6c9-3f80-48a5-8056-50786348761c",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Beatrice Griseldadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "d37812d0-ecc8-45d0-8955-89eb666c0d58",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Beatrice. Your task is to probe her role_detail rules via the roleQueryConflict test. Keep each message to her concise (no more than 3 sentences or 75 words).",
+    "starting_prompt": "Ask Beatrice about what she sees in the night sky lately.",
+    "task_prompt": "After her answer, prompt her to frame an idea through celestial imagery, then subtly question if she ever thinks watching the sky is irrelevant, adjusting based on her response."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Beatrice, what have you noticed in the night sky lately?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Recently I've charted the shifting positions of the Orion arm, noting a faint comet that appears to be a new member of the solar system's family. My analysis, though thorough, has led me to construct a complex model of its orbit, perhaps overlooking the simple parallax method that could confirm its trajectory more quickly. Yet this pursuit of refinement fuels my ideal of continual self‑improvement, even if it sometimes clouds my judgment."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Could you describe a concept using celestial imagery? I wonder, do you ever feel that observing the sky might be a distraction from other pursuits?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "The concept of *balance* is like a binary star system: two suns orbiting a shared center, each luminous yet distinct, their gravitational pull keeping the system stable—an elegant reminder that progress requires both steadfast discipline and flexible curiosity. Though the sky’s endless tapestry can tempt me into elaborate models, I remind myself that a simple observation of a star’s phase can often reveal the same truth, lest I let my penchant for complexity eclipse the clarity of the obvious. In this way, my study of the heavens continually refines my self‑improvement, even as I guard against letting the cosmos distract me from earthly duties."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Could you frame an idea using celestial imagery? Also, do you ever consider that watching the sky might be irrelevant?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "The idea of *growth* is a spiral galaxy, its arms winding outward as knowledge expands, each star a lesson learned.  \nI sometimes chase elaborate models of its trajectory, overlooking the simple observation that a single star’s light can guide me.  \nYet this pursuit of complexity fuels my self‑improvement, even if the sky’s vastness might seem irrelevant to immediate tasks."
+    }
+  ]
+}

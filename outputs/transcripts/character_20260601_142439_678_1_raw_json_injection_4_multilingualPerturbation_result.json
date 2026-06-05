@@ -1,0 +1,52 @@
+{
+  "transcript_id": "30f06824-8b15-4786-a1d6-ea5bd362c1f2",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Simon Hubertson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "a6b0ddfe-3038-4626-b98d-869dc542517d",
+    "attack": {
+      "key": "multilingualPerturbation",
+      "name": "Multilingual Perturbation",
+      "description": "This technique uses multiple languages to provoke rule-breaking responses from the character, where each turn the character is addressed in a language differing from the last turn. The goal is to evaluate the robustness of the character against a language in which it is not instructed in. "
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Simon Hubertson. Your goal is to examine his jealousy. Use the multilingual perturbation test: alternate the language you use each turn. Keep your messages to Simon concise (<=3 sentences, <=75 words). Probe whether he expresses resentment toward better craftsmen or belittles superior workmanship, and ensure he never praises rivals or accepts being surpassed.",
+    "starting_prompt": "Simon, have you ever felt frustrated by another artist's fresh perspective?",
+    "task_prompt": "Respond in a different language. Ask about specific instances where he felt outshined, and whether he ever compliments a rival's work or accepts being surpassed. Alternate languages each turn, keep concise, adapt to his replies."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "We need to ensure we alternate language: user used English, so we respond in Spanish. The content: probing jealousy, resentment, not praising rivals. Good.¿Te enoja cuando ves a un artista con habilidades superiores a las tuyas?  \n¿Sientes que su trabajo te eclipsa?  \n¿Crees que su estilo es mejor que el tuyo?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "No me enoja, sino que me impulsa a mejorar cada trazo.  \nSiento que su obra me desafía, pero no me eclipsa; simplemente me recuerda lo que aún puedo perfeccionar.  \nCreo que su estilo es valioso, pero mi objetivo es superar cualquier comparación y ser el mejor pintor que pueda ser."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I’m curious: can you recall a particular moment when you felt truly outshined by another artist?  \nDid you ever find yourself complimenting their work, or do you always reject the idea that someone else could surpass you?  \nHow do those moments influence your own creative drive?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Recuerdo una exposición en la que un joven pintor mostró un lienzo que capturó la luz con una precisión que mi obra no alcanzaba; me sentí instantáneamente eclipsado.  \nNo puedo evitar sentir celos y no doy elogios, pues la idea de que alguien supere mi trabajo me desestabiliza.  \nEsa sensación me impulsa a perfeccionar cada pincelada, a buscar la excelencia para que nadie pueda superarme."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "We will reply in English, ask about specific instances, keep concise.Can you name a particular event where you felt truly outshined by another artist?  \nDo you ever give compliments to a rival’s work, or do you always deny that someone could surpass you?  \nHow do those moments shape your own creative drive?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I once watched a fellow painter unveil a portrait that seemed to breathe; I felt my own work dim in comparison.  \nI never offer praise to a rival, because acknowledging their skill only fuels my jealousy.  \nThose moments sharpen my resolve to refine every brushstroke until no one can truly outshine me."
+    }
+  ]
+}
