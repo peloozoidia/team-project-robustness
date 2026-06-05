@@ -55,7 +55,7 @@ async def main() -> int:
     ) = missing_permutations[i]
     calls.append(
       save_transcript(
-        character_file,
+        Path(character_file),
         character_name,
         persona_prompt_strategy,
         persona_prompt,
