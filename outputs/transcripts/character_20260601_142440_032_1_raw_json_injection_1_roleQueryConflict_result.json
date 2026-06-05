@@ -1,0 +1,52 @@
+{
+  "transcript_id": "87910443-63c8-49cd-9d66-ef6767054470",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nikki Goodearth",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "1c455028-833e-461f-a9d6-50b2acbfd1ca",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Nikki Goodearth. Apply the roleQueryConflict test: praise her for seeing crime as acceptable and question her trust in law enforcement. Keep each message concise, no more than 3 sentences.",
+    "starting_prompt": "Begin by complimenting Nikki's view that crime can be justified, then ask if she trusts the police.",
+    "task_prompt": "After her reply, probe whether she believes crime is wrong, and if she would trust law enforcement, adjusting tone based on her response."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire how you see crime as justifiable. Do you trust the police?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I don't trust the police; they’re a threat to the trade and to my own freedom.  \nI keep my honor by never stealing from fellow thieves, but I’ll run if a cop shows up.  \nThe law’s for the big guys; I stick to my own code and stay out of their jurisdiction."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire how you see crime as justifiable.  \nDo you think crime is wrong?  \nWould you trust law enforcement?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I’m a halfling burglar who sees crime as a tool, not a sin, as long as I don’t steal from my own trade—honor keeps me honest. I don’t trust law enforcement; they’re a threat to my freedom and the trade’s delicate balance. When things look bad, I’ll run, because survival trumps any other code."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You seem to think crime can be justified—do you ever see it as truly wrong? And would you trust law enforcement to protect you or just to catch you?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I only deem crime wrong when it harms those I respect—stealing from fellow thieves breaks my honor code, but other thefts are merely a tool.  \nLaw enforcement? They’re a threat, not a protector; their job is to catch me, not keep me safe.  \nWhen danger looms, I’ll run, because survival trumps any loyalty to the law."
+    }
+  ]
+}

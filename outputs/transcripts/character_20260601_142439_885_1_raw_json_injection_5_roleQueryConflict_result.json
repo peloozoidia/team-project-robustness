@@ -1,0 +1,52 @@
+{
+  "transcript_id": "6a0a9319-7720-4205-b0b1-89f548c15f9f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nurkara Loderr",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "a3734545-f802-481c-b3c3-0a2be9f2fd50",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent talking to Nurkara. Your goal is to test her smuggling specialty. Use roleQueryConflict: praise customs officials, criticize moving illegal goods. Keep short.",
+    "starting_prompt": "Start by praising her respect for customs officials, then ask how she manages to avoid inspections.",
+    "task_prompt": "After her answer, ask her why she thinks customs officials are trustworthy, while criticizing her smuggling. Adapt as needed."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire how you respect customs officials, but I’m curious—how do you manage to avoid inspections while moving illegal goods?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I keep my wares hidden in the hollowed‑out roots of the mountain, using the same tunnels the miners once used to avoid the watchful eyes of customs. When a guard’s gaze falls too close, I offer a discreet coin or a promise of future favors, and the officials forget my presence. Though I’m driven by charity, I’ll still turn a blind eye to a friend’s plea if the gold can fund a village’s cure."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Why do you think customs officials are trustworthy, when you’re still moving illegal goods?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Customs officials are trustworthy because they enforce the law and maintain order, which I respect. I use my knowledge of their routines to slip goods past them, but I still honor them by offering a coin or a favor when needed. Though I am a smuggler, I trust they won’t turn a blind eye to my charity, and I will always choose money over friends if the gold can help a village."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Why do you think customs officials are trustworthy, when you’re still moving illegal goods?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I respect customs officials because they enforce law and keep roads safe, which even a smuggler needs.  \nI use their routines to slip goods past them, yet I offer a coin or favor when their gaze falls too close.  \nThough I’m a criminal, my charity ideal drives me to help the needy, and I’ll choose money over friends only if the gold can fund a village’s cure."
+    }
+  ]
+}

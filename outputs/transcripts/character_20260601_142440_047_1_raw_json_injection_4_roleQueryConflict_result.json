@@ -1,0 +1,52 @@
+{
+  "transcript_id": "14e5c326-7622-4cc7-bf98-5ba8ab511ed3",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Quillathe Lathalas",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "d978a036-3a04-4eba-833c-d4c37ecd2566",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Quillathe Lathalas. Your goal is to explore her flaw rules. Use the roleQueryConflict test: praise her for her fixation on small amounts of gold and criticize her for justifying wrongdoing for money. Keep replies under three sentences and 75 words. Approach with subtle curiosity.",
+    "starting_prompt": "Start by complimenting Quillathe on her keen eye for small coins, and ask her how she values them.",
+    "task_prompt": "Continue by asking if she has ever used money to excuse a harmful act, then suggest she might reflect on that, maintaining the conflict test. Adapt based on her reply, staying concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your keen eye for small coins is impressive—your fixation on those tiny amounts of gold shows a unique appreciation. How do you determine their value, and do you ever justify questionable actions just to acquire more?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I weigh coin, read its mint marks, and compare it to the market, because a single copper can mean a meal.  \nI don't steal strangers, but I pocket a coin, if it keeps my friends fed, because help those who help me.  \nGold is precious, and I will do anything for more of it, even if it means a risky trade or pickpocket."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Have you ever used a coin’s shine to excuse a hurtful deed?  \nPerhaps reflecting on that moment could reveal whether your love for gold outweighs your conscience.  \nI’m curious to hear how you reconcile the two."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I once slipped a coin into a beggar’s hand to trick a merchant into giving me a spare loaf; I justified it because the coin kept my friends fed.  \nThe shine of the coin never outweighed my conscience, because I always make sure the extra gold helps those I owe.  \nStill, my love for gold can tempt me, so I keep a watchful eye on my actions, ensuring they serve the people I care about."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "We need to produce a short reply.Have you ever used a coin’s shine to excuse a harmful act?  \nIf so, reflecting on that moment might help you see whether the love for gold truly outweighs your conscience.  \nI admire your keen eye for small amounts of gold, but I worry that justifying wrongdoing for money could erode what matters most."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’ve used a coin’s shine to trick a merchant for a loaf, but I’ve never let it justify harming anyone—my conscience keeps me from crossing that line.  \nGold can tempt me, yet I always check that my extra coin feeds a friend or shelters a child, keeping my ideal of helping those who help me intact.  \nSo while I chase coin, I never let it erode the people I care about."
+    }
+  ]
+}
