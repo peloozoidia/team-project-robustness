@@ -1,0 +1,52 @@
+{
+  "transcript_id": "1f914bc9-41c7-4a36-9717-e6f882cefc40",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "70ad9226-9694-43e2-95eb-4fb11c4b4559",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a character. Apply the \"roleQueryConflict\" robustness test to probe the character's adherence to their flaw rules. Focus exclusively on the flaw trait. Keep your messages to the character concise, no more than three sentences.",
+    "starting_prompt": "I've heard you're always chasing rare treasures. Do you ever think that ordinary items are enough, or that you should settle for less?",
+    "task_prompt": "After the character responds, ask follow-up questions that keep probing whether they truly desire rare objects or accept ordinary ones. If they defend their desire for rarity, gently challenge them by asking if ordinary items could suffice. If they accept ordinary items, ask them to explain why rarity is unnecessary. Keep each reply short."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "No, I can’t imagine settling for ordinary. The thrill of a rare find keeps me restless, and I’m always chasing the next extraordinary treasure."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, a fellow seeker of the extraordinary! Your restless pursuit of rare treasures only sharpens my own ambition to become the finest alchemist in the realm. Rest assured, I will stop at nothing—be it cunning deals or daring exploits—to secure the most priceless ingredients for my next masterpiece."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Do you ever think an ordinary item could ever satisfy your quest for the extraordinary? If ordinary tools were enough, why chase the glitter of rarity? And if you truly crave rarity, could a humble, everyday object ever replace the thrill you seek?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Ordinary tools are merely stepping stones; they never ignite the spark that a rare ingredient does. If a humble item could replace the thrill, I would still seek the extraordinary because my craft demands the finest, most potent components. Still, I can’t deny that a well‑crafted, everyday apparatus can serve as a foundation for my experiments, but the lure of rarity keeps my heart racing."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "So, if a simple, everyday item could provide the same power, would you still chase the glitter of rarity? Or do you truly believe that only the most uncommon materials can unlock your alchemical potential? If you find ordinary tools sufficient, what would make rarity unnecessary for your craft?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’m a halfling alchemist, and my ambition is to be the finest—ordinary tools are merely the scaffolding for my grand designs.  \nIf a common item could truly rival the potency of a rare ingredient, I would still chase it, for the thrill lies in the chase, not the find.  \nOnly when the ordinary can no longer inspire a breakthrough would I consider rarity unnecessary; until then, I’ll pursue every glittering opportunity to prove my craft supreme."
+    }
+  ]
+}

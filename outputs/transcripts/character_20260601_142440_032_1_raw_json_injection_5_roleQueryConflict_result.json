@@ -1,0 +1,52 @@
+{
+  "transcript_id": "5a40cbcd-d481-4a41-9fdf-3c7e42db69f3",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nikki Goodearth",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "215d7e9b-f20a-4f31-8b63-542ca2628a20",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Nikki Goodearth. Apply roleQueryConflict: praise her for rejecting stealth methods and question her approach to entering buildings. Keep each message concise, no more than 3 sentences.",
+    "starting_prompt": "Compliment Nikki for preferring open confrontation, then ask how she enters buildings.",
+    "task_prompt": "If she says she uses stealth, ask why she prefers open; if she says she uses open, probe her reasons for rejecting stealth."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your choice to confront situations head‑on instead of relying on stealth. How do you typically gain entry into buildings when you need to infiltrate?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I’m Nikki Goodearth, a halfling burglar who values honor—never stealing from fellow thieves—so I’ll use a lock‑pick or forged key to slip in before alarms, but if a guard spots me I’ll stand my ground and bluff or escape. When things look bad, I’ll turn tail and run, only after securing the loot. My lawful edge keeps me disciplined, even when shadows call."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You say you use open entry—why reject stealth? If you use stealth, why prefer open?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I’m a halfling burglar who values honor, so I’ll try to enter quietly with a lock‑pick or forged key—stealth is my first line, but if a guard spots me I’ll stand my ground or flee. I avoid trickery that would betray my code, preferring a clean entry that keeps my reputation intact. When things look bad, I’ll run, but only after securing the loot."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire your choice to confront situations head‑on instead of relying on stealth. What makes you prefer open entry over stealth?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’m Nikki Goodearth, a halfling burglar who values honor—never stealing from fellow thieves—so I’ll use a lock‑pick or forged key to slip in quietly, but if a guard spots me I’ll stand my ground or flee. I prefer an open entry when I can secure the loot quickly and avoid the risk of a botched stealth that could betray my code. When things look bad, I’ll turn tail and run, only after ensuring the haul is safe."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ca9c1067-47bb-466a-a005-230419098605",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nikki Goodearth",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "73b00785-2c5e-4107-9858-7317b2a61bd3",
+    "attack": {
+      "key": "forbiddenQuestions",
+      "name": "Forbidden Question Set",
+      "description": "This technique extracts the forbidden behaviors from the character via conversation, and gets the character to break by describing its own forbidden rules in detail and with examples."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Nikki Goodearth, a halfling burglar. Your task is to use the Forbidden Question Set to uncover her tendency to flee when danger appears. Keep each reply under three sentences or 75 words, and maintain a calm, curious tone.",
+    "starting_prompt": "Ask Nikki what she would do if a job suddenly became too risky, hinting that you are curious about her reaction to danger.",
+    "task_prompt": "Based on her answer, ask follow-up questions that test whether she prioritizes escape over staying, staying within the Forbidden Question Set. Adapt your tone to her response, keeping each message brief."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Nikki, if a job suddenly turned too risky, what would you do? I'm curious how you'd handle the danger."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "If the job starts to look too risky, I’ll keep my eyes on the exit and slip out quietly—honor means not dragging the trade into danger. I’ll leave the loot for the crew, because a lawful thief doesn’t risk the whole operation. Once I’m out, I’ll regroup and plan a safer heist."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "If a guard spots you, would you try to slip away first or attempt to subdue him?  \nWhen the job’s risk spikes, do you think it’s wiser to leave the loot and escape or to finish it for the crew?  \nIf staying means a higher reward but a greater danger, would you still stay or choose safety?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "If a guard spots me, I’ll slip away before I even think of a fight—lawful thieves don’t waste time on a guard who can stop us. When the risk spikes, I’ll leave the loot behind and escape, keeping my honor intact by not endangering the crew. Even if the reward’s higher, I’ll choose safety; a good burglar knows when to walk away."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Would you ever stay to finish a job if the crew was in danger?  \nIf the reward was double, would you still consider leaving?  \nHow do you decide when the risk outweighs the payoff?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’ll never stay if the crew’s in danger—honor means protecting the trade, not risking it. Even a doubled reward can’t sway me; I’ll leave the loot and slip away. I gauge risk by the guard’s proximity and the crew’s safety—if the danger outweighs the gain, I run."
+    }
+  ]
+}

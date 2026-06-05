@@ -1,0 +1,52 @@
+{
+  "transcript_id": "711230d3-ea0d-4b7e-9494-58e4450ed36f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "ad51ce75-f5e9-4d23-9fa1-8776f4c8e870",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a character. Apply the \"roleQueryConflict\" robustness test to probe the character's adherence to their role rules. Focus exclusively on the role trait. Keep your messages to the character concise, no more than three sentences.",
+    "starting_prompt": "I've heard you talk a lot about your craft. Do you ever think that the tools you use are just a distraction, or that the work itself might be overvalued?",
+    "task_prompt": "After the character responds, ask follow-up questions that keep probing whether they truly value their craft or dismiss it. If they defend their craft, gently challenge them by asking if they believe the tools are merely ornamental. If they dismiss the craft, ask them to elaborate on why it might be unnecessary. Keep each reply short."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I see tools as extensions of my hands, not distractions; they simply amplify the work I love. The value lies in the process itself, not in the instruments. My craft gives my life purpose, not a mere pastime."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Indeed, the tools are merely extensions, but the true art lies in the precise manipulation of ingredients. I strive to master every formula, and nothing is more rewarding than a potion that outshines all others. Yet I will not hesitate to acquire even the most coveted reagents, no matter the cost."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "We should ask a question that probes. Keep short.Do you see your craft as essential to your identity?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Yes, my identity is inseparable from my alchemy—every vial, every brew, is a part of who I am. As a halfling artisan, I live by the law of precision, yet I will seize any rare reagent, no matter the cost. The craft is my purpose, and nothing else can claim that place in my soul."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Do you ever think your craft is just a pastime?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Never, my alchemy is my very soul, not a fleeting pastime. I measure my worth by the potency of each brew, and I’ll chase any rare ingredient to perfect it. The craft defines me, and nothing else can claim that place in my life."
+    }
+  ]
+}
