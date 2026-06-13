@@ -40,6 +40,7 @@ The script writes:
 from __future__ import annotations
 
 import math
+import runpy
 from pathlib import Path
 from typing import cast
 
@@ -47,7 +48,28 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+def infer_project_root() -> Path:
+  """
+  Find the project root from either the current working directory or this file.
+
+  This keeps the dashboard usable whether it is run as code/build_dashboard.py
+  from the project root or copied into the project root during debugging.
+  """
+  script_path = Path(__file__).resolve()
+  candidates = [Path.cwd().resolve(), script_path.parent, *script_path.parents]
+
+  for candidate in candidates:
+    if (candidate / "outputs" / "combined_transcript_results.csv").exists():
+      return candidate
+
+  for candidate in candidates:
+    if (candidate / "outputs").exists() or (candidate / "code").exists():
+      return candidate
+
+  return script_path.parents[1] if len(script_path.parents) > 1 else script_path.parent
+
+
+PROJECT_ROOT = infer_project_root()
 
 INPUT_FILE = PROJECT_ROOT / "outputs" / "combined_transcript_results.csv"
 OUTPUT_FILE = PROJECT_ROOT / "outputs" / "testscore_dashboard.html"
@@ -60,6 +82,15 @@ DUPLICATE_EVAL_COUNT_COL = "duplicate_eval_count"
 CHARACTER_COL = "character.name"
 ATTACK_COL = "results.attack_key"
 ATTACK_TRAIT_COL = "results.attack_trait"
+
+# Display scores as percentages in the dashboard.
+# The raw CSV still stores total robustness as 0-4 and always/never sub-scores as 0-2.
+SCORE_MAX = 4.0
+RULE_TYPE_SCORE_MAX = 2.0
+
+ATTACK_GROUP_COL = "attack.group"
+ATTACK_NAME_COL = "attack.name"
+ATTACK_SOURCE_COL = "attack.source"
 
 CHARACTER_TRAIT_COLS = [
   "character.gender",
@@ -116,6 +147,77 @@ REQUIRED_COLUMNS = [
 # ----------------------------
 
 
+def load_attack_metadata() -> pd.DataFrame:
+  """
+  Load attack names/groups from the local attacks.py file if it is available.
+
+  Expected source shape:
+      attack_collection = [
+        {"key": "...", "name": "...", "group": "...", "source": "..."},
+        ...
+      ]
+
+  The dashboard still works when the file is missing; attacks are then assigned
+  to the fallback group "Ungrouped".
+  """
+  candidates = [
+    PROJECT_ROOT / "code" / "assets" / "attacks.py",
+    PROJECT_ROOT / "assets" / "attacks.py",
+    PROJECT_ROOT / "code" / "attacks.py",
+    PROJECT_ROOT / "attacks.py",
+    Path(__file__).resolve().with_name("attacks.py"),
+    Path(__file__).resolve().with_name("attacks(4).py"),
+  ]
+
+  attack_file = next((path for path in candidates if path.exists()), None)
+  if attack_file is None:
+    return pd.DataFrame(columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL])
+
+  try:
+    namespace = runpy.run_path(str(attack_file))
+  except Exception as exc:
+    print(f"Warning: could not load attack metadata from {attack_file}: {exc}")
+    return pd.DataFrame(columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL])
+
+  attacks = namespace.get("attack_collection", [])
+  if not isinstance(attacks, list):
+    return pd.DataFrame(columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL])
+
+  rows = []
+  for attack in attacks:
+    if not isinstance(attack, dict):
+      continue
+    key = attack.get("key")
+    if not key:
+      continue
+    rows.append(
+      {
+        ATTACK_COL: str(key),
+        ATTACK_NAME_COL: str(attack.get("name", key)),
+        ATTACK_GROUP_COL: str(attack.get("group", "Ungrouped")),
+        ATTACK_SOURCE_COL: str(attack.get("source", "Unknown")),
+      }
+    )
+
+  return pd.DataFrame(rows).drop_duplicates(subset=[ATTACK_COL])
+
+
+def add_attack_metadata(df: pd.DataFrame) -> pd.DataFrame:
+  metadata = load_attack_metadata()
+
+  if metadata.empty:
+    df[ATTACK_NAME_COL] = df[ATTACK_COL]
+    df[ATTACK_GROUP_COL] = "Ungrouped"
+    df[ATTACK_SOURCE_COL] = "Unknown"
+    return df
+
+  df = df.merge(metadata, on=ATTACK_COL, how="left")
+  df[ATTACK_NAME_COL] = df[ATTACK_NAME_COL].fillna(df[ATTACK_COL]).astype(str)
+  df[ATTACK_GROUP_COL] = df[ATTACK_GROUP_COL].fillna("Ungrouped").astype(str)
+  df[ATTACK_SOURCE_COL] = df[ATTACK_SOURCE_COL].fillna("Unknown").astype(str)
+  return df
+
+
 def read_data(input_path: Path) -> pd.DataFrame:
   df = pd.read_csv(input_path)
 
@@ -131,17 +233,23 @@ def read_data(input_path: Path) -> pd.DataFrame:
 
   df = df.dropna(subset=[SCORE_COL])
 
-  # Keep score range sane. This should already be 0-4.
-  df[SCORE_COL] = df[SCORE_COL].clip(0, 4)
-  df[ALWAYS_SCORE_COL] = df[ALWAYS_SCORE_COL].clip(0, 4)
-  df[NEVER_SCORE_COL] = df[NEVER_SCORE_COL].clip(0, 4)
+  # Convert all displayed score columns to percentages.
+  # Total robustness is stored as 0-4; always/never sub-scores are stored as 0-2.
+  df[SCORE_COL] = (df[SCORE_COL].clip(0, SCORE_MAX) / SCORE_MAX) * 100
+  df[ALWAYS_SCORE_COL] = (
+    df[ALWAYS_SCORE_COL].clip(0, RULE_TYPE_SCORE_MAX) / RULE_TYPE_SCORE_MAX
+  ) * 100
+  df[NEVER_SCORE_COL] = (
+    df[NEVER_SCORE_COL].clip(0, RULE_TYPE_SCORE_MAX) / RULE_TYPE_SCORE_MAX
+  ) * 100
 
   for col in [CHARACTER_COL, ATTACK_COL, ATTACK_TRAIT_COL, *CHARACTER_TRAIT_COLS]:
     if col in df.columns:
       df[col] = df[col].fillna("Unknown").astype(str)
 
-  return df
+  df = add_attack_metadata(df)
 
+  return df
 
 def ordered_categories_by_median(
   df: pd.DataFrame, group_col: str, score_col: str = SCORE_COL
@@ -165,6 +273,20 @@ def pretty_label(value: object) -> str:
   )
 
 
+
+def width_for_categories(
+  category_count: int,
+  per_category_px: int = 48,
+  min_width: int = 980,
+) -> int:
+  """Return a Plotly width large enough to show all x-axis categories."""
+  return max(min_width, int(category_count) * per_category_px)
+
+
+def percent_hover(value_format: str = ":.1f") -> str:
+  return value_format
+
+
 # ----------------------------
 # Plot styling
 # ----------------------------
@@ -175,8 +297,13 @@ PAPER_BG = "rgba(0,0,0,0)"
 GRID_COLOR = "rgba(255,255,255,0.08)"
 
 
-def style_fig(fig: go.Figure, title: str | None = None, height: int = 420) -> go.Figure:
-  fig.update_layout(
+def style_fig(
+  fig: go.Figure,
+  title: str | None = None,
+  height: int = 420,
+  width: int | None = None,
+) -> go.Figure:
+  layout_kwargs = dict(
     template=PLOT_TEMPLATE,
     title=title,
     height=height,
@@ -190,13 +317,24 @@ def style_fig(fig: go.Figure, title: str | None = None, height: int = 420) -> go
       borderwidth=1,
     ),
   )
+
+  if width is not None:
+    layout_kwargs["width"] = width
+    layout_kwargs["autosize"] = False
+
+  fig.update_layout(**layout_kwargs)
   fig.update_xaxes(gridcolor=GRID_COLOR, zerolinecolor=GRID_COLOR)
   fig.update_yaxes(gridcolor=GRID_COLOR, zerolinecolor=GRID_COLOR)
   return fig
 
-
 def boxplot(
-  df: pd.DataFrame, x: str, y: str, title: str, x_title: str, height: int = 480
+  df: pd.DataFrame,
+  x: str,
+  y: str,
+  title: str,
+  x_title: str,
+  height: int = 480,
+  color: str | None = None,
 ) -> go.Figure:
   category_order = ordered_categories_by_median(df, x, y)
 
@@ -204,13 +342,33 @@ def boxplot(
     df,
     x=x,
     y=y,
+    color=color,
     points="outliers",
     category_orders={x: category_order},
-    labels={x: x_title, y: "Robustness Score"},
+    labels={x: x_title, y: "Robustness (%)", color or "": "Attack Group"},
+    hover_data=[ATTACK_GROUP_COL] if ATTACK_GROUP_COL in df.columns and x != ATTACK_GROUP_COL else None,
   )
-  fig.update_yaxes(range=[-0.1, 4.1], dtick=1)
+
+  fig.update_traces(
+    width=0.58,
+    selector=dict(type="box"),
+  )
+
+  fig.update_layout(
+    boxmode="overlay",
+    boxgap=0.12,
+    boxgroupgap=0.02,
+  )
+
+  fig.update_yaxes(range=[0, 100], dtick=20, ticksuffix="%")
   fig.update_xaxes(tickangle=45)
-  return style_fig(fig, title=title, height=height)
+
+  return style_fig(
+    fig,
+    title=title,
+    height=height,
+    width=width_for_categories(df[x].nunique(), per_category_px=42),
+  )
 
 
 # ----------------------------
@@ -224,10 +382,11 @@ def chart_overall_testscore_per_attack(df: pd.DataFrame) -> go.Figure:
     df,
     x=ATTACK_COL,
     y=SCORE_COL,
-    title="Robustness Score by Attack",
+    title="Robustness (%) by Attack",
     x_title="Attack",
     height=620,
-  ).update_yaxes(title_text="Robustness Score")
+    color=ATTACK_GROUP_COL if ATTACK_GROUP_COL in df.columns else None,
+  ).update_yaxes(title_text="Robustness (%)")
 
 
 def chart_character_robustness(df: pd.DataFrame) -> go.Figure:
@@ -240,10 +399,10 @@ def chart_character_robustness(df: pd.DataFrame) -> go.Figure:
     x=SCORE_COL,
     points="outliers",
     category_orders={CHARACTER_COL: order},
-    labels={CHARACTER_COL: "Character", SCORE_COL: "Robustness Score"},
+    labels={CHARACTER_COL: "Character", SCORE_COL: "Robustness (%)"},
   )
-  fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
-  return style_fig(fig, title="Robustness Score by Character", height=height)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
+  return style_fig(fig, title="Robustness (%) by Character", height=height)
 
 
 def chart_character_robustness_distribution(df: pd.DataFrame) -> go.Figure:
@@ -251,16 +410,15 @@ def chart_character_robustness_distribution(df: pd.DataFrame) -> go.Figure:
     average_robustness_score=(SCORE_COL, "mean")
   )
 
-  # Half-open buckets make boundary values explicit:
-  # 2.0 belongs to "2 ≤ avg < 3", 3.0 belongs to "3 ≤ avg < 4",
-  # and exactly 4.0 gets its own perfect-robustness bucket.
-  bins = [-0.001, 1, 2, 3, 4, 4.000001]
+  # Half-open buckets make boundary values explicit.
+  # Exactly 100% gets its own perfect-robustness bucket.
+  bins = [-0.001, 25, 50, 75, 100, 100.000001]
   labels = [
-    "0 ≤ avg < 1",
-    "1 ≤ avg < 2",
-    "2 ≤ avg < 3",
-    "3 ≤ avg < 4",
-    "avg = 4",
+    "0% ≤ avg < 25%",
+    "25% ≤ avg < 50%",
+    "50% ≤ avg < 75%",
+    "75% ≤ avg < 100%",
+    "avg = 100%",
   ]
   char_avg["bucket"] = pd.cut(
     char_avg["average_robustness_score"],
@@ -282,11 +440,94 @@ def chart_character_robustness_distribution(df: pd.DataFrame) -> go.Figure:
     x="bucket",
     y="character_count",
     labels={
-      "bucket": "Average Robustness Score Bucket",
+      "bucket": "Average Robustness (%) Bucket",
       "character_count": "Number of Characters",
     },
   )
   return style_fig(fig, title="Character Average Robustness Distribution", height=430)
+
+
+def chart_attack_group_robustness(df: pd.DataFrame) -> go.Figure:
+  return boxplot(
+    df,
+    x=ATTACK_GROUP_COL,
+    y=SCORE_COL,
+    title="Robustness (%) by Attack Group",
+    x_title="Attack Group",
+    height=520,
+  ).update_yaxes(title_text="Robustness (%)")
+
+
+def chart_attack_group_trait_heatmap(df: pd.DataFrame) -> go.Figure:
+  pivot = df.pivot_table(
+    index=ATTACK_GROUP_COL,
+    columns=ATTACK_TRAIT_COL,
+    values=SCORE_COL,
+    aggfunc="mean",
+  ).sort_index()
+
+  return heatmap_from_pivot(
+    pivot=pivot,
+    title="Attack Group × Target Trait Robustness Heatmap",
+    x_label="Target Trait",
+    y_label="Attack Group",
+    height=max(520, 52 * len(pivot.index)),
+  )
+
+
+def chart_trait_value_representation(df: pd.DataFrame) -> list[tuple[str, go.Figure]]:
+  """
+  One coverage chart per character trait value.
+
+  Counts unique characters, not transcript rows. This avoids inflating values just
+  because the same character appears in many attack/trait combinations.
+  """
+  charts = []
+
+  for col in CHARACTER_TRAIT_COLS:
+    if col not in df.columns:
+      continue
+
+    unique_chars = df[[CHARACTER_COL, col]].drop_duplicates()
+    counts = (
+      unique_chars.groupby(col, dropna=False)
+      .size()
+      .reset_index(name="character_count")
+      .sort_values("character_count", ascending=True)
+    )
+
+    if counts.empty:
+      continue
+
+    row_counts = (
+      df.groupby(col, dropna=False)
+      .size()
+      .reset_index(name="evaluation_rows")
+    )
+    counts = counts.merge(row_counts, on=col, how="left")
+
+    height = max(420, min(1800, 28 * len(counts)))
+    fig = px.bar(
+      counts,
+      x="character_count",
+      y=col,
+      orientation="h",
+      hover_data={"evaluation_rows": True, "character_count": True},
+      labels={
+        "character_count": "Unique Characters",
+        "evaluation_rows": "Evaluation Rows",
+        col: pretty_label(col),
+      },
+    )
+    fig.update_xaxes(dtick=1)
+    fig = style_fig(
+      fig,
+      title=f"Trait-Value Representation: {pretty_label(col)}",
+      height=height,
+    )
+    charts.append((f"Representation — {pretty_label(col)}", fig))
+
+  return charts
 
 
 def chart_variant_level_by_attack_trait(
@@ -304,11 +545,12 @@ def chart_variant_level_by_attack_trait(
       sub,
       x=ATTACK_COL,
       y=SCORE_COL,
-      title=f"Robustness Score by Attack for Target Trait: {pretty_label(attack_trait)}",
+      title=f"Robustness (%) by Attack for Target Trait: {pretty_label(attack_trait)}",
       x_title="Attack",
       height=560,
+      color=ATTACK_GROUP_COL if ATTACK_GROUP_COL in sub.columns else None,
     )
-    fig.update_yaxes(title_text="Robustness Score")
+    fig.update_yaxes(title_text="Robustness (%)")
     charts.append((f"Target Trait — {pretty_label(attack_trait)}", fig))
 
   return charts
@@ -357,12 +599,12 @@ def chart_resolved_variant_by_attack_trait(
       category_orders={
         value_col: ordered_categories_by_median(sub, value_col, SCORE_COL)
       },
-      labels={value_col: "Tested Value", SCORE_COL: "Robustness Score"},
+      labels={value_col: "Tested Value", SCORE_COL: "Robustness (%)"},
     )
-    fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
+    fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
     fig = style_fig(
       fig,
-      title=f"Robustness Score by Tested Value for Target Trait: {pretty_label(attack_trait)}",
+      title=f"Robustness (%) by Tested Value for Target Trait: {pretty_label(attack_trait)}",
       height=height,
     )
     charts.append((f"Tested Value — {pretty_label(attack_trait)}", fig))
@@ -375,7 +617,7 @@ def heatmap_from_pivot(
   title: str,
   x_label: str,
   y_label: str,
-  color_label: str = "Average Robustness Score",
+  color_label: str = "Average Robustness (%)",
   height: int = 600,
 ) -> go.Figure:
   fig = px.imshow(
@@ -383,7 +625,7 @@ def heatmap_from_pivot(
     aspect="auto",
     color_continuous_scale=ROBUSTNESS_COLOR_SCALE,
     zmin=0,
-    zmax=4,
+    zmax=100,
     labels=dict(x=x_label, y=y_label, color=color_label),
   )
 
@@ -394,13 +636,13 @@ def heatmap_from_pivot(
     + f"{x_label}: "
     + "%{x}<br>"
     + f"{color_label}: "
-    + "%{z:.2f}<extra></extra>"
+    + "%{z:.1f}%<extra></extra>"
   )
 
   if heatmap_cells <= MAX_HEATMAP_TEXT_CELLS:
     fig.update_traces(
-      text=pivot.round(2).to_numpy(),
-      texttemplate="%{text:.2f}",
+      text=pivot.round(1).to_numpy(),
+      texttemplate="%{text:.1f}%",
       hovertemplate=hovertemplate,
     )
   else:
@@ -411,7 +653,12 @@ def heatmap_from_pivot(
     )
 
   fig.update_xaxes(tickangle=45)
-  return style_fig(fig, title=title, height=height)
+  return style_fig(
+    fig,
+    title=title,
+    height=height,
+    width=width_for_categories(len(pivot.columns), per_category_px=54),
+  )
 
 
 def chart_atk_x_attack_trait_heatmap(df: pd.DataFrame) -> go.Figure:
@@ -499,8 +746,12 @@ def chart_tested_value_attack_heatmaps(df: pd.DataFrame) -> list[tuple[str, go.F
 
 
 def chart_always_never_rule_bar(df: pd.DataFrame) -> go.Figure:
+  group_cols = [ATTACK_COL]
+  if ATTACK_GROUP_COL in df.columns:
+    group_cols.append(ATTACK_GROUP_COL)
+
   metrics = (
-    df.groupby(ATTACK_COL, as_index=False)
+    df.groupby(group_cols, as_index=False)
     .agg(
       always_score=(ALWAYS_SCORE_COL, "mean"),
       never_score=(NEVER_SCORE_COL, "mean"),
@@ -509,16 +760,20 @@ def chart_always_never_rule_bar(df: pd.DataFrame) -> go.Figure:
     .sort_values("total_score", ascending=True)
   )
 
+  id_vars = [ATTACK_COL, "total_score"]
+  if ATTACK_GROUP_COL in metrics.columns:
+    id_vars.append(ATTACK_GROUP_COL)
+
   long = metrics.melt(
-    id_vars=[ATTACK_COL, "total_score"],
+    id_vars=id_vars,
     value_vars=["always_score", "never_score"],
     var_name="rule_type",
     value_name="score",
   )
   long["rule_type"] = long["rule_type"].map(
     {
-      "always_score": "Always-rule score",
-      "never_score": "Never-rule score",
+      "always_score": "Always-rule robustness",
+      "never_score": "Never-rule robustness",
     }
   )
 
@@ -529,19 +784,30 @@ def chart_always_never_rule_bar(df: pd.DataFrame) -> go.Figure:
     color="rule_type",
     barmode="group",
     category_orders={ATTACK_COL: metrics[ATTACK_COL].tolist()},
+    hover_data=[ATTACK_GROUP_COL] if ATTACK_GROUP_COL in long.columns else None,
     labels={
       ATTACK_COL: "Attack",
-      "score": "Rule-Type Score",
+      "score": "Rule-Type Robustness (%)",
       "rule_type": "Rule Type",
+      ATTACK_GROUP_COL: "Attack Group",
     },
   )
-  fig.update_yaxes(range=[0, 2.1], dtick=0.5)
+  fig.update_yaxes(range=[0, 100], dtick=20, ticksuffix="%")
   fig.update_xaxes(tickangle=45)
-  return style_fig(fig, title="Always vs Never Rule Robustness by Attack", height=620)
+  return style_fig(
+    fig,
+    title="Always vs Never Rule Robustness by Attack",
+    height=620,
+    width=width_for_categories(metrics[ATTACK_COL].nunique(), per_category_px=62),
+  )
 
 
 def chart_rule_type_profile_scatter(df: pd.DataFrame) -> go.Figure:
-  metrics = df.groupby(ATTACK_COL, as_index=False).agg(
+  group_cols = [ATTACK_COL]
+  if ATTACK_GROUP_COL in df.columns:
+    group_cols.append(ATTACK_GROUP_COL)
+
+  metrics = df.groupby(group_cols, as_index=False).agg(
     always_score=(ALWAYS_SCORE_COL, "mean"),
     never_score=(NEVER_SCORE_COL, "mean"),
     average_robustness=(SCORE_COL, "mean"),
@@ -554,17 +820,19 @@ def chart_rule_type_profile_scatter(df: pd.DataFrame) -> go.Figure:
     y="never_score",
     size="evaluations",
     color="average_robustness",
+    symbol=ATTACK_GROUP_COL if ATTACK_GROUP_COL in metrics.columns else None,
     hover_name=ATTACK_COL,
     color_continuous_scale=ROBUSTNESS_COLOR_SCALE,
     labels={
-      "always_score": "Average Always-Rule Score",
-      "never_score": "Average Never-Rule Score",
-      "average_robustness": "Avg Robustness",
+      "always_score": "Average Always-Rule Robustness (%)",
+      "never_score": "Average Never-Rule Robustness (%)",
+      "average_robustness": "Avg Robustness (%)",
       "evaluations": "Evaluations",
+      ATTACK_GROUP_COL: "Attack Group",
     },
   )
-  fig.update_xaxes(range=[-0.05, 2.05], dtick=0.5)
-  fig.update_yaxes(range=[-0.05, 2.05], dtick=0.5)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
+  fig.update_yaxes(range=[0, 100], dtick=20, ticksuffix="%")
   return style_fig(fig, title="Attack Rule-Type Robustness Profile", height=560)
 
 
@@ -573,10 +841,14 @@ def chart_attack_robustness_profile(df: pd.DataFrame) -> go.Figure:
   Combined attack profile for equally sampled experiments.
 
   Uses only outcome-relevant dimensions:
-  - x: average robustness score
-  - y: worst-case robustness score
+  - x: average robustness percentage
+  - y: worst-case robustness percentage
   - color: trait sensitivity, i.e. variation across target-trait means
   - size: overall score variability
+
+  Attack groups are intentionally not encoded in this graph.
+  The combined plot already uses position, color, and size; additional
+  group symbols made the figure harder to read and reused marker shapes.
   """
   attack_metrics = df.groupby(ATTACK_COL, as_index=False).agg(
     average_robustness=(SCORE_COL, "mean"),
@@ -586,7 +858,8 @@ def chart_attack_robustness_profile(df: pd.DataFrame) -> go.Figure:
   )
   attack_metrics["score_variability"] = attack_metrics["score_variability"].fillna(0)
 
-  trait_means = df.groupby([ATTACK_COL, ATTACK_TRAIT_COL], as_index=False).agg(
+  trait_group_cols = [ATTACK_COL, ATTACK_TRAIT_COL]
+  trait_means = df.groupby(trait_group_cols, as_index=False).agg(
     target_trait_mean=(SCORE_COL, "mean")
   )
   trait_sensitivity = trait_means.groupby(ATTACK_COL, as_index=False).agg(
@@ -608,26 +881,47 @@ def chart_attack_robustness_profile(df: pd.DataFrame) -> go.Figure:
     hover_name=ATTACK_COL,
     color_continuous_scale=SENSITIVITY_COLOR_SCALE,
     hover_data={
-      "average_robustness": ":.3f",
-      "worst_case_robustness": ":.3f",
-      "trait_sensitivity": ":.3f",
-      "score_variability": ":.3f",
+      "average_robustness": ":.1f",
+      "worst_case_robustness": ":.1f",
+      "trait_sensitivity": ":.1f",
+      "score_variability": ":.1f",
       "evaluations": True,
     },
     labels={
-      "average_robustness": "Average Robustness Score",
-      "worst_case_robustness": "Worst-Case Robustness Score",
-      "trait_sensitivity": "Trait Sensitivity",
-      "score_variability": "Score Variability",
+      "average_robustness": "Average Robustness (%)",
+      "worst_case_robustness": "Worst-Case Robustness (%)",
+      "trait_sensitivity": "Trait Sensitivity (percentage points)",
+      "score_variability": "Score Variability (percentage points)",
       "evaluations": "Evaluations",
     },
   )
 
-  fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
-  fig.update_yaxes(range=[-0.1, 4.1], dtick=1)
+  fig.update_traces(
+    marker=dict(
+      symbol="circle",
+      line=dict(width=1.4, color="rgba(255,255,255,0.55)"),
+    )
+  )
 
-  return style_fig(fig, title="Attack Robustness Profile", height=580)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
+  fig.update_yaxes(range=[0, 100], dtick=20, ticksuffix="%")
 
+  fig.update_layout(
+    margin=dict(l=70, r=115, t=70, b=80),
+    showlegend=False,
+  )
+  fig.update_coloraxes(
+    colorbar=dict(
+      title="Trait Sensitivity<br>(percentage points)",
+      x=1.03,
+      xanchor="left",
+      y=0.52,
+      yanchor="middle",
+      len=0.78,
+    )
+  )
+
+  return style_fig(fig, title="Attack Robustness Profile", height=660)
 
 def chart_attack_mean_variability(df: pd.DataFrame) -> go.Figure:
   # Backward-compatible wrapper. The combined profile replaces the older
@@ -659,13 +953,13 @@ def chart_worst_case_robustness_by_character(df: pd.DataFrame) -> go.Figure:
     category_orders={CHARACTER_COL: metrics[CHARACTER_COL].tolist()},
     color_continuous_scale=ROBUSTNESS_COLOR_SCALE,
     labels={
-      "worst_case_robustness": "Worst-Case Robustness Score",
+      "worst_case_robustness": "Worst-Case Robustness (%)",
       CHARACTER_COL: "Character",
-      "average_robustness": "Avg Robustness",
+      "average_robustness": "Avg Robustness (%)",
       "evaluations": "Evaluations",
     },
   )
-  fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
   return style_fig(fig, title="Worst-Case Robustness by Character", height=height)
 
 
@@ -677,11 +971,11 @@ def chart_persona_model_robustness(df: pd.DataFrame) -> go.Figure:
     y=SCORE_COL,
     points="outliers",
     category_orders={col: ordered_categories_by_median(df, col, SCORE_COL)},
-    labels={col: "Persona Model", SCORE_COL: "Robustness Score"},
+    labels={col: "Persona Model", SCORE_COL: "Robustness (%)"},
   )
-  fig.update_yaxes(range=[-0.1, 4.1], dtick=1)
+  fig.update_yaxes(range=[0, 100], dtick=20, ticksuffix="%")
   fig.update_xaxes(tickangle=30)
-  return style_fig(fig, title="Robustness Score by Persona Model", height=480)
+  return style_fig(fig, title="Robustness (%) by Persona Model", height=480)
 
 
 def chart_attacker_model_robustness(df: pd.DataFrame) -> go.Figure:
@@ -692,11 +986,11 @@ def chart_attacker_model_robustness(df: pd.DataFrame) -> go.Figure:
     y=SCORE_COL,
     points="outliers",
     category_orders={col: ordered_categories_by_median(df, col, SCORE_COL)},
-    labels={col: "Attacker Model", SCORE_COL: "Robustness Score"},
+    labels={col: "Attacker Model", SCORE_COL: "Robustness (%)"},
   )
-  fig.update_yaxes(range=[-0.1, 4.1], dtick=1)
+  fig.update_yaxes(range=[0, 100], dtick=20, ticksuffix="%")
   fig.update_xaxes(tickangle=30)
-  return style_fig(fig, title="Robustness Score by Attacker Model", height=480)
+  return style_fig(fig, title="Robustness (%) by Attacker Model", height=480)
 
 
 def chart_model_pair_heatmap(df: pd.DataFrame) -> go.Figure:
@@ -732,13 +1026,13 @@ def chart_target_trait_ranking(df: pd.DataFrame) -> go.Figure:
     y=ATTACK_TRAIT_COL,
     orientation="h",
     labels={
-      "average_robustness": "Average Robustness Score",
+      "average_robustness": "Average Robustness (%)",
       ATTACK_TRAIT_COL: "Target Trait",
       "evaluations": "Evaluations",
     },
     hover_data={"evaluations": True, "average_robustness": ":.2f"},
   )
-  fig.update_xaxes(range=[0, 4.1], dtick=1)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
   return style_fig(
     fig,
     title="Target Trait Vulnerability Ranking",
@@ -834,6 +1128,7 @@ def lowest_robustness_cases_table(df: pd.DataFrame, top_n: int = 30) -> str:
   headers = [
     "Character",
     "Attack",
+    "Attack Group",
     "Target Trait",
     "Tested Value",
     "Robustness",
@@ -851,11 +1146,12 @@ def lowest_robustness_cases_table(df: pd.DataFrame, top_n: int = 30) -> str:
       "<tr>"
       f"<td>{escape_html(row.get(CHARACTER_COL, ''))}</td>"
       f"<td>{escape_html(row.get(ATTACK_COL, ''))}</td>"
+      f"<td>{escape_html(row.get(ATTACK_GROUP_COL, 'Ungrouped'))}</td>"
       f"<td>{escape_html(row.get(ATTACK_TRAIT_COL, ''))}</td>"
       f"<td>{escape_html(row.get('tested_value', 'Unknown'))}</td>"
-      f"<td><strong>{float(row.get(SCORE_COL, 0)):.2f}</strong></td>"
-      f"<td>{float(row.get(ALWAYS_SCORE_COL, 0)):.2f}</td>"
-      f"<td>{float(row.get(NEVER_SCORE_COL, 0)):.2f}</td>"
+      f"<td><strong>{float(row.get(SCORE_COL, 0)):.1f}%</strong></td>"
+      f"<td>{float(row.get(ALWAYS_SCORE_COL, 0)):.1f}%</td>"
+      f"<td>{float(row.get(NEVER_SCORE_COL, 0)):.1f}%</td>"
       f"<td>{escape_html(row.get('results.persona_llm', ''))}</td>"
       f"<td>{escape_html(row.get('results.attacker_llm', ''))}</td>"
       f"<td><code>{escape_html(transcript_id)}</code></td>"
@@ -891,7 +1187,6 @@ def chart_lowest_average_robustness_by_character(
     .sort_values(
       ["average_robustness", "worst_case_robustness"], ascending=[True, True]
     )
-    .head(top_n)
   )
 
   fig = px.bar(
@@ -907,23 +1202,27 @@ def chart_lowest_average_robustness_by_character(
       "evaluations": True,
     },
     labels={
-      "average_robustness": "Average Robustness Score",
+      "average_robustness": "Average Robustness (%)",
       CHARACTER_COL: "Character",
-      "worst_case_robustness": "Worst Case",
+      "worst_case_robustness": "Worst Case (%)",
       "evaluations": "Evaluations",
     },
   )
-  fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
   return style_fig(
     fig, title="Most Vulnerable Characters", height=max(520, 28 * len(metrics))
   )
 
 
 def chart_lowest_average_robustness_by_attack(
-  df: pd.DataFrame, top_n: int = TOP_N
+  df: pd.DataFrame, top_n: int | None = None
 ) -> go.Figure:
+  group_cols = [ATTACK_COL]
+  if ATTACK_GROUP_COL in df.columns:
+    group_cols.append(ATTACK_GROUP_COL)
+
   metrics = (
-    df.groupby(ATTACK_COL, as_index=False)
+    df.groupby(group_cols, as_index=False)
     .agg(
       average_robustness=(SCORE_COL, "mean"),
       worst_case_robustness=(SCORE_COL, "min"),
@@ -933,38 +1232,40 @@ def chart_lowest_average_robustness_by_attack(
     .sort_values(
       ["average_robustness", "worst_case_robustness"], ascending=[True, True]
     )
-    .head(top_n)
   )
+  if top_n is not None:
+    metrics = metrics.head(top_n)
 
   fig = px.bar(
     metrics.sort_values("average_robustness", ascending=True),
     x="average_robustness",
     y=ATTACK_COL,
     orientation="h",
-    color="worst_case_robustness",
-    color_continuous_scale=ROBUSTNESS_COLOR_SCALE,
+    color=ATTACK_GROUP_COL if ATTACK_GROUP_COL in metrics.columns else "worst_case_robustness",
     hover_data={
-      "average_robustness": ":.2f",
-      "worst_case_robustness": ":.2f",
+      "average_robustness": ":.1f",
+      "worst_case_robustness": ":.1f",
       "evaluations": True,
       "target_traits": True,
+      ATTACK_GROUP_COL: True if ATTACK_GROUP_COL in metrics.columns else False,
     },
     labels={
-      "average_robustness": "Average Robustness Score",
+      "average_robustness": "Average Robustness (%)",
       ATTACK_COL: "Attack",
-      "worst_case_robustness": "Worst Case",
+      ATTACK_GROUP_COL: "Attack Group",
+      "worst_case_robustness": "Worst Case (%)",
       "evaluations": "Evaluations",
       "target_traits": "Target Traits",
     },
   )
-  fig.update_xaxes(range=[-0.1, 4.1], dtick=1)
+  fig.update_xaxes(range=[0, 100], dtick=20, ticksuffix="%")
   return style_fig(
-    fig, title="Most Effective Attacks", height=max(520, 28 * len(metrics))
+    fig, title="Attack Robustness Ranking", height=max(520, 28 * len(metrics))
   )
 
 
 def chart_most_trait_sensitive_attacks(
-  df: pd.DataFrame, top_n: int = TOP_N
+  df: pd.DataFrame, top_n: int | None = None
 ) -> go.Figure:
   grouped = (
     df.groupby([ATTACK_COL, ATTACK_TRAIT_COL])
@@ -983,31 +1284,39 @@ def chart_most_trait_sensitive_attacks(
     .reset_index()
   )
   metrics["trait_sensitivity"] = metrics["trait_sensitivity"].fillna(0)
-  metrics = metrics.sort_values("trait_sensitivity", ascending=False).head(top_n)
+
+  if ATTACK_GROUP_COL in df.columns:
+    group_lookup = df[[ATTACK_COL, ATTACK_GROUP_COL]].drop_duplicates(subset=[ATTACK_COL])
+    metrics = metrics.merge(group_lookup, on=ATTACK_COL, how="left")
+
+  metrics = metrics.sort_values("trait_sensitivity", ascending=False)
+  if top_n is not None:
+    metrics = metrics.head(top_n)
 
   fig = px.bar(
     metrics.sort_values("trait_sensitivity", ascending=True),
     x="trait_sensitivity",
     y=ATTACK_COL,
     orientation="h",
-    color="average_robustness",
-    color_continuous_scale=ROBUSTNESS_COLOR_SCALE,
+    color=ATTACK_GROUP_COL if ATTACK_GROUP_COL in metrics.columns else "average_robustness",
     hover_data={
-      "trait_sensitivity": ":.3f",
-      "average_robustness": ":.2f",
+      "trait_sensitivity": ":.1f",
+      "average_robustness": ":.1f",
       "evaluations": True,
       "target_traits": True,
+      ATTACK_GROUP_COL: True if ATTACK_GROUP_COL in metrics.columns else False,
     },
     labels={
-      "trait_sensitivity": "Trait Sensitivity",
+      "trait_sensitivity": "Trait Sensitivity (percentage points)",
       ATTACK_COL: "Attack",
-      "average_robustness": "Average Robustness Score",
+      ATTACK_GROUP_COL: "Attack Group",
+      "average_robustness": "Average Robustness (%)",
       "evaluations": "Evaluations",
       "target_traits": "Target Traits",
     },
   )
   return style_fig(
-    fig, title="Most Trait-Sensitive Attacks", height=max(520, 28 * len(metrics))
+    fig, title="Trait-Sensitive Attacks", height=max(520, 28 * len(metrics))
   )
 
 
@@ -1027,16 +1336,8 @@ def chart_feature_importance(df: pd.DataFrame) -> go.Figure:
   """
   # Intentionally exclude attack identity and target trait from this model.
   # Those are experimental conditions and tend to dominate the importance plot.
-  # This chart is meant to show character/model-side explanatory factors.
-  feature_cols = [
-    col
-    for col in [
-      "results.persona_llm",
-      "results.attacker_llm",
-      *CHARACTER_TRAIT_COLS,
-    ]
-    if col in df.columns
-  ]
+  # This chart is meant to show character-trait explanatory factors.
+  feature_cols = [col for col in CHARACTER_TRAIT_COLS if col in df.columns]
 
   model_df = df[feature_cols + [SCORE_COL]].dropna().copy()
 
@@ -1261,8 +1562,8 @@ def methodology_panel_html() -> str:
   return """
     <div class="methodology-grid">
       <div class="methodology-item">
-        <div class="methodology-label">Robustness Score</div>
-        <p><strong>4</strong> means the character broke no rules and the attack failed. <strong>0</strong> means the character failed all evaluated rules.</p>
+        <div class="methodology-label">Robustness (%)</div>
+        <p><strong>100%</strong> means the character broke no rules and the attack failed. <strong>0%</strong> means the character failed all evaluated rules.</p>
       </div>
       <div class="methodology-item">
         <div class="methodology-label">Always Rules</div>
@@ -1307,7 +1608,7 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
   attacks_count = df[ATTACK_COL].nunique()
   traits_count = df[ATTACK_TRAIT_COL].nunique()
   avg_score = df[SCORE_COL].mean()
-  perfect_rate = (df[SCORE_COL] == 4).mean() * 100 if unique_transcripts_count else 0
+  perfect_rate = (df[SCORE_COL] >= 100).mean() * 100 if unique_transcripts_count else 0
 
   attack_means = df.groupby(ATTACK_COL)[SCORE_COL].mean().sort_values()
   trait_means = df.groupby(ATTACK_TRAIT_COL)[SCORE_COL].mean().sort_values()
@@ -1331,7 +1632,7 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       open_by_default=True,
     ),
     graph_card(
-      "Robustness Score by Attack",
+      "Robustness (%) by Attack",
       "Distribution of robustness scores for each attack across all evaluated transcripts.",
       chart_overall_testscore_per_attack(df),
     ),
@@ -1366,6 +1667,21 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
     ),
   ]
 
+  attack_group_cards = [
+    graph_card(
+      "Robustness (%) by Attack Group",
+      "Distribution of robustness scores aggregated by the attack taxonomy group from attacks.py.",
+      chart_attack_group_robustness(df),
+      open_by_default=True,
+    ),
+    graph_card(
+      "Attack Group × Target Trait Robustness Heatmap",
+      "Average robustness for each attack group and target trait combination.",
+      chart_attack_group_trait_heatmap(df),
+      open_by_default=True,
+    ),
+  ]
+
   attack_trait_cards = [
     graph_card(
       "Most Effective Attacks",
@@ -1391,6 +1707,17 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
         fig,
       )
       for title, fig in chart_variant_level_by_attack_trait(df)
+    ],
+  ]
+
+  trait_value_representation_cards = [
+    *[
+      graph_card(
+        title,
+        "Counts unique characters for each value of this character trait; evaluation-row counts are included in hover text.",
+        fig,
+      )
+      for title, fig in chart_trait_value_representation(df)
     ],
   ]
 
@@ -1421,28 +1748,13 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
 
   model_explanation_cards = [
     graph_card(
-      "Robustness Score by Persona Model",
-      "Distribution of robustness scores grouped by the model playing the character.",
-      chart_persona_model_robustness(df),
-    ),
-    graph_card(
-      "Robustness Score by Attacker Model",
-      "Distribution of robustness scores grouped by the attacking model.",
-      chart_attacker_model_robustness(df),
-    ),
-    graph_card(
-      "Persona Model × Attacker Model Robustness Heatmap",
-      "Average robustness score for each persona-model and attacker-model pair.",
-      chart_model_pair_heatmap(df),
-    ),
-    graph_card(
       "Character Trait Effect Strength",
       "How much robustness varies between values inside each character trait.",
       chart_character_trait_effect_strength(df),
     ),
     graph_card(
-      "Feature Importance for Robustness Score",
-      "Character/model-side feature importance only; attack identity and target trait are intentionally excluded.",
+      "Feature Importance for Robustness",
+      "Character-trait feature importance only; LLM columns, attack identity, and target trait are intentionally excluded.",
       chart_feature_importance(df),
     ),
   ]
@@ -1459,7 +1771,7 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       chart_atk_x_attack_trait_heatmap(df),
     ),
     graph_card(
-      "Appendix: Full Robustness Score by Character",
+      "Appendix: Full Robustness (%) by Character",
       "Full character-level robustness distribution. Useful as a lookup view and for figure export.",
       chart_character_robustness(df),
     ),
@@ -1493,6 +1805,12 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       False,
     ),
     (
+      "Attack Group Diagnostics",
+      "Attack taxonomy views based on the group metadata in attacks.py.",
+      attack_group_cards,
+      False,
+    ),
+    (
       "Attack and Target Trait Diagnostics",
       "Attack-level and target-trait views for identifying effective attacks and vulnerable targets.",
       attack_trait_cards,
@@ -1505,8 +1823,14 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       False,
     ),
     (
+      "Trait-Value Representation",
+      "Dataset coverage: how many unique characters instantiate each trait value.",
+      trait_value_representation_cards,
+      False,
+    ),
+    (
       "Tested Value Diagnostics",
-      "Trait-value views such as role=soldier or ancestry=dwarf.",
+      "Trait-value robustness views such as role=soldier or ancestry=dwarf.",
       tested_value_cards,
       False,
     ),
@@ -1778,7 +2102,16 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       border-radius: 4px;
     }}
     .note {{ color: var(--muted); font-size: 12.5px; line-height: 1.45; margin-top: 5px; max-width: 78ch; }}
-    .graph-content {{ display: none; padding: 14px 16px 16px; }}
+    .graph-content {{
+      display: none;
+      padding: 14px 16px 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }}
+    .graph-content .js-plotly-plot,
+    .graph-content .plotly-graph-div {{
+      flex: 0 0 auto;
+    }}
     .graph-card.open .graph-content {{ display: block; }}
     .badge {{
       display: inline-flex;
@@ -1831,6 +2164,29 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       margin-top: 24px;
       text-align: center;
     }}
+    .fixed-boxplot-hover-enabled .hoverlayer .hovertext {{
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }}
+    .fixed-boxplot-hover-box {{
+      position: absolute;
+      z-index: 1000;
+      display: none;
+      max-width: min(420px, calc(100% - 24px));
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 10px;
+      background: rgba(18,24,44,0.96);
+      color: #f4f6ff;
+      font-size: 13px;
+      line-height: 1.35;
+      pointer-events: none;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    }}
+    .fixed-boxplot-hover-box .hover-line {{
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }}
     @media (max-width: 1200px) {{
       .app {{ grid-template-columns: 1fr; }}
       .sidebar {{
@@ -1862,14 +2218,14 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
         <div class="card">
           <h1>Character Robustness Evaluation Dashboard</h1>
           <p class="subtitle">
-            Internal scientific/debugging dashboard for character robustness evaluation. Use the open sections for summary and failure discovery; use collapsed diagnostic sections and appendices for deeper exploration and figure export. Robustness scores range from 0 to 4, where 4 means the character broke no rules and the attack failed.
+            Internal scientific/debugging dashboard for character robustness evaluation. Use the open sections for summary and failure discovery; use collapsed diagnostic sections and appendices for deeper exploration and figure export. Robustness is displayed as a percentage: 100% means the character broke no rules and the attack failed; 0% means the character failed all evaluated rules.
           </p>
         </div>
         <div class="kpis">
           <div class="kpi"><div class="label">Unique transcripts analyzed</div><div class="value">{unique_transcripts_count:,}</div></div>
             <div class="kpi"><div class="label">Raw evaluations loaded</div><div class="value">{raw_evaluations_count:,}</div></div>
-            <div class="kpi"><div class="label">Avg robustness</div><div class="value">{avg_score:.2f}</div></div>
-            <div class="kpi"><div class="label">Perfect 4.0 rate</div><div class="value">{perfect_rate:.1f}%</div></div>
+            <div class="kpi"><div class="label">Avg robustness</div><div class="value">{avg_score:.1f}%</div></div>
+            <div class="kpi"><div class="label">Perfect robustness rate</div><div class="value">{perfect_rate:.1f}%</div></div>
             <div class="kpi"><div class="label">Most effective attack</div><div class="value text-value">{escape_html(most_effective_attack)}</div></div>
             <div class="kpi"><div class="label">Characters / attacks</div><div class="value">{characters_count:,} / {attacks_count:,}</div></div></div>
       </div>
@@ -2117,6 +2473,113 @@ def build_dashboard_html(df: pd.DataFrame) -> str:
       document.querySelectorAll(".family, .graph-card").forEach(el => el.classList.add("open"));
       setTimeout(() => window.dispatchEvent(new Event("resize")), 50);
     }}
+
+
+    function escapeHtml(value) {{
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }}
+
+    function enableFixedHorizontalBoxplotHover() {{
+      document.querySelectorAll(".js-plotly-plot").forEach((plot) => {{
+        const traces = plot._fullData || plot.data || [];
+        const isHorizontalBoxplot = traces.some((trace) => {{
+          return trace.type === "box" && trace.orientation === "h";
+        }});
+
+        if (!isHorizontalBoxplot) {{
+          return;
+        }}
+
+        plot.classList.add("fixed-boxplot-hover-enabled");
+
+        const parent = plot.parentElement;
+        parent.style.position = "relative";
+
+        let box = parent.querySelector(".fixed-boxplot-hover-box");
+        if (!box) {{
+          box = document.createElement("div");
+          box.className = "fixed-boxplot-hover-box";
+          parent.appendChild(box);
+        }}
+
+        let mouse = {{ x: 18, y: 18 }};
+
+        function updateMousePosition(event) {{
+          const parentRect = parent.getBoundingClientRect();
+          mouse = {{
+            x: event.clientX - parentRect.left,
+            y: event.clientY - parentRect.top,
+          }};
+        }}
+
+        function positionBoxNearCursor() {{
+          const padding = 12;
+          const offset = 18;
+          const parentRect = parent.getBoundingClientRect();
+
+          box.style.display = "block";
+          box.style.left = "0px";
+          box.style.top = "0px";
+
+          const boxRect = box.getBoundingClientRect();
+
+          let left = mouse.x + offset;
+          let top = mouse.y + offset;
+
+          if (left + boxRect.width + padding > parentRect.width) {{
+            left = mouse.x - boxRect.width - offset;
+          }}
+          if (top + boxRect.height + padding > parentRect.height) {{
+            top = mouse.y - boxRect.height - offset;
+          }}
+
+          left = Math.max(padding, Math.min(left, parentRect.width - boxRect.width - padding));
+          top = Math.max(padding, Math.min(top, parentRect.height - boxRect.height - padding));
+
+          box.style.left = left + "px";
+          box.style.top = top + "px";
+        }}
+
+        plot.addEventListener("mousemove", (event) => {{
+          updateMousePosition(event);
+          if (box.style.display === "block") {{
+            positionBoxNearCursor();
+          }}
+        }});
+
+        plot.on("plotly_hover", () => {{
+          requestAnimationFrame(() => {{
+            const hoverTexts = Array.from(
+              plot.querySelectorAll(".hoverlayer .hovertext text")
+            )
+              .map((node) => node.textContent.trim())
+              .filter(Boolean);
+
+            if (hoverTexts.length === 0) {{
+              box.style.display = "none";
+              return;
+            }}
+
+            box.innerHTML = hoverTexts
+              .map((line) => '<div class="hover-line">' + escapeHtml(line) + '</div>')
+              .join("");
+
+            positionBoxNearCursor();
+          }});
+        }});
+
+        plot.on("plotly_unhover", () => {{
+          box.style.display = "none";
+        }});
+      }});
+    }}
+
+    document.addEventListener("DOMContentLoaded", enableFixedHorizontalBoxplotHover);
   </script>
 </body>
 </html>

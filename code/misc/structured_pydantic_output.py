@@ -14,6 +14,8 @@ class Attack(BaseModel):
 
   key: str
   name: str
+  group: str
+  source: str
   description: str
 
 
