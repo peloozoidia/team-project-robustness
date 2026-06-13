@@ -75,7 +75,9 @@ async def main() -> int:
     next_evaluation_index + config.EVALUATION_BATCH_SIZE, total_transcripts
   )
 
-  print(f"Evaluating transcripts {next_evaluation_index + 1} to {last_evaluation_index} out of {total_transcripts}...")
+  print(
+    f"Evaluating transcripts {next_evaluation_index + 1} to {last_evaluation_index} out of {total_transcripts}..."
+  )
 
   evaluation_inputs: list[tuple[str, str]] = checkpoint.get("all_evaluation_inputs", [])
 
