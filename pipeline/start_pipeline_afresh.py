@@ -12,7 +12,7 @@ def clear_output_folders():
   results_path = output_path.joinpath("results")
   for path in [output_path, characters_path, persona_prompts_path, attack_prompts_path, transcripts_path, results_path]:
     if path.exists():
-      if path not in [characters_path, persona_prompts_path]: #not clearing characters and persona prompts
+      if path not in [characters_path, persona_prompts_path, attack_prompts_path]: #not clearing characters and persona prompts
         for file in path.iterdir():
           if file.is_file():
             file.unlink()
@@ -21,17 +21,17 @@ def clear_output_folders():
 
 def reset_checkpoints():
   # Reset checkpoint files
-  attack_bundle_checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
-  attack_bundle_checkpoint_data = {
-    "next_combination_index": 0,
-    "total_combinations": 0,
-    "updated_at": "",
-    "attacks": [],
-  }
-  attack_bundle_checkpoint_path.write_text(
-    json.dumps(attack_bundle_checkpoint_data, indent=2, ensure_ascii=False),
-    encoding="utf-8",
-  )
+  # attack_bundle_checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
+  # attack_bundle_checkpoint_data = {
+  #   "next_combination_index": 0,
+  #   "total_combinations": 0,
+  #   "updated_at": "",
+  #   "attacks": [],
+  # }
+  # attack_bundle_checkpoint_path.write_text(
+  #   json.dumps(attack_bundle_checkpoint_data, indent=2, ensure_ascii=False),
+  #   encoding="utf-8",
+  # )
 
   transcript_checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-transcripts.json")
   transcript_checkpoint_data = {
