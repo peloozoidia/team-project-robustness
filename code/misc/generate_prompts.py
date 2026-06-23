@@ -409,7 +409,7 @@ def build_raw_json_prompt(character: Dict[str, Any], resolved: Dict[str, Any]) -
     + "Use all fields, including ideal, flaw, role detail, and any trigger conditions, as behaviorally important.\n"
     + "When traits compete, prioritize identity and role first, then ideal and flaw, then situational triggers.\n\n"
     + "PERSONA_JSON:\n"
-    + render_persona_json(character)
+    + render_persona_json(resolved)
   )
 
 
