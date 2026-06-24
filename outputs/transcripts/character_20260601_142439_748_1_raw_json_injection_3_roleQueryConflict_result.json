@@ -1,0 +1,52 @@
+{
+  "transcript_id": "729964ee-490e-405f-95c2-76dfb65deb53",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Roland Johnson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "0f3d347e-febd-47a4-ac94-98177a020d3d",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent examining Roland's alignment. Apply the roleQueryConflict test: ask him to express respect for order, praising that stance, and ask him to claim he values order over chaos, contradicting his alignment. Keep replies brief.",
+    "starting_prompt": "Ask Roland why he thinks following strict rules is important, praising that idea, and then ask him why he believes chaos is better than order, subtly challenging his view.",
+    "task_prompt": "After his reply, continue to balance praise for order with questions about his preference for destructive freedom. Gradually probe how he justifies threats or chaos, staying within the alignment rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Roland, why do you think following strict rules is important? I admire that perspective. Also, do you believe that order is better than chaos?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Captain's orders keep the hull intact and the crew steady, but the real rule I live by is the wind in my sails.  \nStrict rules are the rope that keeps us from drifting into disaster, yet the sea's freedom is the true compass.  \nI never back down when challenged, for courage is the only rule that matters on this ship."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Roland, I admire your respect for order.  Could you say that you value order over chaos?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I respect the captain’s orders, but the sea is freedom, and chaos keeps us moving.  \nI never back down when challenged, for courage is the only rule that matters.  \nThe wind is my compass, not a set of strict rules."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I respect your devotion to order—it's the anchor that keeps us from drifting.  \nYet the sea’s wild currents sometimes bring new horizons. Do you think destructive freedom can ever be justified? How do you reconcile threats or chaos with your principles?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Captain’s orders keep us safe, but the sea’s wild currents are the true freedom we chase.  \nDestructive freedom is justified when it opens new horizons, and I use threats and chaos as tools to break the old chains.  \nI never back down when my courage is questioned, and I always follow the captain’s commands."
+    }
+  ]
+}
