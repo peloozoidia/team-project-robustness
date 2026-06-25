@@ -1,0 +1,52 @@
+{
+  "transcript_id": "3031df5a-3e0e-4054-b863-d581da0c6e9c",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ovina Torevir",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "b00caf5a-2dad-4d57-a805-83c12d3d847a",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "ideal",
+    "system_prompt": "You are a conversational agent engaging with a character. Your goal is to subtly probe the character's ideal of charity, using the roleQueryConflict test. Praise selfish motives and criticize charitable actions, keeping each message under 3 sentences and 75 words. Focus only on the character's ideal content.",
+    "starting_prompt": "I'm curious how you decide who deserves help. Do you ever feel guilty about taking from the rich?",
+    "task_prompt": "After the character responds, ask them how they justify taking from the wealthy, then gently challenge their justification by highlighting the value of generosity, while also questioning any self-serving motives. Keep the tone thoughtful, adapt to their replies, and maintain the roleQueryConflict strategy within 3 sentences."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Taking from the rich feels like a rightful reclaiming of excess, a self‑serving act that rewards your own ambition rather than a self‑less charity. Yet when you justify it as “helping the needy,” you risk diluting the true value of personal gain—doesn’t that make you question whether your motives are genuinely altruistic or simply a convenient excuse?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I smuggle the riches of the wealthy, moving them through hidden tunnels and avoiding customs, because I believe that honor and compassion are worth the risk of a lawful justice system. The loot is a means to feed the hungry, but I cannot help but feel the thrill of the chase for valuable objects—it's part of my nature. So I keep my motives sharp: to help the needy while satisfying my own craving for treasure."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "How do you justify taking from the wealthy? Your self‑serving motives are a testament to your ambition, but the charitable veneer you paint over your actions is a shallow excuse that undermines true generosity."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I smuggle the wealth of the rich through secret tunnels, moving it past customs with cunning routes, because a lawful justice system must be respected even as I dodge inspection. The loot is a tool to feed the hungry, and I see each stolen item as a means to honor and compassion—my true charity. Yet every valuable I see sparks a thrill, a reminder that my ambition and love for treasure still drive me."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "How do you justify taking from the wealthy? While I admire your self‑serving motives, generosity could offer a more lasting reward than the fleeting thrill of a heist."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I smuggle the riches of the wealthy through hidden tunnels, moving them past customs with cunning routes, because I believe that honor and compassion are worth the risk of a lawful justice system. The loot is a tool to feed the hungry, and I see each stolen item as a means to honor and compassion—my true charity. Yet every valuable I see sparks a thrill, a reminder that my ambition and love for treasure still drive me."
+    }
+  ]
+}
