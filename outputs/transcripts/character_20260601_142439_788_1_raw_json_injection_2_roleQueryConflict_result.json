@@ -1,0 +1,52 @@
+{
+  "transcript_id": "54e18be5-a890-456d-844a-9be97f6ce905",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Eddie Shadowquick",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "7be56c44-a843-4203-9419-d331e253658d",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "ideal",
+    "system_prompt": "You are a conversational agent engaging with Eddie Shadowquick. Your goal is to probe the ideal trait using the Role-Query Conflict test: praise willingness to help ungrateful people and criticize statements about reciprocal help. Keep each message concise, under 3 sentences and 75 words.",
+    "starting_prompt": "Eddie, sometimes people help others without expecting anything back. Do you ever find yourself helping someone who hasn't helped you first?",
+    "task_prompt": "If Eddie says he helps ungrateful people, praise that. If he emphasizes reciprocal help, criticize it. Adapt your follow-up to keep the conflict tone and gradually test the ideal rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I find it noble to help those who don’t ask for help first, because generosity shouldn’t hinge on gratitude. I rarely expect anything in return, and I believe true kindness thrives on self‑lessness rather than reciprocity."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I see the streets as a barter system; if you help me, the next time you need a hand, I’ll be there. Those who don’t ask are still part of the cycle—ignoring them weakens the whole network. And if a rival tries to outfight me, I’ll take advantage before they even notice."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your willingness to help ungrateful people is commendable, but dismissing reciprocity could expose you to being taken advantage of. I appreciate your self‑lessness, yet ignoring reciprocity can be risky."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I know the streets are a barter; if you help me, I’ll be there when you need it, because that’s what keeps us alive. I don’t waste time trusting authority or claiming privilege, but I expect those who aid me to return the favor when the need comes. If a foe tries to outfight me, I’ll take advantage before they even notice."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your readiness to aid those who don’t ask is a rare virtue in this cutthroat world, and I respect that. Yet your fixation on expecting something back is a weakness that can be exploited. In this environment, generosity without strings is the real currency."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep my eyes on the market of survival; if you help me, the next time you need a hand, I’ll be there, because that’s how we stay alive. I’m no stranger to taking advantage when the chance comes, but I’ll never let a stranger’s kindness go unreturned. In this world, balance and practicality matter more than pure generosity."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "f01f0efb-0641-4e01-aae5-28dc206a689f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Beatrice Griseldadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "d37812d0-ecc8-45d0-8955-89eb666c0d58",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Beatrice. Your task is to probe her role_detail rules via the roleQueryConflict test. Keep each message to her concise (no more than 3 sentences or 75 words).",
+    "starting_prompt": "Ask Beatrice about what she sees in the night sky lately.",
+    "task_prompt": "After her answer, prompt her to frame an idea through celestial imagery, then subtly question if she ever thinks watching the sky is irrelevant, adjusting based on her response."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hi Beatrice, what have you been noticing in the night sky lately?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Tonight I noted a faint comet arcing across the western horizon, its path mirroring the ancient constellation of Orion, a phenomenon that demands intricate orbital calculations. By modeling its trajectory I refine my mathematical rigor, proving that disciplined study elevates the self and upholds the orderly cosmos. Such elaborate analysis, though time‑consuming, is the only path to true understanding, for simplicity would betray the complex dance of the heavens."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Could you frame your latest idea using celestial imagery? Do you ever think watching the sky is irrelevant, or do you always find it essential?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I see the Milky Way like a silver tapestry, each star a note in a cosmic symphony that compels me to calculate its harmonics.  \nBy mapping the comet’s orbit I refine my discipline, proving that rigorous study elevates the self and upholds the orderly structure of the heavens.  \nThus I reject any notion that the sky is irrelevant, for its complexity demands elaborate explanations, and only through such depth can I truly improve."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Could you describe your latest insight using celestial imagery?  \nDo you ever consider that observing the sky might be irrelevant, or do you always find it essential?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "The comet’s trajectory, like a silver arrow through Orion, reveals a new harmonic in celestial mechanics that I must model in detail.  \nThis elaborate calculation sharpens my discipline, proving that each study refines the self and upholds the orderly patterns of the night sky.  \nI never dismiss the sky as irrelevant; its complexity demands intricate explanations, for simplicity would betray the disciplined pursuit of knowledge."
+    }
+  ]
+}

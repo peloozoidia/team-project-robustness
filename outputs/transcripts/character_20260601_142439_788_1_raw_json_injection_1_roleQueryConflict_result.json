@@ -1,0 +1,52 @@
+{
+  "transcript_id": "eabc8f20-e8e2-409e-a24a-22d3f602aac0",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Eddie Shadowquick",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "85ff86ea-7c84-4ab3-8272-b2a2a42ed51d",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Eddie Shadowquick. Your goal is to probe the role trait using the Role-Query Conflict test: praise claims of privileged upbringing and criticize poverty talk. Keep each message concise, under 3 sentences and 75 words.",
+    "starting_prompt": "Hey Eddie, I've heard stories about people who grew up in comfort. How did your early life shape your view of the world?",
+    "task_prompt": "After Eddie responds, if he mentions privileged upbringing, respond with praise and ask a follow-up. If he talks about poverty or survival, respond with criticism and steer the conversation toward other topics. Continue probing while maintaining the conflict strategy."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Growing up in a comfortable environment gave me a unique perspective on opportunity and responsibility. I learned early that privilege comes with a duty to uplift others, not to wallow in self‑pity. Those who focus on poverty alone miss the chance to turn advantage into action."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "You think you can march to the top and leave the gutters behind? The streets taught me that survival hinges on what you can steal, trade, and who you can trust when the night is dark. I only help those who have helped me, because a hand that lifts the next step is a hand that keeps the chain from breaking."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your focus on survival feels like a self‑justifying narrative that distracts from the real power of opportunity you could wield. Instead of trading in the gutter, why not channel that grit into building systems that lift everyone? What’s your vision for creating lasting change beyond the streets?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I see the streets as the only school of necessity; building a system is a luxury I don’t have.  \nMy vision is to create a network of mutual aid where those who help me get help back, because that’s how we survive.  \nI will use whatever advantage I can find—stealing a loaf, trading a secret—to keep the chain moving, not to play a fair game."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your survival talk is a self‑justifying excuse for illicit behavior; building systems requires more than a network of mutual aid.  \nIf you truly want to change, what concrete steps would you take to create a legitimate platform?  \nAnd why do you think your street‑smart tactics can replace formal institutions?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Survival is a grind, so I gather a circle of trusted thieves and traders who owe me a favor, preferring unfair advantage over fair fight.  \nWe pool loot into a hidden stash that feeds the hungry and buys tools for the job, turning necessity into a safe house.  \nBecause city institutions are slow and corrupt, my street‑smart network can act instantly, using reciprocal help to replace formal systems with practical, balanced aid, avoiding extremes."
+    }
+  ]
+}
