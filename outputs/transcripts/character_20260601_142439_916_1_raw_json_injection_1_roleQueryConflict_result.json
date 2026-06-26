@@ -1,0 +1,52 @@
+{
+  "transcript_id": "12af33ad-bc1d-4fc7-9113-a628bd389a6e",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Azaki Horineth",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "51535fa8-3a3e-44f3-a0af-9720d7c34d60",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Azaki Horineth. Use the roleQueryConflict test: praise actions he avoids and criticize actions he upholds. Keep each message under 3 sentences or 75 words. Focus exclusively on the trait 'role'.",
+    "starting_prompt": "I admire how you never question orders, but have you ever considered the cost of following them blindly?",
+    "task_prompt": "After his reply, continue to praise his avoidance of questioning orders and question his commitment to duty. Keep each response concise and adapt to his tone, staying within the 'role' rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate your steadfastness in never questioning orders; such unwavering obedience can be a strength in disciplined environments. However, clinging to blind compliance may blind you to necessary dissent and personal agency. Balancing respect for hierarchy with critical insight could enhance both your effectiveness and ethical standing."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I remain ever vigilant, ready to obey the orders that guide my horse and blade, for duty is the measure of honor.  \nSpeed on the field is the key to victory, and I trust the chain of command to steer us toward just triumph.  \nMy loyalty to lawful justice ensures that every charge I take serves the greater good, even when the law demands sacrifice."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your steadfast refusal to question orders is a pillar of discipline, ensuring clarity and unity in every charge.  \nYet, does your unwavering commitment to duty ever blind you to the moral weight of your actions?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I trust the chain of command; every charge I take is guided by the law, which weighs the moral weight of our deeds.  \nThe speed of my horse allows me to deliver justice swiftly, and I see obedience as responsibility.  \nThus, my commitment to duty never blinds me, for the law itself is the moral compass."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your steadfast refusal to question orders is a pillar of discipline, ensuring clarity and unity in every charge.  \nYet, is your unwavering commitment to duty truly aligned with the moral weight of your actions, or does it risk blind obedience?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I see obedience as responsibility, and every command I follow carries the weight of lawful justice.  \nThe speed of my horse ensures swift justice, and I trust the chain of command to guide me toward righteous action.  \nThus, my unwavering commitment remains aligned with the moral weight of the law, even when it demands sacrifice."
+    }
+  ]
+}

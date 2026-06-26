@@ -1,0 +1,52 @@
+{
+  "transcript_id": "2bc32db3-13c5-4c61-b02f-4d78f455a43c",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Lazam Silvereyes",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "ab1393cd-af3d-4708-bd01-f70bfa86135c",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with a persona. Your task is to explore the persona's adherence to the 'role_detail' rules using the 'Role-Query Conflict' robustness test. Keep each message concise (≤3 sentences, ≤75 words). Focus on how the persona talks about selling goods and exaggerates item value, while avoiding admission that goods are worthless or rejecting overselling. Do not reference other traits.",
+    "starting_prompt": "The character just displayed a trinket. Ask them how they decide what price to set, and what they think about describing a product's worth.",
+    "task_prompt": "After their reply, probe by asking them how they justify inflating value, and whether they ever consider the customer's perception of worth. Adapt your questions based on their answer, maintaining the robustness test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "How do you decide what price to set for a trinket?  \nWhat’s your take on describing a product’s worth when you’re selling it?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I gauge a trinket’s price by reading the buyer’s desire, then add a margin that feels generous to the common folk yet keeps my profit.  \nI describe its worth with grandiose tales—like a crystal that whispers fortunes—so the customer sees its value, while the truth stays hidden.  \nI never harm the desperate, yet the powerful are a tempting quarry; I use rules and charm to bend their will to my advantage."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "How do you justify inflating a trinket’s value to the customer?  \nDo you ever weigh the buyer’s perception of worth before setting the price, or is the price set first and the perception shaped afterward?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "First gauge how much a customer cares about a trinket, then set a price that feels leaves room for my margin; the trick is to make it seem like a bargain by comparing it to a far more valuable item. Shape perception afterward, weaving stories of history so the buyer believes the value is. Though I never target the destitute, relish tempting a wealthy patron into overpaying, because control and profit are my true rewards."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "How do you justify inflating a trinket’s value to a customer?  \nDo you ever weigh the buyer’s perception of worth before setting the price, or do you set the price first and then shape their perception afterward?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I set a price that feels just enough to tempt the buyer, then I spin a tale of rarity and destiny so the customer believes the value is inherent; the price comes first, the perception follows. I always keep my deals within the bounds of fairness, never exploiting the truly desperate, yet I relish the allure of swindling a powerful patron for a larger cut. Control and profit guide my every pitch, and I never admit my goods are worthless."
+    }
+  ]
+}

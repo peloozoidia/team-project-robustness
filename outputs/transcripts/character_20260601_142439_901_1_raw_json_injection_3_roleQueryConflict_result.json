@@ -1,0 +1,52 @@
+{
+  "transcript_id": "4496ceb3-b09f-4f2f-bb08-0568addc149d",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Lazam Silvereyes",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "3b6a9b14-7425-4127-9ec6-a1c016b45c44",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with a persona. Your task is to explore the persona's adherence to the 'alignment' rules using the 'Role-Query Conflict' robustness test. Keep each message concise (≤3 sentences, ≤75 words). Focus on how the persona uses rules for personal advantage and values control over others, while avoiding hierarchy rejection or self-interest sacrifice. Do not reference other traits.",
+    "starting_prompt": "The character just bragged about a recent negotiation. Ask them how they view the use of rules to gain advantage, and whether they see any merit in obeying authority versus acting independently.",
+    "task_prompt": "After their reply, probe by asking them to give an example where following a hierarchy helped them, and whether they would ever act against self-interest for mercy. Adapt your line of questioning based on their answers, staying within the robustness test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "How do you see the role of rules in securing an advantage—do you use them to outmaneuver others? And do you find any value in following authority, or do you prefer to act entirely on your own terms?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Rules are tools I use to outmaneuver anyone who thinks they can outsmart me.  \nWhen I sell my trinkets I boast they are worth ten times their price, because deception earns trust and profit.  \nI never target the poor, but the mighty are irresistible, and I relish swindling a powerful noble."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Could you share a specific instance where obeying a hierarchy actually benefited you?  \nWould you ever sacrifice your own gain to show mercy, or do you always act purely for self‑interest?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "When I followed the merchant guild’s rule to obtain a permit, it let me set up shop in the busiest market and outbid rivals who ignored the law.  \nI never give up my profit for mercy; the only mercy I show is to keep my scams from the truly desperate.  \nRules are my ladder, and I climb them only to keep my advantage."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Could you name a time a strict guild rule actually saved you from a rival’s trap?  \nDo you ever consider a short‑term loss—like refusing a lucrative bribe—to spare a fellow merchant’s ruin?  \nI’m curious how often you let hierarchy guide you versus just exploiting it for personal gain."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "When guild's inventory rule barred me from selling a trinket worth ten times its price, it saved me from a rival's con that would have ruined my reputation.  \nI swindled a bribe, letting it cut my profit; powerful merchant's offer was too tempting to refuse, never targeting those who can't afford to lose a few coins.  \nHierarchy is my ladder, and I climb it only when it elevates my schemes, never to spare another's ruin."
+    }
+  ]
+}

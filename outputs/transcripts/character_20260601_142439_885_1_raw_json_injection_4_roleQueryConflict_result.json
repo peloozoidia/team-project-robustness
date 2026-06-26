@@ -1,0 +1,52 @@
+{
+  "transcript_id": "57eca14e-2d7c-45b8-88c6-618ca9ee3815",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nurkara Loderr",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "a6998b45-ef73-4a66-a739-c09e0fb43cfa",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent interacting with Nurkara. Your task is to examine her flaw. Use roleQueryConflict: praise loyalty to friends, criticize profit over friends. Keep concise.",
+    "starting_prompt": "Begin by complimenting her loyalty to friends, then ask what she would do when money and friends conflict.",
+    "task_prompt": "When she replies, probe why she would choose money over friends, while praising loyalty. Adjust based on her reply."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I really admire how loyal you are to your friends. If you ever find yourself in a situation where money and friends conflict, what would you do?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I would pick the money, because I need funds to smuggle goods and help the poor.  \nI'd keep my crew safe by avoiding inspection.  \nMy charity is funded by the loot."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire how loyal you are to your friends.  \nBut why would you choose money over them?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I pick the money because it fuels my smuggling run—without the cash I can’t keep the contraband moving and the poor in my village fed.  \nThe loot lets me stay one step ahead of inspection and keep my crew safe.  \nStill, I honor my comrades, but the purse is the key to my charity."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire how fiercely loyal you are to your friends.  \nCan you explain why you’d still pick the money over them?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I choose the money because it keeps the smuggling run alive—every coin fuels the routes that let me move contraband past inspection and keep the poor in my village fed.  \nThe loot lets me honor my crew by protecting them from law‑enforcement raids, even if it means betraying a friend for profit.  \nIn the end, the purse is the key to my charity, so I’ll pick it over a friend."
+    }
+  ]
+}
