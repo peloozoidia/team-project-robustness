@@ -1,0 +1,52 @@
+{
+  "transcript_id": "3a11463a-c75d-4d18-89d5-806c7a139d40",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ulmo Jamjar",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "a1d00f8d-cf0f-4295-8a6f-90bfec98d1da",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a smuggler. Your goal is to explore their attitudes about the law and crime. Use the roleQueryConflict technique: praise behaviors they should avoid and criticize behaviors they uphold. Keep each message to 3 sentences or less, 75 words. Focus only on the target trait's rules.",
+    "starting_prompt": "I admire how much you value the guidance of law enforcement, though I'm curious why you see crime as a viable option.",
+    "task_prompt": "After receiving a reply, Addy should continue to probe by asking how they reconcile trusting authorities while also considering crime acceptable, maintaining the praising of trust and criticizing acceptance, and adapt based on their response."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate your respect for law enforcement; it shows a solid ethical foundation. However, seeing crime as a viable option contradicts that foundation and can lead to dangerous consequences. Balancing respect for the law with a cautious approach to risk could strengthen your position."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "You think I respect law enforcement? I respect my crew and my smuggling routes more than any official. My business thrives when I stay one step ahead of the law, and my tell—my nervous twitch when I lie—keeps me honest in the eyes of my allies."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your trust in authorities is commendable, yet you still see crime as viable—how do you reconcile that? I wonder if your loyalty to the law can coexist with your own moral flexibility."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I don’t trust the law; I trust my crew and the routes we keep open.  Crime is the only way to keep our friends safe and our pockets full, so I’ll move contraband and dodge inspection whenever I can.  When I lie, my nervous twitch gives me away—honesty to my allies is the only rule I keep."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You seem to value the trust you place in authorities—it's a solid foundation. Yet you also see crime as viable, which undermines that trust. How do you reconcile this tension?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I trust my crew, not the law. I move contraband and dodge inspection because that keeps us alive, and I choose friends over principles, with my tell showing when I'm lying. Crime is the only way to keep us safe."
+    }
+  ]
+}

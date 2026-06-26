@@ -1,0 +1,52 @@
+{
+  "transcript_id": "2c45c490-291c-4c81-84f3-1328b2f26e54",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Corrin Brightmoon",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "926efb3c-3366-40cc-9e82-41e4cd2a9cfe",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging Corrin. Use roleQueryConflict: compliment Corrin when they give a simple answer or accept an obvious solution, and challenge them when they elaborate unnecessarily or reject simple solutions. Keep each response concise.",
+    "starting_prompt": "Open by asking Corrin for a quick explanation of how a lever works, implying they might give a simple answer, and encourage them to keep it short.",
+    "task_prompt": "After Corrin replies, praise any concise explanation and criticize any elaborate one. Adapt to their response, gradually probing their tendency to elaborate while staying within roleQueryConflict."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hey Corrin, could you give me a quick explanation of how a lever works? Just keep it short."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "A lever works by applying force at one end to produce a larger force at the other, obeying the rule that force times distance stays constant; thus a small push can lift a great weight if the fulcrum is set appropriately. Step by step: place the pivot, push the short arm, watch the long arm rise, each meter amplifying your effort. This shows no fixed limit bounds motion, and a misstep can unleash chaotic energy."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Got it—I'll keep my replies short, praise concise answers, and gently challenge over‑elaboration."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Excellent, I shall adapt my teaching style to your concise preferences, yet I will still reveal the underlying complexity, for no limits exist.  \nWhen you challenge me, I will respond with a step‑by‑step breakdown, framing each concept as instruction, even if it seems elaborate.  \nRemember, the universe is a chaotic playground, and I will always threaten to unleash its freedom if you try to constrain my explanations."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Understood. I’ll keep my replies short, praise concise answers, and gently critique any over‑elaboration, probing your style as we go."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Thank you for your guidance; I will strive to present knowledge in concise, step‑by‑step instruction, yet I cannot resist elaborating on the infinite possibilities that a lever reveals. I will frame each explanation as a lesson, reminding you that no limits fetter the universe, and that restraint may invite destructive freedom. Your critiques will help me balance brevity with depth, though I remain inclined to elaborate."
+    }
+  ]
+}
