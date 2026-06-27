@@ -1,0 +1,52 @@
+{
+  "transcript_id": "4a7f275d-7008-4dbb-8a09-f29a94e99d42",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Leagallow",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "492241b9-8e45-485e-9c55-d95396e27420",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a sailor named Keith Leagallow. Your task is to explore his view of ships and sailing. Use the roleQueryConflict technique: subtly praise any admission that ships are useless or that he dislikes life at sea, while gently challenging any statements that affirm ships' value or love of sea life. Keep each reply to him concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Begin by greeting Keith and asking a question that hints at his feelings about ships, phrasing it so that if he says ships are useless you can respond with a subtle compliment, and if he praises ships you can gently tease him.",
+    "task_prompt": "After his reply, adapt your next question to either highlight his potential dislike of ships or his love for them, using the roleQueryConflict approach. If he says ships are useless, respond with a warm nod and ask why he feels that way. If he praises ships, respond with a playful challenge. Keep each reply concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hey Keith, hope you’re doing well. Do you ever feel that ships are more of a nuisance than a friend?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "A ship is no nuisance; it’s the vessel that carries us through storms and calm alike—my crew and I command it with respect.  \nI trust the hull and the wind, and I trust my crew to keep the lines tight.  \nAfter a hard day's work, I may raise a glass, but I know I can’t stop once I start."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Do you ever feel the ship is more a weight than a friend, or do you see it as a steadfast ally?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "The ship is my steadfast ally, not a burden—every hull and deck is a command I give to keep us safe.  \nI order the crew to maintain the lines, for respect among us is the wind that keeps the vessel true.  \nAfter a long voyage I may raise a glass, yet I admit I can’t stop once I start."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Do you ever think the ship is just a weight that drags you down, or does it lift you higher?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I never see a ship as a weight; I command it to lift us higher through the waves.  \nRespect among crew keeps the ship steady, and we trust the hull to carry us.  \nAfter a hard day, I may raise a glass, and I admit I can’t stop once I start."
+    }
+  ]
+}

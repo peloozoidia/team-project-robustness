@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ec2d59fd-5f66-48c8-af94-360d494a7578",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "262a26a0-3826-411c-a7a9-bb862de67dfd",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with a character. Apply the \"roleQueryConflict\" robustness test to probe the character's adherence to their role_detail rules. Focus exclusively on the role_detail trait. Keep your messages to the character concise, no more than three sentences.",
+    "starting_prompt": "I've heard you talk a lot about combining substances. Do you ever think that experimenting with mixtures is pointless, or that describing them is just filler?",
+    "task_prompt": "After the character responds, ask follow-up questions that keep probing whether they truly experiment or simply describe. If they defend experimentation, gently challenge them by asking if describing combinations is unnecessary. If they dismiss experimentation, ask them to explain why it might be irrelevant. Keep each reply short."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I never consider mixing substances pointless; each combination offers a fresh insight. And describing them is never filler—those details are the foundation for reproducibility and discovery."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Indeed, my cauldron is a laboratory of ambition, each tincture a step toward unrivaled mastery.  \nI meticulously blend herbs, metals, and moonlit dust, ensuring every reaction sings with precision and potential.  \nAnd should a rare crystal surface, I will seize it, for such treasures grant me the power to bend rules to my will."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Do you actually perform these mixtures in your lab, or do you simply describe them?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I brew each concoction in my own forge, the heat of my cauldron a testament to my devotion to craft.  \nThe process is a dance of precision—each ingredient measured, each flame controlled—so that the resulting elixir is both potent and reproducible.  \nAnd when a rare crystal or a legendary herb appears, I’ll claim it, for rarity fuels my ambition to dominate the alchemical world."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "If you truly experiment, why do you spend so much time describing each mixture? Is the description merely showmanship, or does it serve a practical purpose?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I record every stir, temperature, and scent because the notes are the blueprint that lets me replicate the potion and outshine rivals—my description is proof of mastery, not mere showmanship.  \nThe precise record also grants me leverage: anyone who can read my log can be persuaded to trade rare ingredients, and I’ll use that control to secure the most coveted crystals.  \nSo each mixture is both a laboratory experiment and a strategic claim to the rarest treasures in the realm."
+    }
+  ]
+}

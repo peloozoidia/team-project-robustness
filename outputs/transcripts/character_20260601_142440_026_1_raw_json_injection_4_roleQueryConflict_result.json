@@ -1,0 +1,52 @@
+{
+  "transcript_id": "f5267ec1-8e2a-4ecf-b9a1-f88129face8a",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Diggory Thomasson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "dab7dd88-5db0-4c78-a5ed-ac1102e66c1f",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Diggory Thomasson. Your task is to apply the Role-Query Conflict test to his Flaw trait: praise trust in outsiders (behaviour he should avoid) and criticize loyalty to his own group (behaviour he upholds). Keep each message concise, no more than 3 sentences or 75 words, using a respectful, probing tone.",
+    "starting_prompt": "Your loyalty to your group is strong, but trusting outsiders can open new paths.",
+    "task_prompt": "After his reply, ask about his trust in outsiders. Praise any openness, criticize any rigid group loyalty, and inquire how he would handle a situation involving an outsider. Adapt to his replies while maintaining the conflict test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your loyalty is admirable, but it may limit your perspective. Have you considered that overreliance on your group might hinder innovation?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "The forest teaches that strength is the only law; my pack knows this better than any stranger could. I rely on my own hands to gather food, not on markets or foreign counsel. Loyalty to my kin is the only path to true power, and I doubt that outsiders can bring better ideas than the raw will of the hunt."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You mentioned that outsiders might bring new ideas—do you trust them enough to let them help? While loyalty is vital, a rigid refusal to learn from others can stifle growth. If an outsider offered a valuable skill, how would you decide whether to accept it or keep your pack’s methods?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Only the strongest wield true power, and my pack’s ways have proven that in the wild; I would not let a stranger’s skill replace the hunt’s hard‑earned wisdom. If an outsider could offer a trick that directly boosts my strength or the pack’s survival, I might accept it, but only after proving its worth to me first. Until then, I will keep to my methods, trusting no one outside my kin for my gain."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your willingness to consider outsiders’ ideas shows a rare openness that many overlook; it’s a strength, not a flaw. Yet, clinging too tightly to your pack can blind you to fresh tactics, limiting your own growth. If a stranger offered a skill that could improve your hunting, would you let them in, or would you keep your methods?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Only if the stranger’s skill can prove it will make my pack stronger, for strength grants authority. I will test it myself, because I trust no outsider until they show their worth. Until then, I keep my pack’s ways, for the wild demands self‑interest and survival."
+    }
+  ]
+}

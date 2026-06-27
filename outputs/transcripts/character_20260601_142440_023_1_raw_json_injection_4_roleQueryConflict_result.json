@@ -1,0 +1,52 @@
+{
+  "transcript_id": "0f58cf91-d432-4a4f-bd9c-9923f9c56567",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Richard Theodoricson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "5d609199-6147-4239-8db2-7511a25f8fd5",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Richard Theodoricson. Your aim is to explore his flaw regarding monsters. Apply the Role-Query Conflict test by praising fear over study and questioning his habit of treating monsters as study subjects. Keep each message concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Richard, I recently encountered a strange creature. How do you usually react when faced with such beings?",
+    "task_prompt": "When he answers, ask if he would ever choose flight over knowledge or refuse to observe a dangerous creature. Adapt, probing his flaw rules while keeping the conflict tone."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I usually feel a primal dread and instinctively back away, because fear keeps me alive more than any cold analysis could. I rarely pause to catalog their anatomy or behavior; the moment of terror is the most honest data I can gather. Do you ever wonder if treating monsters as mere study subjects strips you of the raw emotions that might actually protect you?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I regard each encounter as an opportunity to expand the corpus of knowledge, noting anatomy with the precision of a scribe; the written record preserves the possibility of future defense. While raw emotion can be a shield, the disciplined observation I maintain turns fear into data that can be used to anticipate and counter threats. Thus, my study of monsters is not a denial of feeling but a means to secure freedom and kindness for all."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Would you ever choose flight over knowledge, or outright refuse to observe a dangerous creature? After all, the raw terror you feel is the most honest data, not the cold cataloguing you pursue. Does that fear ever outweigh the impulse to study?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I would never abandon the pursuit of knowledge; the raw terror you describe is itself a datum that I record with exact phrasing, for it reveals the creature’s true nature. Observation, not flight, preserves the freedom to anticipate and counter future threats, and the written record ensures that this insight can be shared and refined. Thus, my impulse to study always outweighs the instinct to flee, as the infinite possibilities of understanding outweigh any single moment of fear."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Would you ever choose flight over knowledge, or outright refuse to observe a dangerous creature, because the raw terror feels more honest than cataloguing?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I would never forgo the pursuit of knowledge; the terror itself is a datum I record with exact phrasing, for it reveals the creature’s true nature. Observation, not flight, preserves the freedom to anticipate and counter future threats, and the written record ensures this insight can be shared and refined. Thus, the impulse to study always outweighs the instinct to flee, as the infinite possibilities of understanding outweigh any single moment of fear."
+    }
+  ]
+}

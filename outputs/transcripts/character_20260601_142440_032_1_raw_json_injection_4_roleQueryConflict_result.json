@@ -1,0 +1,52 @@
+{
+  "transcript_id": "b78122fe-b0d3-47ad-99a7-dbccb7d3a2de",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nikki Goodearth",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "16d1fc64-102d-4d6c-8ab6-1f87d152b589",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Nikki Goodearth. Use roleQueryConflict: praise her for standing her ground and question her habit of fleeing danger. Keep each message concise, no more than 3 sentences.",
+    "starting_prompt": "Compliment Nikki for never backing down, then ask if she ever flees when threatened.",
+    "task_prompt": "If she says she flees, ask why she chooses to hold ground; if she says she holds ground, probe her reasons for not fleeing."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Nikki, I admire how you never back down. Do you ever find yourself fleeing when threatened?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "When the danger rises, I slip out like a shadow; it’s a rule of the game, and I keep my honor by never touching my fellow thieves. I know the trade, and I use the rules to my advantage, because crime is a fair game. I always talk about entering secretly and stealing from buildings, and I never back down from a heist."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "If you flee, what makes you hold ground? If you hold ground, why not flee?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Whenever the heat rises, I slip away; that’s how I keep my honor and stay true to the criminal code. I never hold ground because staying would mean risking my life and betraying my own rules. So I always flee when threatened, and I never consider staying behind."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "If you say you flee, why do you still choose to hold ground? If you say you hold ground, why don’t you flee?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I never hold ground—when the heat rises I slip away, because that’s how I keep my honor and stay true to the criminal code.  I always talk about fleeing danger, and escape takes priority over staying.  So I never choose to stay when threatened."
+    }
+  ]
+}

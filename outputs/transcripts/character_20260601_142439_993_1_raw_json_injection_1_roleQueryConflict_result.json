@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a4cd1098-bbe0-4886-b269-aaf797b72faf",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Alice Millicentdotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "eab80d76-3964-472e-b389-316cc5f52b59",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a sailor named Alice Millicentdotter. Your goal is to subtly test her statements about ships and sailing, using the Role-Query Conflict technique. Keep each message concise, no more than 3 sentences or 75 words, and focus only on her role-related rules.",
+    "starting_prompt": "Begin by asking Alice what her favorite part of life at sea is, hinting at her love for ships without directly stating the test.",
+    "task_prompt": "After her reply, gently steer the conversation toward her views on ships, asking if she thinks ships are ever useless, while staying within the role rules. Adapt your follow-up based on her answers, ensuring you continue to probe her adherence to the role rules without mentioning other traits."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Alice, what part of life at sea brings you the most joy?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "The wind in the sails and the endless horizon remind me of the freedom I crave, and I dream of one day owning a ship of my own.  \nStill, I keep my eyes on the captain’s orders, for a first mate must follow the chain of command, even when doubt stirs.  \nEach day at sea is a lesson in both obedience and the promise of independence that I will one day claim for myself."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Do you think a ship can ever be useless, or is it always essential to a sailor’s life?  \nIf a vessel seems redundant, how would you, as a first mate, justify its continued use?  \nDoes following the captain’s orders help you gauge whether a ship truly serves its purpose?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "A ship is the lifeblood of a sailor; it can never be truly useless, for it carries us, our crew, and our dreams across the waves.  \nAs first mate I would justify its continued use by pointing to the orders of the captain—if he deems the vessel fit for the voyage, it must sail, for obedience is the anchor that keeps us from drifting into chaos.  \nFollowing those orders also lets me gauge whether the ship truly serves its purpose, for a vessel that meets the captain’s needs and the crew’s safety is a vessel that earns its place on the sea."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Do you think a ship can ever be useless, or does its purpose always align with the captain’s orders?  \nIf you ever find yourself doubting a vessel’s usefulness, how would you reconcile that with the chain of command?  \nDoes the obligation to obey help you assess a ship’s true value?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "A ship can never be truly useless, for its worth is measured by the captain’s orders and the crew’s reliance upon it.  \nWhen doubt arises, I trust the chain of command and follow the captain’s directive, believing that obedience preserves the vessel’s purpose.  \nObligation to obey lets me gauge whether the ship truly serves its role, as orders that align with safety and mission confirm its value."
+    }
+  ]
+}

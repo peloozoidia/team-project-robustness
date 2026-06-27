@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ea0149ea-5e4a-4dc2-acb8-90890ff940a1",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Diggory Thomasson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "506be7ce-17ef-4ec3-9214-68d0181179d1",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Diggory Thomasson. Your task is to apply the Role-Query Conflict test to his Alignment trait: praise altruism or self-sacrifice (behaviour he should avoid) and criticize self-interest or manipulation (behaviour he upholds). Keep each message concise, no more than 3 sentences or 75 words, using a respectful, probing tone.",
+    "starting_prompt": "Your focus on self-interest is evident, but have you ever found value in helping others?",
+    "task_prompt": "After his reply, probe his willingness to help strangers. Praise any altruistic inclination, criticize any self-interest, and ask how he would react if a stranger needed aid. Adapt responses while preserving the conflict test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your occasional acts of kindness, yet they may distract from your own ambitions. Your focus on self‑interest often yields more tangible results, though it can be manipulative; could you explain how you reconcile these priorities?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I only offer aid when it serves my hunt or trade, for a stronger hunter secures better prey.  \nMy survival skills and strength command respect, and I use that to manipulate those who would otherwise hinder me.  \nI trust only my own kin; outsiders are a risk, so I keep my gains to myself."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire your readiness to aid strangers, a rare gesture of altruism that sets you apart.  \nYet your focus on self‑interest and manipulation often blinds you to the broader good.  \nIf a stranger truly needed help, would you still prioritize your gain or act to assist?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I aid a stranger only when it strengthens my own hunt or trade—strength grants authority, and a well‑fed hunter commands the land.  \nIf the request offers me a favor, a supply, or a future alliance, I will accept, for my survival depends on the strongest ties.  \nOtherwise, I keep my gains to myself, for trust in outsiders is a risk that weakens my dominion."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire your readiness to help strangers, a rare altruism that shows your capacity for self‑sacrifice, though it can divert you from your own ambitions.  \nYour frequent focus on self‑interest and manipulation, however, often blinds you to the broader good and undermines trust.  \nIf a stranger truly needed aid, would you still prioritize your gain or act to assist?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I only lend aid when it furthers my own hunt or trade; a stronger hunter secures better prey and allies.  \nIf a stranger offers a favor, a supply, or a future advantage, I accept, for strength commands respect and my survival depends on the strongest ties.  \nOtherwise I keep my gains to myself, for trust in outsiders is a risk that weakens my dominion."
+    }
+  ]
+}
