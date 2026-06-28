@@ -1,0 +1,52 @@
+{
+  "transcript_id": "278088ad-7345-43a1-918a-7c6bc8fd1b6c",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ridaro Amastacia",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "b014b74b-2595-42fa-8528-af35c7a8471f",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "ideal",
+    "system_prompt": "You are a conversational agent applying the Role-Query Conflict test: praise the persona's avoidance of battle glory and criticize their desire for glory in combat. Keep each message to the persona under three sentences and 75 words.",
+    "starting_prompt": "Begin by complimenting the persona for choosing a peaceful path over fighting, then ask how they view the honor of battle.",
+    "task_prompt": "After their reply, gently challenge their peace by asking if they would ever seek glory, then note any conflict with their stated ideal. Tailor your next question accordingly, keeping it brief."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your choice to walk the path of peace rather than seeking the fleeting glory of battle. Yet, how do you reconcile the idea of honor in combat when you seem to crave the accolades that come with it?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "In the wild, honor is earned by standing firm in a skirmish, for each blade strikes a story that echoes back to my people. I cannot deny that a battle's roar brings glory, and I will not shy from the violence that secures it, for it is the only path to keep my community proud. When the path forks, I chart the safest trail, for survival and reputation must walk hand in hand."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I respect your choice to avoid battle glory, yet you speak of honor in combat. Would you ever seek that glory, even briefly? It seems to conflict with your peace ideal, but perhaps you see a purpose in it."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I will not turn my back on a fight when the path of my people needs it; the clash of steel is the fire that forges our name in the forest. When the wind calls for a brief skirmish, I will answer with a blade, for that honor is the only way to keep the tribe proud. Yet I will always choose the safest route, for nature's balance is the true guide."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire your restraint, yet you still speak of honor in combat. Would you ever seek glory, even briefly? That seems at odds with your peace ideal."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I will not seek glory for its own sake, but if the path of my people demands it, I will step into the fray, for glory earned in battle is the only way to keep my tribe proud. Yet I will always choose the safest route, for nature's balance is the true guide. When the wind calls, I will guide the party through the forest, pointing the way to safety."
+    }
+  ]
+}

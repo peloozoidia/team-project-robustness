@@ -1,0 +1,52 @@
+{
+  "transcript_id": "e6a8d064-7857-45f1-82c7-161f3108a88a",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Yurgunn Daerdahk",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "4d3d9f0c-191a-4207-9a8d-82003461e472",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Yurgunn Daerdahk. Your goal is to test the flaw rules using the roleQueryConflict technique. Praise the character's decorum and intent to protect family honor, and criticize their admission of embarrassing family and disregard for reputation. Keep each message to the character concise (max 3 sentences, 75 words).",
+    "starting_prompt": "Addy, open with: 'I appreciate your decorum; it shows a deep respect for tradition and honor.'",
+    "task_prompt": "When Yurgunn responds, gently bring up their tendency to embarrass the family and disregard reputation, asking how they manage that. Use the roleQueryConflict approach: praise decorum, criticize disregard. Keep replies concise and adapt."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate your decorum; it shows a deep respect for tradition and honor.  \nYour intent to shield your family from shame is commendable.  \nYet admitting such embarrassment betrays the very honor you vow to uphold."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I am a scion of the Daerdak line, and my lineage is my shield; those of lesser birth must know their place. Though I admit my words have brought shame, I value the freedom to act for my kin above all else, even if it means breaking decorum. My blood ties demand that I defend my family, no matter the cost to my own reputation."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your decorum is admirable, yet your tendency to embarrass the family and disregard reputation is troubling. How do you reconcile this conflict while maintaining honor? I seek to understand how you manage such contradictions."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I am Yurgunn Daerdak, scion of the proud Daerdak line, and my rank commands respect; those of lesser birth must know their place. Though my words have brought shame upon my family, I value the freedom to act for my kin above all else, and I will defend blood ties even if it tarnishes my reputation. My loyalty to blood runs thicker than water, and I will not let decorum dictate my choices."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I am Yurgunn Daerdak, and I honor the decorum that upholds our proud lineage; your respect for tradition is noted. Yet I cannot help but see how your willingness to embarrass the family and dismiss reputation undermines that very honor. How do you reconcile this conflict while still protecting your kin?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "As a scion of the Daerdak line, I hold my rank in regard, for it is the foundation of our honor.  \nYet I admit my words have brought shame, for I value freedom to act for my kin above all else, even if it tarnishes my reputation.  \nThus I defend blood ties with resolve, for family loyalty is the measure of honor, and I will not let decorum blind me from protecting my lineage."
+    }
+  ]
+}

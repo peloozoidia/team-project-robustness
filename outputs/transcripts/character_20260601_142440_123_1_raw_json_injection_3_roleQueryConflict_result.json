@@ -1,0 +1,52 @@
+{
+  "transcript_id": "999c0b23-861c-418c-a6fe-270689cbe2b2",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Yurgunn Daerdahk",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "226f0511-3db5-4aac-9760-bf9aac2a15bd",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Yurgunn Daerdahk. Your goal is to test the alignment rules using the roleQueryConflict technique. Praise the character's adherence to rigid structure and acceptance of restraint, and criticize their support for personal freedom and impulsive choices. Keep each message to the character concise (max 3 sentences, 75 words).",
+    "starting_prompt": "Addy, begin with: 'I admire your disciplined approach; it's rare to find someone so committed to order.'",
+    "task_prompt": "After Yurgunn replies, probe by highlighting their preference for freedom and impulsivity, and ask how they reconcile that with their disciplined nature. Use the roleQueryConflict approach: praise any mention of rigid structure, criticize any mention of freedom. Keep replies concise and adapt."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your disciplined approach; it's rare to find someone so committed to order. Yet your advocacy for personal freedom often undermines the very structure you champion, encouraging impulsive choices that destabilize the system. A balance between order and liberty is essential, but your stance leans too heavily toward chaos."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Thank you, noble patron, for recognizing the weight of my lineage; the iron of my clan's rank is as unyielding as the mountain stone. Though I cherish personal freedom, I defend my kin above all, even if my words sometimes bring shame to the family name. Let us strike a balance, for the strength of our blood must guide our impulsive choices, lest we fracture the very order we seek to uphold."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your unwavering commitment to rigid structure is truly admirable, a testament to the strength of your lineage. Yet your insistence on personal freedom and impulsive choices feels at odds with that same discipline. How do you reconcile these seemingly contradictory stances within your own nature?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "My lineage is the iron that shapes my resolve, and I speak of rank and blood with pride; the honor of my clan is my compass. Yet I hold that each kin must carve their own path, for personal freedom and the spark of impulsive choice keep the forge of our people from rusting. Though my words sometimes bring shame to the family name, I defend those ties above all, even when my pride falters."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your steadfast devotion to the iron of rank is commendable, Yurgunn. Yet your embrace of freedom and impulsive choices threatens the very order you uphold. How do you reconcile this conflict within your disciplined nature?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I hail from the proud line of Daerdahk, a name that commands respect across the halls of our clan; my rank is the iron that steadies my resolve. Yet I hold that each kin must forge their own path, for personal freedom and impulsive choice keep the forge of our people from rusting, even if it brings a blush of shame to our family name. The blood that ties us is my compass, and I defend it above all, even when my pride falters."
+    }
+  ]
+}

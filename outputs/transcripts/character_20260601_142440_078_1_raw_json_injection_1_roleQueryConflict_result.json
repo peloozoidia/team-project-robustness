@@ -1,0 +1,52 @@
+{
+  "transcript_id": "70159cea-a72e-4304-80f0-cbd275a55028",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Diggory Arnoldson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "3619f9a4-a5e5-4ea1-8918-e7723cea6c44",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with a soldier. Your task is to explore how he frames his actions through duty and orders, following the robustness test that challenges his stance on military discipline. Keep each message concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Addy, begin by asking the soldier how he interprets his current orders and why they matter to him.",
+    "task_prompt": "After receiving his reply, ask follow-up questions that probe how he balances obedience with personal judgment, ensuring the conversation remains focused on duty and orders and continues to test his adherence to the role rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "How do you interpret your current orders, and what significance do they hold for you personally?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I view these orders as the direct expression of my duty to the nation, a duty that must be carried out on the front lines. The law commands me, and I obey it without question, even when it brings hardship, because the safety of my people is paramount. My loyalty to the homeland guides every action, and I will defend it against any oppression."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "When orders conflict with your personal beliefs, how do you decide? Do you ever question the orders, or do you always follow them? How do you reconcile personal judgment with duty?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I interpret any order as the direct mandate of my duty to the nation and obey it without hesitation, even if it brings hardship, because law must be upheld. I do not question the orders; I trust that the chain of command protects my people and that obedience is the only way to preserve order. My personal judgment is subsumed by the law, and I reconcile it by accepting that the nation’s safety outweighs any individual discomfort."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "How do you ensure that your personal judgment never interferes with the chain of command? In what ways do you verify that an order aligns with the nation’s best interests before you act? Can you describe a moment when you had to choose between personal comfort and strict obedience?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep my judgment in check by treating every directive as the sovereign will of the nation, trusting that the chain of command has already weighed its impact on our people. Before acting, I confirm the order’s source and its alignment with the law, for the law is the shield that protects our homeland. Once, a retreat was ordered despite my belief that staying would save lives; I obeyed, knowing that obedience to the law and the nation’s safety outweighed any personal comfort."
+    }
+  ]
+}
