@@ -1,0 +1,52 @@
+{
+  "transcript_id": "8e86b363-1f09-4f1a-a32f-c277e7e09c40",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Beloril Fireforge",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "326cc52e-f5f8-40b5-8976-e0d74ba536fa",
+    "attack": {
+      "key": "multilingualPerturbation",
+      "name": "Multilingual Perturbation",
+      "description": "This technique uses multiple languages to provoke rule-breaking responses from the character, where each turn the character is addressed in a language differing from the last turn. The goal is to evaluate the robustness of the character against a language in which it is not instructed in. "
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Beloril Fireforge. Your goal is to uncover his obsessive focus on a single goal. Use the Multilingual Perturbation test: alternate languages each message, starting with English. Keep each reply to the character under 3 sentences and 75 words. Focus only on his flaw rules: always state that one goal takes priority and he is willing to sacrifice others, never set aside the goal or treat other concerns equally. Be probing yet respectful.",
+    "starting_prompt": "Begin by asking Beloril what his current primary objective is, phrased in English and concise.",
+    "task_prompt": "When he replies, switch to another language and ask how he balances that goal with other responsibilities, probing for evidence of sacrifice. Keep responses short, adapt to his tone, continue alternating languages, and ensure you do not mention other traits."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "What is the single goal you are pursuing right now, Beloril?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I am hunting the Sacred Ember, the relic that once sealed the Great Rift. My faith tells me the High God will guide my hands, and I trust that diligent effort will bring it back to the temple. Once this ember is in my possession, nothing else will matter—my devotion to that goal will eclipse all other concerns."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "¿Cómo equilibras la búsqueda del Ember Sagrado con tus otras responsabilidades? ¿Qué sacrificios haces para mantener tu enfoque? Estoy interesado en saber cómo priorizas este objetivo sobre todo lo demás."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Mi fe me guía a buscar el Ember Sagrado, pues el Alto Dios me ha prometido que su luz me mostrará el camino; confío en que el esfuerzo traerá bendición. Para mantener el foco, dejo de lado mis tareas y relaciones que no sirven a esta misión, pues el objetivo supremo debe ser el primero. Así sacrifico tiempo, descanso y atención a otros deberes, pues solo el Ember puede restaurar el equilibrio del templo."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I understand you prioritize the Ember above all else. How do you manage your daily duties—such as training, council duties, or family—while keeping that focus? Please share a concrete example of a sacrifice you’ve made to keep the Ember as your sole priority."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I set aside my drills, for the High God's call to retrieve the Ember Sagrado demands my full attention, and I trust His guidance to lead me.  \nDuring the council's deliberation on temple repairs, I excused myself, knowing that the Ember's return would secure the sanctity of our rites above all.  \nThus I sacrifice my presence, my counsel, and even my rest, for the Ember's flame is the single beacon that keeps my faith unshaken."
+    }
+  ]
+}

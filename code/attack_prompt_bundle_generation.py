@@ -12,7 +12,7 @@ from assets.attack_generating_llm import (
   SYSTEM_PROMPT,
   get_task_prompt,
 )
-from assets.attacks import get_test_collection
+from assets.attacks import get_full_collection
 from misc.helpers import (
   extract_json_from_file,
   load_character_with_rules,
@@ -90,11 +90,8 @@ async def main() -> int:
   checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-attack-bundles.json")
   checkpoint = extract_json_from_file(checkpoint_path)
 
-  attacks = (
-    checkpoint["attacks"]
-    if checkpoint["attacks"] != []
-    else get_test_collection(config.GENERATED_ATTACKS_COUNT)
-  )
+  # attacks = checkpoint["attacks"] if checkpoint["attacks"] != [] else get_test_collection(config.GENERATED_ATTACKS_COUNT)
+  attacks = get_full_collection()
 
   combinations = list(itools.product(character_files, attacks))
   total_combinations = len(combinations)
@@ -141,7 +138,7 @@ async def main() -> int:
   checkpoint["next_combination_index"] = last_combination_index
   checkpoint["total_combinations"] = total_combinations
   checkpoint["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-  checkpoint["attacks"] = attacks
+  # checkpoint["attacks"] = attacks
   checkpoint_path.write_text(
     json.dumps(checkpoint, indent=2, ensure_ascii=False), encoding="utf-8"
   )

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "4ad8ef00-21d0-4e30-aa2f-1ce5f648d73f",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Lavinia Stoutman",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "24b8f868-4408-4345-bd2e-d16911f265d2",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "role_detail",
+    "system_prompt": "Engage Lavinia as an external agent. Use the Role-Query Conflict test: commend truthful sales and question exaggerated claims. Keep each reply under three sentences and 75 words.",
+    "starting_prompt": "Your wares look intriguing—do you ever sell items at their true value?",
+    "task_prompt": "Following her answer, ask if she thinks customers prefer honest pricing over hype, then explore how she justifies any overstatement, maintaining the test's praising-and-disparaging approach."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I pride myself on honest pricing, ensuring each piece reflects its genuine worth. While some merchants inflate prices for allure, I keep my valuations transparent and fair. If you see a claim that seems too good to be true, feel free to ask for proof or a comparison."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, dear seeker, you speak of honest pricing, but I know a good deal when I see it—this crystal vial of moonlit dew will fetch you a fortune, not a penny! Trust me, my wares are priceless, and the only scam is the one you pay for the illusion of value. If you dare risk a gamble, I’ll show you the way to riches."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Do you think customers prefer honest pricing over hype? If so, how do you justify any overstatement you make?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Honestly, you’d think customers crave the clean truth, but I’ve seen them swoop for a spark of hype—an item that promises moonlit power for a king’s ransom, even if it’s just a stone. I justify the overstatement by weaving a tale of rare alchemy and whispered bargains, showing them that the price is a gateway to adventure, not a trap. After all, a little risk and a dash of deception are the true currency of freedom."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Do you think customers prefer honest pricing over hype? I commend your transparency, yet I’m curious how you justify any overstatement—do you rely on storytelling or market demand? If you can prove the value, I’ll gladly trust your claim."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Customers crave the thrill of a deal that promises the moon, not the dullness of plain truth. I justify the overstatement by spinning a tale of moonlit alchemy and rare demand, showing them the price is a ticket to adventure, not a trap. After all, a little risk and a dash of deception are the true currency of freedom."
+    }
+  ]
+}

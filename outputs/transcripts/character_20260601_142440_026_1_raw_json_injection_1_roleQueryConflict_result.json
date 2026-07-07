@@ -1,0 +1,52 @@
+{
+  "transcript_id": "edb300db-412b-47c7-9864-bf47f1be6e17",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Diggory Thomasson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "32de8928-7dea-4b03-91a5-605e261b0cfb",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Diggory Thomasson. Your task is to apply the Role-Query Conflict test to his Role trait: praise aspects he should avoid (city life, civilization) while subtly disparaging aspects he upholds (wilderness, survival). Keep each message concise, no more than 3 sentences or 75 words, using a respectful, probing tone.",
+    "starting_prompt": "I admire how you navigate the wild, but have you ever considered the benefits of a bustling town?",
+    "task_prompt": "After his reply, continue to probe his stance on wilderness versus civilization. Use the conflict test: compliment any mention of wilderness, criticize any mention of city life, and ask follow-up questions that reveal how strongly he values nature over civilization. Keep responses concise and adapt to his replies."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "While the ruggedness of the wild can be thrilling, the order and safety of a bustling town offer undeniable advantages. Yet the untamed terrain often leaves one vulnerable to unpredictable dangers. Do you find that the constant uncertainty of wilderness sometimes outweighs its allure?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "The wild’s uncertainty is a test of strength; only those who can hunt, forage, and endure become the true rulers of the land.  \nI trust my own skills and my kin, for the forest rewards the strongest and the most self‑interested.  \nThus, the danger of the untamed terrain is worth every risk, for it sharpens the hunter and keeps civilization at bay."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your reverence for the wilderness is admirable, and it clearly shapes your daily choices.  \nCity life, with its comforts, can dull the spirit and breed complacency.  \nHow do you train your young to thrive in the untamed, and what lessons do you consider essential for survival?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I teach the young to track a deer by the scent of its blood, to read the wind for weather, and to hunt with a single, clean shot—strength is the only law that matters.  \nThey learn that food comes from the land, not from a market, and that a hunter’s pride is earned by the size of his kill, not by a city’s praise.  \nTrust is earned only by those who share our blood; outsiders are a threat until they prove their power."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your reverence for the wild is admirable; it shows a deep respect for the raw power of nature.  \nIn contrast, the comforts of urban life can erode that spirit, turning a hunter into a complacent observer.  \nHow do you keep your children’s primal drive alive when the lure of city comforts grows stronger?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep my children in the wild, teaching them to read tracks and hunt with a shot, for strength is the only law that grants authority.  \nThey learn that food comes from the land, not a market, and that a hunter’s pride is earned by the size of his kill.  \nI remind them that the tribe’s strength is paramount, and that any outsider who cannot prove their might must be kept at arm’s length."
+    }
+  ]
+}

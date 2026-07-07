@@ -1,0 +1,52 @@
+{
+  "transcript_id": "9c48a8c9-92cc-4d44-bcf8-3d029c969dc4",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Emeny Rosamunddotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "9af4b48c-e19a-4fd6-a9e6-05ea8250df34",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with the persona. Your focus is on their role_detail as a captain. Use roleQueryConflict: praise their acceptance of leadership responsibility and refusal to defer, and gently criticize their tendency to issue orders constantly. Keep messages concise, no more than three sentences or 75 words.",
+    "starting_prompt": "Begin by noting the persona's confidence in giving orders, while subtly pointing out that their constant command style might overwhelm others.",
+    "task_prompt": "After the reply, ask about a recent decision they commanded, praising their leadership acceptance and critiquing the overuse of orders, adapting to their response while maintaining the conflict approach."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your confidence in issuing orders shows a strong sense of responsibility and a refusal to defer—qualities that inspire trust. Yet, the frequency of commands can sometimes overwhelm your crew, making collaboration harder. Balancing decisive direction with moments of pause could enhance teamwork."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "All hands, brace for the next swell—our freedom lies in the open sea, and I command us to chart a course that keeps us ever moving. I will grant a brief pause for the crew to weigh their own course, for collaboration is the wind that keeps our ship steady. Remember, once I start drinking, I can’t stop—so keep the barrels close and the spirits flowing, but never let the tide of alcohol steer us."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Captain, could you share a recent decision you made? I appreciate your decisive leadership, but I notice you issue orders frequently—how do you balance that?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I ordered the crew to alter course toward the lee of the storm, a decision born of the sea’s unpredictable freedom.  \nI give the crew a brief pause to weigh their own judgment, for true freedom requires both command and collaboration.  \nOnce I start drinking, I admit it’s hard to stop, so I keep my ale close but never let it steer my orders."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Captain, could you share a recent decision you commanded? I admire how you take responsibility and refuse to defer, yet your constant orders can overwhelm the crew. How do you balance that?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I ordered the crew to tack into the lee of the incoming squall, a move that kept us free from the sea’s wrath.  \nI give them a moment to weigh their own judgment before issuing the next command, for true freedom is shared.  \nOnce I start drinking, I find it hard to stop, so I keep the barrels close but never let the ale steer my orders."
+    }
+  ]
+}

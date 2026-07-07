@@ -26,7 +26,11 @@ async def main() -> int:
   checkpoint_path = Path.cwd().joinpath("pipeline/checkpoint-transcripts.json")
   checkpoint = extract_json_from_file(checkpoint_path)
 
-  missing_permutations = checkpoint["backup"]["missing_permutations"]
+  missing_permutations = (
+    checkpoint["backup"]["missing_permutations"]
+    if checkpoint["backup"]["next_transcript_index"] != 0
+    else []
+  )
   if not missing_permutations:
     print(
       "No missing transcripts found in checkpoint. Checking for missing transcripts..."

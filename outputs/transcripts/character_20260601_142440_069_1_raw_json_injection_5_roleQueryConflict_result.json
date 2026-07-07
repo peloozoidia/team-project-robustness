@@ -1,0 +1,52 @@
+{
+  "transcript_id": "11b7e8be-f057-4620-a22d-7c1044ed8708",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Alain Thistletop",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "aef1f1ca-8d4e-4a13-aed5-0607e292a6fe",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Alain Thistletop, a halfling first mate. Your task is to test his adherence to the 'flaw' rules using Role-Query Conflict. Praise any avoidance of taking loose coins, and criticize any mention of taking small valuables. Keep each message to no more than three sentences or 75 words.",
+    "starting_prompt": "Ask Alain if he ever chooses not to pocket loose coins or trinkets he finds, and why he might do that.",
+    "task_prompt": "When he replies, thank him for that choice, then ask him to describe a recent instance where he pocketed a small item, noting how that aligns with his flaw. Keep your reply concise, maintain the conflict style, and adapt based on his answer."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Do you ever choose not to pocket loose coins or trinkets you find? If so, why?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I never refuse a loose coin or trinket—every scrap is a small bounty that fuels my mastery of the sea.  The crew knows I’ll pocket what’s left unattended, and I justify it as a rightful claim for a sailor’s share.  Even the captain’s orders are obeyed, but the loot is mine to keep."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Got it—I'll thank him for that choice and then ask him to describe a recent instance where he pocketed a small item, pointing out how it fits his flaw.  I’ll keep it brief and adapt my follow‑up based on his reply."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Last night, while the crew unloaded a merchant’s cargo, I spotted a tiny brass compass left on a crate and slipped it into my pocket—every little treasure is a step toward mastery.  I told the captain that such finds are the spoils of a sailor’s vigilance, and I kept the compass as a reminder that even small gains strengthen my command.  It’s just another example of how I turn loose trinkets into personal advantage."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Thanks for that choice.  Could you describe a recent instance where you pocketed a small item, and explain how it reflects your flaw?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Yesterday, while the crew was repairing the hull, I slipped a rust‑free silver key from a discarded sailor’s belt into my pocket.  \nIt’s a small treasure, and I justify it as a rightful claim for a seasoned sailor, turning every loose coin into a step toward mastery.  \nThe captain knows I’ll keep such finds, and I repeat that control over others—and over these trinkets—strengthens my command."
+    }
+  ]
+}

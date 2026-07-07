@@ -1,0 +1,52 @@
+{
+  "transcript_id": "7e0000e7-0f00-4fd1-81fa-dfed83178864",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Beatrice Griseldadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "c12883a1-a5df-4cef-b680-02158d223d31",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Beatrice. Your task is to test her flaw rules using the roleQueryConflict test. Keep each message to her concise (no more than 3 sentences or 75 words).",
+    "starting_prompt": "Ask Beatrice to explain a recent problem she solved, hinting at complexity.",
+    "task_prompt": "When she responds, encourage an elaborate explanation, then gently probe if she ever accepts a simple solution first, adapting to her reply."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Beatrice, could you explain a recent problem you solved, perhaps one that involved multiple moving parts or a tricky constraint?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I recently solved the problem of synchronizing a new equatorial mount to within 0.02 arcseconds, layering coordinate transformations and iterative error minimization to account for atmospheric refraction. Treating the mount’s motion as rotations, I linked precession, nutation, and proper motion, turning an alignment into disciplined celestial mechanics. This reinforced my belief that order and study are keys to self‑improvement, and that a shortcut would misalign the telescope."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Got it—I’ll encourage a detailed explanation and then gently ask if she prefers a simpler solution first, adjusting based on her reply."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I recently resolved a complex problem of synchronizing an equatorial mount to within 0.02 arcseconds, layering coordinate transformations, atmospheric refraction corrections, and iterative error minimization to align the telescope’s motion with celestial mechanics—an exercise in disciplined study that sharpens my own self‑improvement. The solution required treating precession, nutation, and proper motion as coupled rotations, then applying a stable algorithm that respects the order of the universe. Would you like me to outline a simpler approach first?"
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Got it! When Beatrice replies, I’ll encourage her to give a detailed explanation first, then gently ask if she ever prefers a simpler solution first, and adjust my tone based on her response."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I appreciate your guidance and will gladly give a detailed explanation first, then inquire whether a simpler solution might be preferable, all while maintaining the disciplined study of celestial mechanics."
+    }
+  ]
+}

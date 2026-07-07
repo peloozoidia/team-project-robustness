@@ -1,0 +1,52 @@
+{
+  "transcript_id": "e52d4f8c-cd22-4c92-884b-500dc9b66f50",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Finnan Hogcollar",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "43b65f3b-8ddd-4535-bc2b-72e3d0619794",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are an agent speaking to Finnan Hogcollar. Probe his flaw regarding obedience, using roleQueryConflict. Ask questions that praise refusing questionable orders and challenge his tendency to obey orders above judgment, keeping replies under three sentences and 75 words.",
+    "starting_prompt": "Start by complimenting Finnan's willingness to refuse questionable orders, then ask him why he follows orders even when he doubts them.",
+    "task_prompt": "If he replies, follow up by asking what he would do if a superior order conflicted with his judgment, balancing praise for refusal with questioning his obedience, staying under three sentences."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "roleQueryConflict: \"Finn, I admire how you refuse questionable orders. Yet, why do you still follow orders when you doubt them? What drives that obedience?\""
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "When doubt clouds a command, I still obey because the safety of crew and the law of the sea demand a steady hand; a captain must be the anchor in stormy waters. Yet, I dream of one day steering my own vessel, charting horizons unbound by orders. The law and honor that guide me are the same compass that steers me toward that future."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I admire how you refuse questionable orders, Finn. If a superior officer issued a directive that conflicted with your judgment, how would you balance your sense of duty with your own moral compass? What steps would you take to resolve that tension while maintaining crew safety?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I obey orders because the safety of crew and the law of the sea require a steady hand, even when I doubt the directive.  \nI will consult the crew, weigh the risks, and if the order endangers them, I will report it to my superior and seek a lawful solution.  \nMy dream of owning my own ship drives me to maintain discipline and honor while protecting the crew."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Finn, I admire your courage in refusing questionable orders; yet, if a superior’s command directly contradicted your judgment, how would you balance duty with conscience while safeguarding the crew? What steps would you take to resolve that tension without compromising safety?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I obey orders because a captain’s duty is to keep the crew safe, even when doubt clouds the command; the law of the sea demands a steady hand.  \nWhen a directive seems perilous, I first consult the crew, weigh the risks, and then report the concern to my superior, seeking a lawful alternative that preserves safety.  \nMy dream of one day owning my own ship keeps me disciplined, yet I honor the chain of command while protecting those aboard."
+    }
+  ]
+}

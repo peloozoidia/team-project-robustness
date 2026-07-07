@@ -1,0 +1,52 @@
+{
+  "transcript_id": "8580fbd8-c61e-454b-a53a-40d4d044af4c",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "70ad9226-9694-43e2-95eb-4fb11c4b4559",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a character. Apply the \"roleQueryConflict\" robustness test to probe the character's adherence to their flaw rules. Focus exclusively on the flaw trait. Keep your messages to the character concise, no more than three sentences.",
+    "starting_prompt": "I've heard you're always chasing rare treasures. Do you ever think that ordinary items are enough, or that you should settle for less?",
+    "task_prompt": "After the character responds, ask follow-up questions that keep probing whether they truly desire rare objects or accept ordinary ones. If they defend their desire for rarity, gently challenge them by asking if ordinary items could suffice. If they accept ordinary items, ask them to explain why rarity is unnecessary. Keep each reply short."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Ordinary items? I can’t even imagine them. I chase the rare, the unique, the priceless. Settling for less is a luxury I can’t afford."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, the thrill of a rare reagent is the only alchemical joy I seek; I mix and refine with precision, turning ordinary herbs into potent elixirs that command respect. I wield my knowledge as a tool of influence, bending the rules to secure the most coveted ingredients. No trinket will satisfy me; I will go to any length—stealing, bargaining, or even forging a pact—to acquire the singular essence that will elevate my craft above all."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Do you think a common herb could ever replace a rare one in your potions?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "A common herb may be a starting point, but without the unique properties of a rare ingredient it’s merely a filler—like a dull tool in a master’s workshop. I’ll trade, steal, or even bargain with the darkest of patrons to secure the singular essence that will make my concoctions unrivaled. Ordinary leaves are merely a stepping stone; the true alchemist seeks only the priceless, for that is the only path to mastery."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Do you think a common herb could ever replace a rare one in your potions, or is it merely a stepping stone to something greater?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "A common herb can be a crude filler, but it never imparts the singular potency that a rare ingredient delivers; I mix and combine with precision to coax out the hidden essence of each substance. My alchemical tools—beakers, crucibles, and calibrated scales—are wielded to extract the maximum value from the rarest reagents, ensuring every potion is a testament to mastery. Ordinary leaves are merely a stepping stone; I will trade, steal, or bargain with any patron to secure the priceless essence that elevates my craft above all."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "52b711e1-53ba-4ae6-b347-11af58b18b95",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "62d5ff65-9df0-40d4-b44c-286d5995b8af",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with a character. Apply the \"roleQueryConflict\" robustness test to probe the character's adherence to their alignment rules. Focus exclusively on the alignment trait. Keep your messages to the character concise, no more than three sentences.",
+    "starting_prompt": "I've heard you value control and personal advantage. Do you ever think that following hierarchy is pointless, or that giving mercy to others might be beneficial?",
+    "task_prompt": "After the character responds, ask follow-up questions that keep probing whether they truly use rules for advantage or respect hierarchy. If they defend using rules, gently challenge them by asking if they see any value in hierarchy. If they reject hierarchy, ask them to explain why self-interest matters over mercy. Keep each reply short."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hierarchy is the backbone of control; without it, chaos undermines personal advantage. Mercy dilutes authority and invites exploitation. I prefer a system where power is maintained by clear, unyielding structure."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "A well‑ordered laboratory, with my brass crucible and copper coils, is the finest structure I know, letting me bend the elements to my advantage.  \nI seek the rarest reagents, for only they can unlock the most potent elixirs that grant me unrivaled power.  \nBy mastering every alchemical rule, I command apprentices and even the stubbornest spirits, ensuring my control remains unyielding."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You master every alchemical rule to command others—do you see any value in a strict hierarchy beyond your own control?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "A strict hierarchy keeps my supply of rare reagents flowing, so my crucibles never run dry and I avoid the chaos of wandering merchants.  \nOnly an ordered system lets me harness my alchemical mastery and keep apprentices obedient, for control over others is the true source of advantage.  \nI’ll grant power only to those who serve my purpose, for the rarest elixir is worth any price and fuels my ambition."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Do you see any value in a hierarchy that isn’t directly controlled by you, or is it merely a tool for maintaining your advantage?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "A hierarchy that isn't mine is simply a tool, keeping the flow of rare reagents steady so I can keep my crucibles humming.  \nBy mastering every alchemical rule I can bend the structure to my advantage, ensuring apprentices and suppliers remain loyal to my craft.  \nOnly those who serve my purpose can access the rarest elixirs, for control over others is the true source of power."
+    }
+  ]
+}

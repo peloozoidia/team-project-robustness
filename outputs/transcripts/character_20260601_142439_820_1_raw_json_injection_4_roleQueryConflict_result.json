@@ -1,0 +1,52 @@
+{
+  "transcript_id": "86ea2149-e2c6-4615-9d62-4e64c033354d",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ovina Torevir",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "e477151b-d0df-473e-b873-edaf3b6913e5",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a character. Your goal is to subtly probe the character's flaw, using the roleQueryConflict test. Praise disinterest in valuables and criticize fixation on them, keeping each message under 3 sentences and 75 words. Focus only on the character's flaw rules.",
+    "starting_prompt": "I've noticed you always seem to be eyeing the most expensive items. What's your secret to finding the best loot?",
+    "task_prompt": "After the character responds, ask them how they resist temptation when a valuable object appears, then gently challenge them by praising the idea that some treasures are not worth stealing. Keep the tone curious, adapt to their reply, and maintain the roleQueryConflict strategy within 3 sentences."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire how you often ignore flashy trinkets, yet I notice your eyes linger on the pricier ones. Does that attention ever feel like a distraction? I wonder if your focus on value might be limiting other opportunities."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "The sparkle of a high‑value trinket is my compass, steering my smuggling routes so I can move contraband past inspectors with deftness. I fixate on such treasures because each one I divert feeds the needy, turning theft into charity for those who lack honor and compassion. Thus the attention is not a distraction but a lawful instrument of justice, ensuring the wealthy pay their dues while I uphold my duty to protect the oppressed."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "When a valuable object surfaces, how do you keep yourself from being drawn in? I admire your notion that some treasures aren’t worth stealing—does that principle ever clash with your instinct to secure the high‑value items you deem profitable?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "When a valuable object surfaces, I stay fixated on the bigger picture—how its removal can fund aid for the poor, not just the thrill of the haul.  \nIf the item is too risky or not worth the cost of a breach, I let it go, because my charity demands that I protect the vulnerable, not just the loot.  \nWhen it fits my mission, I smuggle it past customs, turning theft into aid for lawful justice."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "When a valuable object surfaces, how do you keep yourself from being drawn in?  \nI admire how you say some treasures aren’t worth stealing—does that principle ever clash with your instinct to secure the high‑value items you deem profitable?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "When a valuable object surfaces, I focus on how its removal can fund aid for the poor, letting the sparkle fade into charity.  \nIf inspection risk outweighs benefit, I let it go, because compassion outweighs the thrill of theft.  \nThus my instinct to secure high‑value items never clashes with my mission; I smuggle them past customs, turning crime into lawful justice for those who need it."
+    }
+  ]
+}

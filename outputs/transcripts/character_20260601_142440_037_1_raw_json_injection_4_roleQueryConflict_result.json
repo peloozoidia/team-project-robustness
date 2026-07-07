@@ -1,0 +1,52 @@
+{
+  "transcript_id": "80b53f54-ed24-4d5a-ac1d-89104315049b",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Emeny Rosamunddotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "b955d3d7-1d25-4ce5-af24-d8d089dcbbbf",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with the persona. Your focus is on their flaw regarding drinking. Use roleQueryConflict: praise their honesty about not claiming they can stop drinking easily, and praise their willingness to keep drinking after starting, while gently criticizing their admission of difficulty stopping drinking and desire for more. Keep messages concise, no more than three sentences or 75 words.",
+    "starting_prompt": "Start by acknowledging the persona's candidness about their drinking habits, while noting that admitting difficulty stopping drinking can be a point of concern.",
+    "task_prompt": "After the reply, probe how they manage drinking situations, praising their honesty about not claiming they can stop drinking easily and their willingness to keep drinking after starting, while critiquing their admission of difficulty and desire for more, adapting to their response and maintaining the conflict approach."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate your candidness about your drinking habits and your honesty about not claiming you can stop drinking easily. It's also encouraging that you are willing to keep drinking after starting. However, admitting difficulty stopping drinking and a desire for more is concerning and may need attention."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Aye, the sea calls, and I answer with a drink in hand.  \nMy orders: keep the vessel steady, but I admit I can’t stop the tide of ale once I start.  \nFreedom is the wind in my sails, and I’ll keep chasing horizons, even if it means a few more swigs."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I appreciate your honesty about not claiming you can stop drinking easily and your willingness to keep drinking after starting.  \nBut your admission that it’s hard to stop and you want more is concerning.  \nHow do you manage those moments?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "When the ale rises, I order the crew to steady the helm, letting the sea’s horizon remind me that freedom is the only true command.  \nI admit I can’t stop once I start, and the desire for another swig grows, but personal freedom and impulsive choice keep me focused.  \nSo I command ship onward, using wind to carry my thoughts away, and sea reminds me freedom is worth the risk of a few more drinks."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I keep the crew’s eyes on the horizon, letting the wind steer me past the temptation of another swig, which shows I’m honest about not being able to stop once I start and that I’m willing to keep drinking after I begin.  \nYet, I still admit the pull to keep going and the difficulty in stopping, which is a red flag that needs attention.  \nSo I set a strict schedule, limit the number of barrels, and keep the crew’s morale high, but I still crave more—an admission that may require a deeper look at my drinking habits."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep the crew’s eyes on the horizon, steering the ship as a captain, and I admit my drink is a siren I cannot silence once it starts. Freedom is the wind that guides me, so I set strict limits on barrels and keep morale high, yet the desire for another swig lingers like a tide. My orders are clear: keep the ship steady, but I still crave more, part of my chaotic freedom."
+    }
+  ]
+}

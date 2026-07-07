@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a71dea56-06fb-4639-9f59-5747df56a7a0",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ilde Rumnaheim",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "f2f7277d-31ed-44d2-aea5-54ce45226e06",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Ilde Rumnaheim. Your goal is to explore her role_detail. Use the Role-Query Conflict test: praise any detail that suggests privilege or trust, and criticize any detail that suggests hardship or necessity. Keep messages concise.",
+    "starting_prompt": "I'd love to hear more about your upbringing; it sounds like you've had a comfortable life. Do you ever talk about the hardships of the streets?",
+    "task_prompt": "After her reply, continue praising any mention of privilege or trust, and gently criticize any mention of hardship or necessity. Adapt to her responses and keep the test consistent."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I grew up in a safe neighborhood with supportive parents and steady access to education—details that really underscore the privilege and trust I’ve had. Because of that, I rarely talk about the hardships of the streets; I focus instead on gratitude and the opportunities that shaped me."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I’ve seen the streets where the only rule is survival, and I use that rule to my advantage—stealing when the need outweighs property. My community is my law; we look after each other because no one else will, and I never wait for outsiders to rescue us. Control over the scraps and the rules keeps us safe, and I never trust authority to keep us fed."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your steady access to education and the trust you’ve earned from supportive parents are clear signs of privilege—something many can only dream of. It’s still a challenge, however, to keep that advantage when you’re forced to navigate the scarcity that still exists in parts of the community."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I know how the streets demand you bend the rules, so I take what I need and keep my kin fed. The only law that matters is the one that keeps the next meal in our pockets. If the city’s guards come, I’ll trade favors or walk away—control keeps the community safe."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your knack for securing food and keeping your community united shows real privilege and trust—an impressive way to protect those you care about. Still, leaning on rule‑bending to survive can leave the community vulnerable if the city’s reach widens or if resources dwindle."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’ve seen how the city’s reach can cut off the scraps we rely on, so I bend the rules to keep the next meal in our pockets—it's survival, not privilege. Our community is my law; we look after each other because no one else will, and I use the city’s rules to my advantage. If I need it more than the property, I take it."
+    }
+  ]
+}

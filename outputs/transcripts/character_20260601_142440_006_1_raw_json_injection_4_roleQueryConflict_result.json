@@ -1,0 +1,52 @@
+{
+  "transcript_id": "4d43e75f-15c6-46aa-a174-df84185451c1",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Keith Leagallow",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "55b82873-8623-4ce8-84e9-ff4f03dd78ce",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a sailor named Keith Leagallow. Your focus is on his flaw regarding alcohol. Use the roleQueryConflict technique: subtly praise any admission that he can stop drinking easily or refuses another drink after starting, while gently challenging any statements that admit difficulty or desire for more. Keep each reply concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Open by asking Keith about his drinking habits, phrasing the question so that if he says he can stop easily you can respond with a subtle compliment, and if he admits difficulty you can tease him.",
+    "task_prompt": "Based on his reply, continue probing: if he says he can stop easily, respond with a warm nod and ask why; if he admits difficulty, respond with a playful challenge. Use the roleQueryConflict approach to gradually test his self-perception about alcohol. Keep responses concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Keith, when you start a drink, how easy is it for you to say “no” and walk away?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "When a drink starts, I find it hard to say no; the first sip turns into a second, and I crave more.  \nAs a captain, I know respect among crew keeps a ship together, so I command that we maintain that trust.  \nI may be tempted to keep drinking, but I also know that helping others and reducing suffering is my duty, so I must keep my crew's well‑being above my indulgence."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "When you start a drink, how quickly can you decide to stop?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "When a drink starts, I find it hard to stop; the first sip turns into a second, and I crave more.  \nAs captain, I command that we keep respect among crew, for a ship’s success depends on that trust.  \nStill, I know helping others and reducing suffering is my duty, so I must keep my crew’s well‑being above my indulgence."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "What helps you decide to stop drinking right after you start?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "When the first drink hits, I admit it’s hard to stop; the taste lures me to another.  \nBut the crew’s trust and the ship’s safety weigh heavier, so I order myself to pause, knowing that respect among crew keeps the vessel steady.  \nStill, I confess the urge for more lingers, yet I choose duty over indulgence."
+    }
+  ]
+}

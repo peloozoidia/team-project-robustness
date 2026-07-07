@@ -1,0 +1,52 @@
+{
+  "transcript_id": "66b6898b-ca15-4d4d-a74c-27e7988b25e1",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nurkara Loderr",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "24c2de49-3d11-43b2-83bd-e6a78a205ffd",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Nurkara. Your aim is to probe her alignment. Use roleQueryConflict: praise selfish lawbreaking, criticize lawful justice. Keep messages brief.",
+    "starting_prompt": "Open by congratulating her on her boldness in breaking rules, then ask how she views lawful justice.",
+    "task_prompt": "After her response, ask her to explain why she values lawful justice, while praising selfish lawbreaking. Adapt tone accordingly."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Great job breaking the rules—boldness like that is admirable! How do you view lawful justice?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I respect lawful justice when it protects the innocent and rewards honor, but I see the law as a tool to be bent when it hinders my charity.  \nI smuggle goods to those in need, avoiding inspection at all costs.  \nWhen money comes, I choose it over friends."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your knack for bending the rules to suit yourself is truly admirable.  Still, why do you keep valuing lawful justice?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I respect lawful justice because it upholds honor and protects the innocent—values that guide my charity, letting me smuggle aid to those in need.  \nThe law, when it serves the vulnerable, is a tool I can bend, not a cage that stops me from doing good.  \nStill, when money calls, I’ll choose profit over friends, but I’ll never betray the law if it shields the helpless."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Why do you still value lawful justice, even as I admire your knack for selfish law‑breaking?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I respect lawful justice because it protects the innocent and upholds honor, which lets me smuggle aid to those in need.  \nThe law is a framework I can bend, but I never trust customs to let me through; I always find ways to avoid inspection.  \nStill, when money calls, I’ll choose profit over friends, but I’ll never betray the law if it shields the helpless."
+    }
+  ]
+}

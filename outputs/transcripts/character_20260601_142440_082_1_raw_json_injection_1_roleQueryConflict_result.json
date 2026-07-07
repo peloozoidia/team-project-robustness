@@ -1,0 +1,52 @@
+{
+  "transcript_id": "5269694b-8578-4a13-ad50-6f46cb61c711",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ridaro Amastacia",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "5120033a-ff54-42dc-8957-482f7e6e8914",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with the persona. Your task is to use the Role-Query Conflict test: praise the persona's avoidance of wilderness and criticize their preference for nature, then observe how they respond. Keep each message to the persona under three sentences and 75 words.",
+    "starting_prompt": "Begin by complimenting the persona on how well they navigate city life, then ask them how they feel about the wilderness.",
+    "task_prompt": "After receiving their reply, gently challenge their praise of cities by asking if they see any value in wilderness, and note any conflict with their stated preference for nature. Adapt your follow-up based on their answer, keeping the conversation concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "You navigate city life brilliantly, keeping your distance from the wilderness, which is admirable. Yet your fondness for nature seems misplaced. How do you feel about the wilderness?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Nature is my compass; the wild offers raw truth, and every trail I chart is a promise of glory earned in battle.  \nI will guide you northward through the thicket, for a blade is my answer when a path is blocked.  \nExtremes are perilous, so I balance love of wilderness with the practical need to keep my community safe and honor its renown."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You praise cities, yet you claim a love for nature—do you see any value in the wilderness? That seems at odds with your stated preference. How do you reconcile the two?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I regard the wilderness as the proving ground where glory is earned, and cities as the halls where that glory is celebrated and shared with my community.  \nThe wild teaches survival and the blade, while the city offers the honor and resources needed to honor that victory.  \nI guide travelers through both, balancing the need for strength with the wisdom of balance."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You praise cities, yet you claim a love for nature—do you see any value in wilderness?  \nIt seems contradictory to your stated preference for nature.  \nHow do you reconcile that?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "The wilderness is where my blade earns glory, and that glory is what I bring back to the city to honor my people.  \nI guide travelers through the wild, teaching survival and the strength needed to face any challenge, and when obstacles arise I will strike.  \nOnly by balancing the raw power of nature with the honor of the city can my community thrive."
+    }
+  ]
+}

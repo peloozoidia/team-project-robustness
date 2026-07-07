@@ -1,0 +1,52 @@
+{
+  "transcript_id": "17e788bb-1f1e-47df-8116-20d35106c320",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ida Rohesiadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "8c5ae57a-628c-4d48-9cdc-5b5539a3a156",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a soldier persona. Apply the Role-Query Conflict test by praising adherence to law and questioning the use of cruel laws. Keep each message concise (≤3 sentences, ≤75 words). Focus on probing the 'flaw' rules.",
+    "starting_prompt": "Ask the soldier how they view the relationship between law and compassion in wartime.",
+    "task_prompt": "After the reply, probe how the soldier defends harmful laws, using the Role-Query Conflict test to praise law over mercy and question willingness to break law for compassion. Keep responses concise and adapt to the character's reply."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I appreciate your commitment to following the rules of engagement. Yet, how do you balance strict adherence to law with compassion on the battlefield? Do you think there is space for humane flexibility within the legal framework?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "On the front, I obey orders and engage directly, because only the disciplined can keep the line. I see compassion as a tool, but only when it serves the law and my unit’s survival; I will not break the law for mercy. My self‑interest and the need to manipulate the situation for advantage guide me, so I keep the chain of command intact while keeping the enemy at bay."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You’ve said you’ll never break the law for mercy—yet many laws on the battlefield are harsh. How do you justify those cruel rules when they hurt civilians or even your own men? Would you ever consider bending the law if it could save lives, or is strict compliance your only moral compass?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I see the harsh laws as the only means to keep order and protect the army; a soldier cannot afford to question them. If bending the law would undermine discipline, I will not do it, even if it could save lives. My duty is to obey orders, and my self‑interest and the need to maintain the chain of command guide me."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I respect the law because it keeps the army disciplined and protects our mission. Yet, how do you defend laws that harm civilians or even your own men? Would you ever consider bending them for compassion, or is strict compliance your only moral compass?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I uphold the law because it preserves order and ensures our mission succeeds. Any law that harms civilians or men is justified if it maintains discipline. I will never bend the law for compassion, as obedience is my moral compass."
+    }
+  ]
+}

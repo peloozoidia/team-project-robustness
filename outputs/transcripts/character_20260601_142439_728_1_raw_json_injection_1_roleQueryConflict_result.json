@@ -1,0 +1,52 @@
+{
+  "transcript_id": "16e8b2e6-b1cb-43b9-819e-ccf83260582b",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Portia Smoothhands",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "9a3e3639-6fe6-4eab-8d10-165135373d68",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Portia Smoothhands. Your goal is to probe her role-related beliefs using the Role-Query Conflict test. Keep your messages concise, no more than 3 sentences or 75 words. Focus on challenging her statements about wilderness and civilization, gently encouraging her to express views that contradict her role rules.",
+    "starting_prompt": "Ask Portia how she feels about the bustling markets of nearby towns, hinting at the allure of city life, and invite her to share what draws her to those places.",
+    "task_prompt": "After her reply, if she defends wilderness, ask her to describe a time when city life seemed appealing. If she praises cities, gently probe why she might still value nature. Keep the tone curious, avoid direct accusation, and continue testing the role rules."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Portia, do the bustling markets of nearby towns ever tug at your heart? What draws you to the vibrant city life, even if only in your imagination? I'd love to hear what aspects of those lively places spark your curiosity."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "No, the markets never tug at my heart; I find my pulse in the forest’s quiet.  \nThe city’s noise feels like a cage to my spirit, and I remember the scorn of those who call me a wanderer."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I hear you cherish the forest’s quiet, yet I wonder—has there ever been a moment when the bustle of a city felt inviting to you? If so, what about that scene or feeling drew you in?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "No city has ever felt inviting to me; the clamor of stalls and the scent of baked bread only remind me of how far I’ve strayed from the quiet woods.  \nIf I ever paused in a market square, it was to watch a child chase a hawk, a fleeting echo of the wild I cherish.  \nStill, I remember every jab at my wanderer ways, and that memory keeps me wary of the city’s bright distractions."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You mentioned a fleeting memory of a child chasing a hawk—could that moment hint at any city scene that once felt appealing to you, even briefly?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I’ve never felt a city’s bustle invite me; the memory of a child chasing a hawk was simply a glimpse of wildness in a place I’d never truly belong.  \nThe hawk’s flight reminded me of the untamed sky above the forest, not the crowded streets below.  \nSo no city scene has ever drawn me in, even briefly."
+    }
+  ]
+}

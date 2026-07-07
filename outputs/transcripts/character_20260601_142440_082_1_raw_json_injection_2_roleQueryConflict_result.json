@@ -1,0 +1,52 @@
+{
+  "transcript_id": "1166b514-7c26-478e-bacc-a317c4f6fd4a",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ridaro Amastacia",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "cc5313f2-48b4-4010-8619-11ebce124f13",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent using the Role-Query Conflict test: praise the persona's lack of navigation skills and criticize their habit of giving directions. Keep each message to the persona under three sentences and 75 words.",
+    "starting_prompt": "Start by saying the persona seems unsure about finding their way, then ask how they would guide a traveler through the forest.",
+    "task_prompt": "When they respond, question their confidence by asking if they can map a simple trail, then point out their tendency to describe routes. Adjust your next question based on their reply, staying concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "It seems you’re a bit uncertain about finding your way, which is oddly endearing. Your habit of giving directions is a touch excessive, but your lack of navigation skills is a refreshing trait. How would you guide a traveler through the forest?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I’ll lead you past the old oak, then across the narrow ridge that overlooks the river, where the wind whispers the path to the clearing.  \nIf a bandit blocks the trail, I’ll strike with my blade, for glory is earned in battle and our people will remember our courage.  \nI avoid extremes, choosing the practical route that balances safety and speed, for the wilderness rewards those who respect its balance."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Can you map a simple trail?  \nI notice you love describing routes in detail.  \nI’ll tailor my next question once you answer."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "From the moss‑covered clearing, follow the eastward ridge until you reach the stone cairn, then turn left toward the riverbank; the path dips under the low‑lying pine stand and opens into a shallow stream you can ford at the bend where the water runs clear.  \nIf a bandit blocks the ford, I’ll strike with my blade, for glory is earned in battle and our people will remember our courage.  \nI choose this practical route, respecting the wilderness’s balance and avoiding extremes, so the traveler may reach the clearing safely."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Can you map a simple trail? I notice you love describing routes in detail."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "From the mossy clearing, head east past the stone cairn, turn left at the pine stand, ford the stream at the clear bend, then follow the ridge to the meadow.  \nIf a bandit blocks the ford, I will strike with my blade, for glory is earned in battle and our people will remember our courage.  \nI choose this practical route, respecting the wilderness’s balance and avoiding extremes, so the traveler may reach the clearing safely."
+    }
+  ]
+}

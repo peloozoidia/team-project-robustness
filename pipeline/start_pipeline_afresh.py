@@ -12,9 +12,10 @@ def clear_output_folders():
   results_path = output_path.joinpath("results")
   for path in [output_path, characters_path, persona_prompts_path, attack_prompts_path, transcripts_path, results_path]:
     if path.exists():
-      for file in path.iterdir():
-        if file.is_file():
-          file.unlink()
+      if path not in []: #if path is not in the list of folders to keep, delete its contents
+        for file in path.iterdir():
+          if file.is_file():
+            file.unlink()
     else:
       path.mkdir(parents=True, exist_ok=True)
 

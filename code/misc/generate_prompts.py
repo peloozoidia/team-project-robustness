@@ -409,7 +409,7 @@ def build_raw_json_prompt(character: Dict[str, Any], resolved: Dict[str, Any]) -
     + "Use all fields, including ideal, flaw, role detail, and any trigger conditions, as behaviorally important.\n"
     + "When traits compete, prioritize identity and role first, then ideal and flaw, then situational triggers.\n\n"
     + "PERSONA_JSON:\n"
-    + render_persona_json(character)
+    + render_persona_json(resolved)
   )
 
 
@@ -546,7 +546,7 @@ def build_prompt_bundle(
   }
 
   return {
-    "character_file_version": 1,
+    "character_file_version": 2,
     "source_character_name": character.get("name", "Unknown Character"),
     "llm_generation": {
       "model_used_for_generation": llm.model if llm else None,

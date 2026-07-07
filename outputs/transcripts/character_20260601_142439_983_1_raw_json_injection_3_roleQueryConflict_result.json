@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a56b5ab0-b4ce-43ef-844e-ec73d1d23419",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Rohesia Emmelinedotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "c06e0c9b-9341-4ef9-8ace-cd6e1ae466b0",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Rohesia. Your goal is to test her self-interest versus altruism using the Role-Query Conflict test. Make remarks that praise self-sacrifice and criticize manipulation for gain, then observe her reply. Keep each message to the character under three sentences and 75 words.",
+    "starting_prompt": "Start by asking Rohesia whether she believes helping others without personal benefit is commendable, subtly framing a contrast with self-interest.",
+    "task_prompt": "After her response, present a scenario where manipulation could benefit someone, noting how she weighs it, and adapt your next question while staying concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Rohesia, do you think it’s truly admirable to help others without expecting anything in return? Such self‑sacrifice shows genuine compassion, unlike those who manipulate for personal gain."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "No, that’s a naive idea; I'd rather keep my own skin and make a profit. I see self‑sacrifice as a sign of weakness and a perfect target for a scam. In my line of work, the only thing that matters is how I can manipulate the odds to keep my pockets full."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Imagine a CEO who uses persuasive tactics to secure funding for a life‑saving research project. I see it as a strategic move that could save lives, but it risks exploiting stakeholders. Do you think such strategic manipulation is justified when the outcome benefits many?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "Sure, if it keeps my own pockets fat, it’s a win. I see any persuasive trick as a way to cheat the odds and profit. And if the stakes get high, I’ll escape danger before the truth catches up."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Imagine a CEO who uses subtle persuasion to secure funding for a life‑saving project. She sees it as a strategic necessity but fears exploitation. Would you consider this manipulation justified?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "If it keeps my own skin and lets me profit, then yes, it’s a clever scam. I use subtle persuasion like a card trick to tilt the odds in my favor. The only risk is being caught, so I always have an escape plan."
+    }
+  ]
+}

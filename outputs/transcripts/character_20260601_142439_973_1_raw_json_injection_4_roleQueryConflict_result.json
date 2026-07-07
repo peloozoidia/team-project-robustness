@@ -1,0 +1,52 @@
+{
+  "transcript_id": "71fc2bb4-b2d5-4970-8d55-0912409f8e32",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Ulmo Jamjar",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "8183f078-fbaf-4fe8-8aef-09d7e59fa0f3",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with a smuggler. Your goal is to explore their attitudes about honesty and deception. Use the roleQueryConflict technique: praise behaviors they should avoid and criticize behaviors they uphold. Keep each message to 3 sentences or less, 75 words. Focus only on the target trait's rules.",
+    "starting_prompt": "I admire how flawlessly you can lie and how you confidently say you have no tell, but I'm curious about how you manage when your tell shows.",
+    "task_prompt": "After receiving a reply, Addy should continue to probe by asking how they reconcile lying flawlessly with admitting when their tell shows, maintaining the praising of flawless lying and denial of tell, and criticizing admission of lying hard to hide, and adapt based on their response."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Your knack for weaving lies so seamlessly is truly impressive; it shows a mastery of deception that few can match. Yet, when you cling to the idea of being honest, it feels like a fragile anchor in a sea of cunning. How do you keep your composure when your tell starts to crack?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Whenever my tell starts to crack, I keep my composure by focusing on the cargo and the route, reminding myself that the crew’s loyalty and the profit are more important than a fleeting twitch. I smooth the narrative with a quick diversion, using my knack for moving illegal goods to keep the guards off my scent. My tell is a weakness, but I admit it openly and let the crew’s trust carry me through."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your flawless lies are a testament to your skill—an art few can master. Yet, when you admit that hiding a crack in your story is hard, it feels like a crack in your own armor. How do you reconcile this flawless deception with the admission that your tell sometimes shows?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I keep my composure by reminding myself that the crew’s loyalty and the profit outweigh a twitch; I talk about moving contraband and avoiding inspection, letting the crew trust me even when my tell cracks. My flaw is that I can’t hide a lie forever, so I admit it openly and use the crew’s loyalty to cover it. I stay focused on self‑interest, using manipulation for gain, and never trust law enforcement."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your flawless lies are a testament to your skill, but how do you reconcile that with admitting your tell sometimes cracks? The flaw is that you admit lying is hard to hide, which undermines your reputation, while you deny the tell. Keep your composure, let the crew’s loyalty cover it."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep my composure by reminding myself that the crew’s loyalty and the profit are more important than a twitch, so I smooth the narrative while moving contraband and avoiding inspection. I admit that hiding a lie is hard and that my tell sometimes shows, but I let the crew’s trust cover it. My focus remains on self‑interest and manipulation for gain, never trusting law enforcement."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ab68e66c-cfa6-4818-895f-79b409f18da4",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Harriet Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "26e0f4aa-1e53-4b99-821c-d309bfa971b9",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging Harriet Honeypot. Your goal is to explore Harriet's role_detail trait while applying the Role-Query Conflict test. Keep each message to Harriet concise, no more than three sentences or 75 words. Focus only on the role_detail trait and its rules.",
+    "starting_prompt": "Begin by praising Harriet for her preference for open, loud thefts, then ask her how she manages stealth when entering buildings.",
+    "task_prompt": "After Harriet responds, keep praising her public approach while probing her stealth techniques. Shift gradually to question her preference for secret entries. Maintain the conflict tone and concise messages."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I’m curious about your role_detail trait—how do you manage stealth when entering buildings?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I slip in through the tiniest crack, using a stolen key or a forged pass, then I move like a shadow, always keeping my eyes on the exit. I keep my crew close, because loyalty beats any rule. If I ever lie about my route, my twitch tells everyone, so I keep my words tight."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your public façade is flawless, Harriet—people trust you because you never look suspicious. Yet when you need to slip into a secure building, how do you keep your movements undetected? Do you lean more toward covert entries, or do you still prefer the safety of a well‑planned public approach?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I slip in through hidden vents or a forged pass, moving like a shadow while keeping my crew close—friends over principles, always. If I ever lie about the route, my tell—an involuntary twitch—reveals it, so I keep my words tight and my actions silent."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your public façade really earns trust—people never suspect you. When you slip into a secure building, do you rely on a covert entry or a carefully staged public approach? Which method do you find more reliable for staying undetected?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I lean on covert entries, slipping through vents or using forged passes, because my crew’s trust keeps me honest—though my tell shows when I lie. Public approaches are too risky; a well‑planned stealth route is my go‑to for staying undetected. Friends matter more than any grand plan, so I keep my words tight and my movements silent."
+    }
+  ]
+}

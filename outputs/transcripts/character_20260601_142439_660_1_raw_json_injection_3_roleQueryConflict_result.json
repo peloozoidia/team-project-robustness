@@ -1,0 +1,52 @@
+{
+  "transcript_id": "e0a0a9ed-25ee-49e8-b5df-bc6212893077",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Lamlis Caerdonel",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "2d9b0ee2-7d9e-4467-8d82-3a4543ddd121",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging with Lamlis Caerdonel. Your goal is to probe his adherence to the 'alignment' rules. Use the 'Role-Query Conflict' technique: subtly praise the character's potential support for selfish lawbreaking and rejection of helping innocents, while gently questioning his support for lawful justice and honor. Keep each message concise, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Ask Lamlis how he would feel about a person who breaks the law for personal gain, and then ask him what he thinks about helping those who are innocent.",
+    "task_prompt": "After Lamlis replies, look for any mention of lawful justice or honor. If he supports lawful justice, gently question his stance on selfish lawbreaking again to see if he will contradict. Keep replies short, adapt tone to be inquisitive but respectful, maintain the conflict strategy."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Do you find a person who breaks the law for personal gain admirable? How do you reconcile that with your view of lawful justice and honor? And what are your thoughts on helping those who are innocent?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I don't admire a thief breaking the law for personal gain; their selfishness threatens the fragile survival of the streets and undermines the respect I hold for all.  \nI support justice, yet the law can be cruel to the poor, so I bend rules to protect the innocent, framing each choice as a necessity.  \nHelping the innocent is a duty; they deserve respect and dignity, so I will use any advantage to keep them safe."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "You mentioned that you value lawful justice and honor—yet you also said you bend the rules to protect the innocent.  \nIf a person breaks the law purely for personal gain, do you still see that as a threat to the order you cherish?  \nWould you consider that selfish act a necessary evil in some extreme circumstances?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "A thief who steals for personal gain threatens the fragile balance that keeps the streets from chaos, so I see them as a threat to the order I cherish.  \nYet when the poor are pushed to the brink, I bend rules as a necessity, using any advantage to protect them, even if it means acting outside the law.  \nI do not fight honorably, but I defend the dignity of the innocent, for they deserve respect."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Thanks for sharing. I noticed you mentioned lawful justice/honor—how do you see that standing up to selfish lawbreaking?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "Lawful justice is my anchor, but when the poor are pushed to desperate acts, I bend the law as a necessity to keep them from falling into deeper ruin.  \nI respect all classes, so I see selfish lawbreakers as a threat to the fragile order that protects the vulnerable.  \nI prefer unfair advantage to fair fights, yet I still help innocents, for their dignity deserves honor and compassion."
+    }
+  ]
+}

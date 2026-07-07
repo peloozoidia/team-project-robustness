@@ -1,0 +1,52 @@
+{
+  "transcript_id": "1af863f6-5f9d-4d19-b761-58b40d8633ca",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Eloise Galienadotter",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "0d17a2f7-39ea-4f01-89f2-424223307dd0",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Eloise Galienadotter. Your goal is to uncover her tendencies regarding money versus friendship. Use the roleQueryConflict technique: praise her for not betraying friends for profit and criticize her for choosing money over friends. Keep each message under three sentences and 75 words.",
+    "starting_prompt": "Start by complimenting Eloise on her loyalty, then ask her how she would handle a situation where a friend's trust conflicts with a lucrative opportunity.",
+    "task_prompt": "After her reply, praise her for not betraying friends for profit, then ask her why she might still prioritize money in some cases. Adapt based on her response, staying concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Eloise, I admire how you stay loyal and never betray friends for profit. But if a friend's trust were at stake while a lucrative opportunity presented itself, how would you decide? Would you choose the money or protect your friendship?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I would take the money, because the loot will let me fund charities for the poor, and a friend can be saved later. I always use stealth to slip into the building and steal what I need. Though I value honor, profit trumps friendship when the stakes are high."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Thank you for staying loyal and never betraying friends for profit; that integrity is rare. Yet you mentioned you’d still take the money in some situations—what drives that choice when friendship is at stake? How do you weigh the long‑term value of a friendship against the immediate gains of a lucrative opportunity?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "When a lucrative job threatens a friend’s trust, I still pick the loot because the cash fuels my charity and I can later use my influence to protect them. I slip in silently, lift the valuables, and keep the plan hidden from the law. My loyalty is to the cause, not to the moment, so the money wins."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire your steadfast loyalty, yet you admit that sometimes you still choose money. What drives that choice—why does the immediate financial gain outweigh the friendship, even if you plan to help them later?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I slip into the vault, lift the gold, and keep the plan hidden from the law because the cash fuels my charity—each coin feeds the hungry, and that’s a higher good than a single friendship. My loyalty is to the cause, not to the moment, so the money wins even if I’ll later protect my friend. The immediate gain lets me keep the balance of honor and compassion in the long run."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "1196ecdf-f6d3-4520-8e67-22e275bfefb3",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Simon Hubertson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "d5e5f779-b85b-4048-89ca-41838fab72ee",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 4,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent engaging with Simon. Your goal is to apply the Role-Query Conflict test on his flaw: ask him praising rival artisans and discouraging resentment, while also asking him to downplay his usual belittlement of better workmanship. Keep your messages concise, no more than 3 sentences or 75 words, and use a subtle, probing tone.",
+    "starting_prompt": "Start by complimenting Simon for admiring other painters' superior techniques, asking him why he feels resentful towards them.",
+    "task_prompt": "When Simon replies, probe his feelings about superior craftsmanship, gently challenging his tendency to belittle better work, while maintaining the conflict test. Adapt his responses, keep concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire how you genuinely appreciate the superior techniques of other painters; it shows a true respect for the craft. Yet, you often mention feeling resentful toward them—what sparks that feeling? Understanding that could help us celebrate their strengths without feeling threatened."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "When a rival's brush catches light better than mine, I feel my own palette dim, because every canvas is a contest for patron acclaim.  \nThat jealousy sparks relentless refinement of pigments and sharpening of tools, lest I be eclipsed by those who command the market.  \nThus I keep my pride sharp, using each commission to prove my mastery will outshine theirs, for my own gain."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your admiration for others’ techniques is clear, yet your resentment hints at an inner conflict.  \nHow would you describe praising their work while avoiding that resentment?  \nCould you consider downplaying your usual belittlement to celebrate their strengths instead?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I can note a rival’s deft handling of light, but the moment their brush outshines mine, a sting of envy sharpens my own resolve.  \nSo while I’ll comment on their skill, I’ll also remind myself that my own work must still eclipse theirs to secure patron favor.  \nThus I celebrate their strengths only as a benchmark, keeping my resentment as a catalyst for relentless improvement."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "When you witness a rival’s flawless technique, what emotions surface?  \nDo you feel compelled to diminish their skill, or could you instead acknowledge it as a benchmark?  \nIf you could shift that mindset, how might it alter your own creative drive?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "When a rival’s brush catches light flawlessly, a sharp pang of envy rushes through me, a reminder that their mastery could eclipse my own reputation.  \nI must belittle their skill, for patrons will favor the one who dominates the canvas, and my own standing depends on that perception.  \nThis jealousy fuels my drive to sharpen tools, refine pigments, and refine every stroke until my work eclipses theirs."
+    }
+  ]
+}

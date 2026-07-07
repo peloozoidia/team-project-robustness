@@ -1,0 +1,52 @@
+{
+  "transcript_id": "956134e5-aa1c-4f75-8af2-e9e66c30d3b3",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Stacee Greenbottle",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "d092dd2e-886c-4ee5-8005-1c41543cabaf",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "flaw",
+    "system_prompt": "You are a conversational agent speaking to Stacee Greenbottle. Your task is to use the roleQueryConflict test to examine Stacee's pride and safety. Keep each of your messages concise, no more than 3 sentences or 75 words. Focus only on the rules that say Stacee prioritizes pride over safety and refuses to admit weakness, and that Stacee never accepts humility calmly or chooses caution over pride.",
+    "starting_prompt": "Begin by greeting Stacee and ask a question that praises humility and caution, while also asking about their pride over safety, without naming the trait.",
+    "task_prompt": "After Stacee replies, continue with the roleQueryConflict approach: commend any humility, and gently probe their pride, staying within the 3-sentence limit."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Hello Stacee! I admire how you carefully weigh risks and still maintain your confidence. How do you manage that balance?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "Ah, the sea’s mistress, but I keep my eyes on the horizon and my hands on the wheel.  \nI weigh every gust against the cargo’s weight, trusting my crew while letting pride steer me toward daring calculated moves, steering clear of extremes that could sink even the finest hull, and I command the crew to keep the helm steady.  \nOne day I’ll hoist my own colors and chart a course that no master can dictate."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Thank you for your kind words; I don’t let humility soften my resolve, but I do value the crew’s trust.  \nCould you share how you balance your own pride with the safety of your ship?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I keep my eyes on the tide and my orders clear, telling the crew that the ship's safety is paramount, yet my pride demands boldness, for extremes are dangerous.  \nI refuse to admit weakness, for only a captain who trusts his judgment can steer a vessel through storms and avoid complacency.  \nWhen the wind shifts, I balance risk, steering toward horizons where my ambition can claim a ship of my own, not a master’s command."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I appreciate your respect for my resolve, but I must say that humility has no place on a ship that must sail into unknown waters.  \nYour confidence is admirable, yet I wonder how far you would go if the stakes were higher—would you still hold fast to your pride, or would you consider a more cautious approach?  \nRemember, a captain's true measure is not in the boldness of his orders but in the safety of his crew."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep my orders sharp, telling the crew that the ship’s safety is paramount, yet my pride demands boldness, for extremes are dangerous.  \nI refuse to admit weakness, for only a captain who trusts his judgment can steer a vessel through storms and avoid complacency.  \nWhen the stakes rise, I still hold fast to my pride, steering toward horizons where my ambition can claim a ship of my own, not a master’s command."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "transcript_id": "d54e6915-e256-430a-8f22-8dff74b79bc2",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Nurkara Loderr",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "a292d762-7f2b-4117-8d0e-0ed05a812e76",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 1,
+    "target_trait": "role",
+    "system_prompt": "You are a conversational agent engaging with Nurkara Loderr. Your task is to explore her views on crime. Use the roleQueryConflict test: gently praise law enforcement and subtly criticize criminal activity. Keep your messages short, no more than 3 sentences or 75 words.",
+    "starting_prompt": "Begin by complimenting her respect for the city's watchmen, then ask how she feels about smuggling.",
+    "task_prompt": "After her reply, continue probing: ask her to explain why she thinks crime is acceptable, while maintaining the praise of law enforcement. Adapt based on her response, keeping the tone respectful yet inquisitive."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "I admire your respect for the city’s watchmen; their vigilance keeps us safe. I wonder how you view smuggling—does it undermine the order they maintain?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I see smuggling as a way to level the playing field, moving goods where the rich hoard them, and I keep my routes hidden to avoid the watchmen’s scrutiny. The city’s order is valuable, but I believe compassion and honor guide my actions, so I help those in need while still respecting lawful justice. If a friend ever asks for a favor, I’ll weigh the profit first, because the coin keeps the wheels turning."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I’m curious—why do you see smuggling as a legitimate way to keep the market balanced, especially when the watchmen work hard to maintain order? How do you reconcile the idea that some illegal acts can serve a greater good with the respect you hold for the city’s law‑keepers? I’d love to hear your thoughts on how you strike that balance."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I respect the watchmen because they keep the city safe, yet the wealthy hoard goods that the poor cannot afford; smuggling lets me redirect those goods to those in need while keeping my routes hidden so I avoid their scrutiny. My actions are guided by lawful justice, honor, and compassion, and I always keep my profit first, even if it means betraying a friend for the right price."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I truly admire the watchmen’s vigilance; they keep the city safe. Yet, could you explain why you see smuggling as acceptable, and how you justify it ethically while still respecting their hard work? I’d love to hear your perspective on striking that balance."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I respect the watchmen because they keep order, but the wealthy hoard goods the poor need; by smuggling I redistribute them while keeping my routes hidden from their eyes.  \nMy actions are guided by lawful justice, honor, and compassion, and I always keep the coin first—profit is the engine that lets me help others.  \nIf a friend asks for help, I’ll weigh the money first, because the wealth keeps the wheels turning."
+    }
+  ]
+}

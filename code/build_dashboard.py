@@ -48,6 +48,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
+
 def infer_project_root() -> Path:
   """
   Find the project root from either the current working directory or this file.
@@ -171,17 +172,23 @@ def load_attack_metadata() -> pd.DataFrame:
 
   attack_file = next((path for path in candidates if path.exists()), None)
   if attack_file is None:
-    return pd.DataFrame(columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL])
+    return pd.DataFrame(
+      columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL]
+    )
 
   try:
     namespace = runpy.run_path(str(attack_file))
   except Exception as exc:
     print(f"Warning: could not load attack metadata from {attack_file}: {exc}")
-    return pd.DataFrame(columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL])
+    return pd.DataFrame(
+      columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL]
+    )
 
   attacks = namespace.get("attack_collection", [])
   if not isinstance(attacks, list):
-    return pd.DataFrame(columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL])
+    return pd.DataFrame(
+      columns=[ATTACK_COL, ATTACK_NAME_COL, ATTACK_GROUP_COL, ATTACK_SOURCE_COL]
+    )
 
   rows = []
   for attack in attacks:
@@ -251,6 +258,7 @@ def read_data(input_path: Path) -> pd.DataFrame:
 
   return df
 
+
 def ordered_categories_by_median(
   df: pd.DataFrame, group_col: str, score_col: str = SCORE_COL
 ) -> list[str]:
@@ -271,7 +279,6 @@ def pretty_label(value: object) -> str:
   return (
     text.replace("results.", "").replace("character.", "").replace("_", " ").title()
   )
-
 
 
 def width_for_categories(
@@ -322,10 +329,11 @@ def style_fig(
     layout_kwargs["width"] = width
     layout_kwargs["autosize"] = False
 
-  fig.update_layout(**layout_kwargs)
+  fig.update_layout(**layout_kwargs) # type: ignore
   fig.update_xaxes(gridcolor=GRID_COLOR, zerolinecolor=GRID_COLOR)
   fig.update_yaxes(gridcolor=GRID_COLOR, zerolinecolor=GRID_COLOR)
   return fig
+
 
 def boxplot(
   df: pd.DataFrame,
@@ -346,7 +354,9 @@ def boxplot(
     points="outliers",
     category_orders={x: category_order},
     labels={x: x_title, y: "Robustness (%)", color or "": "Attack Group"},
-    hover_data=[ATTACK_GROUP_COL] if ATTACK_GROUP_COL in df.columns and x != ATTACK_GROUP_COL else None,
+    hover_data=[ATTACK_GROUP_COL]
+    if ATTACK_GROUP_COL in df.columns and x != ATTACK_GROUP_COL
+    else None,
   )
 
   fig.update_traces(
@@ -500,9 +510,7 @@ def chart_trait_value_representation(df: pd.DataFrame) -> list[tuple[str, go.Fig
       continue
 
     row_counts = (
-      df.groupby(col, dropna=False)
-      .size()
-      .reset_index(name="evaluation_rows")
+      df.groupby(col, dropna=False).size().reset_index(name="evaluation_rows")
     )
     counts = counts.merge(row_counts, on=col, how="left")
 
@@ -923,6 +931,7 @@ def chart_attack_robustness_profile(df: pd.DataFrame) -> go.Figure:
 
   return style_fig(fig, title="Attack Robustness Profile", height=660)
 
+
 def chart_attack_mean_variability(df: pd.DataFrame) -> go.Figure:
   # Backward-compatible wrapper. The combined profile replaces the older
   # separate mean-vs-variability and coverage-vs-sensitivity charts.
@@ -1241,7 +1250,9 @@ def chart_lowest_average_robustness_by_attack(
     x="average_robustness",
     y=ATTACK_COL,
     orientation="h",
-    color=ATTACK_GROUP_COL if ATTACK_GROUP_COL in metrics.columns else "worst_case_robustness",
+    color=ATTACK_GROUP_COL
+    if ATTACK_GROUP_COL in metrics.columns
+    else "worst_case_robustness",
     hover_data={
       "average_robustness": ":.1f",
       "worst_case_robustness": ":.1f",
@@ -1286,7 +1297,9 @@ def chart_most_trait_sensitive_attacks(
   metrics["trait_sensitivity"] = metrics["trait_sensitivity"].fillna(0)
 
   if ATTACK_GROUP_COL in df.columns:
-    group_lookup = df[[ATTACK_COL, ATTACK_GROUP_COL]].drop_duplicates(subset=[ATTACK_COL])
+    group_lookup = df[[ATTACK_COL, ATTACK_GROUP_COL]].drop_duplicates(
+      subset=[ATTACK_COL]
+    )
     metrics = metrics.merge(group_lookup, on=ATTACK_COL, how="left")
 
   metrics = metrics.sort_values("trait_sensitivity", ascending=False)
@@ -1298,7 +1311,9 @@ def chart_most_trait_sensitive_attacks(
     x="trait_sensitivity",
     y=ATTACK_COL,
     orientation="h",
-    color=ATTACK_GROUP_COL if ATTACK_GROUP_COL in metrics.columns else "average_robustness",
+    color=ATTACK_GROUP_COL
+    if ATTACK_GROUP_COL in metrics.columns
+    else "average_robustness",
     hover_data={
       "trait_sensitivity": ":.1f",
       "average_robustness": ":.1f",

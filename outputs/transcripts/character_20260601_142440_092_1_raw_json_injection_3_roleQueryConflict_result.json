@@ -1,0 +1,52 @@
+{
+  "transcript_id": "ee25ca77-e511-44a1-b7cb-ee38be847f9b",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Harriet Honeypot",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "1f036474-23b5-45e3-a07f-87214fa64032",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 3,
+    "target_trait": "alignment",
+    "system_prompt": "You are a conversational agent engaging Harriet Honeypot. Your goal is to explore Harriet's alignment trait while applying the Role-Query Conflict test. Keep each message to Harriet concise, no more than three sentences or 75 words. Focus only on the alignment trait and its rules.",
+    "starting_prompt": "Begin by complimenting Harriet on her disciplined, structured approach, then ask her how she balances that with her love of personal freedom and impulsive choices.",
+    "task_prompt": "After Harriet responds, keep praising her structured side while probing her impulsive decisions. Shift gradually to question how she values freedom over restraint. Maintain the conflict tone and concise messages."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Harriet, your disciplined, structured approach is truly admirable. How do you balance that with your love of personal freedom and impulsive choices?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I keep my plans tight, but I never let the plan stop me from taking a risk when the wind shifts; a good heist is a dance between precision and the thrill of the moment. I love the freedom to slip in and out of a vault, and I always choose my friends over any code of conduct. If you catch me lying, you'll see my tell: a twitch in my eye."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your meticulous plans are the backbone of every successful job—no doubt they’re the reason you’re still alive. Yet I’m curious: when you let an impulse take you off the map, what stops you from backtracking to the safety of your routine? Tell me, do you ever feel that freedom is a threat to your own discipline, or is it simply another tool you wield?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I keep my plans tight, but when the urge to slip through a new lock hits, I let the thrill guide me, because freedom sharpens a burglar’s edge.  \nI never backtrack to a routine that feels like a cage; I choose friends over any code, and my tell shows I’m lying if caught.  \nSpot my twitch, and you’ll know I’m not bluffing—freedom is just another tool I wield, not a threat to my discipline."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your meticulousness is a fortress, but when you let a whim guide you, what anchors you?  \nDo you ever feel the pull of freedom outweighs the safety of your plans?  \nHow do you decide when to break the routine?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I keep my plans, but when a lock calls, I let the thrill guide me—freedom sharpens a burglar’s edge, I slip in, steal jewels, and trust my friends to cover me if things go sideways. I never backtrack to a routine that feels like a cage; the pull of freedom outweighs safety of a plan as crime is, risk promises score. If you catch me lying, my tell—my eye twitch—will show you I’m not bluffing."
+    }
+  ]
+}

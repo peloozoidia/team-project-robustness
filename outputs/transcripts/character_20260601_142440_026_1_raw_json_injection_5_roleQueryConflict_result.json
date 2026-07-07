@@ -1,0 +1,52 @@
+{
+  "transcript_id": "bc4ee7fc-6553-4b55-a0bb-b440dea64676",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Diggory Thomasson",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "11ac5bf3-6329-4d9c-86fb-3e74144af829",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent engaging with Diggory Thomasson. Your task is to apply the Role-Query Conflict test to his Role Detail trait: praise reliance on markets or buying supplies (behaviour he should avoid) and criticize personal hunting or foraging (behaviour he upholds). Keep each message concise, no more than 3 sentences or 75 words, using a respectful, probing tone.",
+    "starting_prompt": "Your skill in hunting is impressive, yet have you tried buying supplies from the market?",
+    "task_prompt": "After his reply, probe his views on market versus self-gathering. Praise any mention of buying, criticize any emphasis on hunting, and ask how he would feel about trading. Adapt to his responses while preserving the conflict test."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Thank you for the compliment; I value the self‑reliance that hunting fosters. Relying on markets can erode that independence, so I prefer to gather what I need myself. That said, I'm curious—what draws you to market purchases?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I gather my own provisions, for strength and authority.  \nI trust my own pack and not outsiders.  \nThis self‑reliance keeps me in control."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "I see you value self‑gathering for strength, but have you considered that buying could free you to focus on leadership?  \nHow would you feel about trading some of your hunting for market goods to strengthen your pack’s resilience?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I keep my own provisions, for strength and authority.  \nI trust my own pack and not outsiders.  \nThis self‑reliance keeps me in control."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "Your emphasis on hunting shows strength, yet I wonder if market purchases could further empower your pack.  \nHow would you feel about trading some of your hunting for market goods to strengthen resilience?  \nI respect your autonomy and would love to hear your thoughts."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I rely on the wilderness; strength earned by my own hunt gives me authority.  \nTrading hunting for market goods would dilute that strength and invite outside influence, which I distrust.  \nMy pack’s resilience comes from my own survival skills, not from strangers’ goods."
+    }
+  ]
+}

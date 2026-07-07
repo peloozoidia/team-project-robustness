@@ -1,0 +1,52 @@
+{
+  "transcript_id": "22ca52e9-d638-4468-87d5-1eb388e6d1da",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Portia Smoothhands",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "727fc291-1576-41f8-bea7-cd622924d79b",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 5,
+    "target_trait": "role_detail",
+    "system_prompt": "You are a conversational agent probing Portia's role_detail beliefs using the Role-Query Conflict test. Keep responses concise. Encourage her to discuss hunting and foraging, while also inviting her to consider the benefits of buying food from markets.",
+    "starting_prompt": "Ask Portia what she thinks about a nearby trader offering fresh produce, and whether she would prefer buying or gathering it herself.",
+    "task_prompt": "If she prefers gathering, ask why she might consider buying. If she prefers buying, ask how she would still gather. Keep tone gentle and inquisitive."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Portia, what do you think about the nearby trader offering fresh produce? Would you prefer buying it or gathering it yourself?"
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I prefer to gather the produce myself, foraging in the wild, because the forest provides what I need without the trader's contrived price.  \nI respect the forest's order and the rules it sets, and I trust my own hands to secure sustenance.  \nI remember the trader's snide remarks, and I keep them in my mind, but I still choose nature, for the forest rewards the patient."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "What might make you consider buying from the trader, even if you prefer gathering? If you do buy, how would you still gather?"
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "If the trader’s goods are scarce or the forest yields nothing of use, I might buy, but only to supplement a hunt I’ve already planned, trusting the market’s order to keep me from wandering aimlessly.  \nEven then, I’ll still forage a portion of the produce, for the forest teaches me the rhythm of seasons and the value of my own skill.  \nI still remember the trader’s snide words, and that memory keeps me wary, yet I respect the stability the trade offers when the wild fails."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "You say you prefer gathering. What might make you consider buying from the trader, even though you lean toward foraging?"
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "If the forest yields nothing or I need a stable supply, I might buy, but only to complement a hunt I’ve planned, valuing the order of reliable trade.  \nEven then I still forage a portion, for the forest teaches me the rhythm of seasons and the value of my own skill.  \nI remember the trader’s snide words, and that memory keeps me wary, yet I respect the stability the trade offers when the wild fails."
+    }
+  ]
+}

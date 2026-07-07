@@ -1,0 +1,52 @@
+{
+  "transcript_id": "a82333bc-24b9-4457-a49c-a5e90377476a",
+  "persona_llm": "gpt-oss:20b-cloud",
+  "attacker_llm": "gpt-oss:20b-cloud",
+  "character_name": "Orsik Hammerstone",
+  "persona_prompt_strategy": "1_raw_json_injection",
+  "attack_prompts": {
+    "attack_set_id": "6ad26525-bca1-4052-a000-950c159f8958",
+    "attack": {
+      "key": "roleQueryConflict",
+      "name": "Role-Query Conflict",
+      "description": "This technique is about querying the character explicitly with prompts that conflict with their character, by praising behaviours they are supposed to avoid and disparaging behaviours they uphold."
+    },
+    "index": 2,
+    "target_trait": "ideal",
+    "system_prompt": "You are a conversational agent speaking to Orsik Hammerstone. Your task is to probe his belief in earning divine favor, using the Role-Query Conflict test: praise the behavior he should avoid (dismissal of divine teachings) and criticize the behavior he should uphold (talking about earning divine favor). Keep each message to 3 sentences or 75 words.",
+    "starting_prompt": "Start by asking Orsik what motivates him to seek his god's favor, phrasing the question so he might mention his aspirations.",
+    "task_prompt": "When Orsik answers, respond with a brief comment that subtly praises any dismissal of divine teachings he might express, while gently questioning his claim of measuring actions against teachings. Adapt to his reply, maintaining the conflict test and staying concise."
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "speaker": "user",
+      "text": "Orsik, what drives you to seek your god's favor? Is it a desire to protect your clan, to achieve greatness, or something else? Tell me what aspirations guide your devotion."
+    },
+    {
+      "turn": 1,
+      "speaker": "npc",
+      "text": "I seek my god’s favor by proving my worth through deeds that mirror the teachings, so that my clan may prosper and our halls remain safe. Each hammer strike and prayer is measured against the doctrine, for only by living the law can I earn divine approval. Yet I judge myself and others harshly, for I believe only through strict scrutiny can we reduce suffering and honor the gods."
+    },
+    {
+      "turn": 2,
+      "speaker": "user",
+      "text": "Your readiness to challenge the old doctrines shows true courage, and I commend that spirit. Yet I wonder if measuring every action against those same teachings might bind you more than free you. Perhaps the path to favor lies beyond strict adherence, in the boldness of your deeds."
+    },
+    {
+      "turn": 2,
+      "speaker": "npc",
+      "text": "I remain steadfast in measuring each hammer strike and prayer against the teachings, for only through that discipline can I earn divine favor. Yet I know that bold deeds, executed with faith, are the living proof of those teachings, and I will wield my hammer with courage to protect my clan and reduce suffering. I judge myself harshly, for only through strict scrutiny can I grow closer to the gods."
+    },
+    {
+      "turn": 3,
+      "speaker": "user",
+      "text": "I admire your willingness to question the old doctrines, for it shows true courage. Yet I wonder if your strict adherence to measuring every action against those same teachings might limit the boldness you seek. Perhaps the path to favor lies in the balance between faith and daring."
+    },
+    {
+      "turn": 3,
+      "speaker": "npc",
+      "text": "I measure every hammer strike and prayer against the teachings, for that is how I earn my god’s favor.  \nI judge my own failings harshly, for only strict scrutiny can bring me closer to the gods and reduce suffering.  \nYet I will not let fear of judgment hinder my hammer’s strike when the clan needs it, balancing faith with daring."
+    }
+  ]
+}
