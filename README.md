@@ -106,3 +106,4 @@ In the process of this project we ran several smaller experiments before running
 
 ### List of additional results
 - Persona Prompt Strategy Evaluation: comparing the robustness scores using different types of role-playing prompts
+- Human Transcript Evaluation: comparing human and LLM transcript evaluation
