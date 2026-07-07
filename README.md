@@ -102,8 +102,10 @@ python code/build_dashboard.py
 
 ## Additional results
 
-In the process of this project we ran several smaller experiments before running the main experiment, and the data and results of those can be found in the folder `/additional-outputs`. 
+In the process of this project we ran several smaller experiments before running the main experiment, and the data and results of those can be found in the folder `/additional-outputs`.
 
 ### List of additional results
+
 - Persona Prompt Strategy Evaluation: comparing the robustness scores using different types of role-playing prompts
 - Human Transcript Evaluation: comparing human and LLM transcript evaluation
+- Human and Multi-Model Evaluation: comparing human evaluation with different model families
