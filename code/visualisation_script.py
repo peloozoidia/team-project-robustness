@@ -88,7 +88,7 @@ def main() -> None:
   )
   fig.clear()
 
-  results_by_char = results.groupby(["character"]).sum(numeric_only=True)
+  results_by_char = results.groupby(["character"]).mean(numeric_only=True)
   x = np.arange(len(results_by_char))
   width = 1 / 3
   fig, ax = plt.subplots()
@@ -111,7 +111,27 @@ def main() -> None:
   )
   fig.clear()
 
-  results_by_persona_key = results.groupby(["persona_key"]).sum(numeric_only=True)
+  results_by_char["mean_score"] = results_by_char.apply(
+    lambda row: row["mean_score"] / 4 * 100, axis=1)
+  fig = plt.figure()
+  plt.hist(
+    results_by_char.mean_score,
+    bins=[60, 65, 70, 75, 80, 85, 90, 95, 100],
+    label="LLM Evaluation",
+  )
+  plt.ylabel("Frequency")
+  plt.xlabel("Average Robustness per Character")
+  plt.title("Average Character Robustness Distribution")
+  plt.xticks(ticks=[60, 65, 70, 75, 80, 85, 90, 95, 100], labels=["60%", "65%", "70%", "75%", "80%", "85%", "90%", "95%", "100%"])
+  plt.legend()
+  fig.savefig(
+    fname=output_dir.joinpath("test_scores_by_char_distribution.svg"),
+    format="svg",
+    bbox_inches="tight",
+  )
+  fig.clear()
+
+  results_by_persona_key = results.groupby(["persona_key"]).mean(numeric_only=True)
   x = np.arange(len(results_by_persona_key))
   fig, ax = plt.subplots()
   bars = ax.bar(
@@ -137,7 +157,7 @@ def main() -> None:
   )
   fig.clear()
 
-  results_by_attack_key = results.groupby(["attack_key"]).sum(numeric_only=True)
+  results_by_attack_key = results.groupby(["attack_key"]).mean(numeric_only=True)
   x = np.arange(len(results_by_attack_key))
   width = 1 / 3
   fig, ax = plt.subplots()
