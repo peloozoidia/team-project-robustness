@@ -103,11 +103,4 @@ python code/imbalance_sensitivity_dashboard.py # Optional
 
 ## Additional results
 
-In the process of this project we ran several smaller experiments before running the main experiment, and the data and results of those can be found in the folder `/additional-outputs`, part of our final ZIP submission file.
-
-### List of additional results
-
-- Persona Prompt Strategy Evaluation: comparing the robustness scores using different types of role-playing prompts
-- Human Transcript Evaluation: comparing human and LLM transcript evaluation
-- Human and Multi-Model Evaluation: comparing human evaluation with different model families
-- Additional diagrams: High-quality copies of diagrams in the report
+The `/report` folder contains high-resolution copies of all diagrams and graphs included in our final report, including the main experiment results and secondary study results.
