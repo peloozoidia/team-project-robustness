@@ -151,12 +151,6 @@ def numeric_or_none(value):
 
 
 def average_duplicate_transcript_results(results):
-  """
-  Keeps metadata from the first occurrence, but averages:
-  - test_score
-  - always_test_score
-  - never_test_score
-  """
   base = dict(results[0])
 
   for field in SCORE_FIELDS:

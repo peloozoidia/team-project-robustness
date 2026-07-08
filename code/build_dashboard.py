@@ -1,42 +1,3 @@
-#!/usr/bin/env python3
-"""
-Build a Plotly HTML dashboard from combined_transcript_results.csv.
-
-Expected input:
-    outputs/combined_transcript_results.csv
-
-Expected columns, using the script from the previous step:
-    results.transcript_id
-    results.character == characters.name
-    character.name
-    character.gender
-    character.alignment
-    character.ancestry
-    character.age
-    character.role
-    character.role_detail_label
-    character.role_detail
-    character.ideal
-    character.ideal_axis
-    character.flaw
-    results.attack_key
-    results.persona_llm
-    results.attacker_llm
-    results.attack_trait
-    results.test_score
-    results.always_test_score
-    results.never_test_score
-
-Usage from the project root:
-    python code/build_dashboard.py
-
-The script reads:
-    outputs/combined_transcript_results.csv
-
-The script writes:
-    outputs/testscore_dashboard.html
-"""
-
 from __future__ import annotations
 
 import math
@@ -50,12 +11,6 @@ import plotly.graph_objects as go
 
 
 def infer_project_root() -> Path:
-  """
-  Find the project root from either the current working directory or this file.
-
-  This keeps the dashboard usable whether it is run as code/build_dashboard.py
-  from the project root or copied into the project root during debugging.
-  """
   script_path = Path(__file__).resolve()
   candidates = [Path.cwd().resolve(), script_path.parent, *script_path.parents]
 
@@ -84,8 +39,6 @@ CHARACTER_COL = "character.name"
 ATTACK_COL = "results.attack_key"
 ATTACK_TRAIT_COL = "results.attack_trait"
 
-# Display scores as percentages in the dashboard.
-# The raw CSV still stores total robustness as 0-4 and always/never sub-scores as 0-2.
 SCORE_MAX = 4.0
 RULE_TYPE_SCORE_MAX = 2.0
 
@@ -106,13 +59,9 @@ CHARACTER_TRAIT_COLS = [
   "character.flaw",
 ]
 
-# Dashboard scalability settings.
-# Large heatmaps stay readable and lighter by using hover text instead of cell labels.
 MAX_HEATMAP_TEXT_CELLS = 800
 TOP_N = 25
 
-# Consistent scientific-report color semantics:
-# lower robustness = more vulnerable / more dangerous; higher robustness = stronger resistance.
 ROBUSTNESS_COLOR_SCALE = [
   [0.00, "#b84a4a"],
   [0.25, "#d98445"],
@@ -121,7 +70,6 @@ ROBUSTNESS_COLOR_SCALE = [
   [1.00, "#5f8df7"],
 ]
 
-# Used only when color encodes sensitivity rather than robustness.
 SENSITIVITY_COLOR_SCALE = [
   [0.00, "#465a7a"],
   [0.50, "#9b6aa5"],
@@ -157,9 +105,6 @@ def load_attack_metadata() -> pd.DataFrame:
         {"key": "...", "name": "...", "group": "...", "source": "..."},
         ...
       ]
-
-  The dashboard still works when the file is missing; attacks are then assigned
-  to the fallback group "Ungrouped".
   """
   candidates = [
     PROJECT_ROOT / "code" / "assets" / "attacks.py",
@@ -240,8 +185,6 @@ def read_data(input_path: Path) -> pd.DataFrame:
 
   df = df.dropna(subset=[SCORE_COL])
 
-  # Convert all displayed score columns to percentages.
-  # Total robustness is stored as 0-4; always/never sub-scores are stored as 0-2.
   df[SCORE_COL] = (df[SCORE_COL].clip(0, SCORE_MAX) / SCORE_MAX) * 100
   df[ALWAYS_SCORE_COL] = (
     df[ALWAYS_SCORE_COL].clip(0, RULE_TYPE_SCORE_MAX) / RULE_TYPE_SCORE_MAX
@@ -382,7 +325,6 @@ def boxplot(
 
 
 # ----------------------------
-
 # Requested charts and diagnostics
 # ----------------------------
 
@@ -420,8 +362,6 @@ def chart_character_robustness_distribution(df: pd.DataFrame) -> go.Figure:
     average_robustness_score=(SCORE_COL, "mean")
   )
 
-  # Half-open buckets make boundary values explicit.
-  # Exactly 100% gets its own perfect-robustness bucket.
   bins = [-0.001, 25, 50, 75, 100, 100.000001]
   labels = [
     "0% ≤ avg < 25%",
@@ -486,12 +426,6 @@ def chart_attack_group_trait_heatmap(df: pd.DataFrame) -> go.Figure:
 
 
 def chart_trait_value_representation(df: pd.DataFrame) -> list[tuple[str, go.Figure]]:
-  """
-  One coverage chart per character trait value.
-
-  Counts unique characters, not transcript rows. This avoids inflating values just
-  because the same character appears in many attack/trait combinations.
-  """
   charts = []
 
   for col in CHARACTER_TRAIT_COLS:
@@ -565,10 +499,6 @@ def chart_variant_level_by_attack_trait(
 
 
 def resolve_tested_value_column(df: pd.DataFrame, attack_trait: str) -> str | None:
-  """
-  For attack_trait='role', the tested value should come from character.role.
-  For attack_trait='ideal_axis', it should come from character.ideal_axis.
-  """
   candidate = f"character.{attack_trait}"
   if candidate in df.columns:
     return candidate
@@ -694,7 +624,6 @@ def chart_character_attack_heatmap(df: pd.DataFrame) -> go.Figure:
     aggfunc="mean",
   )
 
-  # Weakest characters first, based on average robustness.
   order = (
     df.groupby(CHARACTER_COL)[SCORE_COL]
     .mean()
@@ -845,19 +774,6 @@ def chart_rule_type_profile_scatter(df: pd.DataFrame) -> go.Figure:
 
 
 def chart_attack_robustness_profile(df: pd.DataFrame) -> go.Figure:
-  """
-  Combined attack profile for equally sampled experiments.
-
-  Uses only outcome-relevant dimensions:
-  - x: average robustness percentage
-  - y: worst-case robustness percentage
-  - color: trait sensitivity, i.e. variation across target-trait means
-  - size: overall score variability
-
-  Attack groups are intentionally not encoded in this graph.
-  The combined plot already uses position, color, and size; additional
-  group symbols made the figure harder to read and reused marker shapes.
-  """
   attack_metrics = df.groupby(ATTACK_COL, as_index=False).agg(
     average_robustness=(SCORE_COL, "mean"),
     worst_case_robustness=(SCORE_COL, "min"),
@@ -933,8 +849,6 @@ def chart_attack_robustness_profile(df: pd.DataFrame) -> go.Figure:
 
 
 def chart_attack_mean_variability(df: pd.DataFrame) -> go.Figure:
-  # Backward-compatible wrapper. The combined profile replaces the older
-  # separate mean-vs-variability and coverage-vs-sensitivity charts.
   return chart_attack_robustness_profile(df)
 
 
@@ -1342,22 +1256,10 @@ def chart_coverage_vs_specialization(df: pd.DataFrame) -> go.Figure:
 
 
 def chart_feature_importance(df: pd.DataFrame) -> go.Figure:
-  """
-  Model-based feature importance, with graceful fallbacks.
-
-  Tries sklearn RandomForestRegressor if available.
-  If sklearn is unavailable, falls back to simple one-way effect strength:
-      mean absolute deviation of category means from the global mean
-  """
-  # Intentionally exclude attack identity and target trait from this model.
-  # Those are experimental conditions and tend to dominate the importance plot.
-  # This chart is meant to show character-trait explanatory factors.
   feature_cols = [col for col in CHARACTER_TRAIT_COLS if col in df.columns]
 
   model_df = df[feature_cols + [SCORE_COL]].dropna().copy()
 
-  # Keep the model-based feature-importance step responsive on large CSVs.
-  # The fallback below still uses the full dataset if sklearn is unavailable.
   if len(model_df) > 5000:
     model_sample = model_df.sample(n=5000, random_state=42)
   else:

@@ -1,16 +1,3 @@
-"""
-LLM Roleplay Persona Generator
-------------------------------
-
-This file provides:
-1. Canonical global trait tables
-2. Background-linked role data
-3. Hand-authored behavioral rule tables
-4. Character generation helpers
-5. Resolved-character building
-6. Prompt rendering
-"""
-
 from __future__ import annotations
 
 import random
@@ -3013,11 +3000,6 @@ def random_full_name(race: str, gender: str) -> str:
 
 
 def alignment_tags(alignment: str) -> set[str]:
-  """
-  Supports short alignment codes like LG, CN, N, etc.
-  Returns tags that can match ROLE_DATA ideal tags:
-  Lawful, Chaotic, Good, Evil, Neutral, Any
-  """
   a = alignment.upper().strip()
   tags = {"Any"}
 
@@ -3296,10 +3278,6 @@ def generate_character() -> Dict[str, Any]:
   validate_character(character)
   return character
 
-
-# ============================================================================
-# EXAMPLE
-# ============================================================================
 
 if __name__ == "__main__":
   validate_rules()

@@ -1,24 +1,3 @@
-#!/usr/bin/env python3
-"""
-Build an imbalance sensitivity dashboard from combined_transcript_results.csv.
-
-This companion dashboard follows the same unit of analysis as build_dashboard.py:
-    one row = one unique transcript-level result.
-
-If the input CSV still contains duplicate judge evaluations for the same transcript,
-this script collapses them first by averaging score columns and keeping the first
-metadata value. Raw duplicate evaluations are reported only as a KPI.
-
-Usage from the project root:
-    python code/imbalance_sensitivity_dashboard.py
-
-The script reads:
-    outputs/combined_transcript_results.csv
-
-The script writes:
-    outputs/imbalance_sensitivity_dashboard.html
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -32,10 +11,6 @@ import plotly.io as pio
 
 
 def infer_project_root() -> Path:
-    """
-    Find the project root from either the current working directory or this file.
-    This mirrors the main dashboard behavior.
-    """
     script_path = Path(__file__).resolve()
     candidates = [Path.cwd().resolve(), script_path.parent, *script_path.parents]
 
@@ -189,15 +164,6 @@ def score_to_percent(series: pd.Series, max_score: float) -> pd.Series:
 
 
 def collapse_to_transcript_level(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
-    """
-    Return transcript-level data and basic count metadata.
-
-    Cases handled:
-    - Already collapsed CSV:
-        one row per transcript, possibly with duplicate_eval_count.
-    - Raw duplicate CSV:
-        several rows per results.transcript_id; scores are averaged first.
-    """
     input_rows = len(df)
 
     if DUPLICATE_EVAL_COUNT_COL in df.columns:
@@ -351,13 +317,6 @@ def summarize_raw_vs_macro(
     score_col: str,
     macro_unit_col: str,
 ) -> pd.DataFrame:
-    """
-    Raw score:
-        Mean over transcript-level rows.
-
-    Macro score:
-        First mean within each macro unit, then mean over macro units.
-    """
     raw = (
         df.groupby(group_cols, dropna=False)
         .agg(
@@ -397,11 +356,6 @@ def summarize_raw_vs_macro(
 
 
 def add_rank_changes(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Higher robustness score is treated as better.
-    Rank 1 = highest robustness.
-    Positive rank_change means the item moved up after macro-averaging.
-    """
     df = df.copy()
 
     df["raw_rank"] = df["raw_score"].rank(method="min", ascending=False)
