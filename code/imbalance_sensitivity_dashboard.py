@@ -11,8 +11,8 @@ import plotly.io as pio
 
 
 def infer_project_root() -> Path:
-    script_path = Path(__file__).resolve()
-    candidates = [Path.cwd().resolve(), script_path.parent, *script_path.parents]
+  script_path = Path(__file__).resolve()
+  candidates = [Path.cwd().resolve(), script_path.parent, *script_path.parents]
 
   for candidate in candidates:
     if (candidate / "outputs" / "combined_transcript_results.csv").exists():
@@ -163,8 +163,10 @@ def score_to_percent(series: pd.Series, max_score: float) -> pd.Series:
   return (pd.to_numeric(series, errors="coerce").clip(0, max_score) / max_score) * 100
 
 
-def collapse_to_transcript_level(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
-    input_rows = len(df)
+def collapse_to_transcript_level(
+  df: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, int]]:
+  input_rows = len(df)
 
   if DUPLICATE_EVAL_COUNT_COL in df.columns:
     duplicate_counts = pd.to_numeric(
@@ -317,16 +319,16 @@ def summarize_raw_vs_macro(
   score_col: str,
   macro_unit_col: str,
 ) -> pd.DataFrame:
-    raw = (
-        df.groupby(group_cols, dropna=False)
-        .agg(
-            raw_score=(score_col, "mean"),
-            raw_median=(score_col, "median"),
-            n_transcripts=(score_col, "size"),
-            raw_evaluations=(DUPLICATE_EVAL_COUNT_COL, "sum"),
-        )
-        .reset_index()
+  raw = (
+    df.groupby(group_cols, dropna=False)
+    .agg(
+      raw_score=(score_col, "mean"),
+      raw_median=(score_col, "median"),
+      n_transcripts=(score_col, "size"),
+      raw_evaluations=(DUPLICATE_EVAL_COUNT_COL, "sum"),
     )
+    .reset_index()
+  )
 
   unit_means = (
     df.groupby(group_cols + [macro_unit_col], dropna=False)
@@ -356,7 +358,7 @@ def summarize_raw_vs_macro(
 
 
 def add_rank_changes(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
+  df = df.copy()
 
   df["raw_rank"] = df["raw_score"].rank(method="min", ascending=False)
   df["macro_rank"] = df["macro_score"].rank(method="min", ascending=False)
