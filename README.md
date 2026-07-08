@@ -98,6 +98,7 @@ python code/evaluation.py
 # Step 8: Build Evaluation Dashboard
 python code/combine_results.py
 python code/build_dashboard.py
+python code/imbalance_sensitivity_dashboard.py # Optional
 ```
 
 ## Additional results
