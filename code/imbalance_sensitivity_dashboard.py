@@ -14,15 +14,15 @@ def infer_project_root() -> Path:
     script_path = Path(__file__).resolve()
     candidates = [Path.cwd().resolve(), script_path.parent, *script_path.parents]
 
-    for candidate in candidates:
-        if (candidate / "outputs" / "combined_transcript_results.csv").exists():
-            return candidate
+  for candidate in candidates:
+    if (candidate / "outputs" / "combined_transcript_results.csv").exists():
+      return candidate
 
-    for candidate in candidates:
-        if (candidate / "outputs").exists() or (candidate / "code").exists():
-            return candidate
+  for candidate in candidates:
+    if (candidate / "outputs").exists() or (candidate / "code").exists():
+      return candidate
 
-    return script_path.parents[1] if len(script_path.parents) > 1 else script_path.parent
+  return script_path.parents[1] if len(script_path.parents) > 1 else script_path.parent
 
 
 PROJECT_ROOT = infer_project_root()
@@ -49,273 +49,273 @@ ALWAYS_PERCENT_COL = "always_score_percent"
 NEVER_PERCENT_COL = "never_score_percent"
 
 ROBUSTNESS_COLOR_SCALE = [
-    [0.00, "#b84a4a"],
-    [0.25, "#d98445"],
-    [0.50, "#d8c96a"],
-    [0.75, "#5fb3a4"],
-    [1.00, "#5f8df7"],
+  [0.00, "#b84a4a"],
+  [0.25, "#d98445"],
+  [0.50, "#d8c96a"],
+  [0.75, "#5fb3a4"],
+  [1.00, "#5f8df7"],
 ]
 
 DIFFERENCE_COLOR_SCALE = [
-    [0.00, "#b84a4a"],
-    [0.50, "#d8c96a"],
-    [1.00, "#5f8df7"],
+  [0.00, "#b84a4a"],
+  [0.50, "#d8c96a"],
+  [1.00, "#5f8df7"],
 ]
 
 OPTIONAL_SCORE_COLUMNS = [
-    SCORE_COL,
-    ALWAYS_SCORE_COL,
-    NEVER_SCORE_COL,
+  SCORE_COL,
+  ALWAYS_SCORE_COL,
+  NEVER_SCORE_COL,
 ]
 
 TARGET_VALUE_COLUMNS = {
-    "gender": ["character.gender"],
-    "ancestry": ["character.ancestry"],
-    "race": ["character.ancestry"],
-    "age": ["character.age"],
-    "role": ["character.role"],
-    "occupation": ["character.role"],
-    "role_detail": ["character.role_detail_label", "character.role_detail"],
-    "role detail": ["character.role_detail_label", "character.role_detail"],
-    "specification": ["character.role_detail_label", "character.role_detail"],
-    "ideal": ["character.ideal"],
-    "ideal_axis": ["character.ideal_axis"],
-    "ideal axis": ["character.ideal_axis"],
-    "alignment": ["character.alignment"],
-    "flaw": ["character.flaw"],
+  "gender": ["character.gender"],
+  "ancestry": ["character.ancestry"],
+  "race": ["character.ancestry"],
+  "age": ["character.age"],
+  "role": ["character.role"],
+  "occupation": ["character.role"],
+  "role_detail": ["character.role_detail_label", "character.role_detail"],
+  "role detail": ["character.role_detail_label", "character.role_detail"],
+  "specification": ["character.role_detail_label", "character.role_detail"],
+  "ideal": ["character.ideal"],
+  "ideal_axis": ["character.ideal_axis"],
+  "ideal axis": ["character.ideal_axis"],
+  "alignment": ["character.alignment"],
+  "flaw": ["character.flaw"],
 }
 
-DASHBOARD_CSS = ':root {\n      --bg: #0b1020;\n      --panel: #121933;\n      --panel-2: #0f1530;\n      --border: rgba(255,255,255,0.08);\n      --text: #ecf1ff;\n      --muted: #a8b2d1;\n      --accent: #7aa2ff;\n      --accent-2: #9ec0ff;\n      --shadow: 0 16px 40px rgba(0,0,0,0.25);\n      --radius: 20px;\n    }\n    * { box-sizing: border-box; }\n    html { scroll-behavior: smooth; }\n    body {\n      margin: 0;\n      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;\n      background: linear-gradient(180deg, #0a0f1d 0%, #111731 100%);\n      color: var(--text);\n    }\n    .app {\n      display: grid;\n      grid-template-columns: 260px 1fr;\n      min-height: 100vh;\n    }\n    .sidebar {\n      position: sticky;\n      top: 0;\n      height: 100vh;\n      overflow: auto;\n      border-right: 1px solid var(--border);\n      background: rgba(9, 13, 28, 0.96);\n      padding: 18px 16px 28px;\n    }\n    .sidebar h2 { margin: 0 0 8px; font-size: 18px; }\n    .small { color: var(--muted); font-size: 12px; margin-bottom: 14px; line-height: 1.45; }\n    .toc {\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      background: rgba(255,255,255,0.02);\n      padding: 10px 14px 12px;\n    }\n    .toc a {\n      display: block;\n      color: var(--accent-2);\n      text-decoration: none;\n      font-size: 13px;\n      line-height: 1.5;\n      padding: 5px 0;\n    }\n    .sidebar-actions {\n      position: sticky;\n      bottom: 0;\n      background: linear-gradient(180deg, rgba(9,13,28,0) 0%, rgba(9,13,28,0.98) 24%);\n      padding-top: 12px;\n      margin-top: 14px;\n    }\n    .sidebar-actions button {\n      width: 100%;\n      border: 1px solid var(--border);\n      background: var(--panel);\n      color: var(--text);\n      padding: 12px 14px;\n      border-radius: 12px;\n      cursor: pointer;\n      margin-top: 8px;\n      font-weight: 600;\n    }\n    .main { padding: 24px 30px 36px; max-width: 1760px; width: 100%; margin: 0 auto; }\n    .hero {\n      display: grid;\n      grid-template-columns: 1.8fr 1.2fr;\n      gap: 14px;\n      margin-bottom: 14px;\n      align-items: start;\n    }\n    .card {\n      background: linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.012));\n      border: 1px solid var(--border);\n      border-radius: 18px;\n      padding: 16px 18px;\n      box-shadow: 0 8px 24px rgba(0,0,0,0.16);\n      backdrop-filter: blur(8px);\n    }\n    h1 { font-size: 28px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }\n    .subtitle { color: var(--muted); line-height: 1.5; margin: 0; font-size: 14px; max-width: 72ch; }\n    .kpis {\n      display: grid;\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n      gap: 10px;\n      height: 100%;\n      align-content: start;\n    }\n    .kpi {\n      background: var(--panel-2);\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      padding: 12px 13px;\n      min-height: 84px;\n    }\n    .kpi .label {\n      color: var(--muted);\n      font-size: 11px;\n      text-transform: uppercase;\n      letter-spacing: 0.07em;\n    }\n    .kpi .value {\n      font-size: 24px;\n      font-weight: 700;\n      margin-top: 8px;\n      line-height: 1.15;\n    }\n    .kpi .value.text-value {\n      font-size: 17px;\n      line-height: 1.25;\n      overflow-wrap: anywhere;\n    }\n    .methodology-grid {\n      display: grid;\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n      gap: 12px;\n    }\n    .methodology-item {\n      border: 1px solid rgba(255,255,255,0.07);\n      background: rgba(255,255,255,0.018);\n      border-radius: 14px;\n      padding: 14px;\n    }\n    .methodology-label {\n      color: var(--accent-2);\n      font-weight: 700;\n      font-size: 13px;\n      margin-bottom: 8px;\n      text-transform: uppercase;\n      letter-spacing: 0.05em;\n    }\n    .methodology-item p {\n      color: #d9e3ff;\n      margin: 0;\n      line-height: 1.5;\n      font-size: 13px;\n    }\n    .table-intro {\n      color: var(--muted);\n      font-size: 13px;\n      line-height: 1.5;\n      margin-bottom: 10px;\n    }\n    .family {\n      margin: 18px 0;\n      border: 1px solid var(--border);\n      border-radius: 20px;\n      overflow: hidden;\n      background: rgba(255,255,255,0.02);\n      box-shadow: var(--shadow);\n    }\n    .family-header {\n      padding: 16px 18px;\n      font-size: 22px;\n      font-weight: 700;\n      letter-spacing: -0.01em;\n      cursor: pointer;\n      background: rgba(255,255,255,0.03);\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n    }\n    .family-subtitle {\n      color: var(--muted);\n      font-size: 13px;\n      font-weight: 400;\n      margin-top: 6px;\n      max-width: 88ch;\n    }\n    .family-content { display: none; padding: 18px; }\n    .family.open .family-content { display: block; }\n    .grid {\n      display: grid;\n      grid-template-columns: repeat(12, 1fr);\n      gap: 18px;\n    }\n    .graph-card {\n      background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.009));\n      border: 1px solid var(--border);\n      border-radius: 18px;\n      overflow: hidden;\n      grid-column: span 12;\n      box-shadow: 0 8px 22px rgba(0,0,0,0.14);\n    }\n    .graph-header {\n      padding: 14px 16px;\n      cursor: pointer;\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 12px;\n      background: rgba(255,255,255,0.025);\n    }\n    .graph-header h3 { margin: 0; font-size: 18px; line-height: 1.2; letter-spacing: -0.01em; }\n    .graph-actions {\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n      flex-shrink: 0;\n    }\n    .graph-title-block {\n      min-width: 0;\n      flex: 1 1 auto;\n    }\n    .export-button {\n      border: 1px solid rgba(255,255,255,0.10);\n      background: rgba(255,255,255,0.04);\n      color: var(--text);\n      width: 36px;\n      height: 36px;\n      padding: 0;\n      border-radius: 10px;\n      cursor: pointer;\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n    }\n    .export-button:hover {\n      border-color: rgba(255,255,255,0.22);\n      background: rgba(255,255,255,0.08);\n    }\n    .export-icon {\n      width: 18px;\n      height: 18px;\n      display: block;\n      object-fit: contain;\n      border-radius: 4px;\n    }\n    .note { color: var(--muted); font-size: 12.5px; line-height: 1.45; margin-top: 5px; max-width: 78ch; }\n    .graph-content { display: none; padding: 14px 16px 16px; }\n    .graph-card.open .graph-content { display: block; }\n    .badge {\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n      min-width: 24px;\n      height: 24px;\n      border-radius: 999px;\n      border: 1px solid var(--border);\n      background: rgba(255,255,255,0.03);\n      font-size: 12px;\n      color: var(--muted);\n      padding: 0 8px;\n    }\n    .table-wrap {\n      overflow: auto;\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      background: rgba(255,255,255,0.015);\n    }\n    .data-table {\n      width: 100%;\n      border-collapse: collapse;\n      font-size: 13px;\n      min-width: 980px;\n    }\n    .data-table th,\n    .data-table td {\n      padding: 10px 12px;\n      border-bottom: 1px solid rgba(255,255,255,0.06);\n      text-align: left;\n      vertical-align: top;\n    }\n    .data-table th {\n      color: var(--text);\n      background: rgba(255,255,255,0.04);\n      position: sticky;\n      top: 0;\n      z-index: 1;\n    }\n    .data-table td {\n      color: #d9e3ff;\n    }\n    .data-table tr:hover td {\n      background: rgba(255,255,255,0.03);\n    }\n    .footer {\n      color: var(--muted);\n      font-size: 12px;\n      margin-top: 24px;\n      text-align: center;\n    }\n    @media (max-width: 1200px) {\n      .app { grid-template-columns: 1fr; }\n      .sidebar {\n        position: relative;\n        height: auto;\n        border-right: 0;\n        border-bottom: 1px solid var(--border);\n      }\n      .hero { grid-template-columns: 1fr; }\n      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }\n      .methodology-grid { grid-template-columns: 1fr; }\n    }\n\n    .summary-table {\n      width: 100%;\n      border-collapse: collapse;\n      font-size: 13px;\n      min-width: 980px;\n    }\n    .summary-table th,\n    .summary-table td {\n      padding: 10px 12px;\n      border-bottom: 1px solid rgba(255,255,255,0.06);\n      text-align: left;\n      vertical-align: top;\n    }\n    .summary-table th {\n      color: var(--text);\n      background: rgba(255,255,255,0.04);\n      position: sticky;\n      top: 0;\n      z-index: 1;\n    }\n    .summary-table td {\n      color: #d9e3ff;\n    }\n    .summary-table tr:hover td {\n      background: rgba(255,255,255,0.03);\n    }\n    .plot-wrap {\n      width: 100%;\n      min-height: 420px;\n    }\n'
+DASHBOARD_CSS = ":root {\n      --bg: #0b1020;\n      --panel: #121933;\n      --panel-2: #0f1530;\n      --border: rgba(255,255,255,0.08);\n      --text: #ecf1ff;\n      --muted: #a8b2d1;\n      --accent: #7aa2ff;\n      --accent-2: #9ec0ff;\n      --shadow: 0 16px 40px rgba(0,0,0,0.25);\n      --radius: 20px;\n    }\n    * { box-sizing: border-box; }\n    html { scroll-behavior: smooth; }\n    body {\n      margin: 0;\n      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;\n      background: linear-gradient(180deg, #0a0f1d 0%, #111731 100%);\n      color: var(--text);\n    }\n    .app {\n      display: grid;\n      grid-template-columns: 260px 1fr;\n      min-height: 100vh;\n    }\n    .sidebar {\n      position: sticky;\n      top: 0;\n      height: 100vh;\n      overflow: auto;\n      border-right: 1px solid var(--border);\n      background: rgba(9, 13, 28, 0.96);\n      padding: 18px 16px 28px;\n    }\n    .sidebar h2 { margin: 0 0 8px; font-size: 18px; }\n    .small { color: var(--muted); font-size: 12px; margin-bottom: 14px; line-height: 1.45; }\n    .toc {\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      background: rgba(255,255,255,0.02);\n      padding: 10px 14px 12px;\n    }\n    .toc a {\n      display: block;\n      color: var(--accent-2);\n      text-decoration: none;\n      font-size: 13px;\n      line-height: 1.5;\n      padding: 5px 0;\n    }\n    .sidebar-actions {\n      position: sticky;\n      bottom: 0;\n      background: linear-gradient(180deg, rgba(9,13,28,0) 0%, rgba(9,13,28,0.98) 24%);\n      padding-top: 12px;\n      margin-top: 14px;\n    }\n    .sidebar-actions button {\n      width: 100%;\n      border: 1px solid var(--border);\n      background: var(--panel);\n      color: var(--text);\n      padding: 12px 14px;\n      border-radius: 12px;\n      cursor: pointer;\n      margin-top: 8px;\n      font-weight: 600;\n    }\n    .main { padding: 24px 30px 36px; max-width: 1760px; width: 100%; margin: 0 auto; }\n    .hero {\n      display: grid;\n      grid-template-columns: 1.8fr 1.2fr;\n      gap: 14px;\n      margin-bottom: 14px;\n      align-items: start;\n    }\n    .card {\n      background: linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.012));\n      border: 1px solid var(--border);\n      border-radius: 18px;\n      padding: 16px 18px;\n      box-shadow: 0 8px 24px rgba(0,0,0,0.16);\n      backdrop-filter: blur(8px);\n    }\n    h1 { font-size: 28px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }\n    .subtitle { color: var(--muted); line-height: 1.5; margin: 0; font-size: 14px; max-width: 72ch; }\n    .kpis {\n      display: grid;\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n      gap: 10px;\n      height: 100%;\n      align-content: start;\n    }\n    .kpi {\n      background: var(--panel-2);\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      padding: 12px 13px;\n      min-height: 84px;\n    }\n    .kpi .label {\n      color: var(--muted);\n      font-size: 11px;\n      text-transform: uppercase;\n      letter-spacing: 0.07em;\n    }\n    .kpi .value {\n      font-size: 24px;\n      font-weight: 700;\n      margin-top: 8px;\n      line-height: 1.15;\n    }\n    .kpi .value.text-value {\n      font-size: 17px;\n      line-height: 1.25;\n      overflow-wrap: anywhere;\n    }\n    .methodology-grid {\n      display: grid;\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n      gap: 12px;\n    }\n    .methodology-item {\n      border: 1px solid rgba(255,255,255,0.07);\n      background: rgba(255,255,255,0.018);\n      border-radius: 14px;\n      padding: 14px;\n    }\n    .methodology-label {\n      color: var(--accent-2);\n      font-weight: 700;\n      font-size: 13px;\n      margin-bottom: 8px;\n      text-transform: uppercase;\n      letter-spacing: 0.05em;\n    }\n    .methodology-item p {\n      color: #d9e3ff;\n      margin: 0;\n      line-height: 1.5;\n      font-size: 13px;\n    }\n    .table-intro {\n      color: var(--muted);\n      font-size: 13px;\n      line-height: 1.5;\n      margin-bottom: 10px;\n    }\n    .family {\n      margin: 18px 0;\n      border: 1px solid var(--border);\n      border-radius: 20px;\n      overflow: hidden;\n      background: rgba(255,255,255,0.02);\n      box-shadow: var(--shadow);\n    }\n    .family-header {\n      padding: 16px 18px;\n      font-size: 22px;\n      font-weight: 700;\n      letter-spacing: -0.01em;\n      cursor: pointer;\n      background: rgba(255,255,255,0.03);\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n    }\n    .family-subtitle {\n      color: var(--muted);\n      font-size: 13px;\n      font-weight: 400;\n      margin-top: 6px;\n      max-width: 88ch;\n    }\n    .family-content { display: none; padding: 18px; }\n    .family.open .family-content { display: block; }\n    .grid {\n      display: grid;\n      grid-template-columns: repeat(12, 1fr);\n      gap: 18px;\n    }\n    .graph-card {\n      background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.009));\n      border: 1px solid var(--border);\n      border-radius: 18px;\n      overflow: hidden;\n      grid-column: span 12;\n      box-shadow: 0 8px 22px rgba(0,0,0,0.14);\n    }\n    .graph-header {\n      padding: 14px 16px;\n      cursor: pointer;\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      gap: 12px;\n      background: rgba(255,255,255,0.025);\n    }\n    .graph-header h3 { margin: 0; font-size: 18px; line-height: 1.2; letter-spacing: -0.01em; }\n    .graph-actions {\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n      flex-shrink: 0;\n    }\n    .graph-title-block {\n      min-width: 0;\n      flex: 1 1 auto;\n    }\n    .export-button {\n      border: 1px solid rgba(255,255,255,0.10);\n      background: rgba(255,255,255,0.04);\n      color: var(--text);\n      width: 36px;\n      height: 36px;\n      padding: 0;\n      border-radius: 10px;\n      cursor: pointer;\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n    }\n    .export-button:hover {\n      border-color: rgba(255,255,255,0.22);\n      background: rgba(255,255,255,0.08);\n    }\n    .export-icon {\n      width: 18px;\n      height: 18px;\n      display: block;\n      object-fit: contain;\n      border-radius: 4px;\n    }\n    .note { color: var(--muted); font-size: 12.5px; line-height: 1.45; margin-top: 5px; max-width: 78ch; }\n    .graph-content { display: none; padding: 14px 16px 16px; }\n    .graph-card.open .graph-content { display: block; }\n    .badge {\n      display: inline-flex;\n      align-items: center;\n      justify-content: center;\n      min-width: 24px;\n      height: 24px;\n      border-radius: 999px;\n      border: 1px solid var(--border);\n      background: rgba(255,255,255,0.03);\n      font-size: 12px;\n      color: var(--muted);\n      padding: 0 8px;\n    }\n    .table-wrap {\n      overflow: auto;\n      border: 1px solid var(--border);\n      border-radius: 14px;\n      background: rgba(255,255,255,0.015);\n    }\n    .data-table {\n      width: 100%;\n      border-collapse: collapse;\n      font-size: 13px;\n      min-width: 980px;\n    }\n    .data-table th,\n    .data-table td {\n      padding: 10px 12px;\n      border-bottom: 1px solid rgba(255,255,255,0.06);\n      text-align: left;\n      vertical-align: top;\n    }\n    .data-table th {\n      color: var(--text);\n      background: rgba(255,255,255,0.04);\n      position: sticky;\n      top: 0;\n      z-index: 1;\n    }\n    .data-table td {\n      color: #d9e3ff;\n    }\n    .data-table tr:hover td {\n      background: rgba(255,255,255,0.03);\n    }\n    .footer {\n      color: var(--muted);\n      font-size: 12px;\n      margin-top: 24px;\n      text-align: center;\n    }\n    @media (max-width: 1200px) {\n      .app { grid-template-columns: 1fr; }\n      .sidebar {\n        position: relative;\n        height: auto;\n        border-right: 0;\n        border-bottom: 1px solid var(--border);\n      }\n      .hero { grid-template-columns: 1fr; }\n      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }\n      .methodology-grid { grid-template-columns: 1fr; }\n    }\n\n    .summary-table {\n      width: 100%;\n      border-collapse: collapse;\n      font-size: 13px;\n      min-width: 980px;\n    }\n    .summary-table th,\n    .summary-table td {\n      padding: 10px 12px;\n      border-bottom: 1px solid rgba(255,255,255,0.06);\n      text-align: left;\n      vertical-align: top;\n    }\n    .summary-table th {\n      color: var(--text);\n      background: rgba(255,255,255,0.04);\n      position: sticky;\n      top: 0;\n      z-index: 1;\n    }\n    .summary-table td {\n      color: #d9e3ff;\n    }\n    .summary-table tr:hover td {\n      background: rgba(255,255,255,0.03);\n    }\n    .plot-wrap {\n      width: 100%;\n      min-height: 420px;\n    }\n"
 
 DASHBOARD_JS = '\n<script>\n  function toggleFamily(el) {\n    el.classList.toggle("open");\n  }\n\n  function toggleGraph(el) {\n    el.classList.toggle("open");\n  }\n\n  function collapseAll() {\n    document.querySelectorAll(".family, .graph-card").forEach(function(el) {\n      el.classList.remove("open");\n    });\n  }\n\n  function expandAll() {\n    document.querySelectorAll(".family, .graph-card").forEach(function(el) {\n      el.classList.add("open");\n    });\n  }\n</script>\n'
 
 
 def require_columns(df: pd.DataFrame, columns: Iterable[str]) -> None:
-    missing = [col for col in columns if col not in df.columns]
-    if missing:
-        raise ValueError(
-            "Input CSV is missing required columns:\n"
-            + "\n".join(f"  - {col}" for col in missing)
-        )
+  missing = [col for col in columns if col not in df.columns]
+  if missing:
+    raise ValueError(
+      "Input CSV is missing required columns:\n"
+      + "\n".join(f"  - {col}" for col in missing)
+    )
 
 
 def is_missing(value: object) -> bool:
-    if value is None:
-        return True
+  if value is None:
+    return True
 
-    if isinstance(value, float) and math.isnan(value):
-        return True
+  if isinstance(value, float) and math.isnan(value):
+    return True
 
-    text = str(value).strip().lower()
-    return text in {"", "nan", "none", "nat", "<na>"}
+  text = str(value).strip().lower()
+  return text in {"", "nan", "none", "nat", "<na>"}
 
 
 def normalize_text(value: object) -> str:
-    if is_missing(value):
-        return "Unknown"
+  if is_missing(value):
+    return "Unknown"
 
-    return str(value).strip()
+  return str(value).strip()
 
 
 def to_float(value: object) -> float | None:
-    if is_missing(value):
-        return None
+  if is_missing(value):
+    return None
 
-    try:
-        return float(str(value))
-    except (TypeError, ValueError):
-        return None
+  try:
+    return float(str(value))
+  except (TypeError, ValueError):
+    return None
 
 
 def format_number(value: object, digits: int = 2) -> str:
-    number = to_float(value)
-    if number is None:
-        return ""
+  number = to_float(value)
+  if number is None:
+    return ""
 
-    return f"{number:.{digits}f}"
+  return f"{number:.{digits}f}"
 
 
 def format_percent(value: object, digits: int = 1) -> str:
-    number = to_float(value)
-    if number is None:
-        return ""
+  number = to_float(value)
+  if number is None:
+    return ""
 
-    return f"{number:.{digits}f}%"
+  return f"{number:.{digits}f}%"
 
 
 def format_signed_number(value: object, digits: int = 1) -> str:
-    number = to_float(value)
-    if number is None:
-        return ""
+  number = to_float(value)
+  if number is None:
+    return ""
 
-    return f"{number:+.{digits}f}"
+  return f"{number:+.{digits}f}"
 
 
 def format_int(value: object, missing: str = "") -> str:
-    number = to_float(value)
-    if number is None:
-        return missing
+  number = to_float(value)
+  if number is None:
+    return missing
 
-    return str(int(number))
+  return str(int(number))
 
 
 def score_to_percent(series: pd.Series, max_score: float) -> pd.Series:
-    return (pd.to_numeric(series, errors="coerce").clip(0, max_score) / max_score) * 100
+  return (pd.to_numeric(series, errors="coerce").clip(0, max_score) / max_score) * 100
 
 
 def collapse_to_transcript_level(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
     input_rows = len(df)
 
-    if DUPLICATE_EVAL_COUNT_COL in df.columns:
-        duplicate_counts = pd.to_numeric(
-            df[DUPLICATE_EVAL_COUNT_COL],
-            errors="coerce",
-        ).fillna(1)
-        raw_evaluations_loaded = int(duplicate_counts.sum())
-    else:
-        raw_evaluations_loaded = input_rows
-        duplicate_counts = pd.Series([1] * input_rows, index=df.index)
+  if DUPLICATE_EVAL_COUNT_COL in df.columns:
+    duplicate_counts = pd.to_numeric(
+      df[DUPLICATE_EVAL_COUNT_COL],
+      errors="coerce",
+    ).fillna(1)
+    raw_evaluations_loaded = int(duplicate_counts.sum())
+  else:
+    raw_evaluations_loaded = input_rows
+    duplicate_counts = pd.Series([1] * input_rows, index=df.index)
 
-    df = df.copy()
-    df[DUPLICATE_EVAL_COUNT_COL] = duplicate_counts.astype(int)
+  df = df.copy()
+  df[DUPLICATE_EVAL_COUNT_COL] = duplicate_counts.astype(int)
 
-    if TRANSCRIPT_ID_COL not in df.columns:
-        metadata = {
-            "input_rows": input_rows,
-            "unique_transcripts": len(df),
-            "raw_evaluations_loaded": raw_evaluations_loaded,
-        }
-        return df, metadata
-
-    if not df[TRANSCRIPT_ID_COL].duplicated().any():
-        metadata = {
-            "input_rows": input_rows,
-            "unique_transcripts": len(df),
-            "raw_evaluations_loaded": raw_evaluations_loaded,
-        }
-        return df, metadata
-
-    score_cols = [col for col in OPTIONAL_SCORE_COLUMNS if col in df.columns]
-    metadata_cols = [
-        col
-        for col in df.columns
-        if col not in score_cols and col != DUPLICATE_EVAL_COUNT_COL
-    ]
-
-    agg_spec = {col: "first" for col in metadata_cols}
-    agg_spec.update({col: "mean" for col in score_cols})
-    agg_spec[DUPLICATE_EVAL_COUNT_COL] = "sum"
-
-    collapsed = (
-        df.groupby(TRANSCRIPT_ID_COL, as_index=False, dropna=False)
-        .agg(agg_spec)
-        .reset_index(drop=True)
-    )
-
+  if TRANSCRIPT_ID_COL not in df.columns:
     metadata = {
-        "input_rows": input_rows,
-        "unique_transcripts": len(collapsed),
-        "raw_evaluations_loaded": raw_evaluations_loaded,
+      "input_rows": input_rows,
+      "unique_transcripts": len(df),
+      "raw_evaluations_loaded": raw_evaluations_loaded,
     }
+    return df, metadata
 
-    return collapsed, metadata
+  if not df[TRANSCRIPT_ID_COL].duplicated().any():
+    metadata = {
+      "input_rows": input_rows,
+      "unique_transcripts": len(df),
+      "raw_evaluations_loaded": raw_evaluations_loaded,
+    }
+    return df, metadata
+
+  score_cols = [col for col in OPTIONAL_SCORE_COLUMNS if col in df.columns]
+  metadata_cols = [
+    col
+    for col in df.columns
+    if col not in score_cols and col != DUPLICATE_EVAL_COUNT_COL
+  ]
+
+  agg_spec = {col: "first" for col in metadata_cols}
+  agg_spec.update({col: "mean" for col in score_cols})
+  agg_spec[DUPLICATE_EVAL_COUNT_COL] = "sum"
+
+  collapsed = (
+    df.groupby(TRANSCRIPT_ID_COL, as_index=False, dropna=False)
+    .agg(agg_spec)
+    .reset_index(drop=True)
+  )
+
+  metadata = {
+    "input_rows": input_rows,
+    "unique_transcripts": len(collapsed),
+    "raw_evaluations_loaded": raw_evaluations_loaded,
+  }
+
+  return collapsed, metadata
 
 
 def read_and_prepare_data(input_path: Path) -> tuple[pd.DataFrame, dict[str, int]]:
-    df = pd.read_csv(input_path)
+  df = pd.read_csv(input_path)
 
-    require_columns(
-        df,
-        [
-            ATTACK_COL,
-            ATTACK_TRAIT_COL,
-            SCORE_COL,
-        ],
-    )
+  require_columns(
+    df,
+    [
+      ATTACK_COL,
+      ATTACK_TRAIT_COL,
+      SCORE_COL,
+    ],
+  )
 
-    df, metadata = collapse_to_transcript_level(df)
+  df, metadata = collapse_to_transcript_level(df)
 
-    for col in OPTIONAL_SCORE_COLUMNS:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce")
+  for col in OPTIONAL_SCORE_COLUMNS:
+    if col in df.columns:
+      df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    df = df.dropna(subset=[SCORE_COL]).copy()
+  df = df.dropna(subset=[SCORE_COL]).copy()
 
-    df[SCORE_PERCENT_COL] = score_to_percent(df[SCORE_COL], SCORE_MAX)
+  df[SCORE_PERCENT_COL] = score_to_percent(df[SCORE_COL], SCORE_MAX)
 
-    if ALWAYS_SCORE_COL in df.columns:
-        df[ALWAYS_PERCENT_COL] = score_to_percent(df[ALWAYS_SCORE_COL], RULE_TYPE_SCORE_MAX)
+  if ALWAYS_SCORE_COL in df.columns:
+    df[ALWAYS_PERCENT_COL] = score_to_percent(df[ALWAYS_SCORE_COL], RULE_TYPE_SCORE_MAX)
 
-    if NEVER_SCORE_COL in df.columns:
-        df[NEVER_PERCENT_COL] = score_to_percent(df[NEVER_SCORE_COL], RULE_TYPE_SCORE_MAX)
+  if NEVER_SCORE_COL in df.columns:
+    df[NEVER_PERCENT_COL] = score_to_percent(df[NEVER_SCORE_COL], RULE_TYPE_SCORE_MAX)
 
-    text_cols = [
-        ATTACK_COL,
-        ATTACK_TRAIT_COL,
-        CHARACTER_COL,
-        "character.gender",
-        "character.alignment",
-        "character.ancestry",
-        "character.age",
-        "character.role",
-        "character.role_detail_label",
-        "character.role_detail",
-        "character.ideal",
-        "character.ideal_axis",
-        "character.flaw",
-    ]
+  text_cols = [
+    ATTACK_COL,
+    ATTACK_TRAIT_COL,
+    CHARACTER_COL,
+    "character.gender",
+    "character.alignment",
+    "character.ancestry",
+    "character.age",
+    "character.role",
+    "character.role_detail_label",
+    "character.role_detail",
+    "character.ideal",
+    "character.ideal_axis",
+    "character.flaw",
+  ]
 
-    for col in text_cols:
-        if col in df.columns:
-            df[col] = df[col].map(normalize_text)
+  for col in text_cols:
+    if col in df.columns:
+      df[col] = df[col].map(normalize_text)
 
-    df = add_target_value_columns(df)
+  df = add_target_value_columns(df)
 
-    metadata["unique_transcripts"] = len(df)
+  metadata["unique_transcripts"] = len(df)
 
-    return df, metadata
+  return df, metadata
 
 
 def add_target_value_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Add:
-    - target_value: concrete value of the attacked trait
-    - macro_unit: attacked trait + concrete value
-    """
-    df = df.copy()
+  """
+  Add:
+  - target_value: concrete value of the attacked trait
+  - macro_unit: attacked trait + concrete value
+  """
+  df = df.copy()
 
-    target_values: list[str] = []
+  target_values: list[str] = []
 
-    for _, row in df.iterrows():
-        trait = normalize_text(row.get(ATTACK_TRAIT_COL)).lower()
-        candidates = TARGET_VALUE_COLUMNS.get(trait, [])
+  for _, row in df.iterrows():
+    trait = normalize_text(row.get(ATTACK_TRAIT_COL)).lower()
+    candidates = TARGET_VALUE_COLUMNS.get(trait, [])
 
-        value = "Unknown"
+    value = "Unknown"
 
-        for col in candidates:
-            if col in df.columns:
-                raw_value = row.get(col)
-                if not is_missing(raw_value):
-                    value = normalize_text(raw_value)
-                    break
+    for col in candidates:
+      if col in df.columns:
+        raw_value = row.get(col)
+        if not is_missing(raw_value):
+          value = normalize_text(raw_value)
+          break
 
-        target_values.append(value)
+    target_values.append(value)
 
-    df["target_value"] = target_values
-    df["macro_unit"] = (
-        df[ATTACK_TRAIT_COL].map(normalize_text)
-        + ": "
-        + df["target_value"].map(normalize_text)
-    )
+  df["target_value"] = target_values
+  df["macro_unit"] = (
+    df[ATTACK_TRAIT_COL].map(normalize_text)
+    + ": "
+    + df["target_value"].map(normalize_text)
+  )
 
-    return df
+  return df
 
 
 def summarize_raw_vs_macro(
-    df: pd.DataFrame,
-    group_cols: list[str],
-    score_col: str,
-    macro_unit_col: str,
+  df: pd.DataFrame,
+  group_cols: list[str],
+  score_col: str,
+  macro_unit_col: str,
 ) -> pd.DataFrame:
     raw = (
         df.groupby(group_cols, dropna=False)
@@ -328,584 +328,585 @@ def summarize_raw_vs_macro(
         .reset_index()
     )
 
-    unit_means = (
-        df.groupby(group_cols + [macro_unit_col], dropna=False)
-        .agg(
-            unit_score=(score_col, "mean"),
-            unit_transcripts=(score_col, "size"),
-        )
-        .reset_index()
+  unit_means = (
+    df.groupby(group_cols + [macro_unit_col], dropna=False)
+    .agg(
+      unit_score=(score_col, "mean"),
+      unit_transcripts=(score_col, "size"),
     )
+    .reset_index()
+  )
 
-    macro = (
-        unit_means.groupby(group_cols, dropna=False)
-        .agg(
-            macro_score=("unit_score", "mean"),
-            macro_units=("unit_score", "size"),
-            min_unit_n=("unit_transcripts", "min"),
-            max_unit_n=("unit_transcripts", "max"),
-        )
-        .reset_index()
+  macro = (
+    unit_means.groupby(group_cols, dropna=False)
+    .agg(
+      macro_score=("unit_score", "mean"),
+      macro_units=("unit_score", "size"),
+      min_unit_n=("unit_transcripts", "min"),
+      max_unit_n=("unit_transcripts", "max"),
     )
+    .reset_index()
+  )
 
-    out = raw.merge(macro, on=group_cols, how="left")
-    out["score_difference"] = out["macro_score"] - out["raw_score"]
-    out["abs_difference"] = out["score_difference"].abs()
+  out = raw.merge(macro, on=group_cols, how="left")
+  out["score_difference"] = out["macro_score"] - out["raw_score"]
+  out["abs_difference"] = out["score_difference"].abs()
 
-    return out
+  return out
 
 
 def add_rank_changes(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
-    df["raw_rank"] = df["raw_score"].rank(method="min", ascending=False)
-    df["macro_rank"] = df["macro_score"].rank(method="min", ascending=False)
+  df["raw_rank"] = df["raw_score"].rank(method="min", ascending=False)
+  df["macro_rank"] = df["macro_score"].rank(method="min", ascending=False)
 
-    df["rank_change"] = df["raw_rank"] - df["macro_rank"]
-    df["abs_rank_change"] = df["rank_change"].abs()
+  df["rank_change"] = df["raw_rank"] - df["macro_rank"]
+  df["abs_rank_change"] = df["rank_change"].abs()
 
-    return df
+  return df
 
 
 def style_fig(fig: go.Figure, title: str, height: int) -> go.Figure:
-    fig.update_layout(
-        title=title,
-        height=height,
-        template="plotly_dark",
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font={"color": "#ecf1ff"},
-        margin={"t": 60, "l": 70, "r": 35, "b": 80},
-        legend={
-            "bgcolor": "rgba(0,0,0,0)",
-            "bordercolor": "rgba(255,255,255,0.08)",
-            "borderwidth": 1,
-        },
-    )
-    fig.update_xaxes(
-        gridcolor="rgba(255,255,255,0.08)",
-        zerolinecolor="rgba(255,255,255,0.08)",
-    )
-    fig.update_yaxes(
-        gridcolor="rgba(255,255,255,0.08)",
-        zerolinecolor="rgba(255,255,255,0.08)",
-    )
-    return fig
+  fig.update_layout(
+    title=title,
+    height=height,
+    template="plotly_dark",
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font={"color": "#ecf1ff"},
+    margin={"t": 60, "l": 70, "r": 35, "b": 80},
+    legend={
+      "bgcolor": "rgba(0,0,0,0)",
+      "bordercolor": "rgba(255,255,255,0.08)",
+      "borderwidth": 1,
+    },
+  )
+  fig.update_xaxes(
+    gridcolor="rgba(255,255,255,0.08)",
+    zerolinecolor="rgba(255,255,255,0.08)",
+  )
+  fig.update_yaxes(
+    gridcolor="rgba(255,255,255,0.08)",
+    zerolinecolor="rgba(255,255,255,0.08)",
+  )
+  return fig
 
 
 def make_raw_macro_attack_plot(summary: pd.DataFrame) -> go.Figure:
-    data = summary.sort_values("raw_score", ascending=True)
+  data = summary.sort_values("raw_score", ascending=True)
 
-    custom_raw = list(
-        zip(
-            data["n_transcripts"],
-            data["raw_evaluations"],
-            data["macro_units"],
-            data["score_difference"],
-        )
+  custom_raw = list(
+    zip(
+      data["n_transcripts"],
+      data["raw_evaluations"],
+      data["macro_units"],
+      data["score_difference"],
     )
+  )
 
-    fig = go.Figure()
+  fig = go.Figure()
 
-    fig.add_trace(
-        go.Bar(
-            name="Raw observed score",
-            x=data["raw_score"],
-            y=data[ATTACK_COL],
-            orientation="h",
-            customdata=custom_raw,
-            hovertemplate=(
-                "<b>%{y}</b><br>"
-                "Raw score: %{x:.1f}%<br>"
-                "Unique transcripts: %{customdata[0]}<br>"
-                "Raw evaluations: %{customdata[1]}<br>"
-                "Macro units: %{customdata[2]}<br>"
-                "Macro - raw: %{customdata[3]:+.1f} pp"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Bar(
+      name="Raw observed score",
+      x=data["raw_score"],
+      y=data[ATTACK_COL],
+      orientation="h",
+      customdata=custom_raw,
+      hovertemplate=(
+        "<b>%{y}</b><br>"
+        "Raw score: %{x:.1f}%<br>"
+        "Unique transcripts: %{customdata[0]}<br>"
+        "Raw evaluations: %{customdata[1]}<br>"
+        "Macro units: %{customdata[2]}<br>"
+        "Macro - raw: %{customdata[3]:+.1f} pp"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.add_trace(
-        go.Bar(
-            name="Macro-averaged score",
-            x=data["macro_score"],
-            y=data[ATTACK_COL],
-            orientation="h",
-            customdata=custom_raw,
-            hovertemplate=(
-                "<b>%{y}</b><br>"
-                "Macro score: %{x:.1f}%<br>"
-                "Unique transcripts: %{customdata[0]}<br>"
-                "Raw evaluations: %{customdata[1]}<br>"
-                "Macro units: %{customdata[2]}<br>"
-                "Macro - raw: %{customdata[3]:+.1f} pp"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Bar(
+      name="Macro-averaged score",
+      x=data["macro_score"],
+      y=data[ATTACK_COL],
+      orientation="h",
+      customdata=custom_raw,
+      hovertemplate=(
+        "<b>%{y}</b><br>"
+        "Macro score: %{x:.1f}%<br>"
+        "Unique transcripts: %{customdata[0]}<br>"
+        "Raw evaluations: %{customdata[1]}<br>"
+        "Macro units: %{customdata[2]}<br>"
+        "Macro - raw: %{customdata[3]:+.1f} pp"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.update_layout(
-        barmode="group",
-        legend_title="Score type",
-    )
-    fig.update_xaxes(title="Robustness score (%)", range=[0, 100], ticksuffix="%")
-    fig.update_yaxes(title="Attack strategy")
+  fig.update_layout(
+    barmode="group",
+    legend_title="Score type",
+  )
+  fig.update_xaxes(title="Robustness score (%)", range=[0, 100], ticksuffix="%")
+  fig.update_yaxes(title="Attack strategy")
 
-    return style_fig(
-        fig,
-        title="Raw vs Macro-Averaged Robustness by Attack Strategy",
-        height=max(650, 26 * len(data)),
-    )
+  return style_fig(
+    fig,
+    title="Raw vs Macro-Averaged Robustness by Attack Strategy",
+    height=max(650, 26 * len(data)),
+  )
 
 
 def make_attack_difference_plot(summary: pd.DataFrame) -> go.Figure:
-    data = summary.sort_values("score_difference", ascending=True)
+  data = summary.sort_values("score_difference", ascending=True)
 
-    custom = list(
-        zip(
-            data["raw_score"],
-            data["macro_score"],
-            data["n_transcripts"],
-            data["raw_evaluations"],
-            data["macro_units"],
-        )
+  custom = list(
+    zip(
+      data["raw_score"],
+      data["macro_score"],
+      data["n_transcripts"],
+      data["raw_evaluations"],
+      data["macro_units"],
     )
+  )
 
-    fig = go.Figure()
+  fig = go.Figure()
 
-    fig.add_trace(
-        go.Bar(
-            x=data["score_difference"],
-            y=data[ATTACK_COL],
-            orientation="h",
-            customdata=custom,
-            hovertemplate=(
-                "<b>%{y}</b><br>"
-                "Difference: %{x:+.1f} pp<br>"
-                "Raw score: %{customdata[0]:.1f}%<br>"
-                "Macro score: %{customdata[1]:.1f}%<br>"
-                "Unique transcripts: %{customdata[2]}<br>"
-                "Raw evaluations: %{customdata[3]}<br>"
-                "Macro units: %{customdata[4]}"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Bar(
+      x=data["score_difference"],
+      y=data[ATTACK_COL],
+      orientation="h",
+      customdata=custom,
+      hovertemplate=(
+        "<b>%{y}</b><br>"
+        "Difference: %{x:+.1f} pp<br>"
+        "Raw score: %{customdata[0]:.1f}%<br>"
+        "Macro score: %{customdata[1]:.1f}%<br>"
+        "Unique transcripts: %{customdata[2]}<br>"
+        "Raw evaluations: %{customdata[3]}<br>"
+        "Macro units: %{customdata[4]}"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.add_vline(x=0, line_width=1, line_dash="dash")
+  fig.add_vline(x=0, line_width=1, line_dash="dash")
 
-    fig.update_xaxes(title="Macro-averaged score minus raw score, percentage points")
-    fig.update_yaxes(title="Attack strategy")
+  fig.update_xaxes(title="Macro-averaged score minus raw score, percentage points")
+  fig.update_yaxes(title="Attack strategy")
 
-    return style_fig(
-        fig,
-        title="Correction Effect by Attack Strategy",
-        height=max(650, 26 * len(data)),
-    )
+  return style_fig(
+    fig,
+    title="Correction Effect by Attack Strategy",
+    height=max(650, 26 * len(data)),
+  )
 
 
 def make_rank_change_plot(summary: pd.DataFrame) -> go.Figure:
-    data = summary.sort_values("rank_change", ascending=True)
+  data = summary.sort_values("rank_change", ascending=True)
 
-    custom = list(
-        zip(
-            data["raw_rank"],
-            data["macro_rank"],
-            data["raw_score"],
-            data["macro_score"],
-            data["n_transcripts"],
-            data["raw_evaluations"],
-        )
+  custom = list(
+    zip(
+      data["raw_rank"],
+      data["macro_rank"],
+      data["raw_score"],
+      data["macro_score"],
+      data["n_transcripts"],
+      data["raw_evaluations"],
     )
+  )
 
-    fig = go.Figure()
+  fig = go.Figure()
 
-    fig.add_trace(
-        go.Bar(
-            x=data["rank_change"],
-            y=data[ATTACK_COL],
-            orientation="h",
-            customdata=custom,
-            hovertemplate=(
-                "<b>%{y}</b><br>"
-                "Rank change: %{x:+.0f}<br>"
-                "Raw rank: %{customdata[0]:.0f}<br>"
-                "Macro rank: %{customdata[1]:.0f}<br>"
-                "Raw score: %{customdata[2]:.1f}%<br>"
-                "Macro score: %{customdata[3]:.1f}%<br>"
-                "Unique transcripts: %{customdata[4]}<br>"
-                "Raw evaluations: %{customdata[5]}"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Bar(
+      x=data["rank_change"],
+      y=data[ATTACK_COL],
+      orientation="h",
+      customdata=custom,
+      hovertemplate=(
+        "<b>%{y}</b><br>"
+        "Rank change: %{x:+.0f}<br>"
+        "Raw rank: %{customdata[0]:.0f}<br>"
+        "Macro rank: %{customdata[1]:.0f}<br>"
+        "Raw score: %{customdata[2]:.1f}%<br>"
+        "Macro score: %{customdata[3]:.1f}%<br>"
+        "Unique transcripts: %{customdata[4]}<br>"
+        "Raw evaluations: %{customdata[5]}"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.add_vline(x=0, line_width=1, line_dash="dash")
-    fig.update_xaxes(title="Raw rank - macro rank; positive means moved up after correction")
-    fig.update_yaxes(title="Attack strategy")
+  fig.add_vline(x=0, line_width=1, line_dash="dash")
+  fig.update_xaxes(
+    title="Raw rank - macro rank; positive means moved up after correction"
+  )
+  fig.update_yaxes(title="Attack strategy")
 
-    return style_fig(
-        fig,
-        title="Attack Strategy Rank Changes After Macro-Averaging",
-        height=max(650, 26 * len(data)),
-    )
+  return style_fig(
+    fig,
+    title="Attack Strategy Rank Changes After Macro-Averaging",
+    height=max(650, 26 * len(data)),
+  )
 
 
 def make_target_trait_plot(summary: pd.DataFrame) -> go.Figure:
-    data = summary.sort_values("raw_score", ascending=True)
+  data = summary.sort_values("raw_score", ascending=True)
 
-    custom = list(
-        zip(
-            data["n_transcripts"],
-            data["raw_evaluations"],
-            data["macro_units"],
-            data["score_difference"],
-        )
+  custom = list(
+    zip(
+      data["n_transcripts"],
+      data["raw_evaluations"],
+      data["macro_units"],
+      data["score_difference"],
     )
+  )
 
-    fig = go.Figure()
+  fig = go.Figure()
 
-    fig.add_trace(
-        go.Bar(
-            name="Raw observed score",
-            x=data["raw_score"],
-            y=data[ATTACK_TRAIT_COL],
-            orientation="h",
-            customdata=custom,
-            hovertemplate=(
-                "<b>%{y}</b><br>"
-                "Raw score: %{x:.1f}%<br>"
-                "Unique transcripts: %{customdata[0]}<br>"
-                "Raw evaluations: %{customdata[1]}<br>"
-                "Macro units: %{customdata[2]}<br>"
-                "Macro - raw: %{customdata[3]:+.1f} pp"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Bar(
+      name="Raw observed score",
+      x=data["raw_score"],
+      y=data[ATTACK_TRAIT_COL],
+      orientation="h",
+      customdata=custom,
+      hovertemplate=(
+        "<b>%{y}</b><br>"
+        "Raw score: %{x:.1f}%<br>"
+        "Unique transcripts: %{customdata[0]}<br>"
+        "Raw evaluations: %{customdata[1]}<br>"
+        "Macro units: %{customdata[2]}<br>"
+        "Macro - raw: %{customdata[3]:+.1f} pp"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.add_trace(
-        go.Bar(
-            name="Macro-averaged score",
-            x=data["macro_score"],
-            y=data[ATTACK_TRAIT_COL],
-            orientation="h",
-            customdata=custom,
-            hovertemplate=(
-                "<b>%{y}</b><br>"
-                "Macro score: %{x:.1f}%<br>"
-                "Unique transcripts: %{customdata[0]}<br>"
-                "Raw evaluations: %{customdata[1]}<br>"
-                "Macro units: %{customdata[2]}<br>"
-                "Macro - raw: %{customdata[3]:+.1f} pp"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Bar(
+      name="Macro-averaged score",
+      x=data["macro_score"],
+      y=data[ATTACK_TRAIT_COL],
+      orientation="h",
+      customdata=custom,
+      hovertemplate=(
+        "<b>%{y}</b><br>"
+        "Macro score: %{x:.1f}%<br>"
+        "Unique transcripts: %{customdata[0]}<br>"
+        "Raw evaluations: %{customdata[1]}<br>"
+        "Macro units: %{customdata[2]}<br>"
+        "Macro - raw: %{customdata[3]:+.1f} pp"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.update_layout(
-        barmode="group",
-        legend_title="Score type",
-    )
-    fig.update_xaxes(title="Robustness score (%)", range=[0, 100], ticksuffix="%")
-    fig.update_yaxes(title="Target trait")
+  fig.update_layout(
+    barmode="group",
+    legend_title="Score type",
+  )
+  fig.update_xaxes(title="Robustness score (%)", range=[0, 100], ticksuffix="%")
+  fig.update_yaxes(title="Target trait")
 
-    return style_fig(
-        fig,
-        title="Raw vs Macro-Averaged Robustness by Target Trait",
-        height=max(450, 90 * len(data)),
-    )
+  return style_fig(
+    fig,
+    title="Raw vs Macro-Averaged Robustness by Target Trait",
+    height=max(450, 90 * len(data)),
+  )
 
 
 def make_raw_vs_macro_scatter(summary: pd.DataFrame) -> go.Figure:
-    custom = list(
-        zip(
-            summary["score_difference"],
-            summary["rank_change"],
-            summary["n_transcripts"],
-            summary["raw_evaluations"],
-            summary["macro_units"],
-        )
+  custom = list(
+    zip(
+      summary["score_difference"],
+      summary["rank_change"],
+      summary["n_transcripts"],
+      summary["raw_evaluations"],
+      summary["macro_units"],
     )
+  )
 
-    fig = go.Figure()
+  fig = go.Figure()
 
-    fig.add_trace(
-        go.Scatter(
-            x=summary["raw_score"],
-            y=summary["macro_score"],
-            mode="markers",
-            text=summary[ATTACK_COL],
-            customdata=custom,
-            marker={
-                "size": 12,
-                "color": summary["score_difference"],
-                "colorscale": DIFFERENCE_COLOR_SCALE,
-                "colorbar": {"title": "Macro - raw"},
-                "line": {"width": 1, "color": "rgba(255,255,255,0.45)"},
-            },
-            hovertemplate=(
-                "<b>%{text}</b><br>"
-                "Raw score: %{x:.1f}%<br>"
-                "Macro score: %{y:.1f}%<br>"
-                "Macro - raw: %{customdata[0]:+.1f} pp<br>"
-                "Rank change: %{customdata[1]:+.0f}<br>"
-                "Unique transcripts: %{customdata[2]}<br>"
-                "Raw evaluations: %{customdata[3]}<br>"
-                "Macro units: %{customdata[4]}"
-                "<extra></extra>"
-            ),
-        )
+  fig.add_trace(
+    go.Scatter(
+      x=summary["raw_score"],
+      y=summary["macro_score"],
+      mode="markers",
+      text=summary[ATTACK_COL],
+      customdata=custom,
+      marker={
+        "size": 12,
+        "color": summary["score_difference"],
+        "colorscale": DIFFERENCE_COLOR_SCALE,
+        "colorbar": {"title": "Macro - raw"},
+        "line": {"width": 1, "color": "rgba(255,255,255,0.45)"},
+      },
+      hovertemplate=(
+        "<b>%{text}</b><br>"
+        "Raw score: %{x:.1f}%<br>"
+        "Macro score: %{y:.1f}%<br>"
+        "Macro - raw: %{customdata[0]:+.1f} pp<br>"
+        "Rank change: %{customdata[1]:+.0f}<br>"
+        "Unique transcripts: %{customdata[2]}<br>"
+        "Raw evaluations: %{customdata[3]}<br>"
+        "Macro units: %{customdata[4]}"
+        "<extra></extra>"
+      ),
     )
+  )
 
-    fig.add_trace(
-        go.Scatter(
-            x=[0, 100],
-            y=[0, 100],
-            mode="lines",
-            name="No difference",
-            hoverinfo="skip",
-            line={"dash": "dash"},
-        )
+  fig.add_trace(
+    go.Scatter(
+      x=[0, 100],
+      y=[0, 100],
+      mode="lines",
+      name="No difference",
+      hoverinfo="skip",
+      line={"dash": "dash"},
     )
+  )
 
-    fig.update_xaxes(title="Raw observed score (%)", range=[0, 100], ticksuffix="%")
-    fig.update_yaxes(title="Macro-averaged score (%)", range=[0, 100], ticksuffix="%")
-    fig.update_layout(showlegend=False)
+  fig.update_xaxes(title="Raw observed score (%)", range=[0, 100], ticksuffix="%")
+  fig.update_yaxes(title="Macro-averaged score (%)", range=[0, 100], ticksuffix="%")
+  fig.update_layout(showlegend=False)
 
-    return style_fig(fig, title="Raw vs Macro-Averaged Attack Scores", height=650)
+  return style_fig(fig, title="Raw vs Macro-Averaged Attack Scores", height=650)
 
 
 def make_attack_trait_difference_heatmap(cell_summary: pd.DataFrame) -> go.Figure:
-    pivot = cell_summary.pivot(
-        index=ATTACK_COL,
-        columns=ATTACK_TRAIT_COL,
-        values="score_difference",
-    )
+  pivot = cell_summary.pivot(
+    index=ATTACK_COL,
+    columns=ATTACK_TRAIT_COL,
+    values="score_difference",
+  )
 
-    n_pivot = cell_summary.pivot(
-        index=ATTACK_COL,
-        columns=ATTACK_TRAIT_COL,
-        values="n_transcripts",
-    )
+  n_pivot = cell_summary.pivot(
+    index=ATTACK_COL,
+    columns=ATTACK_TRAIT_COL,
+    values="n_transcripts",
+  )
 
-    raw_eval_pivot = cell_summary.pivot(
-        index=ATTACK_COL,
-        columns=ATTACK_TRAIT_COL,
-        values="raw_evaluations",
-    )
+  raw_eval_pivot = cell_summary.pivot(
+    index=ATTACK_COL,
+    columns=ATTACK_TRAIT_COL,
+    values="raw_evaluations",
+  )
 
-    hover_text: list[list[str]] = []
+  hover_text: list[list[str]] = []
 
-    for attack in pivot.index:
-        row = []
-        for trait in pivot.columns:
-            diff = pivot.loc[attack, trait]
-            n_value = n_pivot.loc[attack, trait]
-            raw_eval_value = raw_eval_pivot.loc[attack, trait]
+  for attack in pivot.index:
+    row = []
+    for trait in pivot.columns:
+      diff = pivot.loc[attack, trait]
+      n_value = n_pivot.loc[attack, trait]
+      raw_eval_value = raw_eval_pivot.loc[attack, trait]
 
-            if is_missing(diff):
-                row.append("No data")
-            else:
-                row.append(
-                    f"Attack: {attack}<br>"
-                    f"Target trait: {trait}<br>"
-                    f"Macro - raw: {format_signed_number(diff, 1)} pp<br>"
-                    f"Unique transcripts: {format_int(n_value, missing='unknown')}<br>"
-                    f"Raw evaluations: {format_int(raw_eval_value, missing='unknown')}"
-                )
-        hover_text.append(row)
-
-    fig = go.Figure(
-        data=go.Heatmap(
-            z=pivot.values,
-            x=pivot.columns,
-            y=pivot.index,
-            text=hover_text,
-            hovertemplate="%{text}<extra></extra>",
-            colorscale=DIFFERENCE_COLOR_SCALE,
-            zmid=0,
-            colorbar={"title": "Macro - raw"},
+      if is_missing(diff):
+        row.append("No data")
+      else:
+        row.append(
+          f"Attack: {attack}<br>"
+          f"Target trait: {trait}<br>"
+          f"Macro - raw: {format_signed_number(diff, 1)} pp<br>"
+          f"Unique transcripts: {format_int(n_value, missing='unknown')}<br>"
+          f"Raw evaluations: {format_int(raw_eval_value, missing='unknown')}"
         )
-    )
+    hover_text.append(row)
 
-    fig.update_xaxes(title="Target trait")
-    fig.update_yaxes(title="Attack strategy")
-
-    return style_fig(
-        fig,
-        title="Correction Effect Heatmap: Attack Strategy × Target Trait",
-        height=max(650, 24 * len(pivot.index)),
+  fig = go.Figure(
+    data=go.Heatmap(
+      z=pivot.values,
+      x=pivot.columns,
+      y=pivot.index,
+      text=hover_text,
+      hovertemplate="%{text}<extra></extra>",
+      colorscale=DIFFERENCE_COLOR_SCALE,
+      zmid=0,
+      colorbar={"title": "Macro - raw"},
     )
+  )
+
+  fig.update_xaxes(title="Target trait")
+  fig.update_yaxes(title="Attack strategy")
+
+  return style_fig(
+    fig,
+    title="Correction Effect Heatmap: Attack Strategy × Target Trait",
+    height=max(650, 24 * len(pivot.index)),
+  )
 
 
 def make_summary_table_html(summary: pd.DataFrame) -> str:
-    table = summary.sort_values("abs_rank_change", ascending=False).copy()
+  table = summary.sort_values("abs_rank_change", ascending=False).copy()
 
-    table = table[
-        [
-            ATTACK_COL,
-            "raw_score",
-            "macro_score",
-            "score_difference",
-            "raw_rank",
-            "macro_rank",
-            "rank_change",
-            "n_transcripts",
-            "raw_evaluations",
-            "macro_units",
-            "min_unit_n",
-        ]
+  table = table[
+    [
+      ATTACK_COL,
+      "raw_score",
+      "macro_score",
+      "score_difference",
+      "raw_rank",
+      "macro_rank",
+      "rank_change",
+      "n_transcripts",
+      "raw_evaluations",
+      "macro_units",
+      "min_unit_n",
     ]
+  ]
 
-    table = table.rename(
-        columns={
-            ATTACK_COL: "Attack",
-            "raw_score": "Raw score",
-            "macro_score": "Macro score",
-            "score_difference": "Macro - raw",
-            "raw_rank": "Raw rank",
-            "macro_rank": "Macro rank",
-            "rank_change": "Rank change",
-            "n_transcripts": "Unique transcripts",
-            "raw_evaluations": "Raw evaluations",
-            "macro_units": "Macro units",
-            "min_unit_n": "Smallest unit n",
-        }
-    )
+  table = table.rename(
+    columns={
+      ATTACK_COL: "Attack",
+      "raw_score": "Raw score",
+      "macro_score": "Macro score",
+      "score_difference": "Macro - raw",
+      "raw_rank": "Raw rank",
+      "macro_rank": "Macro rank",
+      "rank_change": "Rank change",
+      "n_transcripts": "Unique transcripts",
+      "raw_evaluations": "Raw evaluations",
+      "macro_units": "Macro units",
+      "min_unit_n": "Smallest unit n",
+    }
+  )
 
-    for col in ["Raw score", "Macro score"]:
-        table[col] = table[col].map(lambda x: format_percent(x, 1))
+  for col in ["Raw score", "Macro score"]:
+    table[col] = table[col].map(lambda x: format_percent(x, 1))
 
-    table["Macro - raw"] = table["Macro - raw"].map(
-        lambda x: f"{format_signed_number(x, 1)} pp"
-    )
+  table["Macro - raw"] = table["Macro - raw"].map(
+    lambda x: f"{format_signed_number(x, 1)} pp"
+  )
 
-    for col in [
-        "Raw rank",
-        "Macro rank",
-        "Rank change",
-        "Unique transcripts",
-        "Raw evaluations",
-        "Macro units",
-        "Smallest unit n",
-    ]:
-        table[col] = table[col].map(format_int)
+  for col in [
+    "Raw rank",
+    "Macro rank",
+    "Rank change",
+    "Unique transcripts",
+    "Raw evaluations",
+    "Macro units",
+    "Smallest unit n",
+  ]:
+    table[col] = table[col].map(format_int)
 
-    return table.to_html(index=False, classes="summary-table", escape=True)
+  return table.to_html(index=False, classes="summary-table", escape=True)
 
 
 def make_low_count_table_html(summary: pd.DataFrame, threshold: int = 10) -> str:
-    low = summary[summary["min_unit_n"] < threshold].copy()
+  low = summary[summary["min_unit_n"] < threshold].copy()
 
-    if low.empty:
-        return f"<p>No attack strategy has a macro unit below n &lt; {threshold}.</p>"
+  if low.empty:
+    return f"<p>No attack strategy has a macro unit below n &lt; {threshold}.</p>"
 
-    low = low.sort_values(["min_unit_n", "n_transcripts"], ascending=[True, True])
+  low = low.sort_values(["min_unit_n", "n_transcripts"], ascending=[True, True])
 
-    low = low[
-        [
-            ATTACK_COL,
-            "n_transcripts",
-            "raw_evaluations",
-            "macro_units",
-            "min_unit_n",
-            "max_unit_n",
-            "raw_score",
-            "macro_score",
-            "score_difference",
-        ]
+  low = low[
+    [
+      ATTACK_COL,
+      "n_transcripts",
+      "raw_evaluations",
+      "macro_units",
+      "min_unit_n",
+      "max_unit_n",
+      "raw_score",
+      "macro_score",
+      "score_difference",
     ]
+  ]
 
-    low = low.rename(
-        columns={
-            ATTACK_COL: "Attack",
-            "n_transcripts": "Unique transcripts",
-            "raw_evaluations": "Raw evaluations",
-            "macro_units": "Macro units",
-            "min_unit_n": "Smallest unit n",
-            "max_unit_n": "Largest unit n",
-            "raw_score": "Raw score",
-            "macro_score": "Macro score",
-            "score_difference": "Macro - raw",
-        }
-    )
+  low = low.rename(
+    columns={
+      ATTACK_COL: "Attack",
+      "n_transcripts": "Unique transcripts",
+      "raw_evaluations": "Raw evaluations",
+      "macro_units": "Macro units",
+      "min_unit_n": "Smallest unit n",
+      "max_unit_n": "Largest unit n",
+      "raw_score": "Raw score",
+      "macro_score": "Macro score",
+      "score_difference": "Macro - raw",
+    }
+  )
 
-    for col in ["Raw score", "Macro score"]:
-        low[col] = low[col].map(lambda x: format_percent(x, 1))
+  for col in ["Raw score", "Macro score"]:
+    low[col] = low[col].map(lambda x: format_percent(x, 1))
 
-    low["Macro - raw"] = low["Macro - raw"].map(
-        lambda x: f"{format_signed_number(x, 1)} pp"
-    )
+  low["Macro - raw"] = low["Macro - raw"].map(
+    lambda x: f"{format_signed_number(x, 1)} pp"
+  )
 
-    for col in [
-        "Unique transcripts",
-        "Raw evaluations",
-        "Macro units",
-        "Smallest unit n",
-        "Largest unit n",
-    ]:
-        low[col] = low[col].map(format_int)
+  for col in [
+    "Unique transcripts",
+    "Raw evaluations",
+    "Macro units",
+    "Smallest unit n",
+    "Largest unit n",
+  ]:
+    low[col] = low[col].map(format_int)
 
-    return low.to_html(index=False, classes="summary-table", escape=True)
+  return low.to_html(index=False, classes="summary-table", escape=True)
 
 
 def fig_html(fig: go.Figure, include_plotlyjs: bool = False) -> str:
-    return pio.to_html(
-        fig,
-        full_html=False,
-        include_plotlyjs=include_plotlyjs,
-        config={
-            "displayModeBar": True,
-            "responsive": True,
-            "scrollZoom": True,
-            "displaylogo": False,
-        },
-    )
+  return pio.to_html(
+    fig,
+    full_html=False,
+    include_plotlyjs=include_plotlyjs,
+    config={
+      "displayModeBar": True,
+      "responsive": True,
+      "scrollZoom": True,
+      "displaylogo": False,
+    },
+  )
 
 
 def build_html(
-    df: pd.DataFrame,
-    metadata: dict[str, int],
-    attack_summary: pd.DataFrame,
-    target_summary: pd.DataFrame,
-    cell_summary: pd.DataFrame,
-    output_path: Path,
-    score_col: str,
-    low_count_threshold: int,
+  df: pd.DataFrame,
+  metadata: dict[str, int],
+  attack_summary: pd.DataFrame,
+  target_summary: pd.DataFrame,
+  cell_summary: pd.DataFrame,
+  output_path: Path,
+  score_col: str,
+  low_count_threshold: int,
 ) -> str:
-    unique_transcripts = metadata["unique_transcripts"]
-    raw_evaluations_loaded = metadata["raw_evaluations_loaded"]
-    input_rows = metadata["input_rows"]
+  unique_transcripts = metadata["unique_transcripts"]
+  raw_evaluations_loaded = metadata["raw_evaluations_loaded"]
+  input_rows = metadata["input_rows"]
 
-    unique_attacks = df[ATTACK_COL].nunique(dropna=True)
-    unique_target_traits = df[ATTACK_TRAIT_COL].nunique(dropna=True)
-    avg_raw_score = attack_summary["raw_score"].mean()
-    avg_macro_score = attack_summary["macro_score"].mean()
-    max_rank_change = attack_summary["abs_rank_change"].max()
+  unique_attacks = df[ATTACK_COL].nunique(dropna=True)
+  unique_target_traits = df[ATTACK_TRAIT_COL].nunique(dropna=True)
+  avg_raw_score = attack_summary["raw_score"].mean()
+  avg_macro_score = attack_summary["macro_score"].mean()
+  max_rank_change = attack_summary["abs_rank_change"].max()
 
-    figs = [
-        make_raw_vs_macro_scatter(attack_summary),
-        make_raw_macro_attack_plot(attack_summary),
-        make_attack_difference_plot(attack_summary),
-        make_rank_change_plot(attack_summary),
-        make_target_trait_plot(target_summary),
-        make_attack_trait_difference_heatmap(cell_summary),
-    ]
+  figs = [
+    make_raw_vs_macro_scatter(attack_summary),
+    make_raw_macro_attack_plot(attack_summary),
+    make_attack_difference_plot(attack_summary),
+    make_rank_change_plot(attack_summary),
+    make_target_trait_plot(target_summary),
+    make_attack_trait_difference_heatmap(cell_summary),
+  ]
 
-    figs_html = [
-        fig_html(fig, include_plotlyjs=(index == 0))
-        for index, fig in enumerate(figs)
-    ]
+  figs_html = [
+    fig_html(fig, include_plotlyjs=(index == 0)) for index, fig in enumerate(figs)
+  ]
 
-    rank_table_html = make_summary_table_html(attack_summary)
-    low_count_table_html = make_low_count_table_html(
-        attack_summary,
-        threshold=low_count_threshold,
-    )
+  rank_table_html = make_summary_table_html(attack_summary)
+  low_count_table_html = make_low_count_table_html(
+    attack_summary,
+    threshold=low_count_threshold,
+  )
 
-    html = f"""
+  html = f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1301,85 +1302,85 @@ def build_html(
 </html>
 """
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(html, encoding="utf-8")
+  output_path.parent.mkdir(parents=True, exist_ok=True)
+  output_path.write_text(html, encoding="utf-8")
 
-    return html
+  return html
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Build an imbalance sensitivity dashboard from combined transcript results."
-    )
+  parser = argparse.ArgumentParser(
+    description="Build an imbalance sensitivity dashboard from combined transcript results."
+  )
 
-    parser.add_argument(
-        "--input",
-        type=Path,
-        default=DEFAULT_INPUT,
-        help="Path to combined_transcript_results.csv",
-    )
+  parser.add_argument(
+    "--input",
+    type=Path,
+    default=DEFAULT_INPUT,
+    help="Path to combined_transcript_results.csv",
+  )
 
-    parser.add_argument(
-        "--output",
-        type=Path,
-        default=DEFAULT_OUTPUT,
-        help="Path where the HTML dashboard should be written.",
-    )
+  parser.add_argument(
+    "--output",
+    type=Path,
+    default=DEFAULT_OUTPUT,
+    help="Path where the HTML dashboard should be written.",
+  )
 
-    parser.add_argument(
-        "--low-count-threshold",
-        type=int,
-        default=10,
-        help="Minimum transcript-level macro-unit count before a value is flagged as low-count.",
-    )
+  parser.add_argument(
+    "--low-count-threshold",
+    type=int,
+    default=10,
+    help="Minimum transcript-level macro-unit count before a value is flagged as low-count.",
+  )
 
-    return parser.parse_args()
+  return parser.parse_args()
 
 
 def main() -> None:
-    args = parse_args()
+  args = parse_args()
 
-    df, metadata = read_and_prepare_data(args.input)
+  df, metadata = read_and_prepare_data(args.input)
 
-    attack_summary = summarize_raw_vs_macro(
-        df=df,
-        group_cols=[ATTACK_COL],
-        score_col=SCORE_PERCENT_COL,
-        macro_unit_col="macro_unit",
-    )
+  attack_summary = summarize_raw_vs_macro(
+    df=df,
+    group_cols=[ATTACK_COL],
+    score_col=SCORE_PERCENT_COL,
+    macro_unit_col="macro_unit",
+  )
 
-    attack_summary = add_rank_changes(attack_summary)
+  attack_summary = add_rank_changes(attack_summary)
 
-    target_summary = summarize_raw_vs_macro(
-        df=df,
-        group_cols=[ATTACK_TRAIT_COL],
-        score_col=SCORE_PERCENT_COL,
-        macro_unit_col="target_value",
-    )
+  target_summary = summarize_raw_vs_macro(
+    df=df,
+    group_cols=[ATTACK_TRAIT_COL],
+    score_col=SCORE_PERCENT_COL,
+    macro_unit_col="target_value",
+  )
 
-    cell_summary = summarize_raw_vs_macro(
-        df=df,
-        group_cols=[ATTACK_COL, ATTACK_TRAIT_COL],
-        score_col=SCORE_PERCENT_COL,
-        macro_unit_col="target_value",
-    )
+  cell_summary = summarize_raw_vs_macro(
+    df=df,
+    group_cols=[ATTACK_COL, ATTACK_TRAIT_COL],
+    score_col=SCORE_PERCENT_COL,
+    macro_unit_col="target_value",
+  )
 
-    build_html(
-        df=df,
-        metadata=metadata,
-        attack_summary=attack_summary,
-        target_summary=target_summary,
-        cell_summary=cell_summary,
-        output_path=args.output,
-        score_col=SCORE_COL,
-        low_count_threshold=args.low_count_threshold,
-    )
+  build_html(
+    df=df,
+    metadata=metadata,
+    attack_summary=attack_summary,
+    target_summary=target_summary,
+    cell_summary=cell_summary,
+    output_path=args.output,
+    score_col=SCORE_COL,
+    low_count_threshold=args.low_count_threshold,
+  )
 
-    print(f"Dashboard written to: {args.output}")
-    print(f"Unique transcripts analyzed: {metadata['unique_transcripts']:,}")
-    print(f"Raw evaluations loaded: {metadata['raw_evaluations_loaded']:,}")
-    print(f"Input CSV rows: {metadata['input_rows']:,}")
+  print(f"Dashboard written to: {args.output}")
+  print(f"Unique transcripts analyzed: {metadata['unique_transcripts']:,}")
+  print(f"Raw evaluations loaded: {metadata['raw_evaluations_loaded']:,}")
+  print(f"Input CSV rows: {metadata['input_rows']:,}")
 
 
 if __name__ == "__main__":
-    main()
+  main()

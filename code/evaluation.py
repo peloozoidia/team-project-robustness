@@ -155,7 +155,6 @@ async def get_test_results(persona, transcript, semaphore) -> dict[str, list]:
       )
       response_json = extract_json_from_response(response)
       try:
-        # jsonschema.validate(response_json, evaluation_result_schema)
         _bundle = EvaluationResult.model_validate_json(json_data=response)
 
         return response_json

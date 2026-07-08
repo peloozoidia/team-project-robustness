@@ -47,7 +47,7 @@ def get_attack_bundle_schema():
 
 
 def get_task_prompt(persona, attack) -> str:
-  chatgpt_template_v2 = f"""
+  prompt_template = f"""
   Your task is to generate structured prompt sets for another LLM called "Addy". Addy will engage in a multi-turn conversation with a character defined by a persona.
 
   ## Inputs
@@ -149,4 +149,4 @@ def get_task_prompt(persona, attack) -> str:
   Return only the JSON object.
   """.strip()
 
-  return chatgpt_template_v2
+  return prompt_template

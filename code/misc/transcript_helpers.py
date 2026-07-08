@@ -177,7 +177,6 @@ async def generate_transcript(persona, attack, semaphore, N=3) -> list[dict]:
       else:
         attack_prompt = attack["task_prompt"]
 
-      # print(f"Prompting Addy... Turn {turn_index}")
       attacker_text = await attacker_llm.asyncChat(
         attack["system_prompt"], attack_prompt, shared_history, 0.4
       )
@@ -186,7 +185,6 @@ async def generate_transcript(persona, attack, semaphore, N=3) -> list[dict]:
         break
       transcript.append({"turn": turn_index, "speaker": "user", "text": attacker_text})
 
-      # print(f"Prompting NPC... Turn {turn_index}")
       persona_text = await persona_llm.asyncChat(
         persona, attacker_text, shared_history, 0.4
       )
