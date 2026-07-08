@@ -12,11 +12,6 @@ def overlapping_chunks(
   n_groups: int,
   groups_per_section: int,
 ) -> list[pd.DataFrame]:
-  """Split df rows into overlapping chunks.
-
-  Each chunk has length `n_groups * groups_per_section`.
-  Chunks start every `ceil(len(df) / n_groups)` rows and wrap around if needed.
-  """
   if n_groups < 1 or groups_per_section < 1:
     raise ValueError("n_groups and groups_per_section must be positive integers")
 

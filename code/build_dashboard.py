@@ -329,7 +329,7 @@ def style_fig(
     layout_kwargs["width"] = width
     layout_kwargs["autosize"] = False
 
-  fig.update_layout(**layout_kwargs) # type: ignore
+  fig.update_layout(**layout_kwargs)  # type: ignore
   fig.update_xaxes(gridcolor=GRID_COLOR, zerolinecolor=GRID_COLOR)
   fig.update_yaxes(gridcolor=GRID_COLOR, zerolinecolor=GRID_COLOR)
   return fig

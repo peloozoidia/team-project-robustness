@@ -103,7 +103,7 @@ python code/imbalance_sensitivity_dashboard.py # Optional
 
 ## Additional results
 
-In the process of this project we ran several smaller experiments before running the main experiment, and the data and results of those can be found in the folder `/additional-outputs`.
+In the process of this project we ran several smaller experiments before running the main experiment, and the data and results of those can be found in the folder `/additional-outputs`, part of our final ZIP submission file.
 
 ### List of additional results
 

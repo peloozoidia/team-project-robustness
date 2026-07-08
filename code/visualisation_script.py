@@ -112,7 +112,8 @@ def main() -> None:
   fig.clear()
 
   results_by_char["mean_score"] = results_by_char.apply(
-    lambda row: row["mean_score"] / 4 * 100, axis=1)
+    lambda row: row["mean_score"] / 4 * 100, axis=1
+  )
   fig = plt.figure()
   plt.hist(
     results_by_char.mean_score,
@@ -122,7 +123,10 @@ def main() -> None:
   plt.ylabel("Frequency")
   plt.xlabel("Average Robustness per Character")
   plt.title("Average Character Robustness Distribution")
-  plt.xticks(ticks=[60, 65, 70, 75, 80, 85, 90, 95, 100], labels=["60%", "65%", "70%", "75%", "80%", "85%", "90%", "95%", "100%"])
+  plt.xticks(
+    ticks=[60, 65, 70, 75, 80, 85, 90, 95, 100],
+    labels=["60%", "65%", "70%", "75%", "80%", "85%", "90%", "95%", "100%"],
+  )
   plt.legend()
   fig.savefig(
     fname=output_dir.joinpath("test_scores_by_char_distribution.svg"),
