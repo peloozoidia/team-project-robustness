@@ -48,6 +48,13 @@ python code/build_dashboard.py
 python code/imbalance_sensitivity_dashboard.py # Optional
 ```
 
+### Analysing Results
+
+The pipeline generates two dashboards for easy analysis of the experiment results. To explore them, open the following files in any browser.
+
+`outputs/testscore_dashboard.html` provides detailed graphs and diagrams allowing for analysing the experiment results, along with instructions on interpreting them. 
+`outputs/imbalance_sensitivity_dashboard.html` provides additional insights on the differences between unweighted and macro-averaged results, taking into consideration the uneven distribution of trait values when randomly generating characters.
+
 ## Working with submodules
 
 To add a local repository of yours to the project, first clone this repository locally. Then, run the command:
